@@ -35,12 +35,14 @@ WAAR			:	W A A R								;
 ONWAAR			:	O N WAAR							;
 
 DOE				:	D O E								;
+KLAAR			:	K L A A R							;
 BESTEEDUIT		:	B E S T E E D SPATIE U I T			;
 
 PUNT			: '.';
 KOMMA			: ',';
 LH				: '(';
 RH				: ')';
+IS				: I S;
 EEN				: E E N;
 
 NUMBER			: DIGIT+			;
@@ -50,7 +52,6 @@ fragment DIGIT		: [0-9]				;
 fragment LETTER		: [a-zA-Z]			;
 fragment ALPHANUM	: DIGIT	|	LETTER	;
 
-fragment IS			: I S				;
 fragment GELIJK		: G E L I J K		;
 fragment KLEINER	: K L E I N E R		;
 fragment GROTER		: G R O T E E R		;

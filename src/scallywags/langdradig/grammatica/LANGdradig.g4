@@ -4,17 +4,18 @@ import LANGdradigInlezer;
 
 program		: 	statement*;
 
-statement	:	declaration											#declStat
-			|	block												#blockStat
-			|	expression											#exprStat
-			|	ALS expression DAN statement (ANDERS statement)? 	#ifStat
-			|	ZOLANG expression statement							#whileStat
+statement	:	declaration	PUNT											#declStat
+			|	block PUNT													#blockStat
+			|	expression PUNT												#exprStat
+			|	ALS expression DAN statement (ANDERS statement)? PUNT 		#ifStat
+			|	ZOLANG expression statement PUNT							#whileStat
+			|	BESTEEDUIT block PUNT										#forkStat
 			;
 				
 declaration		:	IDENTIFIER IS EEN type
 				;
 
-block			:	DOE (statement KOMMA)* statement PUNT
+block			:	DOE statement* KLAAR
 				;
 				
 assignment		:	IDENTIFIER WORDT expression
