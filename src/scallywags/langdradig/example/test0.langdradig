@@ -1,0 +1,9 @@
+intVar is een integer.
+boolVar is een waarheid.
+als niet boolVar dan
+    intVar wordt 3.
+anders
+    doe
+        intVar wordt 2.
+        boolVar wordt waar.
+    klaar.
