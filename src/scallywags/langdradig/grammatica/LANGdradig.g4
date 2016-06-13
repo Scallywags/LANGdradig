@@ -7,8 +7,8 @@ program		: 	statement*;
 statement	:	declaration	PUNT											#declStat
 			|	block PUNT													#blockStat
 			|	expression PUNT												#exprStat
-			|	ALS expression DAN statement (ANDERS statement)? PUNT 		#ifStat
-			|	ZOLANG expression statement PUNT							#whileStat
+			|	ALS expression DAN statement (ANDERS statement)? 			#ifStat
+			|	ZOLANG expression statement									#whileStat
 			|	BESTEEDUIT block PUNT										#forkStat
 			;
 				
