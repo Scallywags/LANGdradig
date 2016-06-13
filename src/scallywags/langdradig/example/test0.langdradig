@@ -1,4 +1,4 @@
-intVar is een integer.
+intVar is een geheel getal.
 boolVar is een waarheid.
 als niet boolVar dan
     intVar wordt 3.

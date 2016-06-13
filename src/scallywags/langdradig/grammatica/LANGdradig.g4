@@ -63,3 +63,4 @@ type	: GEHEELGETAL		#intType
 		| WAARHEID			#boolType
 		;
 
+WITRUIMTE		: 	[ \t\r\n]	-> skip	;

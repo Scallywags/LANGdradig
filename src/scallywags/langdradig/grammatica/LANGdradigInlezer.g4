@@ -89,4 +89,4 @@ fragment X		: [Xx];
 fragment Y		: [Yy];
 fragment Z		: [Zz];
 
-WITRUIMTE		: 	[ /t/r/n]	-> skip	;
+WITRUIMTE		: 	[ \t\r\n]	-> skip	;
