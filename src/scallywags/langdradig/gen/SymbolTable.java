@@ -30,6 +30,11 @@ public class SymbolTable {
 		return scopes.stream().anyMatch(set -> set.containsKey(id));
 	}
 	
+	/**
+	 * 
+	 * @param id the identifier
+	 * @return the Type of the identifier, or null if the identifier could not be found in any of the scopes.
+	 */
 	public Type get(String id) {
 		for (int i = scopes.size() - 1; i >= 0; i--) {
 			Map<String, Type> scope = scopes.get(i);
