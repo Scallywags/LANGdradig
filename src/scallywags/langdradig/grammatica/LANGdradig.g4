@@ -4,13 +4,13 @@ import LANGdradigInlezer;
 
 program		: 	statement*;
 
-statement	:	declaration	PUNT																#declStat
-			|	block PUNT																		#blockStat
-			|	expression PUNT																	#exprStat
-			|	ALS expression (KLOPT | NIETKLOPT)? DAN statement (ANDERS statement)? 			#ifStat
-			|	ZOLANG expression (KLOPT | NIETKLOPT)? statement								#whileStat
-			|	BESTEEDUIT statement															#forkStat
-			|	KRITIEK statement																#syncStat
+statement	:	declaration	PUNT															#declStat
+			|	block PUNT																	#blockStat
+			|	expression PUNT																#exprStat
+			|	ALS expression (KLOPT | NIETKLOPT)? DAN statement (ANDERS statement)? 		#ifStat
+			|	ZOLANG expression (KLOPT | NIETKLOPT)? statement							#whileStat
+			|	BESTEEDUIT statement														#forkStat
+			|	KRITIEK IDENTIFIER statement												#syncStat
 			;
 				
 declaration		:	IDENTIFIER IS EEN type
@@ -51,5 +51,3 @@ type	: GEHEELGETAL		#intType
 		| WAARHEID			#boolType
 		| type REEKS		#arrayType
 		;
-
-WITRUIMTE		: 	[ \t\r\n]	-> skip	;
