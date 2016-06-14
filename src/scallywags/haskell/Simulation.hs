@@ -43,6 +43,7 @@ sprTest sprID instrs input = putStr
 -- ====================================================================================================
 data Tick  = Tick        deriving (Eq,Show)
 type Clock = [Tick]
+clock :: Clock
 clock = repeat Tick
 
 systemSim :: [[Instruction]] -> SystemState -> Clock -> [([Instruction],SystemState)]
