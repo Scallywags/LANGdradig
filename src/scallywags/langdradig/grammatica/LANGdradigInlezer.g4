@@ -26,7 +26,7 @@ GROTEROFGELIJK	:	(IS GROTER DAN OF IS? GELIJK AAN | GROTER IS DAN OF GELIJK IS A
 LIGTTUSSEN		:	LIGT TUSSEN 															;
 LIGTBUITEN		:	LIGT BUITEN																;
 
-GEHEELGETAL		:	G E H E E L GETAL			;
+GEHEELGETAL		:	GEHEEL GETAL			;
 WAARHEID		:	W A A R H E I D				;
 REEKS			:	R E E K S					;
 TEKST			:	T E K S T					;
@@ -64,6 +64,7 @@ fragment AAN		: A A N				;
 fragment TUSSEN		: T U S S E N		;
 fragment BUITEN		: B U I T E N		;
 
+fragment GEHEEL : G E H E E L;
 fragment GETAL	: G E T A L	;
 fragment SPATIE	: ' ';
 fragment TAB	: '/t';
