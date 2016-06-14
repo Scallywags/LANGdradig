@@ -14,15 +14,15 @@ GEDEELDDOOR		:	G E D E E L D  D O O R 	| '/'					;
 TOTDEMACHT		:	T O T  D E  M A C H T	| '^'					;
 MODULUS			:	M O D U L U S 			| '%'					;
 NIET			: 	N I E T 				| '!'					;
-EN				:	E N						| [&&]					;
-OF				:	O F						| [||]					;
+EN				:	E N						| '&' '&'					;
+OF				:	O F						| '|' '|'					;
 
-GELIJKAAN		:	(GELIJK IS | IS GELIJK) AAN 											| [==]	;
-ONGELIJKAAN		:	(ONGELIJK IS | IS ONGELIJK) AAN 										| [!=]	;
-KLEINERDAN		:	(IS KLEINER | KLEINER IS) DAN 											| '<'	;
-GROTERDAN		:	(GROTER IS | IS GROTER) DAN												| '>'	;
-KLEINEROFGELIJK	:	(IS KLEINER DAN OF IS? GELIJK AAN | KLEINER IS DAN OF GELIJK IS AAN)	| [<=]	;
-GROTEROFGELIJK	:	(IS GROTER DAN OF IS? GELIJK AAN | GROTER IS DAN OF GELIJK IS AAN) 		| [>=]	;
+GELIJKAAN		:	(GELIJK IS | IS GELIJK) AAN 											| '=' '='	;
+ONGELIJKAAN		:	(ONGELIJK IS | IS ONGELIJK) AAN 										| '!' '='	;
+KLEINERDAN		:	(IS KLEINER | KLEINER IS) DAN 											| '<'		;
+GROTERDAN		:	(GROTER IS | IS GROTER) DAN												| '>'		;
+KLEINEROFGELIJK	:	(IS KLEINER DAN OF IS? GELIJK AAN | KLEINER IS DAN OF GELIJK IS AAN)	| '<' '='	;
+GROTEROFGELIJK	:	(IS GROTER DAN OF IS? GELIJK AAN | GROTER IS DAN OF GELIJK IS AAN) 		| '>' '='	;
 LIGTTUSSEN		:	LIGT TUSSEN 															;
 LIGTBUITEN		:	LIGT BUITEN																;
 

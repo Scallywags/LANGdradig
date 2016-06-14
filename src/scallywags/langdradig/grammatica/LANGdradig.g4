@@ -22,8 +22,7 @@ block			:	DOE statement* KLAAR
 assignment		:	IDENTIFIER WORDT expression
 				;
 
-expression	:	<assoc=right>assignment																	#assExpr
-			|	primary																					#primExpr
+expression	:	primary																					#primExpr
 			
 			|	MIN expression																			#negExpr
 			|	NIET expression																			#notExpr
@@ -32,11 +31,13 @@ expression	:	<assoc=right>assignment																	#assExpr
 			|	expression (KEER | GEDEELDDOOR | MODULUS) expression									#factorExpr
 			|	expression (PLUS | MIN) expression														#termExpr
 			
+			
 			|	expression (LIGTTUSSEN | LIGTBUITEN) expression EN expression							#rangeExpr
 			|	expression (KLEINERDAN | GROTERDAN | KLEINEROFGELIJK | GROTEROFGELIJK) expression		#cmpExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression											#eqExpr
-			
 			|	expression (EN | OF) expression															#boolExpr
+			
+			|	<assoc=right>assignment																	#assExpr
 			;
 
 primary		:	LH expression RH						#parExpr
@@ -48,6 +49,7 @@ primary		:	LH expression RH						#parExpr
 			
 type	: GEHEELGETAL		#intType
 		| WAARHEID			#boolType
+		| type REEKS		#arrayType
 		;
 
 WITRUIMTE		: 	[ \t\r\n]	-> skip	;
