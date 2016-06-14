@@ -4,12 +4,13 @@ import LANGdradigInlezer;
 
 program		: 	statement*;
 
-statement	:	declaration	PUNT											#declStat
-			|	block PUNT													#blockStat
-			|	expression PUNT												#exprStat
-			|	ALS expression DAN statement (ANDERS statement)? 			#ifStat
-			|	ZOLANG expression statement									#whileStat
-			|	BESTEEDUIT block PUNT										#forkStat
+statement	:	declaration	PUNT																#declStat
+			|	block PUNT																		#blockStat
+			|	expression PUNT																	#exprStat
+			|	ALS expression (KLOPT | NIETKLOPT)? DAN statement (ANDERS statement)? 			#ifStat
+			|	ZOLANG expression (KLOPT | NIETKLOPT)? statement								#whileStat
+			|	BESTEEDUIT statement															#forkStat
+			|	KRITIEK statement																#syncStat
 			;
 				
 declaration		:	IDENTIFIER IS EEN type
@@ -21,44 +22,29 @@ block			:	DOE statement* KLAAR
 assignment		:	IDENTIFIER WORDT expression
 				;
 
-expression	:	assignment							#assExpr
-			| 	LH expression RH					#parExpr
-			|	expression GELIJKAAN expression		#eqExpr
-			|	expression ONGELIJKAAN expression	#neqExpr
-			|	booleanExpr							#boolExpr
-			|	numberExpr							#numExpr
+expression	:	<assoc=right>assignment																	#assExpr
+			|	primary																					#primExpr
+			
+			|	NIET expression																			#notExpr
+			
+			|	<assoc=right>expression TOTDEMACHT expression											#powExpr
+			|	expression (KEER | GEDEELDDOOR | MODULUS) expression									#factorExpr
+			|	expression (PLUS | MIN) expression														#termExpr
+			
+			|	expression (LIGTTUSSEN | LIGTBUITEN) expression EN expression							#rangeExpr
+			|	expression (KLEINERDAN | GROTERDAN | KLEINEROFGELIJK | GROTEROFGELIJK) expression		#cmpExpr
+			|	expression (GELIJKAAN | ONGELIJKAAN) expression											#eqExpr
+			
+			|	expression (EN | OF) expression															#boolExpr
 			;
 
-booleanExpr		:	booleanExpr EN booleanExpr				#andExpr
-				|	booleanExpr OF booleanExpr				#orExpr
-				|	NIET booleanExpr						#notExpr
-				|	numberExpr KLEINERDAN numberExpr		#ltExpr
-				|	numberExpr GROTERDAN numberExpr			#gtExpr
-				|	numberExpr KLEINEROFGELIJK numberExpr	#leExpr
-				|	numberExpr GROTEROFGELIJK numberExpr	#geExpr
-				|	WAAR									#trueExpr
-				|	ONWAAR									#falseExpr
-				|	IDENTIFIER								#idfBoolExpr
-				;
-
-numberExpr		:	term PLUS term		#plusExpr
-				|	term MIN term		#minExpr
-				|	term				#termExpr
-				;
-
-term	: factor KEER factor			#multTerm
-		| factor GEDEELDDOOR factor		#divTerm
-		| factor MODULUS factor			#modTerm
-		| factor						#facTerm
-		;
-
-factor	: <assoc=right> factor TOTDEMACHT factor	#powFac
-		| NUMBER 									#numFac
-		| '(' expression ')'						#exprFac
-		| IDENTIFIER								#idfFac
-		| '-' factor								#negFac
-		;
-
+primary		:	LH expression RH						#parExpr
+			|	WAAR									#trueExpr
+			|	ONWAAR									#falseExpr
+			|	IDENTIFIER								#idfExpr
+			|	NUMBER									#numExpr
+			;
+			
 type	: GEHEELGETAL		#intType
 		| WAARHEID			#boolType
 		;
