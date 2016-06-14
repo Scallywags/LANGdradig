@@ -1,0 +1,11 @@
+x is een geheel getal.
+y is een geheel getal.
+z is een geheel getal.
+
+x wordt 0.
+y wordt 0.
+
+
+zolang x kleiner is dan 10
+    zolang y kleiner is dan 10
+        z wordt z plus x keer y.

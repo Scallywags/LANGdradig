@@ -1,0 +1,18 @@
+a is een geheel getal.
+b is een geheel getal.
+
+a wordt 0.
+b wordt 1.
+
+besteed uit
+    doe
+        b wordt 2.
+        kritiek naamA
+            a wordt -1.
+    klaar.
+kritiek naamA
+    a wordt -2.
+kritiek naamB
+    doe
+        a wordt -3.
+    klaar.
