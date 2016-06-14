@@ -38,15 +38,15 @@ xs <~! (i,x)    | i == 0        = xs
 (∈) :: Eq a => a -> [a] -> Bool
 x ∈ xs =  x `elem` xs
 
-concatWith :: a -> [a] -> [a]									-- why not use intersperse? x) this is a useless definition
+concatWith :: a -> [[a]] -> [a]									-- why not use intersperse and concat? :)
 concatWith x [] = []                                            -- concats a list of lists with a "gluing element" x
 concatWith x [y] = y
 concatWith x (y:ys) = y ++ [x] ++ concatWith x ys
 
-ljustify :: Int -> [b] -> String
+ljustify :: Int -> String -> String
 ljustify n x = x ++ replicate (n - length x) ' '                -- adds spaces upto n positions for outlining;
 
-rjustify :: Int -> [b] -> String
+rjustify :: Int -> String -> String
 rjustify n x = replicate (n - length x) ' ' ++ x                -- may be used for your own show-function
 
 
