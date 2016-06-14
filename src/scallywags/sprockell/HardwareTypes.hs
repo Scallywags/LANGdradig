@@ -72,7 +72,7 @@ data SystemState = SystemState
 -- ==========================================================================================================
 -- SprIL: Sprockell Instruction Language
 -- ==========================================================================================================
-data Operator    = Add   | Sub | Mul -- | Div | Mod             -- Computational operations -- No Div, Mod because of hardware complexity
+data Operator    = Add   | Sub | Mul | Div | Mod | Pow          -- Computational operations --extended with Pow
                  | Equal | NEq | Gt  | Lt     | GtE | LtE       -- Comparison operations
                  | And   | Or  | Xor | LShift | RShift          -- Logical operations
                  | Decr  | Incr                                 -- Decrement (-1), Increment (+1)

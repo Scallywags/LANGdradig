@@ -11,10 +11,14 @@ regC          = 4    :: Int
 regD          = 5    :: Int
 regE          = 6    :: Int
 
+intBool :: Bool -> Int
 intBool True  = 1                                               -- Bool-to-Int
 intBool False = 0
 
+(+>>) :: a -> [a] -> [a]
 x +>> xs = [x] ++ init xs                                       -- shift value into buffer
+
+(<<+) :: [a] -> a -> [a]
 xs <<+ x = tail xs ++ [x]
 
 f  $>  xs = map f xs
@@ -31,13 +35,18 @@ xs <~ (i,x) = take i xs ++ [x] ++ drop (i+1) xs
 xs <~! (i,x)    | i == 0        = xs
                 | otherwise     = xs <~ (i,x)
 
+(∈) :: Eq a => a -> [a] -> Bool
 x ∈ xs =  x `elem` xs
 
+concatWith :: a -> [a] -> [a]									-- why not use intersperse? x) this is a useless definition
 concatWith x [] = []                                            -- concats a list of lists with a "gluing element" x
 concatWith x [y] = y
 concatWith x (y:ys) = y ++ [x] ++ concatWith x ys
 
+ljustify :: Int -> [b] -> String
 ljustify n x = x ++ replicate (n - length x) ' '                -- adds spaces upto n positions for outlining;
+
+rjustify :: Int -> [b] -> String
 rjustify n x = replicate (n - length x) ' ' ++ x                -- may be used for your own show-function
 
 
