@@ -1,0 +1,15 @@
+a is een geheel getal.
+b is een geheel getal.
+c is een geheel getal.
+d is een geheel getal.
+
+p is een waarheid.
+q is een waarheid.
+r is een waarheid.
+s is een waarheid.
+
+b wordt 9 + c wordt 8 min a wordt 16.
+p wordt b is kleiner dan of gelijk d aan en c is ongelijk aan d of a > 8.
+q wordt waar.
+r wordt p || q.
+s wordt b wordt 8 is groter dan 6.
