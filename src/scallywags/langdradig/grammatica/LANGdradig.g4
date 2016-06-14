@@ -25,8 +25,8 @@ assignment		:	IDENTIFIER WORDT expression
 expression	:	<assoc=right>assignment																	#assExpr
 			|	primary																					#primExpr
 			
-			|	NIET expression																			#notExpr
 			|	MIN expression																			#negExpr
+			|	NIET expression																			#notExpr
 			
 			|	<assoc=right>expression TOTDEMACHT expression											#powExpr
 			|	expression (KEER | GEDEELDDOOR | MODULUS) expression									#factorExpr
