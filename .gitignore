@@ -2,3 +2,7 @@
 .classpath
 .project
 src/scallywags/langdradig/grammatica/.gitignore
+.idea/
+antlr-runtime-4.5.3.jar
+compiler_output/
+gen/
