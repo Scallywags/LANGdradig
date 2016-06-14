@@ -184,8 +184,9 @@ alu op x y = case op of
         LShift -> shiftL x (fromIntegral y)
         RShift -> shiftR x (fromIntegral y)
         Xor    -> x `xor` y
-        -- Div    -> x `div` y                          -- usable in Haskell, but expensive on hardware
-        -- Mod    -> x `mod` y                          -- Ibid
+        Div    -> x `div` y                          -- usable in Haskell, but expensive on hardware
+        Mod    -> x `mod` y                          -- Ibid
+        Pow    -> x ^ y                              -- Ibid, extended.
 
 -- =====================================================================================
 -- agu (Address Generation Unit): calculates the address for local memory
