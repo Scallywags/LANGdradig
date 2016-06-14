@@ -32,9 +32,10 @@ expression	:	primary																					#primExpr
 			|	expression (PLUS | MIN) expression														#termExpr
 			
 			
-			|	expression (LIGTTUSSEN | LIGTBUITEN) expression EN expression							#rangeExpr
+			|	expression (LIGTTUSSEN | LIGTBUITEN) expression EN expression                           #rangeExpr
+			|   expression (TUSSEN | BUITEN) expression EN expression LIGT                              #rangeExpr //TODO kan dit zo ? (het werkt iig)
 			|	expression (KLEINERDAN | GROTERDAN | KLEINEROFGELIJK | GROTEROFGELIJK) expression		#cmpExpr
-			|	expression (GELIJKAAN | ONGELIJKAAN) expression											#eqExpr
+			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr
 			
 			|	<assoc=right>assignment																	#assExpr
