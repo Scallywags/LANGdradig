@@ -37,7 +37,6 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String BIN_OP = "BinOp";
 	private static final String UN_OP = "UnOp";
 	private static final String CREM = "Crem";
-	private static final String PRIM = "Prim";
 	
 	private static final String DECL = "Decl";
 	private static final String BLOCK = "Block";
