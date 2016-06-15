@@ -17,8 +17,6 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import scallywags.langdradig.generate.except.*;
-import scallywags.langdradig.grammatica.LANGdradigBaseListener;
-import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
 
@@ -27,6 +25,8 @@ import scallywags.langdradig.grammatica.LANGdradigParser.*;
  *
  * @author Jan
  */
+
+//TODO add listener methods for newly added expressions and statements.
 public class Checker extends LANGdradigBaseListener {
 
     private SymbolTable table = new SymbolTable();
