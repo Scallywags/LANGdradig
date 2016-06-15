@@ -35,6 +35,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String TRIN_OP = "TrinOp";
 	private static final String BIN_OP = "BinOp";
 	private static final String UN_OP = "UnOp";
+	private static final String CREM = "Crem";
 	private static final String PRIM = "Prim";
 	
 	private static final String DECL = "Decl";
@@ -205,7 +206,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitPrimExpr(PrimExprContext ctx) {
-		return PRIM + " " + LPAR + visit(ctx.primary()) + RPAR;
+		return LPAR + visit(ctx.primary()) + RPAR;
 	}
 	
 	@Override
@@ -220,7 +221,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitCrementExpr(CrementExprContext ctx) {
-		return UN_OP + " " + ctx.VERLAAG() == null ? INCR : DECR
+		return CREM + " " + ctx.VERLAAG() == null ? INCR : DECR
 				+ " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	

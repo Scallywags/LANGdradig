@@ -18,11 +18,19 @@ data Stat   = Decl String Type
             | Sync String Stat
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
-data Expr   = Prim Prim
+data Expr   = Par Expr
+            | Bool Bool
+            | Idf String
+            | Int Int
             | UnOp UnOp Expr
             | BinOp BinOp Expr Expr
             | TrinOp TrinOp Expr Expr Expr
+            | Crem Crem String
             | Ass String Expr
+            deriving (Show, Eq, Read, Generic, ToRoseTree)
+
+data Crem   = Incr
+            | Decr
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data TrinOp = Between
@@ -48,14 +56,6 @@ data BinOp  = Plus
 
 data UnOp   = Neg
             | Not
-            | Incr
-            | Decr
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
-
-data Prim   = Par Expr
-            | Bool Bool
-            | Idf String
-            | Int Int
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data Type   = IntType
