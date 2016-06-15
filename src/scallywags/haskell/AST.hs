@@ -19,9 +19,15 @@ data Stat   = Decl String Type
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data Expr   = Prim Prim
-            | UnOp UnOp Expr
+            | UnOp UnOp String
             | BinOp BinOp Expr Expr
+            | TrinOp TrinOp Expr Expr Expr
             | Ass String Expr
+            deriving (Show, Eq, Read, Generic, ToRoseTree)
+
+data TrinOp = Between
+            | Inside
+            | Outside
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data BinOp  = Plus
@@ -30,9 +36,6 @@ data BinOp  = Plus
             | Divide
             | Modulo
             | Power
-            | Between
-            | Inside
-            | Outside
             | LessThan
             | LessThanEq
             | GreaterThan
@@ -43,7 +46,7 @@ data BinOp  = Plus
             | Or
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
-data UnOp   = Min
+data UnOp   = Neg
             | Not
             | Incr
             | Decr

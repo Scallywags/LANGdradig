@@ -34,8 +34,9 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String PROG = "Prog";
 	private static final String STAT = "Stat"; 
 	private static final String EXPR = "Expr";
-	private static final String BINOP = "BinOp";
-	private static final String UNOP = "UnOp";
+	private static final String TRIN_OP = "TrinOp";
+	private static final String BIN_OP = "BinOp";
+	private static final String UN_OP = "UnOp";
 	private static final String PRIM = "Prim";
 	private static final String TYPE = "Type";
 	
@@ -47,8 +48,6 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String FORK = "Fork";
 	private static final String WAIT = "Wait";
 	private static final String SYNC = "Sync";
-	
-	private static final String ASS = "Ass";
 	
 	private static final String PLUS = "Plus";
 	private static final String MINUS = "Minus";
@@ -67,8 +66,9 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String NOT_EQUAL = "NotEqual";
 	private static final String AND = "And";
 	private static final String OR = "Or";
+	private static final String ASS = "Ass";	
 	
-	private static final String MIN = "Min";
+	private static final String NEG = "Neg";
 	private static final String NOT = "Not";
 	private static final String INCR = "Incr";
 	private static final String DECR = "Decr";
@@ -78,6 +78,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String IDF = "Idf";
 	private static final String STRING = "String";
 	private static final String INT = "Int";
+	private static final String TRUE = "True";
+	private static final String FALSE = "False";
 	
 	private static final String INT_TYPE = "IntType";
 	private static final String BOOL_TYPE = "BoolType";
@@ -203,7 +205,133 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	// -------------- Expression --------------
 	
-	//TODO
+	@Override
+	public String visitPrimExpr(PrimExprContext ctx) {
+		return PRIM + " " + visit(ctx.primary());
+	}
+	
+	@Override
+	public String visitNegExpr(NegExprContext ctx) {
+		return NEG + " " + LPAR + visit(ctx.expression()) + RPAR;
+	}
+	
+	@Override
+	public String visitNotExpr(NotExprContext ctx) {
+		return NOT + " " + LPAR + visit(ctx.expression()) + RPAR;
+	}
+	
+	@Override
+	public String visitCrementExpr(CrementExprContext ctx) {
+		return UN_OP + " " + ctx.VERLAAG() == null ? "Incr" : "Decr"
+				+ " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
+	}
+	
+	@Override
+	public String visitPowExpr(PowExprContext ctx) {
+		return BIN_OP + " " + POWER
+				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
+	}
+	
+	@Override
+	public String visitFactorExpr(FactorExprContext ctx) {
+		String op = ctx.KEER() != null ? TIMES : ctx.GEDEELDDOOR() != null ? DIVIDE : MODULO; 
+		return BIN_OP + " " + op
+				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
+	}
+	
+	@Override
+	public String visitTermExpr(TermExprContext ctx) {
+		String op = ctx.PLUS() != null ? PLUS : MINUS;
+		return BIN_OP + " " + op
+				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
+	}
+	
+	@Override
+	public String visitRangeExpr(RangeExprContext ctx) {
+		String op = ctx.TUSSEN() != null ? BETWEEN : ctx.BINNEN() != null ? INSIDE : OUTSIDE;
+		return TRIN_OP + " " + op
+				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR
+				+ " " + LPAR + visit(ctx.expression(2)) + RPAR;
+	}
+	
+	@Override
+	public String visitCmpExpr(CmpExprContext ctx) {
+		String op =
+				ctx.KLEINERDAN() != null ? LESS_THAN :
+				ctx.GROTERDAN() != null ? GREATER_THAN :
+				ctx.KLEINEROFGELIJK() != null ? LESS_THAN_EQ :
+					GREATER_THAN_EQ;
+		return BIN_OP + " " + op
+				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
+	}
+	
+	@Override
+	public String visitEqExpr(EqExprContext ctx) {
+		String op = ctx.GELIJKAAN() == null ? NOT_EQUAL : EQUAL;
+		return BIN_OP + " " + op
+				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
+	}
+	
+	@Override
+	public String visitBoolExpr(BoolExprContext ctx) {
+		String op = ctx.EN() == null ? OR : AND;
+		return BIN_OP + " " + op
+				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
+	}
+	
+	@Override
+	public String visitAssExpr(AssExprContext ctx) {
+		return ASS + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
+				+ " " + LPAR + visit(ctx.expression()) + RPAR;
+	}
+	
+	// -------------- Primary --------------
+	
+	public String visitParExpr(ParExprContext ctx) {
+		return PAR + " " + RPAR + visit(ctx.expression()) + RPAR;
+	}
+	
+	public String visitTrueExpr(TrueExprContext ctx) {
+		return BOOL + " " + TRUE;
+	}
+	
+	public String visitFalseExpr(FalseExprContext ctx) {
+		return BOOL + " " + FALSE;
+	}
+	
+	@Override
+	public String visitIdfExpr(IdfExprContext ctx) {
+		return IDF + " " + visit(ctx.IDENTIFIER());
+	}
+	
+	@Override
+	public String visitNumExpr(NumExprContext ctx) {
+		return INT + " " + visit(ctx.NUMBER());
+	}
+	
+	// -------------- Type --------------
+	
+	@Override
+	public String visitIntType(IntTypeContext ctx) {
+		return INT_TYPE;
+	}
+	
+	@Override
+	public String visitBoolType(BoolTypeContext ctx) {
+		return BOOL_TYPE;
+	}
+	
+	@Override
+	public String visitArrayType(ArrayTypeContext ctx) {
+		throw new UnsupportedOperationException("ArrayType is not supported yet in this build.");
+	}
 	
 	// -------------- Terminal --------------
 	
