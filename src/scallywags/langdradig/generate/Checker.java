@@ -6,11 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
@@ -46,6 +42,16 @@ public class Checker extends LANGdradigBaseListener {
      */
     public void checkFile(String source) throws IOException {
         CharStream stream = new ANTLRFileStream(source);
+        Lexer lexer = new LANGdradigLexer(stream);
+        TokenStream tokens = new CommonTokenStream(lexer);
+        LANGdradigParser parser = new LANGdradigParser(tokens);
+
+        ParseTree tree = parser.program();
+        new ParseTreeWalker().walk(this, tree);
+    }
+
+    public void checkString(String text) throws IOException {
+        CharStream stream = new ANTLRInputStream(text);
         Lexer lexer = new LANGdradigLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         LANGdradigParser parser = new LANGdradigParser(tokens);
@@ -306,7 +312,7 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void visitErrorNode(ErrorNode ctx) {
-        throw new CheckerException("ErrorNode " + ctx.getText());
+        exceptions.add(new CheckerException("ErrorNode " + ctx.getText()));
     }
 
     public List<CheckerException> getExceptions() {

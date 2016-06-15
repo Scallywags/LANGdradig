@@ -1,0 +1,5 @@
+a is een geheel getal.
+b is een waarheid.
+
+zolang b klopt
+	a wordt 1.
