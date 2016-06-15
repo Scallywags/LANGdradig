@@ -12,10 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import scallywags.langdradig.gen.exception.AlreadyDeclaredException;
-import scallywags.langdradig.gen.exception.CheckerException;
-import scallywags.langdradig.gen.exception.TypeException;
-import scallywags.langdradig.gen.exception.UndeclaredException;
+import scallywags.langdradig.gen.except.*;
 import scallywags.langdradig.grammatica.LANGdradigBaseListener;
 import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
