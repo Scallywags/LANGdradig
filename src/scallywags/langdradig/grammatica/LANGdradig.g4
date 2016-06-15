@@ -7,7 +7,7 @@ program		: 	statement*
 
 //              Rule of thumb: If a statement does not end in a statement, it should end with a PUNT
 statement	:	IDENTIFIER IS EEN type	PUNT														    #declStat
-			|	DOE statement* KLAAR PUNT 																	            #blockStat
+			|	DOE statement* KLAAR PUNT 																#blockStat
 			|	expression PUNT																            #exprStat
 			|	ALS expression (NIET? KLOPT)? DAN statement (ANDERS statement)? 		                #ifStat
 			|	ZOLANG expression (NIET? KLOPT)? statement					        		            #whileStat
@@ -28,12 +28,12 @@ expression	:	primary																					#primExpr
 			|	expression (PLUS | MIN) expression														#termExpr
 
 			|	expression LIGT (TUSSEN | BINNEN | BUITEN) expression EN expression                     #rangeExpr
-			|   expression (TUSSEN | BINNEN | BUITEN) expression EN expression LIGT                     #rangeExpr //TODO kan dit zo ? (het werkt iig)
+			|   expression (TUSSEN | BINNEN | BUITEN) expression EN expression LIGT                     #rangeExpr //kan dit zo ? (het werkt iig)
 			|	expression (KLEINERDAN | GROTERDAN | KLEINEROFGELIJK | GROTEROFGELIJK) expression		#cmpExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr
 			
-			|	<assoc=right> IDENTIFIER WORDT expression																#assExpr
+			|	<assoc=right> IDENTIFIER WORDT expression												#assExpr
 			;
 
 primary		:	LH expression RH						                                                #parExpr

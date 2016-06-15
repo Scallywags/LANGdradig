@@ -29,16 +29,13 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String RPAR = ")";
 	private static final String LSQ = "[";
 	private static final String RSQ = "]";
-	private static final String DATA = "data";
 	
 	private static final String PROG = "Prog";
-	private static final String STAT = "Stat"; 
 	private static final String EXPR = "Expr";
 	private static final String TRIN_OP = "TrinOp";
 	private static final String BIN_OP = "BinOp";
 	private static final String UN_OP = "UnOp";
 	private static final String PRIM = "Prim";
-	private static final String TYPE = "Type";
 	
 	private static final String DECL = "Decl";
 	private static final String BLOCK = "Block";
@@ -76,7 +73,6 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String PAR = "Par";
 	private static final String BOOL = "Bool";
 	private static final String IDF = "Idf";
-	private static final String STRING = "String";
 	private static final String INT = "Int";
 	private static final String TRUE = "True";
 	private static final String FALSE = "False";
@@ -85,7 +81,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String BOOL_TYPE = "BoolType";
 	private static final String ARRAY = "Array";
 
-	private static final String BASE_DIR = "src/scallywags/haskell/"; 
+	private static final String BASE_DIR = "src/scallywags/haskell/";
+	private static final String EXAMPLE_DIR = "src/scallywags/langdradig/example/";
 
 	private final String programName;
 	private final String sourceProgramPath;
@@ -116,14 +113,15 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitProgram(ProgramContext ctx) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(MODULE).append(' ').append(WHERE);
-		builder.append(NEWLINE);
+		builder.append(MODULE).append(' ').append(programName).append(' ').append(WHERE);
+		builder.append(NEWLINE).append(NEWLINE);
 		builder.append(IMPORT_AST);
-		builder.append(NEWLINE);
+		builder.append(NEWLINE).append(NEWLINE);
 		
 		builder.append(TYPE_DECL).append(NEWLINE);
 		builder.append(FUN_DECL).append(' ');
 		
+		builder.append(PROG).append(' ');
 		builder.append(LPAR);
 		for (StatementContext stmnt : ctx.statement()) {
 			builder.append(visit(stmnt)).append(':');
@@ -139,7 +137,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitDeclStat(DeclStatContext ctx) {
 		return DECL + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
-				+ " " + LPAR + visit(ctx.type()) + LPAR;
+				+ " " + LPAR + visit(ctx.type()) + RPAR;
 	}
 	
 	@Override
@@ -207,7 +205,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitPrimExpr(PrimExprContext ctx) {
-		return PRIM + " " + visit(ctx.primary());
+		return PRIM + " " + LPAR + visit(ctx.primary()) + RPAR;
 	}
 	
 	@Override
@@ -222,7 +220,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitCrementExpr(CrementExprContext ctx) {
-		return UN_OP + " " + ctx.VERLAAG() == null ? "Incr" : "Decr"
+		return UN_OP + " " + ctx.VERLAAG() == null ? INCR : DECR
 				+ " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	
@@ -308,7 +306,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitIdfExpr(IdfExprContext ctx) {
-		return IDF + " " + visit(ctx.IDENTIFIER());
+		return IDF + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	
 	@Override
@@ -356,46 +354,12 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	}
 	
 	public static void main(String[] args) {
-		//MY WHOLE LIFE HAS BEEN A LIE!!!!!!!!!!!!
+		System.out.println(new Generator(EXAMPLE_DIR + "test0.langdradig"));
 	}
 
 	public void writeAST(String filename) {
 		//TODO write string from builder to the file.
 		//TODO check also if file already exists.
 	}
-
-//	public void desugar(ExpressionContext expr, Collection<String> excludedIdentifierNames) {
-//		if (expr instanceof RangeExprContext) {
-//			ParserRuleContext parent = expr.getParent();
-//
-//			List<ParseTree> copy = new ArrayList<>();
-//
-//			for (int i = 0; i < parent.getChildCount(); i++) {
-//				ParseTree child = parent.getChild(i);
-//				if (child instanceof RangeExprContext) {
-//					RangeExprContext sugar = (RangeExprContext) child;
-//
-//					ExpressionContext toRangeCheck = sugar.expression(0);
-//					ExpressionContext lowerBound = sugar.expression(1);
-//					ExpressionContext upperBound = sugar.expression(2);
-//
-//					if (sugar.TUSSEN() != null) {
-//
-//					} else if (sugar.BINNEN() != null) {
-//
-//						
-//					} else if (sugar.BUITEN() != null) {
-//
-//						
-//					}
-//
-//				} else {
-//					copy.add(child);
-//				}
-//			}
-//
-//			parent.children = copy;
-//		}
-//	}
 
 }
