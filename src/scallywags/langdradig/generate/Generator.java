@@ -2,6 +2,7 @@ package scallywags.langdradig.generate;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
@@ -354,13 +355,16 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 		return null;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(new Generator(EXAMPLE_DIR + "test0.langdradig"));
+	public static void main(String[] args) throws IOException {
+		Generator gen = new Generator(EXAMPLE_DIR + "test0.langdradig");
+		System.out.println(gen);
+		gen.writeAST();
 	}
 
-	public void writeAST(String filename) {
-		//TODO write string from builder to the file.
-		//TODO check also if file already exists.
+	public void writeAST() throws IOException {
+		PrintWriter writer = new PrintWriter(BASE_DIR + programName + ".hs", "UTF-8");
+		writer.write(toString());
+		writer.close();
 	}
 
 }
