@@ -1,4 +1,4 @@
-package scallywags.langdradig.gen;
+package scallywags.langdradig.generate;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import scallywags.langdradig.gen.except.*;
+import scallywags.langdradig.generate.except.*;
 import scallywags.langdradig.grammatica.LANGdradigBaseListener;
 import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;

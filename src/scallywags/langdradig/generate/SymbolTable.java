@@ -1,4 +1,4 @@
-package scallywags.langdradig.gen;
+package scallywags.langdradig.generate;
 
 import java.util.HashMap;
 import java.util.Map;
