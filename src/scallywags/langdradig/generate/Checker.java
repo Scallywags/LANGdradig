@@ -17,6 +17,8 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import scallywags.langdradig.generate.except.*;
+import scallywags.langdradig.grammatica.LANGdradigBaseListener;
+import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
 
@@ -155,7 +157,7 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitCrementExpr(CrementExprContext ctx) {
-        Type type = types.get(ctx.expression());
+        Type type = types.get(ctx.IDENTIFIER());
         if (type != Type.INTEGER) {
             exceptions.add(new TypeException(ctx, Type.INTEGER, type));
         }

@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
+import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 
 import java.io.IOException;
@@ -114,8 +115,8 @@ public class ParseTest {
         testCorrectProgram("als b klopt dan i wordt 1.");                                                       // Syntactic sugar for b == true
         testCorrectProgram("als b niet klopt dan i wordt 1.");                                                  // Syntactic sugar for b == false
 
-        testCorrectProgram("verhoog 8.");                                                                       // "Verhoog" statement
-        testCorrectProgram("verlaag 8.");                                                                       // "Verlaag" statement
+        testCorrectProgram("verhoog a.");                                                                       // "Verhoog" statement
+        testCorrectProgram("verlaag a.");                                                                       // "Verlaag" statement
 
         // Keywords "tussen" and "binnen" are equivalent
         testCorrectProgram("a ligt tussen b en c.");                                                            // "Ligt tussen" statement
@@ -131,8 +132,8 @@ public class ParseTest {
      */
     @Test
     public void testFlexibility() {
-        testCorrectProgram("verhoog 8.");                                                                       // Increment operator
-        testCorrectProgram("hoog 8 op.");
+        testCorrectProgram("verhoog a.");                                                                       // Increment operator
+        testCorrectProgram("hoog a op.");
 
         testCorrectProgram("a is gelijk aan b.");                                                               // Equals operator
         testCorrectProgram("a gelijk is aan b.");

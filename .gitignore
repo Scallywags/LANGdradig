@@ -10,3 +10,7 @@ src/scallywags/langdradig/grammatica/LANGdradigLexer.java
 src/scallywags/langdradig/grammatica/LANGdradigLexer.tokens
 src/scallywags/langdradig/grammatica/LANGdradigBaseListener.java
 src/scallywags/langdradig/grammatica/LANGdradigListener.java
+src/scallywags/langdradig/grammatica/LANGdradigVisitor.java
+src/scallywags/langdradig/grammatica/LANGdradigInlezer.java
+src/scallywags/langdradig/grammatica/LANGdradigInlezer.tokens
+src/scallywags/langdradig/grammatica/LANGdradigBaseVisitor.java

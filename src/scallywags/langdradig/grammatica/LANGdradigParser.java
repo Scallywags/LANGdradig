@@ -116,6 +116,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitProgram(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -187,6 +192,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitIfStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitIfStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class BlockStatContext extends StatementContext {
 		public BlockContext block() {
@@ -201,6 +211,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitBlockStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitBlockStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class ExprStatContext extends StatementContext {
@@ -217,6 +232,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitExprStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitExprStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class SyncStatContext extends StatementContext {
 		public TerminalNode KRITIEK() { return getToken(LANGdradigParser.KRITIEK, 0); }
@@ -232,6 +252,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitSyncStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitSyncStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class ForkStatContext extends StatementContext {
@@ -252,6 +277,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitForkStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitForkStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class DeclStatContext extends StatementContext {
 		public DeclarationContext declaration() {
@@ -267,6 +297,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitDeclStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitDeclStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class JoinStatContext extends StatementContext {
 		public TerminalNode WACHT() { return getToken(LANGdradigParser.WACHT, 0); }
@@ -281,6 +316,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitJoinStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitJoinStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class WhileStatContext extends StatementContext {
@@ -301,6 +341,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitWhileStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitWhileStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -506,6 +551,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitDeclaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DeclarationContext declaration() throws RecognitionException {
@@ -555,6 +605,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitBlock(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitBlock(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -614,6 +669,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitAssignment(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitAssignment(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final AssignmentContext assignment() throws RecognitionException {
@@ -670,6 +730,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitEqExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitEqExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class NotExprContext extends ExpressionContext {
 		public TerminalNode NIET() { return getToken(LANGdradigParser.NIET, 0); }
@@ -685,6 +750,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitNotExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitNotExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class PrimExprContext extends ExpressionContext {
 		public PrimaryContext primary() {
@@ -698,6 +768,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitPrimExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitPrimExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class NegExprContext extends ExpressionContext {
@@ -713,6 +788,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitNegExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitNegExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class TermExprContext extends ExpressionContext {
@@ -733,6 +813,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitTermExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitTermExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class AssExprContext extends ExpressionContext {
 		public AssignmentContext assignment() {
@@ -746,6 +831,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitAssExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitAssExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class CrementExprContext extends ExpressionContext {
@@ -762,6 +852,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitCrementExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitCrementExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class PowExprContext extends ExpressionContext {
@@ -780,6 +875,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitPowExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitPowExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class BoolExprContext extends ExpressionContext {
@@ -800,6 +900,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitBoolExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitBoolExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class FactorExprContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
@@ -819,6 +924,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitFactorExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitFactorExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class RangeExprContext extends ExpressionContext {
@@ -842,6 +952,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitRangeExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitRangeExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class CmpExprContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
@@ -862,6 +977,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitCmpExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitCmpExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1165,6 +1285,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitParExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitParExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class IdfExprContext extends PrimaryContext {
 		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
@@ -1176,6 +1301,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitIdfExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitIdfExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class TrueExprContext extends PrimaryContext {
@@ -1189,6 +1319,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitTrueExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitTrueExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class FalseExprContext extends PrimaryContext {
 		public TerminalNode ONWAAR() { return getToken(LANGdradigParser.ONWAAR, 0); }
@@ -1201,6 +1336,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitFalseExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitFalseExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class NumExprContext extends PrimaryContext {
 		public TerminalNode NUMBER() { return getToken(LANGdradigParser.NUMBER, 0); }
@@ -1212,6 +1352,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitNumExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitNumExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1305,6 +1450,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitArrayType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitArrayType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class IntTypeContext extends TypeContext {
 		public TerminalNode GEHEELGETAL() { return getToken(LANGdradigParser.GEHEELGETAL, 0); }
@@ -1317,6 +1467,11 @@ public class LANGdradigParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitIntType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitIntType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class BoolTypeContext extends TypeContext {
 		public TerminalNode WAARHEID() { return getToken(LANGdradigParser.WAARHEID, 0); }
@@ -1328,6 +1483,11 @@ public class LANGdradigParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof LANGdradigListener ) ((LANGdradigListener)listener).exitBoolType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LANGdradigVisitor ) return ((LANGdradigVisitor<? extends T>)visitor).visitBoolType(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
