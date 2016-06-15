@@ -107,9 +107,8 @@ public class Checker extends LANGdradigBaseListener {
         table.closeScope();
     }
 
-    // ------------- Declaration -------------
-
-    public void exitDeclaration(DeclarationContext ctx) {
+    @Override
+    public void exitDeclStat(DeclStatContext ctx) {
         Type type = types.get(ctx.type());
         boolean success = table.add(ctx.IDENTIFIER().getText(), type);
         if (!success) {

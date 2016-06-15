@@ -6,8 +6,8 @@ program		: 	statement*
             ;
 
 //              Rule of thumb: If a statement does not end in a statement, it should end with a PUNT
-statement	:	declaration	PUNT														            	#declStat
-			|	block PUNT 																	            #blockStat
+statement	:	IDENTIFIER IS EEN type	PUNT														    #declStat
+			|	DOE statement* KLAAR PUNT 																	            #blockStat
 			|	expression PUNT																            #exprStat
 			|	ALS expression (NIET? KLOPT)? DAN statement (ANDERS statement)? 		                #ifStat
 			|	ZOLANG expression (NIET? KLOPT)? statement					        		            #whileStat
@@ -15,12 +15,6 @@ statement	:	declaration	PUNT														            	#declStat
 			|   BESTEED statement UIT AAN IDENTIFIER PUNT                                               #forkStat
 			|   WACHT OP IDENTIFIER PUNT                                                                #joinStat
 			|	KRITIEK IDENTIFIER statement												            #syncStat
-			;
-				
-declaration	:	IDENTIFIER IS EEN type
-			;
-
-block		:	DOE statement* KLAAR
 			;
 				
 assignment	:	IDENTIFIER WORDT expression

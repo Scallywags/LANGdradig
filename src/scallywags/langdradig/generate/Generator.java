@@ -1,15 +1,25 @@
 package scallywags.langdradig.generate;
 
-import java.util.Objects;
+import java.io.File;
+import java.io.IOException;
+
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import scallywags.langdradig.grammatica.LANGdradigBaseVisitor;
-import scallywags.langdradig.grammatica.LANGdradigParser.ProgramContext;
+import scallywags.langdradig.grammatica.LANGdradigLexer;
+import scallywags.langdradig.grammatica.LANGdradigParser;
+import scallywags.langdradig.grammatica.LANGdradigParser.*;
 
-public class Generator extends LANGdradigBaseVisitor<Void> {
+public class Generator extends LANGdradigBaseVisitor<String> {
 
+	private static final String NEWLINE = System.lineSeparator();
+	private static final String QUOTE = "\"";
+	
 	private static final String MODULE = "module";
 	private static final String WHERE = "where";
-	private static final String IMPORT = "import AST";
+	private static final String IMPORT_AST = "import AST";
 	
 	private static final String TYPE_DECL = "ast :: Prog";
 	private static final String FUN_DECL = "ast = ";
@@ -72,27 +82,93 @@ public class Generator extends LANGdradigBaseVisitor<Void> {
 	private static final String BASE_DIR = "src/scallywags/haskell/"; 
 
 	private final String programName;
-	private final StringBuilder builder = new StringBuilder();
-
-	public Generator(String programName) {
-		if (programName == null || programName.isEmpty()) {
-			throw new IllegalArgumentException("Program name cannot be empty or null.");
+	private final String sourceProgramPath;
+	
+	public Generator(String sourceFilePath) {
+		
+		File file = new File(sourceFilePath);
+		String programName = file.getName();
+		
+		if (sourceFilePath == null) {
+			throw new IllegalArgumentException("Source file path cannot be null.");
 		}
+		
+		if (programName.endsWith(".langdradig")) {
+			programName = programName.substring(0, programName.length() - 11);
+		}
+		
+		if (programName.isEmpty()) {
+			throw new IllegalArgumentException("Program name cannot be empty.");
+		}
+		
+		this.sourceProgramPath = sourceFilePath;
 		this.programName = programName.substring(0, 1).toUpperCase() + programName.substring(1).toLowerCase();
 	}
 	
+	// -------------- Program --------------
+	
 	@Override
-	public Void visitProgram(ProgramContext ctx) {
-		
+	public String visitProgram(ProgramContext ctx) {
+		StringBuilder builder = new StringBuilder();
 		builder.append(MODULE).append(' ').append(WHERE);
-		builder.append(System.lineSeparator());
-		builder.append(IMPORT);
+		builder.append(NEWLINE);
+		builder.append(IMPORT_AST);
+		builder.append(NEWLINE);
 		
-		return null;
+		builder.append(TYPE_DECL).append(NEWLINE);
+		builder.append(FUN_DECL).append(' ');
+		
+		builder.append(LPAR);
+		for (StatementContext stmnt : ctx.statement()) {
+			builder.append(visit(stmnt)).append(':');
+		}
+		builder.append(LSQ).append(RSQ);
+		builder.append(RPAR);
+		
+		return builder.toString();
+	}
+	
+	// -------------- Statement --------------
+	
+	@Override
+	public String visitDeclStat(DeclStatContext ctx) {
+		return new StringBuilder().append(DECL).append(' ')
+				.append(QUOTE).append(visit(ctx.IDENTIFIER())).append(QUOTE).append(' ')
+				.append(visit(ctx.type())).toString();
+	}
+	
+	@Override
+	public String visitBlockStat(BlockStatContext ctx) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(BLOCK).append(' ');
+		builder.append(LPAR);
+		for (StatementContext stmnt : ctx.statement()) {
+			builder.append(visit(stmnt)).append(':');
+		}
+		builder.append(LSQ).append(RSQ);
+		builder.append(RPAR);
+		
+		return builder.toString();
+	}	
+	
+	// -------------- Terminal --------------
+	
+	@Override
+	public String visitTerminal(TerminalNode ctx) {
+		return ctx.getText();
+	}
+	
+	public String generate() throws IOException {
+		return visitProgram(new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program());
 	}
 	
 	public String toString() {
-		return builder.toString();
+		try {
+			return generate();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static void main(String[] args) {

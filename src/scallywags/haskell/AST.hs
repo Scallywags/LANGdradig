@@ -13,8 +13,10 @@ data Stat   = Decl String Type
             | IfThen Expr Stat
             | IfThenElse Expr Stat Stat
             | While Expr Stat
+            | Fork String Stat
+            | Wait String
+            | Sync String Stat
             deriving (Show, Eq, Read, Generic, ToRoseTree)
-            --TODO fork/join etc.
 
 data Expr   = Prim Prim
             | UnOp UnOp Expr
@@ -57,3 +59,7 @@ data Type   = IntType
             | BoolType
             | Array Type
             deriving (Show, Eq, Read, Generic, ToRoseTree)
+
+
+prpr :: Prog -> String
+prpr = "" --TODO
