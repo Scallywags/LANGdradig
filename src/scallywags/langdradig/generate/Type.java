@@ -1,4 +1,4 @@
-package scallywags.langdradig.gen;
+package scallywags.langdradig.generate;
 
 public enum Type {
 	
