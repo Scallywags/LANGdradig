@@ -45,11 +45,12 @@ data UnOp   = Min
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data Prim   = Par Expr
-            | Boolean Bool
+            | Bool Bool
             | Idf String
-            | Numb Int
+            | Int Int
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data Type   = IntType
             | BoolType
+            | Array Type
             deriving (Show, Eq, Read, Generic, ToRoseTree)

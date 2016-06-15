@@ -94,6 +94,13 @@ public interface LANGdradigVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(@NotNull LANGdradigParser.BlockContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code crementExpr}
+	 * labeled alternative in {@link LANGdradigParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCrementExpr(@NotNull LANGdradigParser.CrementExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code falseExpr}
 	 * labeled alternative in {@link LANGdradigParser#primary}.
 	 * @param ctx the parse tree
@@ -155,6 +162,13 @@ public interface LANGdradigVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitForkStat(@NotNull LANGdradigParser.ForkStatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code joinStat}
+	 * labeled alternative in {@link LANGdradigParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinStat(@NotNull LANGdradigParser.JoinStatContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LANGdradigParser#declaration}.
 	 * @param ctx the parse tree

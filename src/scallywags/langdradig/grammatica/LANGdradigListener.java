@@ -149,6 +149,18 @@ public interface LANGdradigListener extends ParseTreeListener {
 	 */
 	void exitBlock(@NotNull LANGdradigParser.BlockContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code crementExpr}
+	 * labeled alternative in {@link LANGdradigParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCrementExpr(@NotNull LANGdradigParser.CrementExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code crementExpr}
+	 * labeled alternative in {@link LANGdradigParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCrementExpr(@NotNull LANGdradigParser.CrementExprContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code falseExpr}
 	 * labeled alternative in {@link LANGdradigParser#primary}.
 	 * @param ctx the parse tree
@@ -254,6 +266,18 @@ public interface LANGdradigListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitForkStat(@NotNull LANGdradigParser.ForkStatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code joinStat}
+	 * labeled alternative in {@link LANGdradigParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoinStat(@NotNull LANGdradigParser.JoinStatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code joinStat}
+	 * labeled alternative in {@link LANGdradigParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoinStat(@NotNull LANGdradigParser.JoinStatContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LANGdradigParser#declaration}.
 	 * @param ctx the parse tree

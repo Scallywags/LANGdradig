@@ -25,6 +25,8 @@ import scallywags.langdradig.grammatica.LANGdradigParser.*;
  * @author Jan
  *
  */
+
+//TODO add listener methods for newly added expressions and statements.
 public class Checker extends LANGdradigBaseListener {
 	
 	private SymbolTable table = new SymbolTable();
