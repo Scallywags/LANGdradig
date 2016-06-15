@@ -14,10 +14,10 @@ addAB = [Load (ImmValue 5) regA
         ]
 
 locmem :: [Instruction]
-locmem =    [Load (ImmValue 7) regA
-            ,Store regA (DirAddr 2)
-            ,Load (ImmValue 2) regB
-            ,Load (IndAddr regB) regC
+locmem =    [Load (ImmValue 7) regA             -- regA := 7
+            ,Store regA (DirAddr 2)             -- mem(2) := regA
+            ,Load (ImmValue 2) regB             -- regB := 2
+            ,Load (IndAddr regB) regC           -- regC := mem(regB)
             ,EndProg
             ]
 
