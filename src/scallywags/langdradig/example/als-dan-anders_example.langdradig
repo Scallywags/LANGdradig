@@ -2,9 +2,9 @@ y is een geheel getal.
 x is een waarheid.
 
 als x klopt dan
-    y is y plus 1.
+    y wordt y plus 1.
 anders
     doe
-        y is y plus 2.
-        y is y + y.
+        y wordt y plus 2.
+        y wordt y + y.
     klaar.

@@ -183,6 +183,9 @@ public class ParseTest {
 
         testCorrectProgram("besteed uit aan x doe a wordt 1. b wordt waar. klaar.");                            // "Besteed uit" block with a block statement
         testCorrectProgram("besteed doe a wordt 1. b wordt waar. klaar. uit aan x.");
+
+        testCorrectProgram("a wordt 1.");                                                                        // Assignment operator
+        testCorrectProgram("a = 1.");
     }
 
     private LANGdradigParser test(String text) {

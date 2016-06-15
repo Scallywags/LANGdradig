@@ -1,8 +1,7 @@
-// Generated from LANGdradig.g4 by ANTLR 4.4
+// Generated from C:/Users/Jeroen Weener/Documents/Intellij Projects/LANGdradig/src/scallywags/langdradig/grammatica\LANGdradig.g4 by ANTLR 4.5.1
 package scallywags.langdradig.grammatica;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -17,384 +16,408 @@ public class LANGdradigBaseListener implements LANGdradigListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlockStat(@NotNull LANGdradigParser.BlockStatContext ctx) { }
+	@Override public void enterProgram(LANGdradigParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlockStat(@NotNull LANGdradigParser.BlockStatContext ctx) { }
+	@Override public void exitProgram(LANGdradigParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrueExpr(@NotNull LANGdradigParser.TrueExprContext ctx) { }
+	@Override public void enterDeclStat(LANGdradigParser.DeclStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrueExpr(@NotNull LANGdradigParser.TrueExprContext ctx) { }
+	@Override public void exitDeclStat(LANGdradigParser.DeclStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTermExpr(@NotNull LANGdradigParser.TermExprContext ctx) { }
+	@Override public void enterBlockStat(LANGdradigParser.BlockStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTermExpr(@NotNull LANGdradigParser.TermExprContext ctx) { }
+	@Override public void exitBlockStat(LANGdradigParser.BlockStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSyncStat(@NotNull LANGdradigParser.SyncStatContext ctx) { }
+	@Override public void enterExprStat(LANGdradigParser.ExprStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSyncStat(@NotNull LANGdradigParser.SyncStatContext ctx) { }
+	@Override public void exitExprStat(LANGdradigParser.ExprStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclStat(@NotNull LANGdradigParser.DeclStatContext ctx) { }
+	@Override public void enterIfStat(LANGdradigParser.IfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclStat(@NotNull LANGdradigParser.DeclStatContext ctx) { }
+	@Override public void exitIfStat(LANGdradigParser.IfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(@NotNull LANGdradigParser.ProgramContext ctx) { }
+	@Override public void enterWhileStat(LANGdradigParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(@NotNull LANGdradigParser.ProgramContext ctx) { }
+	@Override public void exitWhileStat(LANGdradigParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactorExpr(@NotNull LANGdradigParser.FactorExprContext ctx) { }
+	@Override public void enterForkStat(LANGdradigParser.ForkStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactorExpr(@NotNull LANGdradigParser.FactorExprContext ctx) { }
+	@Override public void exitForkStat(LANGdradigParser.ForkStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoolType(@NotNull LANGdradigParser.BoolTypeContext ctx) { }
+	@Override public void enterJoinStat(LANGdradigParser.JoinStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoolType(@NotNull LANGdradigParser.BoolTypeContext ctx) { }
+	@Override public void exitJoinStat(LANGdradigParser.JoinStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmpExpr(@NotNull LANGdradigParser.CmpExprContext ctx) { }
+	@Override public void enterSyncStat(LANGdradigParser.SyncStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmpExpr(@NotNull LANGdradigParser.CmpExprContext ctx) { }
+	@Override public void exitSyncStat(LANGdradigParser.SyncStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParExpr(@NotNull LANGdradigParser.ParExprContext ctx) { }
+	@Override public void enterDeclaration(LANGdradigParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParExpr(@NotNull LANGdradigParser.ParExprContext ctx) { }
+	@Override public void exitDeclaration(LANGdradigParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdfExpr(@NotNull LANGdradigParser.IdfExprContext ctx) { }
+	@Override public void enterBlock(LANGdradigParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdfExpr(@NotNull LANGdradigParser.IdfExprContext ctx) { }
+	@Override public void exitBlock(LANGdradigParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlock(@NotNull LANGdradigParser.BlockContext ctx) { }
+	@Override public void enterAssignment(LANGdradigParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlock(@NotNull LANGdradigParser.BlockContext ctx) { }
+	@Override public void exitAssignment(LANGdradigParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFalseExpr(@NotNull LANGdradigParser.FalseExprContext ctx) { }
+	@Override public void enterEqExpr(LANGdradigParser.EqExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFalseExpr(@NotNull LANGdradigParser.FalseExprContext ctx) { }
+	@Override public void exitEqExpr(LANGdradigParser.EqExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhileStat(@NotNull LANGdradigParser.WhileStatContext ctx) { }
+	@Override public void enterNotExpr(LANGdradigParser.NotExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhileStat(@NotNull LANGdradigParser.WhileStatContext ctx) { }
+	@Override public void exitNotExpr(LANGdradigParser.NotExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfStat(@NotNull LANGdradigParser.IfStatContext ctx) { }
+	@Override public void enterPrimExpr(LANGdradigParser.PrimExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfStat(@NotNull LANGdradigParser.IfStatContext ctx) { }
+	@Override public void exitPrimExpr(LANGdradigParser.PrimExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayType(@NotNull LANGdradigParser.ArrayTypeContext ctx) { }
+	@Override public void enterNegExpr(LANGdradigParser.NegExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayType(@NotNull LANGdradigParser.ArrayTypeContext ctx) { }
+	@Override public void exitNegExpr(LANGdradigParser.NegExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimExpr(@NotNull LANGdradigParser.PrimExprContext ctx) { }
+	@Override public void enterTermExpr(LANGdradigParser.TermExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrimExpr(@NotNull LANGdradigParser.PrimExprContext ctx) { }
+	@Override public void exitTermExpr(LANGdradigParser.TermExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprStat(@NotNull LANGdradigParser.ExprStatContext ctx) { }
+	@Override public void enterAssExpr(LANGdradigParser.AssExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprStat(@NotNull LANGdradigParser.ExprStatContext ctx) { }
+	@Override public void exitAssExpr(LANGdradigParser.AssExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(@NotNull LANGdradigParser.AssignmentContext ctx) { }
+	@Override public void enterCrementExpr(LANGdradigParser.CrementExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(@NotNull LANGdradigParser.AssignmentContext ctx) { }
+	@Override public void exitCrementExpr(LANGdradigParser.CrementExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntType(@NotNull LANGdradigParser.IntTypeContext ctx) { }
+	@Override public void enterPowExpr(LANGdradigParser.PowExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntType(@NotNull LANGdradigParser.IntTypeContext ctx) { }
+	@Override public void exitPowExpr(LANGdradigParser.PowExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterForkStat(@NotNull LANGdradigParser.ForkStatContext ctx) { }
+	@Override public void enterBoolExpr(LANGdradigParser.BoolExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitForkStat(@NotNull LANGdradigParser.ForkStatContext ctx) { }
+	@Override public void exitBoolExpr(LANGdradigParser.BoolExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(@NotNull LANGdradigParser.DeclarationContext ctx) { }
+	@Override public void enterFactorExpr(LANGdradigParser.FactorExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(@NotNull LANGdradigParser.DeclarationContext ctx) { }
+	@Override public void exitFactorExpr(LANGdradigParser.FactorExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumExpr(@NotNull LANGdradigParser.NumExprContext ctx) { }
+	@Override public void enterRangeExpr(LANGdradigParser.RangeExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumExpr(@NotNull LANGdradigParser.NumExprContext ctx) { }
+	@Override public void exitRangeExpr(LANGdradigParser.RangeExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEqExpr(@NotNull LANGdradigParser.EqExprContext ctx) { }
+	@Override public void enterCmpExpr(LANGdradigParser.CmpExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEqExpr(@NotNull LANGdradigParser.EqExprContext ctx) { }
+	@Override public void exitCmpExpr(LANGdradigParser.CmpExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNotExpr(@NotNull LANGdradigParser.NotExprContext ctx) { }
+	@Override public void enterParExpr(LANGdradigParser.ParExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNotExpr(@NotNull LANGdradigParser.NotExprContext ctx) { }
+	@Override public void exitParExpr(LANGdradigParser.ParExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNegExpr(@NotNull LANGdradigParser.NegExprContext ctx) { }
+	@Override public void enterTrueExpr(LANGdradigParser.TrueExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNegExpr(@NotNull LANGdradigParser.NegExprContext ctx) { }
+	@Override public void exitTrueExpr(LANGdradigParser.TrueExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssExpr(@NotNull LANGdradigParser.AssExprContext ctx) { }
+	@Override public void enterFalseExpr(LANGdradigParser.FalseExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssExpr(@NotNull LANGdradigParser.AssExprContext ctx) { }
+	@Override public void exitFalseExpr(LANGdradigParser.FalseExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPowExpr(@NotNull LANGdradigParser.PowExprContext ctx) { }
+	@Override public void enterIdfExpr(LANGdradigParser.IdfExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPowExpr(@NotNull LANGdradigParser.PowExprContext ctx) { }
+	@Override public void exitIdfExpr(LANGdradigParser.IdfExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoolExpr(@NotNull LANGdradigParser.BoolExprContext ctx) { }
+	@Override public void enterNumExpr(LANGdradigParser.NumExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoolExpr(@NotNull LANGdradigParser.BoolExprContext ctx) { }
+	@Override public void exitNumExpr(LANGdradigParser.NumExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRangeExpr(@NotNull LANGdradigParser.RangeExprContext ctx) { }
+	@Override public void enterArrayType(LANGdradigParser.ArrayTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRangeExpr(@NotNull LANGdradigParser.RangeExprContext ctx) { }
+	@Override public void exitArrayType(LANGdradigParser.ArrayTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntType(LANGdradigParser.IntTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntType(LANGdradigParser.IntTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBoolType(LANGdradigParser.BoolTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoolType(LANGdradigParser.BoolTypeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEveryRule(@NotNull ParserRuleContext ctx) { }
+	@Override public void enterEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEveryRule(@NotNull ParserRuleContext ctx) { }
+	@Override public void exitEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void visitTerminal(@NotNull TerminalNode node) { }
+	@Override public void visitTerminal(TerminalNode node) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void visitErrorNode(@NotNull ErrorNode node) { }
+	@Override public void visitErrorNode(ErrorNode node) { }
 }
