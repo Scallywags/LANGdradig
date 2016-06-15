@@ -62,7 +62,3 @@ data Type   = IntType
             | BoolType
             | Array Type
             deriving (Show, Eq, Read, Generic, ToRoseTree)
-
-
-prpr :: Prog -> String
-prpr  _ = "" --TODO
