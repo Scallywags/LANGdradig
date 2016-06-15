@@ -210,12 +210,12 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitNegExpr(NegExprContext ctx) {
-		return NEG + " " + LPAR + visit(ctx.expression()) + RPAR;
+		return UN_OP + " " + NEG + " " + LPAR + visit(ctx.expression())+ RPAR;
 	}
 	
 	@Override
 	public String visitNotExpr(NotExprContext ctx) {
-		return NOT + " " + LPAR + visit(ctx.expression()) + RPAR;
+		return UN_OP + " " + NOT + " " + LPAR + visit(ctx.expression())+ RPAR;
 	}
 	
 	@Override

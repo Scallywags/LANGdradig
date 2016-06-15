@@ -19,7 +19,7 @@ data Stat   = Decl String Type
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data Expr   = Prim Prim
-            | UnOp UnOp String
+            | UnOp UnOp Expr
             | BinOp BinOp Expr Expr
             | TrinOp TrinOp Expr Expr Expr
             | Ass String Expr
