@@ -28,10 +28,13 @@ data BinOp  = Plus
             | Divide
             | Modulo
             | Power
-            | LessThen
-            | LessThenEq
-            | GreaterThen
-            | GreaterThenEq
+            | Between
+            | Inside
+            | Outside
+            | LessThan
+            | LessThanEq
+            | GreaterThan
+            | GreaterThanEq
             | Equal
             | NotEqual
             | And
