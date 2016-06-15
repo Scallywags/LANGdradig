@@ -1,80 +1,118 @@
 lexer grammar LANGdradigInlezer;
 
-WORDT			:	W O R D T | '='		;
-ALS				: 	A L S				;
-DAN				:	D A N				;
-ANDERS			:	A N D E R S			;
-VOOR			:	V O O R				;
-ZOLANG			:	Z O L A N G			;
+// Operators
+PLUS			:	P L U S					            | '+'		;
+MIN				:	M I N 					            | '-'		;
+KEER			:	K E E R					            | '*'		;
+GEDEELDDOOR		:	GEDEELD WITRUIMTE DOOR              | '/'       ;
+TOTDEMACHT      :   TOT WITRUIMTE DE WITRUIMTE MACHT    | '^'       ;
+MODULUS			:	M O D U L U S 			            | '%'		;
+NIET			: 	N I E T 				            | '!'		;
 
-PLUS			:	P L U S					| '+'					;
-MIN				:	M I N 					| '-'					;
-KEER			:	K E E R					| '*'					;
-GEDEELDDOOR		:	G E D E E L D WITRUIMTE D O O R 		| '/'	;
-TOTDEMACHT		:	T O T WITRUIMTE D E WITRUIMTE M A C H T	| '^'	;
-MODULUS			:	M O D U L U S 			| '%'					;
-NIET			: 	N I E T 				| '!'					;
-EN				:	E N						| '&' '&'				;
-OF				:	O F						| '|' '|'				;
+// Comparators
+EN				:	E N			            			| '&' '&'	;
+OF				:	O F					              	| '|' '|'	;
 
-GELIJKAAN		:	(GELIJK WITRUIMTE IS | IS WITRUIMTE GELIJK) WITRUIMTE AAN 					    						| '=' '='	;
-ONGELIJKAAN		:	(ONGELIJK WITRUIMTE IS | IS WITRUIMTE ONGELIJK) WITRUIMTE AAN 			    							| '!' '='	;
-KLEINERDAN		:	(IS WITRUIMTE KLEINER | KLEINER WITRUIMTE IS) WITRUIMTE DAN 											| '<'		;
-GROTERDAN		:	(GROTER WITRUIMTE IS | IS WITRUIMTE GROTER) WITRUIMTE DAN												| '>'		;
+GELIJKAAN		:	(GELIJK WITRUIMTE IS | IS WITRUIMTE GELIJK) WITRUIMTE AAN
+                |   '=' '='                                         ;
+ONGELIJKAAN		:	(ONGELIJK WITRUIMTE IS | IS WITRUIMTE ONGELIJK) WITRUIMTE AAN
+                |   '!' '='                                         ;
+KLEINERDAN		:	(IS WITRUIMTE KLEINER | KLEINER WITRUIMTE IS) WITRUIMTE DAN
+                |   '<'                                             ;
+GROTERDAN		:	(GROTER WITRUIMTE IS | IS WITRUIMTE GROTER) WITRUIMTE DAN
+                |   '>'		                                        ;
 KLEINEROFGELIJK	:	(IS WITRUIMTE KLEINER WITRUIMTE DAN WITRUIMTE OF WITRUIMTE (IS WITRUIMTE)? GELIJK WITRUIMTE AAN
-					| KLEINER WITRUIMTE IS WITRUIMTE DAN WITRUIMTE OF WITRUIMTE GELIJK WITRUIMTE IS WITRUIMTE AAN)	
-				| '<' '='	;
-GROTEROFGELIJK	:	(IS WITRUIMTE GROTER WITRUIMTE DAN WITRUIMTE OF WITRUIMTE (IS WITRUIMTE)? GELIJK WITRUIMTE AAN 
-					| GROTER WITRUIMTE IS WITRUIMTE DAN WITRUIMTE OF WITRUIMTE GELIJK WITRUIMTE IS WITRUIMTE AAN
-) 				| '>' '='	;
-LIGTTUSSEN		:	LIGT WITRUIMTE TUSSEN 								    							;
-LIGTBUITEN		:	LIGT WITRUIMTE BUITEN																;
+				|   KLEINER WITRUIMTE IS WITRUIMTE DAN WITRUIMTE OF WITRUIMTE GELIJK WITRUIMTE IS WITRUIMTE AAN)
+				|   '<' '='                                         ;
+GROTEROFGELIJK	:	(IS WITRUIMTE GROTER WITRUIMTE DAN WITRUIMTE OF WITRUIMTE (IS WITRUIMTE)? GELIJK WITRUIMTE AAN
+				|   GROTER WITRUIMTE IS WITRUIMTE DAN WITRUIMTE OF WITRUIMTE GELIJK WITRUIMTE IS WITRUIMTE AAN
+) 				|   '>' '='                                         ;
 
-GEHEELGETAL		:	GEHEEL WITRUIMTE GETAL		;
-WAARHEID		:	W A A R H E I D				;
-REEKS			:	R E E K S					;
-TEKST			:	T E K S T					;
+// Assignment
+WORDT			:	W O R D T               | '='		            ;
 
-KLOPT			:	K L O P T							;
-NIETKLOPT		:	NIET WITRUIMTE KLOPT				;
-WAAR			:	W A A R								;
-ONWAAR			:	O N WAAR							;
+// "Als" block
+ALS				: 	A L S				                            ;
+DAN				:	D A N				                            ;
+ANDERS			:	A N D E R S			                            ;
 
-DOE				:	D O E								;
-KLAAR			:	K L A A R							;
-BESTEEDUIT		:	B E S T E E D WITRUIMTE U I T		;
-KRITIEK			:	K R I T I E K						;
+// "Zolang" block
+VOOR			:	V O O R				                            ;
+ZOLANG			:	Z O L A N G			                            ;
 
-PUNT			: '.';
-KOMMA			: ',';
-LH				: '(';
-RH				: ')';
-IS				: I S;
-EEN				: E E N;
+// Types
+GEHEELGETAL		:	GEHEEL WITRUIMTE GETAL		                    ;
+WAARHEID		:	W A A R H E I D				                    ;
+REEKS			:	R E E K S					                    ;
+TEKST			:	T E K S T					                    ;
 
-LIGT			:   L I G T           ;
-TUSSEN  		:   T U S S E N		;
-BUITEN  		:   B U I T E N		;
+// Values for waarheid
+WAAR			:	W A A R								            ;
+ONWAAR			:	O N WAAR							            ;
 
-NUMBER			: DIGIT+			;
-IDENTIFIER		: LETTER ALPHANUM*	;
+// Syntactic sugar
+KLOPT			:	K L O P T							            ;
 
-fragment DIGIT		: [0-9]				;
-fragment LETTER		: [a-zA-Z]			;
-fragment ALPHANUM	: DIGIT	|	LETTER	;
+VERHOOG         :   V E R H O O G                                   ;
+HOOG            :   H O O G                                         ;
+VERLAAG         :   V E R L A A G                                   ;
 
-fragment GELIJK		: G E L I J K		;
-fragment ONGELIJK	: O N GELIJK | N I E T WITRUIMTE GELIJK		;
-fragment KLEINER	: K L E I N E R		;
-fragment GROTER		: G R O T E R		;
-fragment AAN		: A A N				;
+LIGT			:   L I G T                                         ;
+TUSSEN  		:   T U S S E N		                                ;
+BINNEN          :   B I N N E N                                     ;
+BUITEN  		:   B U I T E N		                                ;
 
-fragment GEHEEL : G E H E E L;
-fragment GETAL	: G E T A L	;
-fragment SPATIE	: ' ';
-fragment TAB	: '\t';
-fragment RETURN	: '\r';
-fragment NEWLINE: '\n';
+// Statement block
+DOE				:	D O E						            		;
+KLAAR			:	K L A A R							            ;
+
+// "Kritiek" block
+KRITIEK			:	K R I T I E K						            ;
+
+// "Besteed uit" block
+BESTEED         :   B E S T E E D                                   ;
+UIT             :   U I T                                           ;
+AAN             :   A A N                                           ;
+WACHT           :   W A C H T                                       ;
+
+PUNT			: '.'                                               ;
+KOMMA			: ','                                               ;
+LH				: '('                                               ;
+RH				: ')'                                               ;
+IS				: I S                                               ;
+EEN				: E E N                                             ;
+OP              :   O P                                             ;
+
+NUMBER			: DIGIT+			                                ;
+IDENTIFIER		: LETTER ALPHANUM*	                                ;
+
+fragment DIGIT		: [0-9]				                            ;
+fragment LETTER		: [a-zA-Z]			                            ;
+fragment ALPHANUM	: DIGIT	| LETTER	                            ;
+
+fragment GELIJK		: G E L I J K		                            ;
+fragment ONGELIJK	: O N GELIJK | NIET WITRUIMTE GELIJK		    ;
+
+fragment KLEINER	: K L E I N E R		                            ;
+fragment GROTER		: G R O T E R		                            ;
+
+fragment GEHEEL     : G E H E E L                                   ;
+fragment GETAL	    : G E T A L	                                    ;
+
+// Operators
+fragment GEDEELD    : G E D E E L D                                 ;
+fragment DOOR       : D O O R                                       ;
+fragment TOT        : T O T                                         ;
+fragment DE         : D E                                           ;
+fragment MACHT      : M A C H T                                     ;
+
+// Special characters
+fragment SPATIE     : ' '                                           ;
+fragment TAB        : '\t'                                          ;
+fragment RETURN     : '\r'                                          ;
+fragment NEWLINE    : '\n'                                          ;
+
+// Alphabet upper- and lowercase
 fragment A		: [Aa];
 fragment B		: [Bb];
 fragment C		: [Cc];

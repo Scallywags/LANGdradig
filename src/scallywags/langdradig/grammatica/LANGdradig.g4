@@ -2,53 +2,57 @@ grammar LANGdradig;
 
 import LANGdradigInlezer;
 
-program		: 	statement*;
+program		: 	statement*
+            ;
 
-statement	:	declaration	PUNT															#declStat
-			|	block PUNT																	#blockStat
-			|	expression PUNT																#exprStat
-			|	ALS expression (KLOPT | NIETKLOPT)? DAN statement (ANDERS statement)? 		#ifStat
-			|	ZOLANG expression (KLOPT | NIETKLOPT)? statement							#whileStat
-			|	BESTEEDUIT statement														#forkStat
-			|	KRITIEK IDENTIFIER statement												#syncStat
+//              Rule of thumb: If a statement does not end in a statement, it should end with a PUNT
+statement	:	declaration	PUNT														            	#declStat
+			|	block PUNT 																	            #blockStat
+			|	expression PUNT																            #exprStat
+			|	ALS expression (NIET? KLOPT)? DAN statement (ANDERS statement)? 		                #ifStat
+			|	ZOLANG expression (NIET? KLOPT)? statement					        		            #whileStat
+			|	BESTEED UIT AAN IDENTIFIER statement  										            #forkStat
+			|   BESTEED statement UIT AAN IDENTIFIER PUNT                                               #forkStat
+			|   WACHT OP IDENTIFIER PUNT                                                                #joinStat
+			|	KRITIEK IDENTIFIER statement												            #syncStat
 			;
 				
-declaration		:	IDENTIFIER IS EEN type
-				;
+declaration	:	IDENTIFIER IS EEN type
+			;
 
-block			:	DOE statement* KLAAR
-				;
+block		:	DOE statement* KLAAR
+			;
 				
-assignment		:	IDENTIFIER WORDT expression
-				;
+assignment	:	IDENTIFIER WORDT expression
+			;
 
 expression	:	primary																					#primExpr
 			
 			|	MIN expression																			#negExpr
-			|	NIET expression																			#notExpr
+			|	NIET expression 																		#notExpr
+			|   (((VERHOOG | VERLAAG) expression) | (HOOG expression OP))                               #crementExpr
 			
-			|	<assoc=right>expression TOTDEMACHT expression											#powExpr
-			|	expression (KEER | GEDEELDDOOR | MODULUS) expression									#factorExpr
+			|	<assoc=right> expression TOTDEMACHT expression              							#powExpr
+			|	expression (KEER | GEDEELDDOOR | MODULUS) expression      	                			#factorExpr
 			|	expression (PLUS | MIN) expression														#termExpr
-			
-			
-			|	expression (LIGTTUSSEN | LIGTBUITEN) expression EN expression                           #rangeExpr
-			|   expression (TUSSEN | BUITEN) expression EN expression LIGT                              #rangeExpr //TODO kan dit zo ? (het werkt iig)
+
+			|	expression LIGT (TUSSEN | BINNEN | BUITEN) expression EN expression                     #rangeExpr
+			|   expression (TUSSEN | BINNEN | BUITEN) expression EN expression LIGT                     #rangeExpr //TODO kan dit zo ? (het werkt iig)
 			|	expression (KLEINERDAN | GROTERDAN | KLEINEROFGELIJK | GROTEROFGELIJK) expression		#cmpExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr
 			
-			|	<assoc=right>assignment																	#assExpr
+			|	<assoc=right> assignment																#assExpr
 			;
 
-primary		:	LH expression RH						#parExpr
-			|	WAAR									#trueExpr
-			|	ONWAAR									#falseExpr
-			|	IDENTIFIER								#idfExpr
-			|	NUMBER									#numExpr
+primary		:	LH expression RH						                                                #parExpr
+			|	WAAR									                                                #trueExpr
+			|	ONWAAR									                                                #falseExpr
+			|	IDENTIFIER								                                                #idfExpr
+			|	NUMBER									                                                #numExpr
 			;
 			
-type	: GEHEELGETAL		#intType
-		| WAARHEID			#boolType
-		| type REEKS		#arrayType
-		;
+type	    :   GEHEELGETAL		                                                                        #intType
+		    |   WAARHEID			                                                                    #boolType
+		    |   type REEKS		                                                                        #arrayType
+		    ;

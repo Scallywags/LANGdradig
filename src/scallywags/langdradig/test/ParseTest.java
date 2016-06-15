@@ -16,103 +16,113 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ParseTest {
-    final static boolean print = false;
+    final static boolean DEBUG = true;
 
     @Test
     public void testOverall() {
-        assertFalse(testProgram("klaar wordt 3."));                                                                 // Illegal variable name, "klaar" is a keyword
-        assertTrue(testProgram("laar wordt 3."));                                                                   // Legal variable name
-        assertFalse(testProgram("a wordt 3"));                                                                      // Statement does not end with a dot
-        assertFalse(testProgram("a wordt 3.."));                                                                    // Multiple dots
+        testIncorrectProgram("klaar wordt 3.");                                                                 // Illegal variable name, "klaar" is a keyword
+        testCorrectProgram("laar wordt 3.");                                                                    // Legal variable name
+        testIncorrectProgram("a wordt 3");                                                                      // Statement does not end with a dot
+        testIncorrectProgram("a wordt 3..");                                                                    // Multiple dots
     }
 
     @Test
     public void testEmptyProgram() {
-        assertTrue(testProgram(""));
+        testCorrectProgram("");
     }
 
     @Test
     public void testBinaryOperators() {
-        assertTrue(testProgram("!a && niet b || c en d of e."));
+        testCorrectProgram("!a && niet b || c en d of e.");
     }
 
     @Test
     public void testBinaryComparators() {
-        assertTrue(testProgram("a == b != c is gelijk aan d is ongelijk aan e is niet gelijk aan f."));
+        testCorrectProgram("a == b != c is gelijk aan d is ongelijk aan e is niet gelijk aan f.");
     }
 
     @Test
     public void testIntegerOperators() {
-        assertTrue(testProgram("-a + min b - c * d / e % f ^ g plus h min i keer j gedeeld door k modulus l tot de macht m."));
+        testCorrectProgram("-a + min b - c * d / e % f ^ g plus h min i keer j gedeeld door k modulus l tot de macht m.");
     }
 
     @Test
     public void testIntegerComparators() {
-        assertTrue(testProgram("a is kleiner dan b groter is dan c is kleiner dan of gelijk aan d."));
-        assertTrue(testProgram("a groter is dan of gelijk is aan b is gelijk aan c is ongelijk aan d is niet gelijk aan e."));
+        testCorrectProgram("a is kleiner dan b groter is dan c is kleiner dan of gelijk aan d.");
+        testCorrectProgram("a groter is dan of gelijk is aan b is gelijk aan c is ongelijk aan d is niet gelijk aan e.");
     }
 
     @Test
     public void testDeclarations() {
-        assertTrue(testProgram("b is een waarheid."));
-        assertTrue(testProgram("a is een geheel getal."));
+        testCorrectProgram("b is een waarheid.");
+        testCorrectProgram("a is een geheel getal.");
     }
 
     @Test
     public void testAssignments() {
-        assertTrue(testProgram("b wordt waar."));
-        assertTrue(testProgram("b wordt onwaar."));
-        assertTrue(testProgram("a wordt 3."));
-        assertTrue(testProgram("a wordt min 3."));
+        testCorrectProgram("b wordt waar.");
+        testCorrectProgram("b wordt onwaar.");
+        testCorrectProgram("a wordt 3.");
+        testCorrectProgram("a wordt min 3.");
+        testCorrectProgram("a wordt var.");                                                                     // Assignment of a variable
     }
 
     @Test
     public void testAlsStatements() {
-        assertTrue(testProgram("als i dan b wordt waar."));                                                        // "Als" statement without else
-        assertTrue(testProgram("als i dan b wordt waar. anders b wordt onwaar."));                                 // "Als" statement with else
-        assertFalse(testProgram("als i b wordt onwaar."));                                                         // "Als" statement without "dan" keyword
-        assertTrue(testProgram("als 9 > i dan doe i is een geheel getal. i wordt i min 1. klaar."));               // "Als" statement with a block
-        assertFalse(testProgram("als b dan i is een geheel getal. i wordt i min 1. anders i wordt i plus 1"));     // "Als" statement with two separate statements before the "anders"
+        testCorrectProgram("als i dan b wordt waar.");                                                          // "Als" statement without else
+        testCorrectProgram("als i dan b wordt waar. anders b wordt onwaar.");                                   // "Als" statement with else
+        testIncorrectProgram("als i b wordt onwaar.");                                                          // "Als" statement without "dan" keyword
+        testCorrectProgram("als 9 > i dan doe i is een geheel getal. i wordt i min 1. klaar.");                 // "Als" statement with a block
+        testIncorrectProgram("als b dan i is een geheel getal. i wordt i min 1. anders i wordt i plus 1");      // "Als" statement with two separate statements before the "anders"
     }
 
     @Test
     public void testZolangStatements() {
-        assertTrue(testProgram("zolang b a wordt a keer 8."));                                                     // "Zolang" statement
-        assertTrue(testProgram("zolang b doe a wordt a keer 8. a wordt b. klaar."));                               // "Zolang" statement with a block
-        assertFalse(testProgram("zolang b"));                                                                      // "Zolang" statement without a body
+        testCorrectProgram("zolang b a wordt a keer 8.");                                                       // "Zolang" statement
+        testCorrectProgram("zolang b doe a wordt a keer 8. a wordt b. klaar.");                                 // "Zolang" statement with a block
+        testIncorrectProgram("zolang b");                                                                       // "Zolang" statement without a body
     }
 
     @Test
     public void testBlockStatements() {
-        assertTrue(testProgram("doe klaar."));                                                                     // Empty BlockStatement
-        assertTrue(testProgram("doe a wordt 4. b is een geheel getal. klaar."));                                   // BlockStatement
-        assertFalse(testProgram("doe a wordt 4. b is een geheel getal."));                                         // BlockStatement without "klaar" keyword
-        assertTrue(testProgram("doe doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar."));              // Three nested blocks
-        assertFalse(testProgram("doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar."));                 // Incorrect nested blocks; missing a doe
+        testCorrectProgram("doe klaar.");                                                                       // Empty BlockStatement
+        testCorrectProgram("doe a wordt 4. b is een geheel getal. klaar.");                                     // BlockStatement
+        testIncorrectProgram("doe a wordt 4. b is een geheel getal.");                                          // BlockStatement without "klaar" keyword
+        testCorrectProgram("doe doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar.");                // Three nested blocks
+        testIncorrectProgram("doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar.");                  // Incorrect nested blocks; missing a doe
     }
 
     @Test
     public void testKritiekBlocks() {
-        assertTrue(testProgram("kritiek name doe h wordt h plus 1. klaar."));                                      // "Kritiek" block
-        assertFalse(testProgram("kritiek doe h wordt h plus 1. klaar."));                                          // "Kritiek" block without declaring a name for the critical section
+        testCorrectProgram("kritiek name doe h wordt h plus 1. klaar.");                                        // "Kritiek" block
+        testIncorrectProgram("kritiek doe h wordt h plus 1. klaar.");                                           // "Kritiek" block without declaring a name for the critical section
     }
 
     @Test
     public void testBesteedUit() {
-        assertTrue(testProgram("besteed uit a wordt 8."));                                                         // "Besteed uit" block with a single statement
-        assertTrue(testProgram("besteed uit doe a wordt 8. b wordt 9. klaar."));                                   // "Besteed uit" block with block statement
-        assertFalse(testProgram("besteed a wordt 8."));                                                            // "Besteed uit" block missing the keyword "uit"
-        assertFalse(testProgram("besteed uit"));                                                                   // "Besteed uit" block without body
+        testCorrectProgram("besteed uit aan x a wordt 8.");                                                     // "Besteed uit" block with a single statement
+        testCorrectProgram("besteed uit aan x doe a wordt 8. b wordt 9. klaar.");                               // "Besteed uit" block with block statement
+        testIncorrectProgram("besteed aan x a wordt 8.");                                                       // "Besteed uit" block missing the keyword "uit"
+        testIncorrectProgram("besteed uit aan a wordt 8.");                                                     // "Besteed uit" block without declaring a name for the worker
+        testIncorrectProgram("besteed uit aan x.");                                                             // "Besteed uit" block without body
+
+        testCorrectProgram("wacht op x.");                                                                      // "Wacht op" statement
+        testIncorrectProgram("wacht op.");                                                                      // "Wacht op" statement without stating for which worker it is waiting
     }
 
     @Test
     public void testSyntacticSugar() {
-        assertTrue(testProgram("als b klopt dan i wordt 1."));                                                     // Syntactic sugar for b == true
-        assertTrue(testProgram("als b niet klopt dan i wordt 1."));                                                // Syntactic sugar for b == false
+        testCorrectProgram("als b klopt dan i wordt 1.");                                                       // Syntactic sugar for b == true
+        testCorrectProgram("als b niet klopt dan i wordt 1.");                                                  // Syntactic sugar for b == false
 
-        assertTrue(testProgram("a ligt tussen b en c."));                                                          // "Ligt tussen" statement
-        assertTrue(testProgram("a ligt buiten b en c."));                                                          // "Ligt buiten" statement
-        assertFalse(testProgram("8 ligt buiten 9."));                                                              // "Ligt buiten" without a third argument
+        testCorrectProgram("verhoog 8.");                                                                       // "Verhoog" statement
+        testCorrectProgram("verlaag 8.");                                                                       // "Verlaag" statement
+
+        // Keywords "tussen" and "binnen" are equivalent
+        testCorrectProgram("a ligt tussen b en c.");                                                            // "Ligt tussen" statement
+        testCorrectProgram("a ligt binnen b en c.");                                                            // "Ligt binnen" statement
+        testCorrectProgram("a ligt buiten b en c.");                                                            // "Ligt buiten" statement
+        testIncorrectProgram("8 ligt buiten 9.");                                                               // "Ligt buiten" without a third argument
 
     }
 
@@ -122,43 +132,57 @@ public class ParseTest {
      */
     @Test
     public void testFlexibility() {
-        assertTrue(testProgram("a is gelijk aan b.") &&                                                                                          // Equals operator
-                   testProgram("a gelijk is aan b.") &&
-                   testProgram("a == b."));
+        testCorrectProgram("verhoog 8.");                                                                       // Increment operator
+        testCorrectProgram("hoog 8 op.");
 
-        assertTrue(testProgram("a is ongelijk aan b.") &&                                                                                        // Unequals operator
-                   testProgram("a ongelijk is aan b.") &&
-                   testProgram("a is niet gelijk aan b.") &&
-                   testProgram("a niet gelijk is aan b.") &&
-                   testProgram("a != b."));
+        testCorrectProgram("a is gelijk aan b.");                                                               // Equals operator
+        testCorrectProgram("a gelijk is aan b.");
+        testCorrectProgram("a == b.");
 
-        assertTrue(testProgram("a is kleiner dan b.") &&                                                                                         // Smaller operator
-                   testProgram("a kleiner is dan b.") &&
-                   testProgram("a < b."));
+        testCorrectProgram("a is ongelijk aan b.");                                                             // Unequals operator
+        testCorrectProgram("a ongelijk is aan b.");
+        testCorrectProgram("a is niet gelijk aan b.");
+        testCorrectProgram("a niet gelijk is aan b.");
+        testCorrectProgram("a != b.");
 
-        assertTrue(testProgram("a is groter dan b.") &&                                                                                          // Larger operator
-                   testProgram("a groter is dan b.") &&
-                   testProgram("a > b."));
+        testCorrectProgram("a is kleiner dan b.");                                                              // Smaller operator
+        testCorrectProgram("a kleiner is dan b.");
+        testCorrectProgram("a < b.");
 
-        assertTrue(testProgram("a is kleiner dan of gelijk aan b.") &&                                                                           // Smaller or equal operator
-                   testProgram("a is kleiner dan of is gelijk aan b.") &&
-                   testProgram("a kleiner is dan of gelijk is aan b.") &&
-                   testProgram("a <= b."));
+        testCorrectProgram("a is groter dan b.");                                                               // Larger operator
+        testCorrectProgram("a groter is dan b.");
+        testCorrectProgram("a > b.");
 
-        assertTrue(testProgram("a is groter dan of gelijk aan b.") &&                                                                            // Larger or equal operator
-                   testProgram("a is groter dan of is gelijk aan b.") &&
-                   testProgram("a groter is dan of gelijk is aan b.") &&
-                   testProgram("a >= b."));
+        testCorrectProgram("a is kleiner dan of gelijk aan b.");                                                // Smaller or equal operator
+        testCorrectProgram("a is kleiner dan of is gelijk aan b.");
+        testCorrectProgram("a kleiner is dan of gelijk is aan b.");
+        testCorrectProgram("a <= b.");
 
-        assertTrue(testProgram("-a.") &&                                                                                                         // Negation operator for integers
-                   testProgram("min a."));
-        assertTrue(testProgram("!a.") &&                                                                                                         // Negation operator for booleans
-                   testProgram("niet a."));
+        testCorrectProgram("a is groter dan of gelijk aan b.");                                                 // Larger or equal operator
+        testCorrectProgram("a is groter dan of is gelijk aan b.");
+        testCorrectProgram("a groter is dan of gelijk is aan b.");
+        testCorrectProgram("a >= b.");
 
-        assertTrue(testProgram("a ligt tussen b en c.") &&                                                                                       // "Ligt tussen" operator
-                   testProgram("a tussen b en c ligt."));
-        assertTrue(testProgram("a ligt buiten b en c.") &&                                                                                       // "Ligt buiten" operator
-                   testProgram("a buiten b en c ligt."));
+        testCorrectProgram("-a.");                                                                              // Negation operator for integers
+        testCorrectProgram("min a.");
+
+        testCorrectProgram("!a.");                                                                              // Negation operator for booleans
+        testCorrectProgram("niet a.");
+
+        testCorrectProgram("a ligt tussen b en c.");                                                            // "Ligt tussen" operator
+        testCorrectProgram("a tussen b en c ligt.");
+
+        testCorrectProgram("a ligt binnen b en c.");                                                            // "Ligt binnen" operator
+        testCorrectProgram("a binnen b en c ligt.");
+
+        testCorrectProgram("a ligt buiten b en c.");                                                            // "Ligt buiten" operator
+        testCorrectProgram("a buiten b en c ligt.");
+
+        testCorrectProgram("besteed uit aan x a wordt 1.");                                                     // "Besteed uit" block
+        testCorrectProgram("besteed a wordt 1. uit aan x.");
+
+        testCorrectProgram("besteed uit aan x doe a wordt 1. b wordt waar. klaar.");                            // "Besteed uit" block with a block statement
+        testCorrectProgram("besteed doe a wordt 1. b wordt waar. klaar. uit aan x.");
     }
 
     private LANGdradigParser test(String text) {
@@ -173,11 +197,20 @@ public class ParseTest {
         return parser;
     }
 
-    private boolean testProgram(String text) {
+    private void testCorrectProgram(String text) {
         LANGdradigParser parser = test(text);
         ParseTree tree = parser.program();
-        print(tree.toStringTree(parser));
-        return ((MyErrorListener) parser.getErrorListeners().get(0)).isAccepted();
+        boolean accepted = ((MyErrorListener) parser.getErrorListeners().get(0)).isAccepted();
+        if (!accepted) print(tree.toStringTree(parser));
+        assertTrue(accepted);
+    }
+
+    private void testIncorrectProgram(String text) {
+        LANGdradigParser parser = test(text);
+        ParseTree tree = parser.program();
+        boolean accepted = ((MyErrorListener) parser.getErrorListeners().get(0)).isAccepted();
+        if (accepted) print(tree.toStringTree(parser));
+        assertFalse(accepted);
     }
 
     private void testFile(String path) throws IOException {
@@ -189,7 +222,7 @@ public class ParseTest {
     }
 
     private void print(String text) {
-        if (print) {
+        if (DEBUG) {
             System.out.println(text);
         }
     }
