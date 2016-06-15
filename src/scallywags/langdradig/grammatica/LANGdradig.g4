@@ -30,7 +30,7 @@ expression	:	primary																					#primExpr
 			
 			|	MIN expression																			#negExpr
 			|	NIET expression 																		#notExpr
-			|   (((VERHOOG | VERLAAG) expression) | (HOOG expression OP))                               #crementExpr
+			|   (((VERHOOG | VERLAAG) IDENTIFIER) | (HOOG IDENTIFIER OP))                               #crementExpr
 			
 			|	<assoc=right> expression TOTDEMACHT expression              							#powExpr
 			|	expression (KEER | GEDEELDDOOR | MODULUS) expression      	                			#factorExpr

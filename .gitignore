@@ -5,3 +5,8 @@
 antlr-runtime-4.5.3.jar
 compiler_output/
 gen/
+src/scallywags/langdradig/grammatica/LANGdradig.tokens
+src/scallywags/langdradig/grammatica/LANGdradigLexer.java
+src/scallywags/langdradig/grammatica/LANGdradigLexer.tokens
+src/scallywags/langdradig/grammatica/LANGdradigBaseListener.java
+src/scallywags/langdradig/grammatica/LANGdradigListener.java
