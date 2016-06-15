@@ -12,6 +12,10 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import scallywags.langdradig.gen.exception.AlreadyDeclaredException;
+import scallywags.langdradig.gen.exception.CheckerException;
+import scallywags.langdradig.gen.exception.TypeException;
+import scallywags.langdradig.gen.exception.UndeclaredException;
 import scallywags.langdradig.grammatica.LANGdradigBaseListener;
 import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
@@ -35,8 +39,8 @@ public class Checker extends LANGdradigBaseListener {
 	 * @throws IOException if the file cannot be read.
 	 * @throws CheckerException if the source program was invalid somewhere somehow
 	 */
-	public void checkFile(String file) throws IOException {
-		CharStream stream = new ANTLRFileStream(file);
+	public void checkFile(String source) throws IOException {
+		CharStream stream = new ANTLRFileStream(source);
 		Lexer lexer = new LANGdradigLexer(stream);
 		TokenStream tokens = new CommonTokenStream(lexer);
 		LANGdradigParser parser = new LANGdradigParser(tokens);
@@ -89,7 +93,10 @@ public class Checker extends LANGdradigBaseListener {
 	
 	public void exitDeclaration(DeclarationContext ctx) {
 		Type type = types.get(ctx.type());
-		table.add(ctx.IDENTIFIER().getText(), type);
+		boolean success = table.add(ctx.IDENTIFIER().getText(), type);
+		if (!success) {
+			throw new AlreadyDeclaredException(ctx.IDENTIFIER().getText());
+		}
 	}
 	
 	// ------------- Assignment -------------
@@ -257,7 +264,7 @@ public class Checker extends LANGdradigBaseListener {
 	public void exitIdfExpr(IdfExprContext ctx) {
 		Type type = table.get(ctx.getText());
 		if (type == null) {
-			//throw new TypeException(ctx, //TODO)
+			throw new UndeclaredException(ctx.getText());
 		}
 		types.put(ctx, type);
 	}
