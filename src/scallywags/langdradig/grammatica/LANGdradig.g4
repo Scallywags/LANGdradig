@@ -16,9 +16,6 @@ statement	:	IDENTIFIER IS EEN type	PUNT														    #declStat
 			|   WACHT OP IDENTIFIER PUNT                                                                #joinStat
 			|	KRITIEK IDENTIFIER statement												            #syncStat
 			;
-				
-assignment	:	IDENTIFIER WORDT expression
-			;
 
 expression	:	primary																					#primExpr
 			
@@ -36,7 +33,7 @@ expression	:	primary																					#primExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr
 			
-			|	<assoc=right> assignment																#assExpr
+			|	<assoc=right> IDENTIFIER WORDT expression																#assExpr
 			;
 
 primary		:	LH expression RH						                                                #parExpr

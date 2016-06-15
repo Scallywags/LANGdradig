@@ -2,6 +2,7 @@ package scallywags.langdradig.generate;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -43,6 +44,9 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String IF_THEN = "IfThen";
 	private static final String IF_THEN_ELSE = "IfThenElse";
 	private static final String WHILE = "While";
+	private static final String FORK = "Fork";
+	private static final String WAIT = "Wait";
+	private static final String SYNC = "Sync";
 	
 	private static final String ASS = "Ass";
 	
@@ -132,9 +136,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitDeclStat(DeclStatContext ctx) {
-		return new StringBuilder().append(DECL).append(' ')
-				.append(QUOTE).append(visit(ctx.IDENTIFIER())).append(QUOTE).append(' ')
-				.append(visit(ctx.type())).toString();
+		return DECL + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
+				+ " " + LPAR + visit(ctx.type()) + LPAR;
 	}
 	
 	@Override
@@ -149,7 +152,58 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 		builder.append(RPAR);
 		
 		return builder.toString();
-	}	
+	}
+	
+	@Override
+	public String visitExprStat(ExprStatContext ctx) {
+		return EXPR + " " + LPAR + visit(ctx.expression()) + RPAR;
+	}
+	
+	@Override
+	public String visitIfStat(IfStatContext ctx) {
+		List<StatementContext> stmnts = ctx.statement();
+		boolean hasElse = stmnts.size() > 1;
+		
+		StringBuilder builder = new StringBuilder();
+		if (hasElse) {
+			builder.append(IF_THEN_ELSE);
+		} else {
+			builder.append(IF_THEN);
+		}
+		builder.append(' ').append(LPAR).append(visit(ctx.expression())).append(RPAR);
+		builder.append(' ').append(LPAR).append(visit(stmnts.get(0))).append(RPAR);
+		if (hasElse) {
+			builder.append(' ').append(LPAR).append(visit(stmnts.get(1))).append(RPAR);
+		}
+		return builder.toString();
+	}
+	
+	@Override
+	public String visitWhileStat(WhileStatContext ctx) {
+		return WHILE + " " + LPAR + visit(ctx.expression()) + RPAR
+				+ " " + LPAR + visit(ctx.statement()) + RPAR;
+	}
+	
+	@Override
+	public String visitForkStat(ForkStatContext ctx) {
+		return FORK + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
+				+ " " + LPAR + visit(ctx.statement()) + RPAR;
+	}
+	
+	@Override
+	public String visitJoinStat(JoinStatContext ctx) {
+		return WAIT + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
+	}
+	
+	@Override
+	public String visitSyncStat(SyncStatContext ctx) {
+		return SYNC + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
+				+ " " + LPAR + visit(ctx.statement()) + RPAR;
+	}
+	
+	// -------------- Expression --------------
+	
+	//TODO
 	
 	// -------------- Terminal --------------
 	
@@ -157,6 +211,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	public String visitTerminal(TerminalNode ctx) {
 		return ctx.getText();
 	}
+	
+	// -------------- Rest --------------
 	
 	public String generate() throws IOException {
 		return visitProgram(new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program());

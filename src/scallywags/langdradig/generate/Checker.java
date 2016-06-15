@@ -116,18 +116,6 @@ public class Checker extends LANGdradigBaseListener {
         }
     }
 
-    // ------------- Assignment -------------
-
-    @Override
-    public void exitAssignment(AssignmentContext ctx) {
-        Type exprType = types.get(ctx.expression());
-        Type idfType = table.get(ctx.IDENTIFIER().getText());
-        if (exprType != idfType) {
-            exceptions.add(new TypeException(ctx, idfType, exprType));
-        }
-        types.put(ctx, exprType);
-    }
-
     // ------------- Expression -------------
 
     @Override
@@ -264,8 +252,12 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitAssExpr(AssExprContext ctx) {
-        Type type = types.get(ctx.assignment());
-        types.put(ctx, type);
+        Type exprType = types.get(ctx.expression());
+        Type idfType = table.get(ctx.IDENTIFIER().getText());
+        if (exprType != idfType) {
+            exceptions.add(new TypeException(ctx, idfType, exprType));
+        }
+        types.put(ctx, exprType);
     }
 
     // ------------- Primary -------------
