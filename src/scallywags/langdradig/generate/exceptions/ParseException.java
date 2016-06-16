@@ -1,4 +1,4 @@
-package scallywags.langdradig.generate.except;
+package scallywags.langdradig.generate.exceptions;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 

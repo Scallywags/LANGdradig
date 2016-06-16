@@ -1,10 +1,11 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.errors;
 
 import scallywags.langdradig.generate.Type;
-import scallywags.langdradig.generate.except.AlreadyDeclaredException;
-import scallywags.langdradig.generate.except.CheckerException;
-import scallywags.langdradig.generate.except.TypeException;
-import scallywags.langdradig.generate.except.UndeclaredException;
+import scallywags.langdradig.generate.exceptions.AlreadyDeclaredException;
+import scallywags.langdradig.generate.exceptions.CheckerException;
+import scallywags.langdradig.generate.exceptions.TypeException;
+import scallywags.langdradig.generate.exceptions.UndeclaredException;
+import scallywags.langdradig.ide.errors.LANGdradigError;
 
 /**
  * Created by Jeroen Weener on 16/06/2016.

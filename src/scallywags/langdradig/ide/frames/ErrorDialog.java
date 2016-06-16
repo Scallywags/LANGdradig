@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.frames;
 
 import javax.swing.*;
 import java.awt.*;

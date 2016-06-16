@@ -12,13 +12,12 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import scallywags.langdradig.generate.except.*;
+import scallywags.langdradig.generate.exceptions.*;
 import scallywags.langdradig.grammatica.LANGdradigBaseListener;
 import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
-import scallywags.langdradig.ide.LANGdradigError;
-import scallywags.langdradig.ide.LANGdradigErrorBuilder;
+import scallywags.langdradig.ide.errors.LANGdradigError;
 import scallywags.langdradig.listeners.LANGdradigErrorListener;
 
 /**

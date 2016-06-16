@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.errors;
 
 /**
  * Created by Jeroen Weener on 16/06/2016.

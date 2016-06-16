@@ -3,8 +3,8 @@ package scallywags.langdradig.listeners;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
-import scallywags.langdradig.ide.LANGdradigErrorBuilder;
-import scallywags.langdradig.ide.LANGdradigError;
+import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
+import scallywags.langdradig.ide.errors.LANGdradigError;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,10 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.frames;
 
 import scallywags.langdradig.generate.Checker;
-import scallywags.langdradig.generate.except.CheckerException;
+import scallywags.langdradig.generate.exceptions.CheckerException;
+import scallywags.langdradig.ide.TextLineNumber;
+import scallywags.langdradig.ide.errors.LANGdradigError;
+import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import java.awt.event.*;
