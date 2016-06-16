@@ -156,11 +156,17 @@ public class ParseTest {
         testCorrectProgram("a is kleiner dan of gelijk aan b.");                                                // Smaller or equal operator
         testCorrectProgram("a is kleiner dan of is gelijk aan b.");
         testCorrectProgram("a kleiner is dan of gelijk is aan b.");
+        testCorrectProgram("a kleiner is dan of gelijk aan b.");
+        testCorrectProgram("a is kleiner of gelijk aan b.");
+        testCorrectProgram("a kleiner of gelijk is aan b.");
         testCorrectProgram("a <= b.");
 
         testCorrectProgram("a is groter dan of gelijk aan b.");                                                 // Larger or equal operator
         testCorrectProgram("a is groter dan of is gelijk aan b.");
         testCorrectProgram("a groter is dan of gelijk is aan b.");
+        testCorrectProgram("a groter is dan of gelijk aan b.");
+        testCorrectProgram("a is groter of gelijk aan b.");
+        testCorrectProgram("a groter of gelijk is aan b.");
         testCorrectProgram("a >= b.");
 
         testCorrectProgram("-a.");                                                                              // Negation operator for integers

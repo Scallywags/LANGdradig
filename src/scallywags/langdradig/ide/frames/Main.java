@@ -7,10 +7,14 @@ import scallywags.langdradig.ide.errors.LANGdradigError;
 import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.nio.file.Files;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -18,17 +22,22 @@ import java.util.List;
  */
 // TODO support for control s to save
 // TODO support for control r to run
-// TODO open button is smaller than the other buttons
 // TODO implement onStart function
 // TODO translate certain errors
 // TODO verwacht onbekend should be undeclared error
+// TODO Fix bug in checker -> b is een waarhseid <- gaat stuk met een nullpointer
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
     private JPanel contentPane;
     private JButton openButton;
     private JButton saveButton;
+
     private JTextArea codeArea;
+    private Highlighter highlighter;
+    private Highlighter.HighlightPainter painter;
+    private Map<Integer, Object> highlightTags;
+
     private JTextArea messagesArea;
     private JButton clearButton;
     private JButton showHideButton;
@@ -59,7 +68,11 @@ public class Main extends JFrame {
         TextLineNumber tln = new TextLineNumber(codeArea);
         codeScrollPane.setRowHeaderView(tln);
 
-// call onCancel() when cross is clicked
+        highlighter = codeArea.getHighlighter();
+        painter = new DefaultHighlighter.DefaultHighlightPainter(Color.PINK);
+        highlightTags = new HashMap<>();
+
+        // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -67,7 +80,7 @@ public class Main extends JFrame {
             }
         });
 
-// call onCancel() on ESCAPE
+        // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
@@ -101,6 +114,7 @@ public class Main extends JFrame {
 
     private void onSave() {
         String content = codeArea.getText();
+        highlighter.removeAllHighlights();
         try (PrintWriter writer = new PrintWriter(filePath, "UTF-8")) {
             writer.write(content);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
@@ -120,6 +134,7 @@ public class Main extends JFrame {
         checker.checkString(codeArea.getText());
         if (checker.getCheckerExceptions().isEmpty() && checker.getParserExceptions().isEmpty()) {
             print("Geen errors!");
+            messagesArea.setBackground(new Color(180, 255, 150));
         } else {
             List<LANGdradigError> errors = checker.getParserExceptions();
             List<CheckerException> checkerExceptions = checker.getCheckerExceptions();
@@ -128,6 +143,7 @@ public class Main extends JFrame {
             for (LANGdradigError e : errors) {
                 printError(e);
             }
+            messagesArea.setBackground(Color.PINK);
         }
     }
 
@@ -140,8 +156,26 @@ public class Main extends JFrame {
         this.revalidate();
     }
 
-    private void printError(LANGdradigError LANGdradigError) {
-        print(LANGdradigError.toString());
+    private void highlight(int lineNumber) {
+        String code = codeArea.getText();
+        String[] lines = code.split("\n");
+        // Line numbers start on 1, indices on 0
+        int startPos = code.indexOf(lines[lineNumber - 1]);
+        int endPos = startPos + lines[lineNumber - 1].length() - 1;
+        try {
+            highlightTags.put(lineNumber, highlighter.addHighlight(startPos, endPos, painter));
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeHighlight(int lineNumber) {
+        highlighter.removeHighlight(highlightTags.remove(lineNumber));
+    }
+
+    private void printError(LANGdradigError error) {
+        print(error.toString());
+        highlight(error.getLineNumber());
     }
 
     private void print(String s) {

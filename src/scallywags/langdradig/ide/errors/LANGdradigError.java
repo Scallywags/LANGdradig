@@ -30,4 +30,9 @@ public class LANGdradigError implements Comparable<LANGdradigError> {
         int theirLineNumber = e.getLineNumber();
         return theirLineNumber == lineNumber ? 0 : lineNumber < theirLineNumber ? -1 : 1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || o instanceof LANGdradigError && ((LANGdradigError) o).getErrorMessage().equals(errorMessage);
+    }
 }
