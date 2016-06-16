@@ -17,6 +17,8 @@ import scallywags.langdradig.grammatica.LANGdradigBaseListener;
 import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
+import scallywags.langdradig.ide.LANGdradigErrorBuilder;
+import scallywags.langdradig.listeners.LANGdradigErrorListener;
 
 /**
  * The type- and scope checker for the LANGdradig� programming language.
@@ -33,7 +35,9 @@ public class Checker extends LANGdradigBaseListener {
 
     private Set<String> forkIDs = new HashSet<>();
 
-    private List<CheckerException> exceptions = new ArrayList<CheckerException>();
+    private List<CheckerException> exceptions = new ArrayList<>();
+
+    private LANGdradigErrorListener errorListener = new LANGdradigErrorListener();
 
     /**
      * @param source the file to be scanned and checked
@@ -45,6 +49,8 @@ public class Checker extends LANGdradigBaseListener {
         Lexer lexer = new LANGdradigLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         LANGdradigParser parser = new LANGdradigParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
 
         ParseTree tree = parser.program();
         new ParseTreeWalker().walk(this, tree);
@@ -55,6 +61,8 @@ public class Checker extends LANGdradigBaseListener {
         Lexer lexer = new LANGdradigLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         LANGdradigParser parser = new LANGdradigParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
 
         ParseTree tree = parser.program();
         new ParseTreeWalker().walk(this, tree);
@@ -99,7 +107,7 @@ public class Checker extends LANGdradigBaseListener {
     public void exitJoinStat(JoinStatContext ctx) {
         String id = ctx.IDENTIFIER().getText();
         if (!forkIDs.contains(id)) {
-            exceptions.add(new UndeclaredException(id));
+            exceptions.add(new UndeclaredException(ctx, id));
         }
     }
 
@@ -118,7 +126,7 @@ public class Checker extends LANGdradigBaseListener {
         Type type = types.get(ctx.type());
         boolean success = table.add(ctx.IDENTIFIER().getText(), type);
         if (!success) {
-            exceptions.add(new AlreadyDeclaredException(ctx.IDENTIFIER().getText()));
+            exceptions.add(new AlreadyDeclaredException(ctx, ctx.IDENTIFIER().getText()));
         }
     }
 
@@ -288,7 +296,7 @@ public class Checker extends LANGdradigBaseListener {
     public void exitIdfExpr(IdfExprContext ctx) {
         Type type = table.get(ctx.getText());
         if (type == null) {
-            exceptions.add(new UndeclaredException(ctx.getText()));
+            exceptions.add(new UndeclaredException(ctx, ctx.getText()));
         }
         types.put(ctx, type);
     }
@@ -312,11 +320,14 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void visitErrorNode(ErrorNode ctx) {
-        exceptions.add(new CheckerException("ErrorNode " + ctx.getText()));
+        //TODO
     }
 
-    public List<CheckerException> getExceptions() {
-        return exceptions;
+    public List<String> getExceptionsStrings() {
+        List<String> result = new ArrayList<>();
+        exceptions.forEach(e -> result.add(LANGdradigErrorBuilder.format(e)));
+        result.addAll(errorListener.getErrors());
+        return result;
     }
 
     //TODO support Array Types

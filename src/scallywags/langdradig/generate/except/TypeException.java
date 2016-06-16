@@ -6,22 +6,22 @@ import scallywags.langdradig.generate.Type;
 
 @SuppressWarnings("serial")
 public class TypeException extends CheckerException {
-	private Type expectedType;
-	private Type actualType;
-	
-	public TypeException(ParseTree subTree, Type expected, Type actual) {
-		super(String.format("Expected Type %s but got type %s in \"%s\".",
-				expected == null ? "null" : expected.toString() , actual == null ? "null" : actual.toString(), subTree.getText()));
-		expectedType = expected;
-		actualType = actual;
-	}
+    private Type expectedType;
+    private Type actualType;
 
-	public Type getExpectedType() {
-		return expectedType;
-	}
+    public TypeException(ParseTree subTree, Type expected, Type actual) {
+        super(subTree, String.format("Expected %s but it was %s in \"%s\".",
+                expected == null ? "null" : expected.toString(), actual == null ? "null" : actual.toString(), subTree));
+        expectedType = expected;
+        actualType = actual;
+    }
 
-	public Type getActualType() {
-		return actualType;
-	}
+    public Type getExpectedType() {
+        return expectedType;
+    }
+
+    public Type getActualType() {
+        return actualType;
+    }
 
 }

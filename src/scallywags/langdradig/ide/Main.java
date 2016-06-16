@@ -8,12 +8,20 @@ import scallywags.langdradig.generate.except.UndeclaredException;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * Created by Jeroen Weener on 15/06/2016.
+ */
+// TODO support for control s to save
+// TODO support for control r to run
+// TODO open button is smaller than the other buttons
+// TODO implement onStart function
+// TODO display error dialog when selecting file without .langdradig extension
+// TODO calculate line numbers with certain errors
+// TODO translate certain errors
+// TODO verwacht onbekend should be undeclared error
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -28,6 +36,7 @@ public class Main extends JFrame {
     private JLabel messagesLabel;
     private JPanel messagesPanel;
     private JButton startButton;
+    private JScrollPane codeScrollPane;
 
     private String filePath;
 
@@ -45,6 +54,11 @@ public class Main extends JFrame {
         clearButton.addActionListener(e -> clearMessages());
 
         showHideButton.addActionListener(e -> toggleMessages());
+
+        startButton.addActionListener(e -> onStart());
+
+        TextLineNumber tln = new TextLineNumber(codeArea);
+        codeScrollPane.setRowHeaderView(tln);
 
 // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -77,7 +91,7 @@ public class Main extends JFrame {
                     e.printStackTrace();
                 }
             } else {
-                //Display dialog with error, file should be of type LANGdradig
+                new ErrorDialog("Invalid file type", "Please open a file of type .langdradig");
             }
         }
     }
@@ -87,17 +101,18 @@ public class Main extends JFrame {
     }
 
     private void onSave() {
-        List<String> lines = new ArrayList<>();
-        lines.add(codeArea.getText());
-
-        try {
-            Files.write(new File(filePath).toPath(), lines, Charset.forName("UTF-8"));
-        } catch (IOException e) {
-            //Should not happen
+        String content = codeArea.getText();
+        try (PrintWriter writer = new PrintWriter(filePath, "UTF-8")) {
+            writer.write(content);
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         clearMessages();
         checkContent();
+    }
+
+    private void onStart() {
+        new ErrorDialog("Not yet implemented", "This feature is not yet implemented.");
     }
 
     private void checkContent() {
@@ -109,9 +124,10 @@ public class Main extends JFrame {
             //TODO handle exception
             e.printStackTrace();
         }
-        checker.getExceptions().forEach(this::printError);
-        if (checker.getExceptions().isEmpty()) {
+        if (checker.getExceptionsStrings().isEmpty()) {
             print("Geen errors");
+        } else {
+            checker.getExceptionsStrings().forEach(this::printError);
         }
     }
 
@@ -128,12 +144,16 @@ public class Main extends JFrame {
         if (e instanceof AlreadyDeclaredException) {
             print("Variabele " + ((AlreadyDeclaredException) e).getIdentifier() + " is al gedefinieerd.");
         } else if (e instanceof TypeException) {
-            print("Verwachtte " + ((TypeException) e).getExpectedType() + " maar het was "+ ((TypeException) e).getActualType());
+            print("Verwachtte " + ((TypeException) e).getExpectedType() + " maar het was " + ((TypeException) e).getActualType());
         } else if (e instanceof UndeclaredException) {
             print("Variabele " + ((UndeclaredException) e).getIdentifier() + " is nog niet gedefinieerd.");
         } else {
             print("Error. (Geen verdere informatie beschikbaar)");
         }
+    }
+
+    private void printError(String error) {
+        print(error);
     }
 
     private void print(String s) {
@@ -147,9 +167,5 @@ public class Main extends JFrame {
         dialog.setResizable(true);
         dialog.setExtendedState(JFrame.MAXIMIZED_BOTH);
         dialog.setVisible(true);
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 }
