@@ -15,6 +15,9 @@ intBool :: Bool -> Int
 intBool True  = 1                                               -- Bool-to-Int
 intBool False = 0
 
+boolInt :: Int -> Bool
+boolInt i 	= i /= 0
+
 (+>>) :: a -> [a] -> [a]
 x +>> xs = [x] ++ init xs                                       -- shift value into buffer
 
