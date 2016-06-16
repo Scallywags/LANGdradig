@@ -45,7 +45,7 @@ public interface Type {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((elemType == null) ? 0 : elemType.hashCode());
+			result = prime * result + (elemType.hashCode());
 			result = prime * result + numElems;
 			return result;
 		}
@@ -58,10 +58,7 @@ public interface Type {
 			if (getClass() != obj.getClass())
 				return false;
 			ArrayType other = (ArrayType) obj;
-			if (elemType == null) {
-				if (other.elemType != null)
-					return false;
-			} else if (!elemType.equals(other.elemType))
+			if (!elemType.equals(other.elemType))
 				return false;
 			if (numElems != other.numElems)
 				return false;

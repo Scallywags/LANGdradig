@@ -12,11 +12,13 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import scallywags.langdradig.generate.except.*;
+import scallywags.langdradig.generate.exceptions.*;
 import scallywags.langdradig.grammatica.LANGdradigBaseListener;
 import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
+import scallywags.langdradig.ide.errors.LANGdradigError;
+import scallywags.langdradig.listeners.LANGdradigErrorListener;
 
 /**
  * The type- and scope checker for the LANGdradig programming language.
@@ -31,7 +33,9 @@ public class Checker extends LANGdradigBaseListener {
 
     private Set<String> forkIDs = new HashSet<>();
 
-    private List<CheckerException> exceptions = new ArrayList<CheckerException>();
+    private List<CheckerException> exceptions = new ArrayList<>();
+
+    private LANGdradigErrorListener errorListener = new LANGdradigErrorListener();
 
     /**
      * @param source the file to be scanned and checked
@@ -43,16 +47,20 @@ public class Checker extends LANGdradigBaseListener {
         Lexer lexer = new LANGdradigLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         LANGdradigParser parser = new LANGdradigParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
 
         ParseTree tree = parser.program();
         new ParseTreeWalker().walk(this, tree);
     }
 
-    public void checkString(String text) throws IOException {
+    public void checkString(String text) {
         CharStream stream = new ANTLRInputStream(text);
         Lexer lexer = new LANGdradigLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         LANGdradigParser parser = new LANGdradigParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
 
         ParseTree tree = parser.program();
         new ParseTreeWalker().walk(this, tree);
@@ -97,7 +105,7 @@ public class Checker extends LANGdradigBaseListener {
     public void exitJoinStat(JoinStatContext ctx) {
         String id = ctx.IDENTIFIER().getText();
         if (!forkIDs.contains(id)) {
-            exceptions.add(new UndeclaredException(id));
+            exceptions.add(new UndeclaredException(ctx, id));
         }
     }
 
@@ -116,7 +124,7 @@ public class Checker extends LANGdradigBaseListener {
         Type type = types.get(ctx.type());
         boolean success = table.add(ctx.IDENTIFIER().getText(), type);
         if (!success) {
-            exceptions.add(new AlreadyDeclaredException(ctx.IDENTIFIER().getText()));
+            exceptions.add(new AlreadyDeclaredException(ctx, ctx.IDENTIFIER().getText()));
         }
     }
 
@@ -286,7 +294,7 @@ public class Checker extends LANGdradigBaseListener {
     public void exitIdfExpr(IdfExprContext ctx) {
         Type type = table.getType(ctx.getText());
         if (type == null) {
-            exceptions.add(new UndeclaredException(ctx.getText()));
+            exceptions.add(new UndeclaredException(ctx, ctx.getText()));
         }
         types.put(ctx, type);
     }
@@ -318,11 +326,15 @@ public class Checker extends LANGdradigBaseListener {
     
     @Override
     public void visitErrorNode(ErrorNode ctx) {
-        exceptions.add(new CheckerException("ErrorNode " + ctx.getText()));
+        //TODO
     }
 
-    public List<CheckerException> getExceptions() {
+    public List<CheckerException> getCheckerExceptions() {
         return exceptions;
+    }
+
+    public List<LANGdradigError> getParserExceptions() {
+        return errorListener.getErrors();
     }
 
 
