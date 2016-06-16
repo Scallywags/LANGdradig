@@ -81,7 +81,8 @@ LH				: '('                                               ;
 RH				: ')'                                               ;
 IS				: I S                                               ;
 EEN				: E E N                                             ;
-OP              :   O P                                             ;
+OP              : O P	                                            ;
+VAN				: V A N												;
 
 NUMBER			: DIGIT+			                                ;
 IDENTIFIER		: LETTER ALPHANUM*	                                ;

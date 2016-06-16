@@ -30,6 +30,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String RPAR = ")";
 	private static final String LSQ = "[";
 	private static final String RSQ = "]";
+	private static final String COLON = ":";
 	
 	private static final String PROG = "Prog";
 	private static final String EXPR = "Expr";
@@ -88,6 +89,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private final String programName;
 	private final String sourceProgramPath;
 	
+	private final SymbolTable table = new SymbolTable();
+	
 	public Generator(String sourceFilePath) {
 		
 		File file = new File(sourceFilePath);
@@ -125,7 +128,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 		builder.append(PROG).append(' ');
 		builder.append(LPAR);
 		for (StatementContext stmnt : ctx.statement()) {
-			builder.append(visit(stmnt)).append(':');
+			builder.append(visit(stmnt)).append(COLON);
 		}
 		builder.append(LSQ).append(RSQ);
 		builder.append(RPAR);
@@ -137,7 +140,10 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitDeclStat(DeclStatContext ctx) {
-		return DECL + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
+		String identifier = visit(ctx.IDENTIFIER());
+		
+		
+		return DECL + " " + QUOTE + identifier + QUOTE
 				+ " " + LPAR + visit(ctx.type()) + RPAR;
 	}
 	
@@ -147,7 +153,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 		builder.append(BLOCK).append(' ');
 		builder.append(LPAR);
 		for (StatementContext stmnt : ctx.statement()) {
-			builder.append(visit(stmnt)).append(':');
+			builder.append(visit(stmnt)).append(COLON);
 		}
 		builder.append(LSQ).append(RSQ);
 		builder.append(RPAR);
@@ -330,6 +336,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitArrayType(ArrayTypeContext ctx) {
 		throw new UnsupportedOperationException("ArrayType is not supported yet in this build.");
+		//TODO FIX
 	}
 	
 	// -------------- Terminal --------------
