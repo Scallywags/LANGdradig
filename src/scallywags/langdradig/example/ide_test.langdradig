@@ -2,4 +2,13 @@ a is een geheel getal.
 b is een waarheid.
 
 zolang b klopt
-	a wordt 1.
+	doe
+		a wordt 1 plus a.
+		als a gelijk is aan 8 dan
+			b wordt niet waar.
+	klaar.
+
+
+
+
+

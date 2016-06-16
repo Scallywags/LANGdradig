@@ -7,7 +7,6 @@ import scallywags.langdradig.generate.except.TypeException;
 import scallywags.langdradig.generate.except.UndeclaredException;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main extends JDialog {
+public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
     private JPanel contentPane;
     private JButton openButton;
@@ -26,12 +25,15 @@ public class Main extends JDialog {
     private JButton clearButton;
     private JButton showHideButton;
     private JScrollPane messagesAreaScrollPane;
+    private JLabel messagesLabel;
+    private JPanel messagesPanel;
+    private JButton startButton;
 
     private String filePath;
 
     public Main() {
         setContentPane(contentPane);
-        setModal(true);
+//        setModal(true);
         getRootPane().setDefaultButton(openButton);
 
         codeArea.setTabSize(2);
@@ -94,10 +96,12 @@ public class Main extends JDialog {
             //Should not happen
             e.printStackTrace();
         }
+        clearMessages();
         checkContent();
     }
 
     private void checkContent() {
+        print("Opslaan...");
         Checker checker = new Checker();
         try {
             checker.checkString(codeArea.getText());
@@ -106,6 +110,9 @@ public class Main extends JDialog {
             e.printStackTrace();
         }
         checker.getExceptions().forEach(this::printError);
+        if (checker.getExceptions().isEmpty()) {
+            print("Geen errors");
+        }
     }
 
     public void clearMessages() {
@@ -113,19 +120,19 @@ public class Main extends JDialog {
     }
 
     private void toggleMessages() {
-        messagesAreaScrollPane.setVisible(!messagesAreaScrollPane.isVisible());
+        messagesPanel.setVisible(!messagesPanel.isVisible());
         this.revalidate();
     }
 
     private void printError(CheckerException e) {
         if (e instanceof AlreadyDeclaredException) {
-            print("Variable " + ((AlreadyDeclaredException) e).getIdentifier() + " is already declared.");
+            print("Variabele " + ((AlreadyDeclaredException) e).getIdentifier() + " is al gedefinieerd.");
         } else if (e instanceof TypeException) {
-            print("Expected type " + ((TypeException) e).getExpectedType() + " but it was of type "+ ((TypeException) e).getActualType());
+            print("Verwachtte " + ((TypeException) e).getExpectedType() + " maar het was "+ ((TypeException) e).getActualType());
         } else if (e instanceof UndeclaredException) {
-            print("Variable " + ((UndeclaredException) e).getIdentifier() + " is not yet declared.");
+            print("Variabele " + ((UndeclaredException) e).getIdentifier() + " is nog niet gedefinieerd.");
         } else {
-            print("Parse error. (No further information available)");
+            print("Error. (Geen verdere informatie beschikbaar)");
         }
     }
 
@@ -138,8 +145,11 @@ public class Main extends JDialog {
         dialog.pack();
         dialog.setTitle("LANGdradig IDE");
         dialog.setResizable(true);
-        dialog.setSize(new Dimension(1000, 500));
+        dialog.setExtendedState(JFrame.MAXIMIZED_BOTH);
         dialog.setVisible(true);
-        System.exit(0);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
