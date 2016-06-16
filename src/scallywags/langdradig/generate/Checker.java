@@ -19,12 +19,10 @@ import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
 
 /**
- * The type- and scope checker for the LANGdradig� programming language.
- *
- * @author Jan
+ * The type- and scope checker for the LANGdradig programming language.
  */
 
-//TODO add listener methods for newly added expressions and statements.
+//TODO add listener methods for newly added expressions and statements such as increment and decrement
 public class Checker extends LANGdradigBaseListener {
 
     private SymbolTable table = new SymbolTable();
@@ -259,7 +257,7 @@ public class Checker extends LANGdradigBaseListener {
     @Override
     public void exitAssExpr(AssExprContext ctx) {
         Type exprType = types.get(ctx.expression());
-        Type idfType = table.get(ctx.IDENTIFIER().getText());
+        Type idfType = table.getType(ctx.IDENTIFIER().getText());
         if (exprType != idfType) {
             exceptions.add(new TypeException(ctx, idfType, exprType));
         }
@@ -286,7 +284,7 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitIdfExpr(IdfExprContext ctx) {
-        Type type = table.get(ctx.getText());
+        Type type = table.getType(ctx.getText());
         if (type == null) {
             exceptions.add(new UndeclaredException(ctx.getText()));
         }
@@ -311,6 +309,14 @@ public class Checker extends LANGdradigBaseListener {
     }
 
     @Override
+    public void exitArrayType(ArrayTypeContext ctx) {
+    	Type elemType = types.get(ctx.type());
+    	types.put(ctx, Type.ARRAY(elemType, Integer.parseInt(ctx.NUMBER().getText())));
+    }
+    
+    // ------------- Other -------------
+    
+    @Override
     public void visitErrorNode(ErrorNode ctx) {
         exceptions.add(new CheckerException("ErrorNode " + ctx.getText()));
     }
@@ -319,6 +325,5 @@ public class Checker extends LANGdradigBaseListener {
         return exceptions;
     }
 
-    //TODO support Array Types
 
 }

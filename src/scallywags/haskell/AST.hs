@@ -4,6 +4,7 @@ module AST where
 
 import GHC.Generics
 import FPPrac.Trees
+import HardwareTypes
 
 data Prog   = Prog [Stat] deriving (Show, Eq, Read, Generic, ToRoseTree)
 
@@ -20,7 +21,7 @@ data Stat   = Decl String Type
 
 data Expr   = Par Expr
             | Bool Bool
-            | Idf String
+            | Idf MemAddr
             | Int Int
             | UnOp UnOp Expr
             | BinOp BinOp Expr Expr
@@ -62,3 +63,25 @@ data Type   = IntType
             | BoolType
             | Array Type
             deriving (Show, Eq, Read, Generic, ToRoseTree)
+
+class CodeGen c where
+      gen :: c -> [Instruction]
+
+instance CodeGen Prog where
+      gen (Prog statements)               = concatMap gen statements
+
+instance CodeGen Stat where
+      gen (Decl varName varType)          = [] --TODO
+      gen (Block stats)                   = concatMapgen stats
+      gen (Expr expr)                     = gen expression
+      gen (IfThen expr stat)              = [] --TODO
+      gen (IfThenElse expr stat1 stat2)   = [] --TODO
+      gen (While expr stat)               = [] --TODO
+      gen (Fork thread_id stat)           = [] --TODO
+      gen (Wait thread_id)                = [] --TODO
+      gen (Sync lock stat)                = [] --TODO
+
+instance CodeGen Expr where
+      gen (Par expr)    = gen expr
+      gen (Bool bool)   = []
+      gen (Idf string)  = []

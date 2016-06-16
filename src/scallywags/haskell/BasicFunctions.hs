@@ -38,7 +38,7 @@ xs <~! (i,x)    | i == 0        = xs
 (∈) :: Eq a => a -> [a] -> Bool
 x ∈ xs =  x `elem` xs
 
-concatWith :: a -> [[a]] -> [a]									-- why not use intersperse and concat? :)
+concatWith :: a -> [[a]] -> [a]                                 -- why not use intersperse and concat? :)
 concatWith x [] = []                                            -- concats a list of lists with a "gluing element" x
 concatWith x [y] = y
 concatWith x (y:ys) = y ++ [x] ++ concatWith x ys

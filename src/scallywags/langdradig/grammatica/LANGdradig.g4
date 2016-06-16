@@ -45,5 +45,5 @@ primary		:	LH expression RH						                                               
 			
 type	    :   GEHEELGETAL		                                                                        #intType
 		    |   WAARHEID			                                                                    #boolType
-		    |   type REEKS		                                                                        #arrayType
+		    |   REEKS VAN NUMBER type                                                                   #arrayType
 		    ;
