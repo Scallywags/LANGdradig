@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 public class SymbolTable {
-	
+
 	private int currentOffset = 0;
 	private Stack<Scope> scopes = new Stack<>();
 
@@ -30,7 +30,7 @@ public class SymbolTable {
 	public boolean contains(String id) {
 		return scopes.stream().anyMatch(scope -> scope.contains(id));
 	}
-	
+
 	/**
 	 * 
 	 * @param id the identifier
@@ -46,7 +46,7 @@ public class SymbolTable {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param id the identifier
@@ -63,10 +63,15 @@ public class SymbolTable {
 		return -1;
 	}
 	
+	@Override
+	public String toString() {
+		return scopes.toString();
+	}
+
 	private class Scope {
 		Map<String, Type> types = new HashMap<>();
 		Map<String, Integer> offsets = new HashMap<>();
-		
+
 		public boolean add(String identifier, Type type) {
 			boolean success = types.putIfAbsent(identifier, type) == null;
 			if (success) {
@@ -75,18 +80,23 @@ public class SymbolTable {
 			}			
 			return success;
 		}
-		
+
 		public boolean contains(String identifier) {
 			return types.containsKey(identifier);
 		}
-		
+
 		public Type getType(String identifier) {
 			return types.get(identifier);
 		}
-		
+
 		public Integer getOffset(String identifier) {
 			return offsets.get(identifier);
 		}
+
+		@Override public String toString() {
+			return "Scope{\ntypes = " + types + ",\n"
+					+ "offsets = " + offsets + "}";
+		}
 	}
-	
+
 }
