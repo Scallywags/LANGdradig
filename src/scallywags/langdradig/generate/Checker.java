@@ -17,6 +17,7 @@ import scallywags.langdradig.grammatica.LANGdradigBaseListener;
 import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
+import scallywags.langdradig.ide.LANGdradigError;
 import scallywags.langdradig.ide.LANGdradigErrorBuilder;
 import scallywags.langdradig.listeners.LANGdradigErrorListener;
 
@@ -54,7 +55,7 @@ public class Checker extends LANGdradigBaseListener {
         new ParseTreeWalker().walk(this, tree);
     }
 
-    public void checkString(String text) throws IOException {
+    public void checkString(String text) {
         CharStream stream = new ANTLRInputStream(text);
         Lexer lexer = new LANGdradigLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
@@ -329,11 +330,12 @@ public class Checker extends LANGdradigBaseListener {
         //TODO
     }
 
-    public List<String> getExceptionsStrings() {
-        List<String> result = new ArrayList<>();
-        exceptions.forEach(e -> result.add(LANGdradigErrorBuilder.format(e)));
-        result.addAll(errorListener.getErrors());
-        return result;
+    public List<CheckerException> getCheckerExceptions() {
+        return exceptions;
+    }
+
+    public List<LANGdradigError> getParserExceptions() {
+        return errorListener.getErrors();
     }
 
 

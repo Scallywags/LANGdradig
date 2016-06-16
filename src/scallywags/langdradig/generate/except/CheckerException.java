@@ -16,8 +16,6 @@ public class CheckerException extends RuntimeException {
     }
 
     /**
-     * Not totally correct, sometimes print multiple spaces
-     *
      * @param tree the tree that was constructed from a sentence in our program
      * @return A string representation of the original line that the tree was constructed from
      */
@@ -26,9 +24,10 @@ public class CheckerException extends RuntimeException {
         if (tree.getChildCount() == 0) {
             return tree.getText();
         } else {
-            for (int i = 0; i < tree.getChildCount(); i++) {
+            for (int i = 0; i < tree.getChildCount() - 1; i++) {
                 sb.append(printTree(tree.getChild(i))).append(" ");
             }
+            sb.append(printTree(tree.getChild(tree.getChildCount() - 1)));
         }
         return sb.toString();
     }

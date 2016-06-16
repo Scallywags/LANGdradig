@@ -26,13 +26,13 @@ public class CheckerTest {
     @Test
     public void test() {
         readFile("als-dan-anders_example");
-        assertEquals(new ArrayList<>(), checker.getExceptionsStrings());
+        assertEquals(new ArrayList<>(), checker.getCheckerExceptions());
     }
 
 //    @Test
 //    public void testDeclarations() {
 //        readFile("declaration_example");
-//        List<CheckerException> exceptions = checker.getExceptionsStrings();
+//        List<CheckerException> exceptions = checker.getCheckerExceptions();
 
 //        for (CheckerException e : exceptions) {
 //            System.out.println(e.getMessage());

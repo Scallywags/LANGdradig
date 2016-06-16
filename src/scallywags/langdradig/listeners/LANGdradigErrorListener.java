@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import scallywags.langdradig.ide.LANGdradigErrorBuilder;
+import scallywags.langdradig.ide.LANGdradigError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.List;
  */
 public class LANGdradigErrorListener extends BaseErrorListener {
 
-    private final List<String> errors = new ArrayList<>();
+    private final List<LANGdradigError> errors = new ArrayList<>();
 
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-        this.errors.add(LANGdradigErrorBuilder.format(line, msg));
+        this.errors.add(LANGdradigErrorBuilder.format(msg, line));
     }
 
     /** Indicates if the listener has collected any errors. */
@@ -26,7 +27,7 @@ public class LANGdradigErrorListener extends BaseErrorListener {
     }
 
     /** Returns the (possibly empty) list of errors collected by the listener. */
-    public List<String> getErrors() {
+    public List<LANGdradigError> getErrors() {
         return this.errors;
     }
 }
