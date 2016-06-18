@@ -6,7 +6,6 @@ import java.util.Stack;
 
 public class SymbolTable {
 
-    private int currentOffset = 0;
     private Stack<Scope> scopes = new Stack<>();
 
     public void openScope() {
@@ -45,21 +44,6 @@ public class SymbolTable {
         return null;
     }
 
-    /**
-     * @param id the identifier
-     * @return the position in the local memory of the sprockell state.
-     */
-    public int getOffset(String id) {
-        for (int i = scopes.size() - 1; i >= 0; i--) {
-            Scope scope = scopes.get(i);
-            Integer offset = scope.getOffset(id);
-            if (offset != null) {
-                return offset.intValue();
-            }
-        }
-        return -1;
-    }
-
     @Override
     public String toString() {
         return scopes.toString();
@@ -67,19 +51,9 @@ public class SymbolTable {
 
     private class Scope {
         Map<String, Type> types = new HashMap<>();
-        Map<String, Integer> offsets = new HashMap<>();
 
         public boolean add(String identifier, Type type) {
-            boolean success = types.putIfAbsent(identifier, type) == null;
-            if (success) {
-
-                // TODO This is a temporary fix to a bug preventing a nullpointerexception
-                if (type != null) {
-                    offsets.put(identifier, currentOffset);
-                    currentOffset += type.getSize();
-                }
-            }
-            return success;
+            return types.putIfAbsent(identifier, type) == null;
         }
 
         public boolean contains(String identifier) {
@@ -90,14 +64,9 @@ public class SymbolTable {
             return types.get(identifier);
         }
 
-        public Integer getOffset(String identifier) {
-            return offsets.get(identifier);
-        }
-
         @Override
         public String toString() {
-            return "Scope{\ntypes = " + types + ",\n"
-                    + "offsets = " + offsets + "}";
+            return "Scope{\ntypes = " + types + "}";
         }
     }
 

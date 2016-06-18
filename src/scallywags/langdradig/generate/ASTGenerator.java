@@ -14,7 +14,7 @@ import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
 
-public class Generator extends LANGdradigBaseVisitor<String> {
+public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 
 	private static final String NEWLINE = System.lineSeparator();
 	private static final String QUOTE = "\"";
@@ -78,6 +78,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String INT = "Int";
 	private static final String TRUE = "True";
 	private static final String FALSE = "False";
+	private static final String ARRAY = "Array";
 	
 	private static final String INT_TYPE = "IntType";
 	private static final String BOOL_TYPE = "BoolType";
@@ -89,9 +90,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private final String programName;
 	private final String sourceProgramPath;
 	
-	private final SymbolTable table = new SymbolTable();
-	
-	public Generator(String sourceFilePath) {
+	public ASTGenerator(String sourceFilePath) {
 		
 		File file = new File(sourceFilePath);
 		String programName = file.getName();
@@ -362,7 +361,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Generator gen = new Generator(EXAMPLE_DIR + "test0.langdradig");
+		//this main method is temporary, meant for debugging.
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "test0.langdradig");
 		System.out.println(gen);
 		gen.writeAST();
 	}
