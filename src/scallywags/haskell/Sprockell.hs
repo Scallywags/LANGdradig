@@ -173,7 +173,7 @@ alu op x y = case op of
         Add    -> x + y
         Sub    -> x - y
         Mul    -> x * y
-        Equal  -> intBool (x == y)
+        Equ    -> intBool (x == y)                   -- renamed from Equal to Equ
         NEq    -> intBool (x /= y)
         Gt     -> intBool (x > y)
         GtE    -> intBool (x >= y)
