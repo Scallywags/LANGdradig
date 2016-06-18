@@ -12,7 +12,11 @@ import scallywags.langdradig.generate.exceptions.UndeclaredException;
 public class LANGdradigErrorBuilder {
 
     public static LANGdradigError format(String msg, int line) {
-        return new LANGdradigError("Fout op regel " + String.valueOf(line) + "    |    " + format(msg), line);
+        if (line == -1) {
+            return new LANGdradigError("Fout | " + msg, line);
+        } else {
+            return new LANGdradigError("Fout op regel " + String.valueOf(line) + "    |    " + format(msg), line);
+        }
     }
 
     private static String format(String msg) {
@@ -27,17 +31,20 @@ public class LANGdradigErrorBuilder {
         if (e instanceof AlreadyDeclaredException) {
             String id = ((AlreadyDeclaredException) e).getIdentifier();
             line = findLine(code, id);
-            sb.append("Fout op regel ").append(String.valueOf(line)).append("    |    ").append(id).append(" is al gedeclareerd in deze scope");
+            String s = line == -1 ? "" : "op regel " + line;
+            sb.append("Fout ").append(s).append("    |    ").append(id).append(" is al gedeclareerd in deze scope");
         } else if (e instanceof UndeclaredException) {
             String id = ((UndeclaredException) e).getIdentifier();
             line = findLine(code, id);
-            sb.append("Fout op regel ").append(String.valueOf(line)).append("    |    ").append(id).append(" is niet gedeclareerd in deze scope");
+            String s = line == -1 ? "" : "op regel " + line;
+            sb.append("Fout ").append(s).append("    |    ").append(id).append(" is niet gedeclareerd in deze scope");
         } else if (e instanceof TypeException) {
             String expected = convert(((TypeException) e).getExpectedType());
             String actual = convert(((TypeException) e).getActualType());
             String rest = e.getText();
             line = findLine(code, rest);
-            sb.append("Fout op regel ").append(String.valueOf(line)).append("    |    ").append("Verkeerd type: verwachte ")
+            String s = line == -1 ? "" : "op regel " + line;
+            sb.append("Fout ").append(s).append("    |    ").append("Verkeerd type: verwachte ")
                     .append(expected).append(" maar kreeg ").append(actual).append(" in:    ").append(rest).append("");
         } else {
             sb.append("Fout (geen extra informatie beschikbaar");

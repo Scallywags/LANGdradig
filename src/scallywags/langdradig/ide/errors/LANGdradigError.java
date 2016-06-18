@@ -20,6 +20,10 @@ public class LANGdradigError implements Comparable<LANGdradigError> {
         return lineNumber;
     }
 
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
+
     @Override
     public String toString() {
         return errorMessage;

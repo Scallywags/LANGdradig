@@ -8,7 +8,6 @@ import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
@@ -28,7 +27,10 @@ import java.util.List;
 // TODO translate certain errors
 // TODO verwacht onbekend should be undeclared error
 // TODO Fix bug in checker -> b is een waarhseid <- gaat stuk met een nullpointer
-// TODO opslaan bestaan met extensie
+// TODO add view with overview of variables and their types - scopes
+// TODO tabs for programs
+// TODO Floating bubble for few seconds when saving or opening
+// TODO Exception
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -52,6 +54,9 @@ public class Main extends JFrame {
     private JButton startButton;
     private JScrollPane codeScrollPane;
     private JButton newButton;
+
+    private JSplitPane splitPane;
+    private int dividerLocation;
 
     private String filePath;
 
@@ -85,15 +90,36 @@ public class Main extends JFrame {
         painter = new DefaultHighlighter.DefaultHighlightPainter(Color.PINK);
         highlightTags = new HashMap<>();
 
-        fc.setFileFilter(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                return f.isDirectory() || f.getName().endsWith(".langdradig");
-            }
+        fc.setFileFilter(new FileNameExtensionFilter("langdradig file", "langdradig"));
 
+        /**
+         * Key shortcuts
+         *      SAVE:   CTRL + s
+         *      OPEN:   CTRL + o
+         *      NEW:    CTRL + n
+         *      START:  CTRL + r
+         */
+        codeArea.addKeyListener(new KeyAdapter() {
             @Override
-            public String getDescription() {
-                return null;
+            public void keyPressed(KeyEvent e) {
+                if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
+                    switch (e.getKeyCode()) {
+                        case 83:    // 's' key;
+                            onSave();
+                            break;
+                        case 79:    // 'o' key
+                            onOpen();
+                            break;
+                        case 78:    // 'n' key
+                            onNew();
+                            break;
+                        case 82:    // 'r' key
+                            onStart();
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
         });
 
@@ -190,6 +216,7 @@ public class Main extends JFrame {
         highlighter.removeAllHighlights();
 
         if (filePath == null) {
+            fc.setSelectedFile(new File("NieuwBestand.langdradig"));
             int returnValue = fc.showSaveDialog(this);
             if (returnValue != JFileChooser.APPROVE_OPTION) {
                 return;
@@ -234,12 +261,15 @@ public class Main extends JFrame {
 
     private void setUpKeyListener() {
         codeArea.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                madeChanges = true;
-                codeArea.removeKeyListener(this);
-            }
-        });
+                                    @Override
+                                    public void keyTyped(KeyEvent e) {
+                                        if ((e.getModifiers() & ActionEvent.CTRL_MASK) != ActionEvent.CTRL_MASK) {
+                                            madeChanges = true;
+                                            codeArea.removeKeyListener(this);
+                                        }
+                                    }
+                                }
+        );
     }
 
     public void clearMessages() {
@@ -248,16 +278,25 @@ public class Main extends JFrame {
     }
 
     private void toggleMessages() {
-        messagesPanel.setVisible(!messagesPanel.isVisible());
+        if (splitPane.getBottomComponent() == null) {
+            splitPane.setDividerLocation(dividerLocation);
+            splitPane.setBottomComponent(messagesPanel);
+        } else {
+            dividerLocation = splitPane.getDividerLocation();
+            splitPane.setBottomComponent(null);
+        }
         this.revalidate();
     }
 
     private void highlight(int lineNumber) {
         String code = codeArea.getText();
         String[] lines = code.split("\n");
+
+        System.out.println(lineNumber);
         // Line numbers start on 1, indices on 0
         int startPos = code.indexOf(lines[lineNumber - 1]);
-        int endPos = startPos + lines[lineNumber - 1].length() - 1;
+        int endPos = startPos + lines[lineNumber - 1].length();
+        System.out.println(startPos);
         try {
             highlightTags.put(lineNumber, highlighter.addHighlight(startPos, endPos, painter));
         } catch (BadLocationException e) {
@@ -266,12 +305,16 @@ public class Main extends JFrame {
     }
 
     private void removeHighlight(int lineNumber) {
-        highlighter.removeHighlight(highlightTags.remove(lineNumber));
+        highlighter.removeHighlight(highlightTags.get(lineNumber));
     }
 
     private void printError(LANGdradigError error) {
+        int lineNumber = Math.min(error.getLineNumber(), codeArea.getText().split("\n").length);
+        if (lineNumber > 0) {
+            highlight(lineNumber);
+        }
+        error.setLineNumber(lineNumber);
         print(error.toString());
-        highlight(error.getLineNumber());
     }
 
     private void print(String s) {
