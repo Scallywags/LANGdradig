@@ -6,97 +6,99 @@ import java.util.Stack;
 
 public class SymbolTable {
 
-	private int currentOffset = 0;
-	private Stack<Scope> scopes = new Stack<>();
+    private int currentOffset = 0;
+    private Stack<Scope> scopes = new Stack<>();
 
-	public void openScope() {
-		scopes.add(new Scope());
-	}
+    public void openScope() {
+        scopes.add(new Scope());
+    }
 
-	public void closeScope() {
-		scopes.pop();
-	}
+    public void closeScope() {
+        scopes.pop();
+    }
 
-	/**
-	 * 
-	 * @param id the identifier
-	 * @param type the type
-	 * @return true if the identifier was succesfully added, false if the identifier was already declared in the current scope
-	 */
-	public boolean add(String id, Type type) {
-		return scopes.peek().add(id, type);
-	}
+    /**
+     * @param id   the identifier
+     * @param type the type
+     * @return true if the identifier was succesfully added, false if the identifier was already declared in the current scope
+     */
+    public boolean add(String id, Type type) {
+        return scopes.peek().add(id, type);
+    }
 
-	public boolean contains(String id) {
-		return scopes.stream().anyMatch(scope -> scope.contains(id));
-	}
+    public boolean contains(String id) {
+        return scopes.stream().anyMatch(scope -> scope.contains(id));
+    }
 
-	/**
-	 * 
-	 * @param id the identifier
-	 * @return the Type of the identifier, or null if the identifier could not be found in any of the scopes.
-	 */
-	public Type getType(String id) {
-		for (int i = scopes.size() - 1; i >= 0; i--) {
-			Scope scope = scopes.get(i);
-			Type type = scope.getType(id);
-			if (type != null) {
-				return type;
-			}
-		}
-		return null;
-	}
+    /**
+     * @param id the identifier
+     * @return the Type of the identifier, or null if the identifier could not be found in any of the scopes.
+     */
+    public Type getType(String id) {
+        for (int i = scopes.size() - 1; i >= 0; i--) {
+            Scope scope = scopes.get(i);
+            Type type = scope.getType(id);
+            if (type != null) {
+                return type;
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * 
-	 * @param id the identifier
-	 * @return the position in the local memory of the sprockell state.
-	 */
-	public int getOffset(String id) {
-		for (int i = scopes.size() - 1; i >= 0; i--) {
-			Scope scope = scopes.get(i);
-			Integer offset = scope.getOffset(id);
-			if (offset != null) {
-				return offset.intValue();
-			}
-		}
-		return -1;
-	}
-	
-	@Override
-	public String toString() {
-		return scopes.toString();
-	}
+    /**
+     * @param id the identifier
+     * @return the position in the local memory of the sprockell state.
+     */
+    public int getOffset(String id) {
+        for (int i = scopes.size() - 1; i >= 0; i--) {
+            Scope scope = scopes.get(i);
+            Integer offset = scope.getOffset(id);
+            if (offset != null) {
+                return offset.intValue();
+            }
+        }
+        return -1;
+    }
 
-	private class Scope {
-		Map<String, Type> types = new HashMap<>();
-		Map<String, Integer> offsets = new HashMap<>();
+    @Override
+    public String toString() {
+        return scopes.toString();
+    }
 
-		public boolean add(String identifier, Type type) {
-			boolean success = types.putIfAbsent(identifier, type) == null;
-			if (success) {
-				offsets.put(identifier, currentOffset);
-				currentOffset += type.getSize();
-			}			
-			return success;
-		}
+    private class Scope {
+        Map<String, Type> types = new HashMap<>();
+        Map<String, Integer> offsets = new HashMap<>();
 
-		public boolean contains(String identifier) {
-			return types.containsKey(identifier);
-		}
+        public boolean add(String identifier, Type type) {
+            boolean success = types.putIfAbsent(identifier, type) == null;
+            if (success) {
 
-		public Type getType(String identifier) {
-			return types.get(identifier);
-		}
+                // TODO This is a temporary fix to a bug preventing a nullpointerexception
+                if (type != null) {
+                    offsets.put(identifier, currentOffset);
+                    currentOffset += type.getSize();
+                }
+            }
+            return success;
+        }
 
-		public Integer getOffset(String identifier) {
-			return offsets.get(identifier);
-		}
+        public boolean contains(String identifier) {
+            return types.containsKey(identifier);
+        }
 
-		@Override public String toString() {
-			return "Scope{\ntypes = " + types + ",\n"
-					+ "offsets = " + offsets + "}";
-		}
-	}
+        public Type getType(String identifier) {
+            return types.get(identifier);
+        }
+
+        public Integer getOffset(String identifier) {
+            return offsets.get(identifier);
+        }
+
+        @Override
+        public String toString() {
+            return "Scope{\ntypes = " + types + ",\n"
+                    + "offsets = " + offsets + "}";
+        }
+    }
 
 }

@@ -57,17 +57,17 @@ public class SaveDialog extends JDialog {
     }
 
     private void onOK() {
-        dispose();
         d = Decision.OK;
+        dispose();
     }
 
     private void onCancel() {
-        dispose();
         d = Decision.CANCEL;
+        dispose();
     }
 
     private void onNo() {
-        dispose();
         d = Decision.NO;
+        dispose();
     }
 }
