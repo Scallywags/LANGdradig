@@ -63,8 +63,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	private static final String GREATER_THAN_EQ = "GreaterThanEq";
 	private static final String EQUAL = "Equal";
 	private static final String NOT_EQUAL = "NotEqual";
-	private static final String AND = "And";
-	private static final String OR = "Or";
+	private static final String LOGIC_AND = "LogicAnd";
+	private static final String LOGIC_OR = "LogicOr";
 	private static final String ASS = "Ass";	
 	
 	private static final String NEG = "Neg";
@@ -285,7 +285,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitBoolExpr(BoolExprContext ctx) {
-		String op = ctx.EN() == null ? OR : AND;
+		String op = ctx.EN() == null ? LOGIC_OR : LOGIC_AND;
 		return BIN_OP + " " + op
 				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
