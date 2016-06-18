@@ -69,8 +69,8 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	private static final String NEG = "Neg";
 	private static final String NOT = "Not";
-	private static final String INCR = "Incr";
-	private static final String DECR = "Decr";
+	private static final String INCREM = "Increm";
+	private static final String DECREM = "Decrem";
 	
 	private static final String PAR = "Par";
 	private static final String BOOL = "Bool";
@@ -81,7 +81,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	private static final String INT_TYPE = "IntType";
 	private static final String BOOL_TYPE = "BoolType";
-	private static final String ARRAY = "Array";
+	private static final String ARRAY_TYPE = "ArrayType";
 
 	private static final String BASE_DIR = "src/scallywags/haskell/";
 	private static final String EXAMPLE_DIR = "src/scallywags/langdradig/example/";
@@ -227,7 +227,7 @@ public class Generator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitCrementExpr(CrementExprContext ctx) {
-		return CREM + " " + ctx.VERLAAG() == null ? INCR : DECR
+		return CREM + " " + ctx.VERLAAG() == null ? INCREM : DECREM
 				+ " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	

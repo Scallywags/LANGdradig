@@ -24,6 +24,7 @@ data Expr   = Par Expr
             | Bool Bool
             | Idf String
             | Int Int
+            | Array [Expr]                                      --TODO fix codegen for array cases.
             | UnOp UnOp Expr
             | BinOp BinOp Expr Expr
             | TrinOp TrinOp Expr Expr Expr
@@ -31,8 +32,8 @@ data Expr   = Par Expr
             | Ass String Expr
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
-data Crem   = Incr
-            | Decr
+data Crem   = Increm
+            | Decrem
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 data TrinOp = Between
@@ -62,7 +63,7 @@ data UnOp   = Neg
 
 data Type   = IntType
             | BoolType
-            | Array Int Type
+            | ArrayType Int Type
             deriving (Show, Eq, Read, Generic, ToRoseTree)
 
 type Offset         = Int
@@ -111,12 +112,12 @@ instance CodeGen Prog where
 instance CodeGen Stat where
     --DeclStat
     gen (Decl varName varType) (x:xs, offset)   = (code, table) where
-        code        = [] --TODO load default value.
+        code        = [] --TODO load default value. not yet possible because an array expression doesn't exist yet.
         
         size = case varType of
             IntType     -> 1
             BoolType    -> 1
-            Array len _ -> len + 1
+            ArrayType len _ -> len + 1
 
         table       = (((varName, varType, offset):x):xs, offset + size)
 
@@ -132,6 +133,8 @@ instance CodeGen Stat where
         (exprInstrs, exprTable) = gen (UnOp Not expr) table -- skip if and only if expression is false.
         (statInstrs, restTable) = gen stat exprTable
         code = exprInstrs ++ [Branch regOut1 (Rel $ length statInstrs)] ++ statInstrs
+        --NOTE there is room for optimization here in case of a (Not (Not Expr)).
+        --Of course also at IfThenElse and While. maybe even at Between, Inside and Outside.
 
     --IfThenElseStat
     gen (IfThenElse expr stat1 stat2) table     = (code, restTable) where
@@ -185,9 +188,17 @@ instance CodeGen Expr where
         code = exprInstrs ++ [Push regOut1] ++ lowerInstrs ++ [Push regOut1] ++ upperInstrs ++ [Pop regOut3, Pop regOut2] ++ opInstrs
 
     -- CrementExpr
-    --gen (Crem crem string) table  --TODO
+    gen (Crem crem string) table    = (code, crementTable) where
+        dirAddr = offset (fst table) string
+        (crementInstrs, crementTable)   = gen crem table
+        code = [Load (DirAddr dirAddr) regOut1] ++ crementInstrs ++ [Store regOut1 (DirAddr dirAddr)]
+
     -- AssignExpr
-    --gen (Ass string expr) table   --TODO
+    gen (Ass string expr) table             = (code, table) where
+        dirAddr = offset (fst table) string
+        code = [Store regOut1 (DirAddr dirAddr)]
+
+        --TODO make this work correctly for arrays; there is no array expression yet... xD
 
 instance CodeGen UnOp where
     -- NegExpr
@@ -252,3 +263,9 @@ instance CodeGen TrinOp where
     gen Outside table       = (code, table) where
         code = [Compute Lt regOut2 regOut3 regOut4, Compute Gt regOut2 regOut1 regOut5, Compute Or regOut4 regOut5 regOut1]
 
+instance CodeGen Crem where
+    -- Increment
+    gen Increm table    = ([Compute Incr regOut1 reg0 regOut1], table)
+
+    -- Decrement
+    gen Decrem table    = ([Compute Decr regOut1 reg0 regOut1], table)
