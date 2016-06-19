@@ -105,7 +105,7 @@ instance CodeGen Expr where
     gen (Par expr) table                    = gen expr table
 
     -- BoolExpr
-    gen (Bool bool) table                   = ([Load (ImmValue $ intBool bool) regOut1, Push regOut1], table)
+    gen (Bool bool) table                   = ([Load (ImmValue $ intBool bool) regOut1], table)
 
     -- IdfExpr
     gen (Idf string) table                  = ([Load (DirAddr $ offset (fst table) string) regOut1], table)
