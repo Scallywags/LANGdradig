@@ -22,7 +22,10 @@ public class LANGdradigErrorBuilder {
     private static String format(String msg) {
         return msg.replace("extraneous input", "foutieve input")
                 .replace("expecting", "verwacht")
-                .replace("no viable alternative at input", "onverwachte term");
+                .replace("no viable alternative at input", "onverwachte term")
+                .replace("<EOF>", "eind van het programma")
+                .replace("missing", "ontbreekt")
+                .replace("at", "op");
     }
 
     public static LANGdradigError format(String code, CheckerException e) {

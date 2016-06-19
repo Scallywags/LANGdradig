@@ -7,6 +7,7 @@ import scallywags.langdradig.ide.errors.LANGdradigError;
 import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.filechooser.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -21,16 +22,18 @@ import java.util.List;
 /**
  * Created by Jeroen Weener on 15/06/2016.
  */
-// TODO support for control s to save
-// TODO support for control r to run
 // TODO implement onStart function
 // TODO translate certain errors
 // TODO verwacht onbekend should be undeclared error
-// TODO Fix bug in checker -> b is een waarhseid <- gaat stuk met een nullpointer
 // TODO add view with overview of variables and their types - scopes
 // TODO tabs for programs
-// TODO Floating bubble for few seconds when saving or opening
 // TODO Exception
+// TODO requestfocus in codearea?
+// TODO fix "'" char error in parser
+// TODO translate mismatched input
+// TODO add deelbaar door
+// TODO font scaling
+// TODO JOptionPane
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -49,18 +52,21 @@ public class Main extends JFrame {
     private JButton clearButton;
     private JButton showHideButton;
     private JScrollPane messagesAreaScrollPane;
-    private JLabel messagesLabel;
     private JPanel messagesPanel;
     private JButton startButton;
     private JScrollPane codeScrollPane;
     private JButton newButton;
 
     private JSplitPane splitPane;
+    private JTabbedPane programPane;
+    private JLabel notificationLabel;
+    private JPanel notificationPanel;
+    private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
     private String filePath;
-
     private boolean madeChanges;
+    private Timer timer;
 
     public Main() {
         setContentPane(contentPane);
@@ -68,7 +74,6 @@ public class Main extends JFrame {
 
         madeChanges = false;
 
-        codeArea.setTabSize(2);
         setUpKeyListener();
 
         newButton.addActionListener(e -> onNew());
@@ -133,6 +138,24 @@ public class Main extends JFrame {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        splitPane.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                splitPane.setDividerLocation(.8);
+            }
+        });
+
+
+        pack();
+        setTitle("LANGdradig IDE");
+        setResizable(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
+
+        // There is a bug in JSplitPane preventing componentShown() from being called if we don't do this
+        splitPane.setVisible(false);
+        splitPane.setVisible(true);
     }
 
     private void onOpen() {
@@ -159,10 +182,10 @@ public class Main extends JFrame {
             if (file.exists()) {
                 if (fileName.endsWith(EXTENSION)) {
                     filePath = file.getAbsolutePath();
-                    this.setTitle("LANGdradig IDE - " + fileName);
                     try {
                         String content = new String(Files.readAllBytes(file.toPath()));
                         codeArea.setText(content);
+                        popup("Opened " + fileName);
                         onSave();
                         setUpKeyListener();
                     } catch (IOException e) {
@@ -197,11 +220,11 @@ public class Main extends JFrame {
                     break;
             }
         }
+        popup("Opened new file");
         reset();
     }
 
     public void reset() {
-        setTitle("LANGdradig IDE - Nieuw Bestand");
         messagesArea.setText("");
         messagesArea.setBackground(Color.WHITE);
         filePath = null;
@@ -223,7 +246,6 @@ public class Main extends JFrame {
             }
             File f = fc.getSelectedFile();
             filePath = f.getAbsolutePath();
-            this.setTitle("LANGdradig IDE - " + f.getName());
         }
 
         try (PrintWriter writer = new PrintWriter(filePath, "UTF-8")) {
@@ -234,10 +256,13 @@ public class Main extends JFrame {
         clearMessages();
         checkContent();
 
+        popup("Saved " + new File(filePath).getName());
+
         madeChanges = false;
     }
 
     private void onStart() {
+//        popup("Running " + new File(filePath).getName());
         new ErrorDialog("Not yet implemented", "This feature is not yet implemented.");
     }
 
@@ -280,7 +305,7 @@ public class Main extends JFrame {
     private void toggleMessages() {
         if (splitPane.getBottomComponent() == null) {
             splitPane.setDividerLocation(dividerLocation);
-            splitPane.setBottomComponent(messagesPanel);
+            splitPane.setBottomComponent(messagesAreaScrollPane);
         } else {
             dividerLocation = splitPane.getDividerLocation();
             splitPane.setBottomComponent(null);
@@ -321,16 +346,32 @@ public class Main extends JFrame {
         messagesArea.append(s + "\n");
     }
 
-    public static void main(String[] args) {
-        Main dialog = new Main();
-        dialog.pack();
-        dialog.setTitle("LANGdradig IDE - Nieuw Bestand");
-        dialog.setResizable(true);
-        dialog.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        dialog.setVisible(true);
-    }
-
     public String getFilePath() {
         return filePath;
+    }
+
+    public void popup(String message) {
+        String oldMessage = notificationLabel.getText();
+        String newMessage = oldMessage.equals("") ? message : oldMessage + ", " + message;
+        notificationLabel.setText(newMessage);
+        notificationPanel.setVisible(true);
+
+        if (timer == null) {
+            timer = new Timer(3000, e -> {
+                notificationPanel.setVisible(false);
+                notificationLabel.setText("");
+                timer = null;
+            });
+            timer.setRepeats(false);
+            timer.start();
+        } else {
+            timer.stop();
+            timer.setInitialDelay(3000);
+            timer.start();
+        }
+    }
+
+    public static void main(String[] args) {
+        new Main();
     }
 }
