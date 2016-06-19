@@ -18,14 +18,17 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 
 	private static final String NEWLINE = System.lineSeparator();
 	private static final String QUOTE = "\"";
+	private static final String FOUR_SPACES = "    ";
 	
 	private static final String MODULE = "module";
 	private static final String WHERE = "where";
 	private static final String IMPORT_AST = "import AST";
 	private static final String IMPORT_GENERATOR = "import Generator";
 	
-	private static final String TYPE_DECL = "ast :: Prog";
-	private static final String FUN_DECL = "ast = ";
+	private static final String AST_TYPE_DECL = "ast :: Prog";
+	private static final String AST_FUN_DECL = "ast = ";
+	private static final String WRITE_SPRIL_TYPE_DECL = "writeSpril :: IO ()";
+	private static final String WRITE_SPRIL_FUN_DECL = "writeSpril = ";
 
 	private static final String LPAR = "(";
 	private static final String RPAR = ")";
@@ -122,8 +125,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(IMPORT_AST).append(NEWLINE).append(IMPORT_GENERATOR);
 		builder.append(NEWLINE).append(NEWLINE);
 		
-		builder.append(TYPE_DECL).append(NEWLINE);
-		builder.append(FUN_DECL).append(' ');
+		builder.append(AST_TYPE_DECL).append(NEWLINE);
+		builder.append(AST_FUN_DECL).append(' ');
 		
 		builder.append(PROG).append(' ');
 		builder.append(LPAR);
@@ -132,6 +135,24 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		}
 		builder.append(LSQ).append(RSQ);
 		builder.append(RPAR);
+		
+		builder.append(NEWLINE).append(NEWLINE);
+		
+		builder.append(WRITE_SPRIL_TYPE_DECL).append(NEWLINE);
+		builder.append(WRITE_SPRIL_FUN_DECL).append("writeFile").append(' ')
+			.append(QUOTE).append(programName).append(".spril.hs").append(QUOTE).append(' ')
+			.append("text").append(' ').append("where").append(NEWLINE);
+		builder.append(FOUR_SPACES).append("text =  ").append("\"module " + programName + "Spril where\\n\\n\" ++").append(NEWLINE);
+		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
+		builder.append("\"import HardwareTypes\\nimport Simulation\\n\\n\" ++").append(NEWLINE);
+		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
+		builder.append("\"prog :: [Instruction]\\n\" ++").append(NEWLINE);
+		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
+		builder.append("\"prog = \" ++ (show $ generate ast) ++ \"\\n\\n\" ++ --TODO also add optimizer").append(NEWLINE);	//TODO add optimizer :-)
+		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
+		builder.append("\"run :: Int -> IO ()\\n\" ++ ").append(NEWLINE);
+		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
+		builder.append("\"run n = sysTest $ replicate n prog\"").append(NEWLINE);
 		
 		return builder.toString();
 	}
