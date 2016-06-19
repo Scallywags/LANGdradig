@@ -146,7 +146,6 @@ public class Main extends JFrame {
             }
         });
 
-
         pack();
         setTitle("LANGdradig IDE");
         setResizable(true);
@@ -185,7 +184,7 @@ public class Main extends JFrame {
                     try {
                         String content = new String(Files.readAllBytes(file.toPath()));
                         codeArea.setText(content);
-                        popup("Opened " + fileName);
+                        popup(fileName + " geopend");
                         onSave();
                         setUpKeyListener();
                     } catch (IOException e) {
@@ -220,7 +219,7 @@ public class Main extends JFrame {
                     break;
             }
         }
-        popup("Opened new file");
+        popup("Nieuw bestand geopend");
         reset();
     }
 
@@ -256,7 +255,7 @@ public class Main extends JFrame {
         clearMessages();
         checkContent();
 
-        popup("Saved " + new File(filePath).getName());
+        popup(new File(filePath).getName() + " opgeslagen");
 
         madeChanges = false;
     }
@@ -372,6 +371,11 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
         new Main();
     }
 }
