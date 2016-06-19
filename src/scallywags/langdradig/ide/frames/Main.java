@@ -37,6 +37,7 @@ import java.util.List;
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
+
     private JPanel contentPane;
     private JButton openButton;
     private JButton saveButton;
@@ -64,7 +65,7 @@ public class Main extends JFrame {
     private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
-    private String filePath;
+    private List<String> filePaths;
     private boolean madeChanges;
     private Timer timer;
 
@@ -90,6 +91,9 @@ public class Main extends JFrame {
 
         TextLineNumber tln = new TextLineNumber(codeArea);
         codeScrollPane.setRowHeaderView(tln);
+
+        filePaths = new ArrayList<>();
+        filePaths.add(null);
 
         highlighter = codeArea.getHighlighter();
         painter = new DefaultHighlighter.DefaultHighlightPainter(Color.PINK);
@@ -180,19 +184,10 @@ public class Main extends JFrame {
             String fileName = file.getName();
             if (file.exists()) {
                 if (fileName.endsWith(EXTENSION)) {
-                    filePath = file.getAbsolutePath();
-                    try {
-                        String content = new String(Files.readAllBytes(file.toPath()));
-                        codeArea.setText(content);
-                        popup(fileName + " geopend");
-                        onSave();
-                        setUpKeyListener();
-                    } catch (IOException e) {
-                        // No permission to read ? Ignore
-                        e.printStackTrace();
-                    }
+                    openFile(file);
+                    setUpKeyListener();
                 } else {
-                    new ErrorDialog("Bestandstype niet ondersteunt", "Open een bestand met de extensie .langdradig");
+                    new ErrorDialog("Bestandstype niet ondersteunt", "Dit bestandstype wordt niet ondersteunt. Open een bestand met de extensie .langdradig");
                 }
             } else {
                 new ErrorDialog("Niet gevonden", "Het geselecteerde betand kan niet worden gevonden.");
@@ -219,24 +214,14 @@ public class Main extends JFrame {
                     break;
             }
         }
+        openFile(null);
         popup("Nieuw bestand geopend");
-        reset();
-    }
-
-    public void reset() {
-        messagesArea.setText("");
-        messagesArea.setBackground(Color.WHITE);
-        filePath = null;
-
-        madeChanges = false;
-        codeArea.setText("");
-        setUpKeyListener();
     }
 
     public void onSave() {
         String content = codeArea.getText();
         highlighter.removeAllHighlights();
-
+        String filePath = getFilePath();
         if (filePath == null) {
             fc.setSelectedFile(new File("NieuwBestand.langdradig"));
             int returnValue = fc.showSaveDialog(this);
@@ -245,18 +230,16 @@ public class Main extends JFrame {
             }
             File f = fc.getSelectedFile();
             filePath = f.getAbsolutePath();
+            filePaths.set(programPane.getSelectedIndex(), filePath);
         }
-
         try (PrintWriter writer = new PrintWriter(filePath, "UTF-8")) {
             writer.write(content);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         clearMessages();
-        checkContent();
-
         popup(new File(filePath).getName() + " opgeslagen");
-
+        checkContent();
         madeChanges = false;
     }
 
@@ -346,7 +329,7 @@ public class Main extends JFrame {
     }
 
     public String getFilePath() {
-        return filePath;
+        return filePaths.get(programPane.getSelectedIndex());
     }
 
     public void popup(String message) {
@@ -368,6 +351,37 @@ public class Main extends JFrame {
             timer.setInitialDelay(3000);
             timer.start();
         }
+    }
+
+    public void openFile(File file) {
+        JTextArea area = new JTextArea();
+        area.setTabSize(2);
+        JScrollPane scroll = new JScrollPane(area);
+        scroll.setRowHeaderView(new TextLineNumber(area));
+
+
+        String fileName;
+        if (file == null) {
+            fileName = "NieuwBestand";
+        } else {
+            fileName = file.getName();
+            try {
+                String content = new String(Files.readAllBytes(file.toPath()));
+                area.setText(content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        programPane.addTab(fileName, scroll);
+        programPane.setSelectedIndex(programPane.getTabCount() - 1);
+        if (file != null) {
+            filePaths.add(file.getAbsolutePath());
+        } else {
+            filePaths.add(null);
+        }
+        popup(fileName + " geopend");
+        checkContent();
     }
 
     public static void main(String[] args) {

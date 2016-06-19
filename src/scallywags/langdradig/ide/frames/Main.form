@@ -90,13 +90,16 @@
             <children>
               <scrollpane id="8ef1f" binding="codeScrollPane">
                 <constraints>
-                  <tabbedpane title="Untitled"/>
+                  <tabbedpane title="Nieuw bestand"/>
                 </constraints>
                 <properties>
                   <enabled value="true"/>
                   <toolTipText value=""/>
                 </properties>
-                <border type="none"/>
+                <border type="none">
+                  <font/>
+                  <title-color color="-16777216"/>
+                </border>
                 <children>
                   <component id="87111" class="javax.swing.JTextArea" binding="codeArea">
                     <constraints/>
@@ -158,7 +161,9 @@
               <component id="530fc" class="javax.swing.JLabel" binding="notificationLabel">
                 <constraints/>
                 <properties>
+                  <font style="1"/>
                   <text value=""/>
+                  <verticalTextPosition value="0"/>
                   <visible value="true"/>
                 </properties>
               </component>
