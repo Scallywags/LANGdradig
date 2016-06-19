@@ -136,9 +136,10 @@ instance CodeGen Expr where
         code = [Load (DirAddr dirAddr) regOut1] ++ crementInstrs ++ [Store regOut1 (DirAddr dirAddr)]
 
     -- AssignExpr
-    gen (Ass string expr) table             = (code, table) where
-        dirAddr = offset (fst table) string
-        code = [Store regOut1 (DirAddr dirAddr)]
+    gen (Ass string expr) table             = (code, restTable) where
+        (exprCode, restTable)   = gen expr table
+        dirAddr = offset (fst restTable) string
+        code = exprCode ++ [Store regOut1 (DirAddr dirAddr)]
 
         --TODO make this work correctly for arrays; there is no array expression yet... xD
 
