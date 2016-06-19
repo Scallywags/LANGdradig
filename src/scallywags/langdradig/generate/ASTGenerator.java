@@ -22,6 +22,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String MODULE = "module";
 	private static final String WHERE = "where";
 	private static final String IMPORT_AST = "import AST";
+	private static final String IMPORT_GENERATOR = "import Generator";
 	
 	private static final String TYPE_DECL = "ast :: Prog";
 	private static final String FUN_DECL = "ast = ";
@@ -118,7 +119,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		StringBuilder builder = new StringBuilder();
 		builder.append(MODULE).append(' ').append(programName).append(' ').append(WHERE);
 		builder.append(NEWLINE).append(NEWLINE);
-		builder.append(IMPORT_AST);
+		builder.append(IMPORT_AST).append(NEWLINE).append(IMPORT_GENERATOR);
 		builder.append(NEWLINE).append(NEWLINE);
 		
 		builder.append(TYPE_DECL).append(NEWLINE);
