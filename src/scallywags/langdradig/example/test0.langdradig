@@ -1,10 +1,10 @@
 intVar is een geheel getal.
 boolVar is een waarheid.
 als niet boolVar dan
-    intVar wordt 3.
+    intVar wordt 27.
 anders
     doe
-        intVar wordt 2.
+        intVar wordt 31.
         boolVar wordt waar.
     klaar.
 

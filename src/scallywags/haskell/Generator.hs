@@ -72,23 +72,27 @@ instance CodeGen Stat where
 
     --IfThenStat
     gen (IfThen expr stat) table                = (code, restTable) where
-        (exprInstrs, exprTable) = gen (UnOp Not expr) table -- skip if and only if expression is false.
+        invertedExpr = case expr of
+            UnOp Not e -> e
+            _ -> UnOp Not expr
+        (exprInstrs, exprTable) = gen invertedExpr table        -- only jump if expression is false
         (statInstrs, restTable) = gen stat exprTable
         code = exprInstrs ++ [Branch regOut1 (Rel $ length statInstrs)] ++ statInstrs
-        --NOTE there is room for optimization here in case of a (Not (Not Expr)).
-        --Of course also at IfThenElse and While. maybe even at Between, Inside and Outside.
 
     --IfThenElseStat
     gen (IfThenElse expr stat1 stat2) table     = (code, restTable) where
         (exprInstrs, exprTable)     = gen expr table
         (stat1Instrs, stat1Table)   = gen stat1 exprTable
-        (stat2Instrs, restTable)    = gen stat1 stat1Table
+        (stat2Instrs, restTable)    = gen stat2 stat1Table
         code =  exprInstrs ++ [Branch regOut1 (Rel (length stat2Instrs + 1))] ++
-                stat2Instrs ++ [Jump $ Rel $ length stat1Instrs] ++ stat1Instrs
+                stat2Instrs ++ [Jump $ Rel $ length stat1Instrs] ++ stat1Instrs   --if not expr stat2 else stat1
 
     --WhileStat
     gen (While expr stat) table                 = (code, restTable) where
-        (exprInstrs, exprTable) = gen (UnOp Not expr) table -- jump past while if and only if expression is false.
+        invertedExpr = case expr of
+            UnOp Not e -> e
+            _ -> UnOp Not expr
+        (exprInstrs, exprTable) = gen invertedExpr table -- jump past while if and only if expression is false.
         (statInstrs, restTable) = gen stat exprTable
         code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 1))] ++ statInstrs ++ [Jump (Rel $ -(length exprInstrs + length statInstrs))]
 
