@@ -72,6 +72,7 @@ public class Compiler {
 				outputDir = flag.getValue();
 			}
 		}
+		outputDir = "src/scallywags/haskell/"; //UGLY TEMPORARY FIX TODO make this prettier
 
 		astGen.setNumSprockells(cores);
 		astGen.writeAST(outputDir);
@@ -81,7 +82,7 @@ public class Compiler {
 		ProcessBuilder pBuilder = new ProcessBuilder("runhaskell", astGen.getProgramName() + ".ast.hs").directory(workingDirectory);
 		pBuilder.start();
 	
-		return astGen.getProgramName() + ".spril.hs";
+		return outputDir + astGen.getProgramName() + ".spril.hs";
 	}
 	
 	public List<String> run(File workingDirectory, String sprilFile) throws IOException {
