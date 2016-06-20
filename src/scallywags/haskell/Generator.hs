@@ -46,7 +46,7 @@ instance CodeGen Stats where
         (restInstrs, restTable) = gen stats statTable
 
 instance CodeGen Prog where
-    gen (Prog stats) (scopes, offset) = (statInstrs ++ [EndProg], restTable) --TODO set initial memory values such as True and False :-)
+    gen (Prog stats) (scopes, offset) = (statInstrs ++ [EndProg], restTable)
         where (statInstrs, restTable) = gen stats ([]:scopes, offset)
 
 instance CodeGen Stat where
@@ -59,9 +59,10 @@ instance CodeGen Stat where
 
         table       = (((varName, varType, offset):x):xs, offset + size)
         code        = case varType of
-            IntType                 -> [Store reg0 (DirAddr offset)]    --default value for Int is 0
-            BoolType                -> [Store reg0 (DirAddr offset)]    --default value for Bool is 0
-            ArrayType len elemType  -> []   --TODO
+            IntType                 ->  [Store reg0 (DirAddr offset)]    --default value for Int is 0
+            BoolType                ->  [Store reg0 (DirAddr offset)]    --default value for Bool is 0
+            ArrayType len elemType  ->  [Load (ImmValue len) regOut1, Store regOut1 (DirAddr offset)] ++
+                                        [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len]] --default value for arrays is all zeros
 
     --BlockStat
     gen (Block stats) (scopes, offset)          = (statIntrs, (scopes, newOffset)) --we only need to pop the first element so we can reuse 'scopes'.

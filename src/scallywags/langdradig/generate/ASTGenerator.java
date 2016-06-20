@@ -82,7 +82,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String INT = "Int";
 	private static final String TRUE = "True";
 	private static final String FALSE = "False";
-	private static final String ARRAY = "Array";
+	private static final String ARRAY = "Array"										//TODO
 	
 	private static final String INT_TYPE = "IntType";
 	private static final String BOOL_TYPE = "BoolType";
@@ -356,8 +356,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitArrayType(ArrayTypeContext ctx) {
-		throw new UnsupportedOperationException("ArrayType is not supported yet in this build.");
-		//TODO FIX
+		return ARRAY_TYPE + " " + ctx.NUMBER() + " " + visit(ctx.type());
 	}
 	
 	// -------------- Terminal --------------
