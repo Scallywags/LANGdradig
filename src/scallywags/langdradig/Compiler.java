@@ -82,7 +82,7 @@ public class Compiler {
 		ProcessBuilder pBuilder = new ProcessBuilder("runhaskell", astGen.getProgramName() + ".ast.hs").directory(workingDirectory);
 		pBuilder.start();
 	
-		return astGen.getProgramName() + ".spril.hs";
+		return outputDir + astGen.getProgramName() + ".spril.hs";
 	}
 	
 	public List<String> run(File workingDirectory, String sprilFile) throws IOException {
