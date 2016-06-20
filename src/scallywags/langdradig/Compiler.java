@@ -78,7 +78,7 @@ public class Compiler {
 		
 		File workingDirectory = new File(outputDir);
 		
-		ProcessBuilder pBuilder = new ProcessBuilder("echo", "writeSpril", "|", "ghci", astGen.getProgramName() + ".ast.hs").directory(workingDirectory);
+		ProcessBuilder pBuilder = new ProcessBuilder("runhaskell", astGen.getProgramName() + ".ast.hs").directory(workingDirectory);
 		pBuilder.start();
 	
 		return astGen.getProgramName() + ".spril.hs";
@@ -86,7 +86,7 @@ public class Compiler {
 	
 	public List<String> run(File workingDirectory, String sprilFile) throws IOException {
 		List<String> result = new LinkedList<>();
-		ProcessBuilder pBuilder = new ProcessBuilder("echo", "run", "|", "ghci", sprilFile).directory(workingDirectory);
+		ProcessBuilder pBuilder = new ProcessBuilder("runhaskell", sprilFile).directory(workingDirectory);
 		Process process = pBuilder.start();
 		
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
