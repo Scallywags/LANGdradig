@@ -78,7 +78,7 @@ public class Compiler {
 		
 		File workingDirectory = new File(".");
 		
-		ProcessBuilder pBuilder = new ProcessBuilder("echo", "writeSpril", "|", "ghci", astGen.getProgramName() + ".hs").directory(workingDirectory);
+		ProcessBuilder pBuilder = new ProcessBuilder("echo", "writeSpril", "|", "ghci", astGen.getProgramName() + ".ast.hs").directory(workingDirectory);
 		pBuilder.start();
 	
 		return astGen.getProgramName() + ".spril.hs";
