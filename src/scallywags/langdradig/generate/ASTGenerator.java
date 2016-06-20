@@ -279,7 +279,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitPowExpr(PowExprContext ctx) {
 		return BIN_OP + " " + POWER
-				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
@@ -287,7 +287,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitFactorExpr(FactorExprContext ctx) {
 		String op = ctx.KEER() != null ? TIMES : ctx.GEDEELDDOOR() != null ? DIVIDE : MODULO; 
 		return BIN_OP + " " + op
-				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
@@ -295,7 +295,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitTermExpr(TermExprContext ctx) {
 		String op = ctx.PLUS() != null ? PLUS : MINUS;
 		return BIN_OP + " " + op
-				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
@@ -303,7 +303,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitRangeExpr(RangeExprContext ctx) {
 		String op = ctx.TUSSEN() != null ? BETWEEN : ctx.BINNEN() != null ? INSIDE : OUTSIDE;
 		return TRIN_OP + " " + op
-				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(2)) + RPAR;
 	}
@@ -316,7 +316,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 				ctx.KLEINEROFGELIJK() != null ? LESS_THAN_EQ :
 					GREATER_THAN_EQ;
 		return BIN_OP + " " + op
-				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
@@ -324,7 +324,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitEqExpr(EqExprContext ctx) {
 		String op = ctx.GELIJKAAN() == null ? NOT_EQUAL : EQUAL;
 		return BIN_OP + " " + op
-				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
@@ -332,7 +332,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitBoolExpr(BoolExprContext ctx) {
 		String op = ctx.EN() == null ? LOGIC_OR : LOGIC_AND;
 		return BIN_OP + " " + op
-				+ " " + LPAR + visit(ctx.expression(0)) + LPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
 				+ " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
@@ -345,7 +345,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	// -------------- Primary --------------
 	
 	public String visitParExpr(ParExprContext ctx) {
-		return PAR + " " + RPAR + visit(ctx.expression()) + RPAR;
+		return PAR + " " + LPAR + visit(ctx.expression()) + RPAR;
 	}
 	
 	public String visitTrueExpr(TrueExprContext ctx) {
