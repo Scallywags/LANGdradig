@@ -39,7 +39,6 @@ import java.util.List;
 /**
  * TODO for tabs
  * /   -   Ability to close tabs
- * /   -   Logs per file
  */
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -69,7 +68,8 @@ public class Main extends JFrame {
     private int dividerLocation;
 
     private List<String> filePaths;
-    private Timer timer;
+    private Timer notificationTimer;
+    private int changesCounter;
 
     public Main() {
         setContentPane(contentPane);
@@ -113,6 +113,7 @@ public class Main extends JFrame {
         });
 
         openFile(null);
+        changesCounter = 0;
 
         pack();
         setTitle("LANGdradig IDE");
@@ -144,25 +145,27 @@ public class Main extends JFrame {
     }
 
     private void onCancel() {
-        //TODO only when changes made
-        SaveDialog s = new SaveDialog();
-        switch (s.getDecision()) {
-            case OK:
-                for (int i = 0; i < programPane.getTabCount(); i++) {
-                    programPane.setSelectedIndex(i);
-                    onSave();
-                }
-                dispose();
-                break;
-            case CANCEL:
-                break;
-            case NO:
-                dispose();
-                break;
-            default:
-                break;
+        if (changesCounter > 0) {
+            SaveDialog s = new SaveDialog();
+            switch (s.getDecision()) {
+                case OK:
+                    for (int i = 0; i < programPane.getTabCount(); i++) {
+                        programPane.setSelectedIndex(i);
+                        onSave();
+                    }
+                    dispose();
+                    break;
+                case CANCEL:
+                    break;
+                case NO:
+                    dispose();
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            dispose();
         }
-
     }
 
     private void onNew() {
@@ -282,18 +285,18 @@ public class Main extends JFrame {
         notificationLabel.setText(newMessage);
         notificationPanel.setVisible(true);
 
-        if (timer == null) {
-            timer = new Timer(3000, e -> {
+        if (notificationTimer == null) {
+            notificationTimer = new Timer(3000, e -> {
                 notificationPanel.setVisible(false);
                 notificationLabel.setText("");
-                timer = null;
+                notificationTimer = null;
             });
-            timer.setRepeats(false);
-            timer.start();
+            notificationTimer.setRepeats(false);
+            notificationTimer.start();
         } else {
-            timer.stop();
-            timer.setInitialDelay(3000);
-            timer.start();
+            notificationTimer.stop();
+            notificationTimer.setInitialDelay(3000);
+            notificationTimer.start();
         }
     }
 
@@ -337,6 +340,7 @@ public class Main extends JFrame {
                         case 83:    // 's' key;
                             onSave();
                             changed = false;
+                            changesCounter--;
                             break;
                         case 79:    // 'o' key
                             onOpen();
@@ -355,6 +359,7 @@ public class Main extends JFrame {
                         int index = programPane.getSelectedIndex();
                         programPane.setTitleAt(index, programPane.getTitleAt(index) + "*");
                         changed = true;
+                        changesCounter++;
                     }
                 }
             }

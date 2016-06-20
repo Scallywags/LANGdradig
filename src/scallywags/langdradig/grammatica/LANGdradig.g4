@@ -6,7 +6,7 @@ program		: 	statement*
             ;
 
 //              Rule of thumb: If a statement does not end in a statement, it should end with a PUNT
-statement	:	IDENTIFIER IS EEN type	PUNT														    #declStat
+statement	:	IDENTIFIER IS EEN GEDEELDE? type PUNT												    #declStat
 			|	DOE statement* KLAAR PUNT 																#blockStat
 			|	expression PUNT																            #exprStat
 			|	ALS expression (NIET? KLOPT)? DAN statement (ANDERS statement)? 		                #ifStat
@@ -43,7 +43,7 @@ primary		:	LH expression RH						                                               
 			|	NUMBER									                                                #numExpr
 			;
 			
-type	    :   GEHEELGETAL		                                                                        #intType
-		    |   WAARHEID			                                                                    #boolType
+type	    :   GETAL   		                                                                        #intType
+		    |   STELLING			                                                                    #boolType
 		    |   REEKS VAN NUMBER type                                                                   #arrayType
 		    ;

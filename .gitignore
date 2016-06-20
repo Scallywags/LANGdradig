@@ -15,3 +15,4 @@ src/scallywags/langdradig/grammatica/LANGdradigLexer.tokens
 src/scallywags/langdradig/grammatica/LANGdradigListener.java
 src/scallywags/langdradig/grammatica/LANGdradigParser.java
 src/scallywags/langdradig/grammatica/LANGdradigVisitor.java
+debug.log
