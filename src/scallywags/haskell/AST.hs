@@ -1,11 +1,6 @@
-{-# LANGUAGE FlexibleInstances, DeriveGeneric, DeriveAnyClass #-}
-
 module AST where
 
-import GHC.Generics
-import FPPrac.Trees
-
-data Prog   = Prog [Stat] deriving (Show, Eq, Read, Generic, ToRoseTree)
+data Prog   = Prog [Stat] deriving (Show, Eq)
 
 data Stat   = Decl String Type
             | Block [Stat]
@@ -16,7 +11,7 @@ data Stat   = Decl String Type
             | Fork String Stat
             | Wait String
             | Sync String Stat
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
+            deriving (Show, Eq)
 
 data Expr   = Par Expr
             | Bool Bool
@@ -28,16 +23,16 @@ data Expr   = Par Expr
             | TrinOp TrinOp Expr Expr Expr
             | Crem Crem String
             | Ass String Expr
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
+            deriving (Show, Eq)
 
 data Crem   = Increm
             | Decrem
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
+            deriving (Show, Eq)
 
 data TrinOp = Between
             | Inside
             | Outside
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
+            deriving (Show, Eq)
 
 data BinOp  = Plus
             | Minus
@@ -53,14 +48,14 @@ data BinOp  = Plus
             | NotEqual
             | LogicAnd
             | LogicOr
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
+            deriving (Show, Eq)
 
 data UnOp   = Neg
             | Not
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
+            deriving (Show, Eq)
 
 data Type   = IntType
             | BoolType
             | ArrayType Int Type
-            deriving (Show, Eq, Read, Generic, ToRoseTree)
+            deriving (Show, Eq)
 
