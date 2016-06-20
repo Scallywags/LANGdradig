@@ -17,7 +17,7 @@ prog = [
          -- BEGIN: loop
          , ReadInstr (IndAddr regSprID)
          , Receive regA
-         , Compute Equal regA reg0 regB
+         , Compute Equ regA reg0 regB
          , Branch regB (Rel (-3))
          -- END: loop
          , Jump (Ind regA)
