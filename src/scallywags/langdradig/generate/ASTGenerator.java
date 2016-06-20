@@ -88,16 +88,19 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String BOOL_TYPE = "BoolType";
 	private static final String ARRAY_TYPE = "ArrayType";
 
-	private static final String BASE_DIR = "src/scallywags/haskell/";
+	private static final String BASE_DIR = "src/scallywags/output/";
 	private static final String EXAMPLE_DIR = "src/scallywags/langdradig/example/";
 
 	private final String programName;
 	private final String sourceProgramPath;
+	private final File sourceFile;
+	
+	private int noSprockells;
 	
 	public ASTGenerator(String sourceFilePath) {
 		
-		File file = new File(sourceFilePath);
-		String programName = file.getName();
+		sourceFile = new File(sourceFilePath);
+		String programName = sourceFile.getName();
 		
 		if (sourceFilePath == null) {
 			throw new IllegalArgumentException("Source file path cannot be null.");
@@ -113,6 +116,29 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		
 		this.sourceProgramPath = sourceFilePath;
 		this.programName = programName.substring(0, 1).toUpperCase() + programName.substring(1).toLowerCase();
+	}
+	
+	public String getProgramName() {
+		return programName;
+	}
+
+	public File getSourceFile() {
+		return sourceFile;
+	}
+	
+	public void setNumSprockells(int noSprockells) {
+		this.noSprockells = noSprockells;
+	}
+	
+	public String generate() throws IOException {
+		return visitProgram(new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program());
+	}
+
+	public void writeAST(String directory) throws IOException {
+		if (!directory.endsWith(File.separator)) directory += File.separator;
+		PrintWriter writer = new PrintWriter(directory + programName + ".ast.hs", "UTF-8");
+		writer.write(generate());
+		writer.close();
 	}
 	
 	// -------------- Program --------------
@@ -150,9 +176,9 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"prog = \" ++ (show $ generate ast) ++ \"\\n\\n\" ++ --TODO also add optimizer").append(NEWLINE);	//TODO add optimizer :-)
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"run :: Int -> IO ()\\n\" ++ ").append(NEWLINE);
+		builder.append("\"run :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"run n = sysTest $ replicate n prog\"").append(NEWLINE);
+		builder.append("\"run = sysTest $ replicate " + noSprockells + " prog\"").append(NEWLINE);
 		
 		return builder.toString();
 	}
@@ -364,34 +390,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitTerminal(TerminalNode ctx) {
 		return ctx.getText();
-	}
-	
-	// -------------- Rest --------------
-	
-	public String generate() throws IOException {
-		return visitProgram(new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program());
-	}
-	
-	public String toString() {
-		try {
-			return generate();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public static void main(String[] args) throws IOException {
-		//this main method is temporary, meant for debugging.
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "test0.langdradig");
-		System.out.println(gen);
-		gen.writeAST();
-	}
-
-	public void writeAST() throws IOException {
-		PrintWriter writer = new PrintWriter(BASE_DIR + programName + ".hs", "UTF-8");
-		writer.write(toString());
-		writer.close();
 	}
 
 }
