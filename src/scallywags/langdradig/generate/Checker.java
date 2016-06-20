@@ -337,5 +337,9 @@ public class Checker extends LANGdradigBaseListener {
         return errorListener.getErrors();
     }
 
+    public Set<String> getIDs() {
+        return table.getIDs();
+    }
+
 
 }

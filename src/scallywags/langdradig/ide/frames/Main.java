@@ -36,7 +36,6 @@ import java.util.List;
 // TODO saving file as file that is already open should merge tabs
 // TODO closing unsaved tab should prompt for save
 
-
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
 
@@ -113,10 +112,7 @@ public class Main extends JFrame {
         openFile(null);
         changesCounter = 0;
 
-        contentCheckTimer = new Timer(1000, f -> {
-            System.out.println("checkContent()");
-            checkContent();
-        });
+        contentCheckTimer = new Timer(1000, f -> checkContent());
         contentCheckTimer.setRepeats(false);
 
         pack();
@@ -132,7 +128,6 @@ public class Main extends JFrame {
 
     private void onOpen() {
         int returnVal = fc.showOpenDialog(this);
-
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             String fileName = file.getName();
@@ -225,6 +220,11 @@ public class Main extends JFrame {
                 print("");
             }
             messagesArea.setBackground(Color.PINK);
+        }
+
+        //TODO
+        for (String s : checker.getIDs()) {
+            System.out.println(s);
         }
     }
 
