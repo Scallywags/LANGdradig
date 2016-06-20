@@ -1,10 +1,9 @@
 package scallywags.langdradig.generate;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class SymbolTable {
+    private Set<String> ids = new HashSet<>();
 
     private Stack<Scope> scopes = new Stack<>();
 
@@ -19,9 +18,10 @@ public class SymbolTable {
     /**
      * @param id   the identifier
      * @param type the type
-     * @return true if the identifier was succesfully added, false if the identifier was already declared in the current scope
+     * @return true if the identifier was successfully added, false if the identifier was already declared in the current scope
      */
     public boolean add(String id, Type type) {
+        ids.add(id);
         return scopes.peek().add(id, type);
     }
 
@@ -68,6 +68,10 @@ public class SymbolTable {
         public String toString() {
             return "Scope{\ntypes = " + types + "}";
         }
+    }
+
+    public Set<String> getIDs() {
+        return ids;
     }
 
 }

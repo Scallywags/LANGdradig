@@ -19,6 +19,8 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 
+import scallywags.langdradig.Compiler;
+
 /**
  * Created by Jeroen Weener on 15/06/2016.
  */
@@ -35,7 +37,7 @@ import java.util.List;
 // TODO saving file with existing name dialog
 // TODO saving file as file that is already open should merge tabs
 // TODO closing unsaved tab should prompt for save
-
+// TODO support Ctrl + Z and Ctrl + Y
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -113,10 +115,7 @@ public class Main extends JFrame {
         openFile(null);
         changesCounter = 0;
 
-        contentCheckTimer = new Timer(1000, f -> {
-            System.out.println("checkContent()");
-            checkContent();
-        });
+        contentCheckTimer = new Timer(1000, f -> checkContent());
         contentCheckTimer.setRepeats(false);
 
         pack();
@@ -132,7 +131,6 @@ public class Main extends JFrame {
 
     private void onOpen() {
         int returnVal = fc.showOpenDialog(this);
-
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             String fileName = file.getName();
@@ -203,7 +201,19 @@ public class Main extends JFrame {
 
     private void onStart() {
 //        popup("Running " + new File(filePath).getName());
-        new ErrorDialog("Not yet implemented", "This feature is not yet implemented.");
+//        new ErrorDialog("Not yet implemented", "This feature is not yet implemented.");
+
+        Compiler c = Compiler.getInstance();
+        try {
+            String compileOutput = c.compile(getFilePath());
+            List<String> runOutput = c.run(new File("."), compileOutput);
+            for (String s : runOutput) {
+                print(s);
+            }
+        } catch (IOException e) {
+            //TODO
+            e.printStackTrace();
+        }
     }
 
     private void checkContent() {
@@ -225,6 +235,11 @@ public class Main extends JFrame {
                 print("");
             }
             messagesArea.setBackground(Color.PINK);
+        }
+
+        //TODO
+        for (String s : checker.getIDs()) {
+            System.out.println(s);
         }
     }
 
