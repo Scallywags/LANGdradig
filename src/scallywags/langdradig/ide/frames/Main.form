@@ -87,31 +87,7 @@
               <toolTipText value=""/>
             </properties>
             <border type="none"/>
-            <children>
-              <scrollpane id="8ef1f" binding="codeScrollPane">
-                <constraints>
-                  <tabbedpane title="Nieuw bestand"/>
-                </constraints>
-                <properties>
-                  <enabled value="true"/>
-                  <toolTipText value=""/>
-                </properties>
-                <border type="none">
-                  <font/>
-                  <title-color color="-16777216"/>
-                </border>
-                <children>
-                  <component id="87111" class="javax.swing.JTextArea" binding="codeArea">
-                    <constraints/>
-                    <properties>
-                      <editable value="true"/>
-                      <enabled value="true"/>
-                      <tabSize value="2"/>
-                    </properties>
-                  </component>
-                </children>
-              </scrollpane>
-            </children>
+            <children/>
           </tabbedpane>
         </children>
       </splitpane>

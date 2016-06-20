@@ -34,7 +34,13 @@ import java.util.List;
 // TODO add deelbaar door
 // TODO font scaling
 // TODO JOptionPane
+// TODO saving file with existing name dialog
 
+/**
+ * TODO for tabs
+ * /   -   Ability to close tabs
+ * /   -   Logs per file
+ */
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
 
@@ -44,8 +50,6 @@ public class Main extends JFrame {
 
     private final JFileChooser fc = new JFileChooser();
 
-    private JTextArea codeArea;
-    private Highlighter highlighter;
     private Highlighter.HighlightPainter painter;
     private Map<Integer, Object> highlightTags;
 
@@ -55,7 +59,6 @@ public class Main extends JFrame {
     private JScrollPane messagesAreaScrollPane;
     private JPanel messagesPanel;
     private JButton startButton;
-    private JScrollPane codeScrollPane;
     private JButton newButton;
 
     private JSplitPane splitPane;
@@ -66,16 +69,11 @@ public class Main extends JFrame {
     private int dividerLocation;
 
     private List<String> filePaths;
-    private boolean madeChanges;
     private Timer timer;
 
     public Main() {
         setContentPane(contentPane);
         getRootPane().setDefaultButton(openButton);
-
-        madeChanges = false;
-
-        setUpKeyListener();
 
         newButton.addActionListener(e -> onNew());
 
@@ -89,48 +87,12 @@ public class Main extends JFrame {
 
         startButton.addActionListener(e -> onStart());
 
-        TextLineNumber tln = new TextLineNumber(codeArea);
-        codeScrollPane.setRowHeaderView(tln);
-
         filePaths = new ArrayList<>();
-        filePaths.add(null);
 
-        highlighter = codeArea.getHighlighter();
         painter = new DefaultHighlighter.DefaultHighlightPainter(Color.PINK);
         highlightTags = new HashMap<>();
 
         fc.setFileFilter(new FileNameExtensionFilter("langdradig file", "langdradig"));
-
-        /**
-         * Key shortcuts
-         *      SAVE:   CTRL + s
-         *      OPEN:   CTRL + o
-         *      NEW:    CTRL + n
-         *      START:  CTRL + r
-         */
-        codeArea.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
-                    switch (e.getKeyCode()) {
-                        case 83:    // 's' key;
-                            onSave();
-                            break;
-                        case 79:    // 'o' key
-                            onOpen();
-                            break;
-                        case 78:    // 'n' key
-                            onNew();
-                            break;
-                        case 82:    // 'r' key
-                            onStart();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        });
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -150,6 +112,8 @@ public class Main extends JFrame {
             }
         });
 
+        openFile(null);
+
         pack();
         setTitle("LANGdradig IDE");
         setResizable(true);
@@ -162,21 +126,6 @@ public class Main extends JFrame {
     }
 
     private void onOpen() {
-        if (madeChanges) {
-            SaveDialog s = new SaveDialog(this);
-            switch (s.getDecision()) {
-                case OK:
-                    onSave();
-                    break;
-                case CANCEL:
-                    return;
-                case NO:
-                    // Nothing
-                    break;
-                default:
-                    break;
-            }
-        }
         int returnVal = fc.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -185,7 +134,6 @@ public class Main extends JFrame {
             if (file.exists()) {
                 if (fileName.endsWith(EXTENSION)) {
                     openFile(file);
-                    setUpKeyListener();
                 } else {
                     new ErrorDialog("Bestandstype niet ondersteunt", "Dit bestandstype wordt niet ondersteunt. Open een bestand met de extensie .langdradig");
                 }
@@ -196,32 +144,36 @@ public class Main extends JFrame {
     }
 
     private void onCancel() {
-        dispose();
+        //TODO only when changes made
+        SaveDialog s = new SaveDialog();
+        switch (s.getDecision()) {
+            case OK:
+                for (int i = 0; i < programPane.getTabCount(); i++) {
+                    programPane.setSelectedIndex(i);
+                    onSave();
+                }
+                dispose();
+                break;
+            case CANCEL:
+                break;
+            case NO:
+                dispose();
+                break;
+            default:
+                break;
+        }
+
     }
 
     private void onNew() {
-        if (madeChanges) {
-            SaveDialog s = new SaveDialog(this);
-            switch (s.getDecision()) {
-                case OK:
-                    onSave();
-                    break;
-                case CANCEL:
-                    return;
-                case NO:
-                    break;
-                default:
-                    break;
-            }
-        }
         openFile(null);
-        popup("Nieuw bestand geopend");
     }
 
     public void onSave() {
-        String content = codeArea.getText();
-        highlighter.removeAllHighlights();
+        String content = getCode();
+        getHighlighter().removeAllHighlights();
         String filePath = getFilePath();
+
         if (filePath == null) {
             fc.setSelectedFile(new File("NieuwBestand.langdradig"));
             int returnValue = fc.showSaveDialog(this);
@@ -237,10 +189,11 @@ public class Main extends JFrame {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        String name = new File(filePath).getName();
         clearMessages();
-        popup(new File(filePath).getName() + " opgeslagen");
+        programPane.setTitleAt(programPane.getSelectedIndex(), name);
+        popup(name + " opgeslagen");
         checkContent();
-        madeChanges = false;
     }
 
     private void onStart() {
@@ -250,33 +203,22 @@ public class Main extends JFrame {
 
     private void checkContent() {
         Checker checker = new Checker();
-        checker.checkString(codeArea.getText());
+        checker.checkString(getCode());
         if (checker.getCheckerExceptions().isEmpty() && checker.getParserExceptions().isEmpty()) {
             print("Geen errors!");
             messagesArea.setBackground(new Color(180, 255, 150));
         } else {
             List<LANGdradigError> errors = checker.getParserExceptions();
             List<CheckerException> checkerExceptions = checker.getCheckerExceptions();
-            checkerExceptions.forEach(e -> errors.add(LANGdradigErrorBuilder.format(codeArea.getText(), e)));
+            checkerExceptions.forEach(e -> errors.add(LANGdradigErrorBuilder.format(getCode(), e)));
             Collections.sort(errors);
             for (LANGdradigError e : errors) {
+                print(programPane.getTitleAt(programPane.getSelectedIndex()));
                 printError(e);
+                print("");
             }
             messagesArea.setBackground(Color.PINK);
         }
-    }
-
-    private void setUpKeyListener() {
-        codeArea.addKeyListener(new KeyAdapter() {
-                                    @Override
-                                    public void keyTyped(KeyEvent e) {
-                                        if ((e.getModifiers() & ActionEvent.CTRL_MASK) != ActionEvent.CTRL_MASK) {
-                                            madeChanges = true;
-                                            codeArea.removeKeyListener(this);
-                                        }
-                                    }
-                                }
-        );
     }
 
     public void clearMessages() {
@@ -296,27 +238,25 @@ public class Main extends JFrame {
     }
 
     private void highlight(int lineNumber) {
-        String code = codeArea.getText();
+        String code = getCode();
         String[] lines = code.split("\n");
 
-        System.out.println(lineNumber);
         // Line numbers start on 1, indices on 0
         int startPos = code.indexOf(lines[lineNumber - 1]);
         int endPos = startPos + lines[lineNumber - 1].length();
-        System.out.println(startPos);
         try {
-            highlightTags.put(lineNumber, highlighter.addHighlight(startPos, endPos, painter));
+            highlightTags.put(lineNumber, getHighlighter().addHighlight(startPos, endPos, painter));
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
     }
 
     private void removeHighlight(int lineNumber) {
-        highlighter.removeHighlight(highlightTags.get(lineNumber));
+        getHighlighter().removeHighlight(highlightTags.get(lineNumber));
     }
 
     private void printError(LANGdradigError error) {
-        int lineNumber = Math.min(error.getLineNumber(), codeArea.getText().split("\n").length);
+        int lineNumber = Math.min(error.getLineNumber(), getCode().split("\n").length);
         if (lineNumber > 0) {
             highlight(lineNumber);
         }
@@ -330,6 +270,10 @@ public class Main extends JFrame {
 
     public String getFilePath() {
         return filePaths.get(programPane.getSelectedIndex());
+    }
+
+    public Highlighter getHighlighter() {
+        return ((JTextArea) ((JViewport) ((JScrollPane) programPane.getSelectedComponent()).getComponent(0)).getComponent(0)).getHighlighter();
     }
 
     public void popup(String message) {
@@ -355,15 +299,18 @@ public class Main extends JFrame {
 
     public void openFile(File file) {
         JTextArea area = new JTextArea();
-        area.setTabSize(2);
-        JScrollPane scroll = new JScrollPane(area);
-        scroll.setRowHeaderView(new TextLineNumber(area));
-
-
         String fileName;
         if (file == null) {
             fileName = "NieuwBestand";
         } else {
+            // Check if file is already opened
+            for (int i = 0; i < filePaths.size(); i++) {
+                String filePath = filePaths.get(i);
+                if (file.getAbsolutePath().equals(filePath)) {
+                    programPane.setSelectedIndex(i);
+                    return;
+                }
+            }
             fileName = file.getName();
             try {
                 String content = new String(Files.readAllBytes(file.toPath()));
@@ -372,7 +319,48 @@ public class Main extends JFrame {
                 e.printStackTrace();
             }
         }
+        area.setTabSize(2);
+        area.addKeyListener(new KeyAdapter() {
+            private boolean changed;
 
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
+                    /**
+                     * Key shortcuts
+                     *      SAVE:   CTRL + s
+                     *      OPEN:   CTRL + o
+                     *      NEW:    CTRL + n
+                     *      START:  CTRL + r
+                     */
+                    switch (e.getKeyCode()) {
+                        case 83:    // 's' key;
+                            onSave();
+                            changed = false;
+                            break;
+                        case 79:    // 'o' key
+                            onOpen();
+                            break;
+                        case 78:    // 'n' key
+                            onNew();
+                            break;
+                        case 82:    // 'r' key
+                            onStart();
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (!e.isActionKey() && !e.isAltDown()) {
+                    if (!changed) {
+                        int index = programPane.getSelectedIndex();
+                        programPane.setTitleAt(index, programPane.getTitleAt(index) + "*");
+                        changed = true;
+                    }
+                }
+            }
+        });
+        JScrollPane scroll = new JScrollPane(area);
+        scroll.setRowHeaderView(new TextLineNumber(area));
         programPane.addTab(fileName, scroll);
         programPane.setSelectedIndex(programPane.getTabCount() - 1);
         if (file != null) {
@@ -382,6 +370,14 @@ public class Main extends JFrame {
         }
         popup(fileName + " geopend");
         checkContent();
+    }
+
+    private void setupKeyListener() {
+
+    }
+
+    public String getCode() {
+        return ((JTextArea) ((JViewport) ((JScrollPane) programPane.getSelectedComponent()).getComponent(0)).getComponent(0)).getText();
     }
 
     public static void main(String[] args) {

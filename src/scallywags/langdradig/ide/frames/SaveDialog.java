@@ -20,15 +20,14 @@ public class SaveDialog extends JDialog {
         return d;
     }
 
-    public SaveDialog(Main main) {
+    public SaveDialog() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
         setTitle("Opslaan?");
 
-        String path = main.getFilePath();
-        messageLabel.setText("Wilt u " + (path == null ? "het huidige bestand" : new File(path).getName())  + " opslaan?");
+        messageLabel.setText("Wilt u uw openstaande bestanden opslaan?");
 
         buttonOK.addActionListener(e -> onOK());
 
