@@ -32,7 +32,7 @@ regOut5 :: Int
 regOut5 = regA
 
 generate :: Prog -> [Instruction]
-generate p = fst $ gen p ([], 0)
+generate p = fst $ gen p ([], 1) --WHY CAN'T WE START AT ADDRESS ZERO?!!!
 
 class CodeGen c where
     gen :: c -> SymbolTable -> ([Instruction], SymbolTable)
