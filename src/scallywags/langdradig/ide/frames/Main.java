@@ -26,16 +26,16 @@ import java.util.List;
 // TODO translate certain errors
 // TODO verwacht onbekend should be undeclared error
 // TODO add view with overview of variables and their types - scopes
-// TODO tabs for programs
 // TODO Exception
 // TODO requestfocus in codearea?
 // TODO fix "'" char error in parser
-// TODO translate mismatched input
 // TODO add deelbaar door
 // TODO font scaling
 // TODO JOptionPane
 // TODO saving file with existing name dialog
-// TODO automatic error checking
+// TODO saving file as file that is already open should merge tabs
+// TODO closing unsaved tab should prompt for save
+
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -66,6 +66,7 @@ public class Main extends JFrame {
 
     private List<String> filePaths;
     private Timer notificationTimer;
+    private Timer contentCheckTimer;
     private int changesCounter;
 
     public Main() {
@@ -111,6 +112,12 @@ public class Main extends JFrame {
 
         openFile(null);
         changesCounter = 0;
+
+        contentCheckTimer = new Timer(1000, f -> {
+            System.out.println("checkContent()");
+            checkContent();
+        });
+        contentCheckTimer.setRepeats(false);
 
         pack();
         setTitle("LANGdradig IDE");
@@ -171,7 +178,6 @@ public class Main extends JFrame {
 
     public void onSave() {
         String content = getCode();
-        getHighlighter().removeAllHighlights();
         String filePath = getFilePath();
 
         if (filePath == null) {
@@ -190,9 +196,6 @@ public class Main extends JFrame {
             e.printStackTrace();
         }
         String name = new File(filePath).getName();
-        System.out.println("Name: " + name);
-        clearMessages();
-        System.out.println("Index: " + programPane.getSelectedIndex());
         ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0)).setText(name);
         popup(name + " opgeslagen");
         checkContent();
@@ -204,6 +207,8 @@ public class Main extends JFrame {
     }
 
     private void checkContent() {
+        clearMessages();
+        getHighlighter().removeAllHighlights();
         Checker checker = new Checker();
         checker.checkString(getCode());
         if (checker.getCheckerExceptions().isEmpty() && checker.getParserExceptions().isEmpty()) {
@@ -352,14 +357,15 @@ public class Main extends JFrame {
                         default:
                             break;
                     }
-                } else if (!e.isActionKey() && !e.isAltDown()) {
+                } else if (!e.isActionKey() && !e.isAltDown() && !e.isShiftDown()) {
                     if (!changed) {
-                        int index = programPane.getSelectedIndex();
                         JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
                         label.setText(label.getText() + "*");
                         changed = true;
                         changesCounter++;
                     }
+                    contentCheckTimer.stop();
+                    contentCheckTimer.start();
                 }
             }
         });
@@ -378,10 +384,12 @@ public class Main extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 closeButton.setForeground(Color.RED);
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
                 closeButton.setForeground(Color.BLACK);
             }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 int index = programPane.indexOfComponent(scroll);
