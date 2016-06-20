@@ -76,7 +76,7 @@ public class Compiler {
 		astGen.setNumSprockells(cores);
 		astGen.writeAST(outputDir);
 		
-		File workingDirectory = new File(".");
+		File workingDirectory = new File(outputDir);
 		
 		ProcessBuilder pBuilder = new ProcessBuilder("echo", "writeSpril", "|", "ghci", astGen.getProgramName() + ".ast.hs").directory(workingDirectory);
 		pBuilder.start();
