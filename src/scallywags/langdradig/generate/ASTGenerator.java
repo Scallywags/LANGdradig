@@ -62,7 +62,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String INSIDE = "Inside";
 	private static final String OUTSIDE = "Outside";
 	private static final String LESS_THAN = "LessThan";
-	private static final String LESS_THAN_EQ = "LessThAnEq";
+	private static final String LESS_THAN_EQ = "LessThanEq";
 	private static final String GREATER_THAN = "GreaterThan";
 	private static final String GREATER_THAN_EQ = "GreaterThanEq";
 	private static final String EQUAL = "Equal";
