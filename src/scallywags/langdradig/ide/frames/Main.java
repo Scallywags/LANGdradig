@@ -19,6 +19,8 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 
+import scallywags.langdradig.Compiler;
+
 /**
  * Created by Jeroen Weener on 15/06/2016.
  */
@@ -198,7 +200,19 @@ public class Main extends JFrame {
 
     private void onStart() {
 //        popup("Running " + new File(filePath).getName());
-        new ErrorDialog("Not yet implemented", "This feature is not yet implemented.");
+//        new ErrorDialog("Not yet implemented", "This feature is not yet implemented.");
+
+        Compiler c = Compiler.getInstance();
+        try {
+            String compileOutput = c.compile(getFilePath());
+            List<String> runOutput = c.run(new File("."), compileOutput);
+            for (String s : runOutput) {
+                print(s);   
+            }
+        } catch (IOException e) {
+            //TODO
+            e.printStackTrace();
+        }
     }
 
     private void checkContent() {

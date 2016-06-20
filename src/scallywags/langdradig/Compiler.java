@@ -17,7 +17,7 @@ public class Compiler {
 
 	private Compiler() {}
 
-	public static final Compiler getInstance() {
+	public static Compiler getInstance() {
 		return INSTANCE;
 	}
 
