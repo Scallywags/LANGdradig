@@ -37,6 +37,7 @@ import scallywags.langdradig.Compiler;
 // TODO saving file with existing name dialog
 // TODO saving file as file that is already open should merge tabs
 // TODO closing unsaved tab should prompt for save
+// TODO support Ctrl + Z and Ctrl + Y
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -207,7 +208,7 @@ public class Main extends JFrame {
             String compileOutput = c.compile(getFilePath());
             List<String> runOutput = c.run(new File("."), compileOutput);
             for (String s : runOutput) {
-                print(s);   
+                print(s);
             }
         } catch (IOException e) {
             //TODO
