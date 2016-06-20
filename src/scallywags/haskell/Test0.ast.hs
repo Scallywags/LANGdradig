@@ -2,10 +2,10 @@ import AST
 import Generator
 
 ast :: Prog
-ast =  Prog (Decl "a" (IntType):Decl "b" (BoolType):Decl "c" (IntType):While (BinOp LessThanEq ((Idf "a")) ((Int 8))) (Block (Expr (Ass "c" (BinOp Power ((Idf "c")) ((Int 6)))):Expr (Ass "a" (BinOp Plus ((Idf "a")) ((Int 1)))):[])):[])
+ast =  Prog (Decl "intVar" (IntType):Decl "boolVar" (BoolType):Expr (Ass "boolVar" ((Bool True))):IfThenElse (UnOp Not ((Idf "boolVar"))) (Expr (Ass "intVar" ((Int 27)))) (Block (Expr (Ass "intVar" ((Int 31))):Expr (Ass "boolVar" ((Bool True))):[])):[])
 
 main :: IO ()
-main = writeFile "Test2.spril.hs" text where
+main = writeFile "Test0.spril.hs" text where
     text =  
             "import HardwareTypes\nimport Simulation\n\n" ++
             "prog :: [Instruction]\n" ++

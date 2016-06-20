@@ -1,5 +1,6 @@
 package scallywags.langdradig.ide.errors;
 
+import scallywags.langdradig.Translator;
 import scallywags.langdradig.generate.Type;
 import scallywags.langdradig.generate.exceptions.AlreadyDeclaredException;
 import scallywags.langdradig.generate.exceptions.CheckerException;
@@ -43,8 +44,8 @@ public class LANGdradigErrorBuilder {
             String s = line == -1 ? "" : "op regel " + line;
             sb.append("Fout ").append(s).append("    |    ").append(id).append(" is niet gedeclareerd in deze scope");
         } else if (e instanceof TypeException) {
-            String expected = convert(((TypeException) e).getExpectedType());
-            String actual = convert(((TypeException) e).getActualType());
+            String expected = Translator.translateType(((TypeException) e).getExpectedType());
+            String actual = Translator.translateType(((TypeException) e).getActualType());
             String rest = e.getText();
             line = findLine(code, rest);
             String s = line == -1 ? "" : "op regel " + line;
@@ -70,17 +71,5 @@ public class LANGdradigErrorBuilder {
             }
         }
         return -1;
-    }
-
-    private static String convert(Type type) {
-        if (type == null) {
-            return "<onbekend>";
-        } else if (type.equals(Type.INTEGER)) {
-            return "<geheel getal>";
-        } else if (type.equals(Type.BOOLEAN)) {
-            return "<waarheid>";
-        } else {
-            return "<onbekend>";
-        }
     }
 }

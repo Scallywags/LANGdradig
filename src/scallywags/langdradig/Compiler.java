@@ -93,13 +93,13 @@ public class Compiler {
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 		
-		String s = null;
+		String s;
 		while ((s = stdInput.readLine()) != null) {
-		    result.add(s);
+			result.add(s);
 		}
 		
 		while ((s = stdError.readLine()) != null) {
-		    result.add(s);
+			result.add(s);
 		}
 		return result;
 	}

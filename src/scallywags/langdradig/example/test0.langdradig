@@ -1,5 +1,5 @@
-intVar is een geheel getal.
-boolVar is een waarheid.
+intVar is een getal.
+boolVar is een stelling.
 boolVar wordt waar.
 als niet boolVar dan
     intVar wordt 27.
@@ -7,6 +7,4 @@ anders
     doe
         intVar wordt 31.
         boolVar wordt waar.
-    klaar.
-
-
+    klaar.
