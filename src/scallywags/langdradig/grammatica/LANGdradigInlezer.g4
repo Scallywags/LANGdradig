@@ -41,12 +41,12 @@ VOOR			:	V O O R				                            ;
 ZOLANG			:	Z O L A N G			                            ;
 
 // Types
-GEHEELGETAL		:	GEHEEL WITRUIMTE GETAL		                    ;
-WAARHEID		:	W A A R H E I D				                    ;
+GETAL		    :   G E T A L                                       ;
+STELLING		:	S T E L L I N G				                    ;
 REEKS			:	R E E K S					                    ;
 TEKST			:	T E K S T					                    ;
 
-// Values for waarheid
+// Values for stelling
 WAAR			:	W A A R								            ;
 ONWAAR			:	O N WAAR							            ;
 
@@ -74,6 +74,8 @@ BESTEED         :   B E S T E E D                                   ;
 UIT             :   U I T                                           ;
 AAN             :   A A N                                           ;
 WACHT           :   W A C H T                                       ;
+GEDEELDE        :   G E D E E L D
+                |   G E D E E L D E                                 ;
 
 PUNT			: '.'                                               ;
 KOMMA			: ','                                               ;
@@ -96,9 +98,6 @@ fragment ONGELIJK	: O N GELIJK | NIET WITRUIMTE GELIJK		    ;
 
 fragment KLEINER	: K L E I N E R		                            ;
 fragment GROTER		: G R O T E R		                            ;
-
-fragment GEHEEL     : G E H E E L                                   ;
-fragment GETAL	    : G E T A L	                                    ;
 
 // Operators
 fragment GEDEELD    : G E D E E L D                                 ;
@@ -141,4 +140,5 @@ fragment X		: [Xx];
 fragment Y		: [Yy];
 fragment Z		: [Zz];
 
+COMMENTAAR      :   '#' .*? ('\n' | EOF)    -> skip;
 WITRUIMTE		: 	[ \t\r\n]+	-> skip	;

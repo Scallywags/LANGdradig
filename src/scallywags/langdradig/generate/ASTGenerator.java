@@ -82,7 +82,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String INT = "Int";
 	private static final String TRUE = "True";
 	private static final String FALSE = "False";
-	private static final String ARRAY = "Array"										//TODO
+	private static final String ARRAY = "Array";										//TODO
 	
 	private static final String INT_TYPE = "IntType";
 	private static final String BOOL_TYPE = "BoolType";

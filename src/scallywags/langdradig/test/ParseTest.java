@@ -54,8 +54,10 @@ public class ParseTest {
 
     @Test
     public void testDeclarations() {
-        testCorrectProgram("b is een waarheid.");
-        testCorrectProgram("a is een geheel getal.");
+        testCorrectProgram("b is een stelling.");
+        testCorrectProgram("a is een getal.");
+        testCorrectProgram("b is een gedeelde stelling.");
+        testCorrectProgram("a is een gedeeld getal.");
     }
 
     @Test
@@ -72,8 +74,8 @@ public class ParseTest {
         testCorrectProgram("als i dan b wordt waar.");                                                          // "Als" statement without else
         testCorrectProgram("als i dan b wordt waar. anders b wordt onwaar.");                                   // "Als" statement with else
         testIncorrectProgram("als i b wordt onwaar.");                                                          // "Als" statement without "dan" keyword
-        testCorrectProgram("als 9 > i dan doe i is een geheel getal. i wordt i min 1. klaar.");                 // "Als" statement with a block
-        testIncorrectProgram("als b dan i is een geheel getal. i wordt i min 1. anders i wordt i plus 1");      // "Als" statement with two separate statements before the "anders"
+        testCorrectProgram("als 9 > i dan doe i is een getal. i wordt i min 1. klaar.");                 // "Als" statement with a block
+        testIncorrectProgram("als b dan i is een getal. i wordt i min 1. anders i wordt i plus 1");      // "Als" statement with two separate statements before the "anders"
     }
 
     @Test
@@ -86,8 +88,8 @@ public class ParseTest {
     @Test
     public void testBlockStatements() {
         testCorrectProgram("doe klaar.");                                                                       // Empty BlockStatement
-        testCorrectProgram("doe a wordt 4. b is een geheel getal. klaar.");                                     // BlockStatement
-        testIncorrectProgram("doe a wordt 4. b is een geheel getal.");                                          // BlockStatement without "klaar" keyword
+        testCorrectProgram("doe a wordt 4. b is een getal. klaar.");                                     // BlockStatement
+        testIncorrectProgram("doe a wordt 4. b is een getal.");                                          // BlockStatement without "klaar" keyword
         testCorrectProgram("doe doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar.");                // Three nested blocks
         testIncorrectProgram("doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar.");                  // Incorrect nested blocks; missing a doe
     }
@@ -108,6 +110,12 @@ public class ParseTest {
 
         testCorrectProgram("wacht op x.");                                                                      // "Wacht op" statement
         testIncorrectProgram("wacht op.");                                                                      // "Wacht op" statement without stating for which worker it is waiting
+    }
+
+    @Test
+    public void testComments() {
+        testCorrectProgram("# dit is commentaar");                                                            // Just a comment
+        testCorrectProgram("#");                                                                              // An empty comment
     }
 
     @Test
@@ -197,11 +205,14 @@ public class ParseTest {
     private LANGdradigParser test(String text) {
         CharStream stream = new ANTLRInputStream(text);
         Lexer lexer = new LANGdradigLexer(stream);
+        MyErrorListener errListener = new MyErrorListener();
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(errListener);
         TokenStream tokens = new CommonTokenStream(lexer);
 
         LANGdradigParser parser = new LANGdradigParser(tokens);
         parser.removeErrorListeners();
-        parser.addErrorListener(new MyErrorListener());
+        parser.addErrorListener(errListener);
 
         return parser;
     }
