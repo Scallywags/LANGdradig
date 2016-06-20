@@ -35,11 +35,8 @@ import java.util.List;
 // TODO font scaling
 // TODO JOptionPane
 // TODO saving file with existing name dialog
+// TODO automatic error checking
 
-/**
- * TODO for tabs
- * /   -   Ability to close tabs
- */
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
 
@@ -193,8 +190,10 @@ public class Main extends JFrame {
             e.printStackTrace();
         }
         String name = new File(filePath).getName();
+        System.out.println("Name: " + name);
         clearMessages();
-        programPane.setTitleAt(programPane.getSelectedIndex(), name);
+        System.out.println("Index: " + programPane.getSelectedIndex());
+        ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0)).setText(name);
         popup(name + " opgeslagen");
         checkContent();
     }
@@ -292,12 +291,11 @@ public class Main extends JFrame {
                 notificationTimer = null;
             });
             notificationTimer.setRepeats(false);
-            notificationTimer.start();
         } else {
             notificationTimer.stop();
             notificationTimer.setInitialDelay(3000);
-            notificationTimer.start();
         }
+        notificationTimer.start();
     }
 
     public void openFile(File file) {
@@ -357,7 +355,8 @@ public class Main extends JFrame {
                 } else if (!e.isActionKey() && !e.isAltDown()) {
                     if (!changed) {
                         int index = programPane.getSelectedIndex();
-                        programPane.setTitleAt(index, programPane.getTitleAt(index) + "*");
+                        JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
+                        label.setText(label.getText() + "*");
                         changed = true;
                         changesCounter++;
                     }
@@ -366,8 +365,33 @@ public class Main extends JFrame {
         });
         JScrollPane scroll = new JScrollPane(area);
         scroll.setRowHeaderView(new TextLineNumber(area));
+
         programPane.addTab(fileName, scroll);
         programPane.setSelectedIndex(programPane.getTabCount() - 1);
+        JPanel tabPanel = new JPanel();
+        tabPanel.setOpaque(false);
+        tabPanel.add(new JLabel(fileName));
+        JButton closeButton = new JButton("X");
+        closeButton.setContentAreaFilled(false);
+        closeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                closeButton.setForeground(Color.RED);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                closeButton.setForeground(Color.BLACK);
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int index = programPane.indexOfComponent(scroll);
+                removeTab(index);
+            }
+        });
+        tabPanel.add(closeButton);
+
+        programPane.setTabComponentAt(programPane.getSelectedIndex(), tabPanel);
+
         if (file != null) {
             filePaths.add(file.getAbsolutePath());
         } else {
@@ -377,8 +401,9 @@ public class Main extends JFrame {
         checkContent();
     }
 
-    private void setupKeyListener() {
-
+    private void removeTab(int index) {
+        filePaths.remove(index);
+        programPane.removeTabAt(index);
     }
 
     public String getCode() {

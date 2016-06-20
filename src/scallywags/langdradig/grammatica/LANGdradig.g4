@@ -6,7 +6,8 @@ program		: 	statement*
             ;
 
 //              Rule of thumb: If a statement does not end in a statement, it should end with a PUNT
-statement	:	IDENTIFIER IS EEN GEDEELDE? type PUNT												    #declStat
+statement	:	IDENTIFIER IS EEN type PUNT		            										    #declStat
+            |   IDENTIFIER IS EEN GEDEELDE type PUNT												    #sharedDeclStat
 			|	DOE statement* KLAAR PUNT 																#blockStat
 			|	expression PUNT																            #exprStat
 			|	ALS expression (NIET? KLOPT)? DAN statement (ANDERS statement)? 		                #ifStat
