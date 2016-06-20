@@ -25,7 +25,8 @@ public class LANGdradigErrorBuilder {
                 .replace("no viable alternative at input", "onverwachte term")
                 .replace("<EOF>", "eind van het programma")
                 .replace("missing", "ontbreekt")
-                .replace(" at", " op");
+                .replace(" at", " op")
+                .replace("mismatched input", "verkeerde input");
     }
 
     public static LANGdradigError format(String code, CheckerException e) {

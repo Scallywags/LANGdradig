@@ -1,0 +1,10 @@
+LANGdradig.tokens
+LANGdradigBaseListener.java
+LANGdradigBaseVisitor.java
+LANGdradigInlezer.java
+LANGdradigInlezer.tokens
+LANGdradigLexer.java
+LANGdradigLexer.tokens
+LANGdradigListener.java
+LANGdradigParser.java
+LANGdradigVisitor.java
