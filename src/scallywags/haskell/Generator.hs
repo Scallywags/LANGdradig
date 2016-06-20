@@ -62,7 +62,8 @@ instance CodeGen Stat where
             IntType                 ->  [Store reg0 (DirAddr offset)]    --default value for Int is 0
             BoolType                ->  [Store reg0 (DirAddr offset)]    --default value for Bool is 0
             ArrayType len elemType  ->  [Load (ImmValue len) regOut1, Store regOut1 (DirAddr offset)] ++
-                                        [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len]] --default value for arrays is all zeros
+                                        [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len]]
+                                        --default value for arrays is all zeros. fix in case the elements are arrays themselves
 
     --BlockStat
     gen (Block stats) (scopes, offset)          = (statIntrs, (scopes, newOffset)) --we only need to pop the first element so we can reuse 'scopes'.
@@ -78,15 +79,15 @@ instance CodeGen Stat where
             _ -> UnOp Not expr
         (exprInstrs, exprTable) = gen invertedExpr table        -- only jump if expression is false
         (statInstrs, restTable) = gen stat exprTable
-        code = exprInstrs ++ [Branch regOut1 (Rel $ length statInstrs)] ++ statInstrs
+        code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 1))] ++ statInstrs
 
     --IfThenElseStat
     gen (IfThenElse expr stat1 stat2) table     = (code, restTable) where
         (exprInstrs, exprTable)     = gen expr table
         (stat1Instrs, stat1Table)   = gen stat1 exprTable
         (stat2Instrs, restTable)    = gen stat2 stat1Table
-        code =  exprInstrs ++ [Branch regOut1 (Rel (length stat2Instrs + 1))] ++
-                stat2Instrs ++ [Jump $ Rel $ length stat1Instrs] ++ stat1Instrs   --if not expr stat2 else stat1
+        code =  exprInstrs ++ [Branch regOut1 (Rel (length stat2Instrs + 2))] ++
+                stat2Instrs ++ [Jump $ Rel (length stat1Instrs+1)] ++ stat1Instrs   --if not expr stat2 else stat1
 
     --WhileStat
     gen (While expr stat) table                 = (code, restTable) where
@@ -95,7 +96,7 @@ instance CodeGen Stat where
             _ -> UnOp Not expr
         (exprInstrs, exprTable) = gen invertedExpr table -- jump past while if and only if expression is false.
         (statInstrs, restTable) = gen stat exprTable
-        code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 1))] ++ statInstrs ++ [Jump (Rel $ -(length exprInstrs + length statInstrs))]
+        code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 2))] ++ statInstrs ++ [Jump (Rel $ -(length exprInstrs + length statInstrs + 1))]
 
     --gen (Fork thread_id stat) table  --TODO
     --gen (Wait thread_id) table       --TODO
