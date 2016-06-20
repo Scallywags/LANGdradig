@@ -27,8 +27,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	private static final String AST_TYPE_DECL = "ast :: Prog";
 	private static final String AST_FUN_DECL = "ast = ";
-	private static final String WRITE_SPRIL_TYPE_DECL = "writeSpril :: IO ()";
-	private static final String WRITE_SPRIL_FUN_DECL = "writeSpril = ";
+	private static final String WRITE_SPRIL_TYPE_DECL = "main :: IO ()";
+	private static final String WRITE_SPRIL_FUN_DECL = "main = ";
 
 	private static final String LPAR = "(";
 	private static final String RPAR = ")";
@@ -146,8 +146,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitProgram(ProgramContext ctx) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(MODULE).append(' ').append(programName).append(' ').append(WHERE);
-		builder.append(NEWLINE).append(NEWLINE);
 		builder.append(IMPORT_AST).append(NEWLINE).append(IMPORT_GENERATOR);
 		builder.append(NEWLINE).append(NEWLINE);
 		
@@ -168,7 +166,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(WRITE_SPRIL_FUN_DECL).append("writeFile").append(' ')
 			.append(QUOTE).append(programName).append(".spril.hs").append(QUOTE).append(' ')
 			.append("text").append(' ').append("where").append(NEWLINE);
-		builder.append(FOUR_SPACES).append("text =  ").append("\"module " + programName + "Spril where\\n\\n\" ++").append(NEWLINE);
+		builder.append(FOUR_SPACES).append("text =  ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"import HardwareTypes\\nimport Simulation\\n\\n\" ++").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
@@ -176,9 +174,9 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"prog = \" ++ (show $ generate ast) ++ \"\\n\\n\" ++ --TODO also add optimizer").append(NEWLINE);	//TODO add optimizer :-)
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"run :: IO ()\\n\" ++ ").append(NEWLINE);
+		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"run = sysTest $ replicate " + noSprockells + " prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate " + noSprockells + " prog\"").append(NEWLINE);
 		
 		return builder.toString();
 	}

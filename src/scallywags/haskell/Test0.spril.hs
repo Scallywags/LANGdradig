@@ -8,3 +8,6 @@ prog = [Store 0 (DirAddr 1),Store 0 (DirAddr 2),Load (ImmValue 1) 6,Store 6 (Dir
 
 run :: Int -> IO ()
 run n = sysTest $ replicate n prog
+
+main :: IO ()
+main = run 1
