@@ -10,6 +10,8 @@ import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
@@ -42,9 +44,13 @@ import scallywags.langdradig.Compiler;
 // TODO only run when no errors
 // TODO implement stop button for running program
 // TODO limit programs running to 1
+// TODO auto formatting
+// TODO besteed ... uit aan x generates exception during parsing
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
+
+    private static final Font font = new Font("Verdana", Font.PLAIN, 16);
 
     private JPanel contentPane;
     private JButton openButton;
@@ -67,6 +73,8 @@ public class Main extends JFrame {
     private JTabbedPane programPane;
     private JLabel notificationLabel;
     private JPanel notificationPanel;
+    private JTextArea variableView;
+    private JSplitPane programmingViews;
     private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
@@ -91,6 +99,20 @@ public class Main extends JFrame {
 
         showHideButton.addActionListener(e -> toggleMessages());
 
+        messagesArea.setFont(font);
+        variableView.setFont(font);
+        programmingViews.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                programmingViews.setDividerLocation(.8);
+            }
+        });
+
+        setupKeyListener(newButton);
+
+        programPane.addChangeListener(changeEvent -> {
+            checkContent();
+        });
         startButton.addActionListener(e -> onStart());
 
         filePaths = new ArrayList<>();
@@ -134,6 +156,8 @@ public class Main extends JFrame {
         setVisible(true);
 
         // There is a bug in JSplitPane preventing componentShown() from being called if we don't do this
+        programmingViews.setVisible(false);
+        programmingViews.setVisible(true);
         splitPane.setVisible(false);
         splitPane.setVisible(true);
     }
@@ -277,7 +301,7 @@ public class Main extends JFrame {
             }
             sb.append(v.getVariable()).append(" - ").append(Translator.translateType(v.getType())).append("\n");
         }
-        getScopeView().setText(sb.toString());
+        variableView.setText(sb.toString());
     }
 
     public void clearMessages() {
@@ -296,89 +320,8 @@ public class Main extends JFrame {
         this.revalidate();
     }
 
-    private void highlight(int lineNumber) {
-        String code = getCode();
-        String[] lines = code.split("\n");
-
-        // Line numbers start on 1, indices on 0
-        int startPos = code.indexOf(lines[lineNumber - 1]);
-        int endPos = startPos + lines[lineNumber - 1].length();
-        try {
-            highlightTags.put(lineNumber, getHighlighter().addHighlight(startPos, endPos, painter));
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void removeHighlight(int lineNumber) {
-        getHighlighter().removeHighlight(highlightTags.get(lineNumber));
-    }
-
-    private void printError(LANGdradigError error) {
-        int lineNumber = Math.min(error.getLineNumber(), getCode().split("\n").length);
-        if (lineNumber > 0) {
-            highlight(lineNumber);
-        }
-        error.setLineNumber(lineNumber);
-        print(error.toString());
-    }
-
-    private void print(String s) {
-        messagesArea.append(s + "\n");
-    }
-
-    public String getFilePath() {
-        return filePaths.get(programPane.getSelectedIndex());
-    }
-
-    public Highlighter getHighlighter() {
-        return ((JTextArea) ((JViewport) ((JScrollPane) ((JSplitPane) programPane.getSelectedComponent()).getLeftComponent()).getComponent(0)).getComponent(0)).getHighlighter();
-    }
-
-    public void popup(String message) {
-        String oldMessage = notificationLabel.getText();
-        String newMessage = oldMessage.equals("") ? message : oldMessage + ", " + message;
-        notificationLabel.setText(newMessage);
-        notificationPanel.setVisible(true);
-
-        if (notificationTimer == null) {
-            notificationTimer = new Timer(3000, e -> {
-                notificationPanel.setVisible(false);
-                notificationLabel.setText("");
-                notificationTimer = null;
-            });
-            notificationTimer.setRepeats(false);
-        } else {
-            notificationTimer.stop();
-            notificationTimer.setInitialDelay(3000);
-        }
-        notificationTimer.start();
-    }
-
-    public void openFile(File file) {
-        JTextArea area = new JTextArea();
-        String fileName;
-        if (file == null) {
-            fileName = "NieuwBestand";
-        } else {
-            // Check if file is already opened
-            for (int i = 0; i < filePaths.size(); i++) {
-                String filePath = filePaths.get(i);
-                if (file.getAbsolutePath().equals(filePath)) {
-                    programPane.setSelectedIndex(i);
-                    return;
-                }
-            }
-            fileName = file.getName();
-            try {
-                String content = new String(Files.readAllBytes(file.toPath()));
-                area.setText(content);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        area.setTabSize(2);
-        area.addKeyListener(new KeyAdapter() {
+    private void setupKeyListener(Component c) {
+        c.addKeyListener(new KeyAdapter() {
             private boolean changed;
 
             @Override
@@ -421,24 +364,95 @@ public class Main extends JFrame {
                 }
             }
         });
-        JTextArea scopeArea = new JTextArea("No variables");
-        scopeArea.setTabSize(2);
-        scopeArea.setEditable(false);
-        JScrollPane scopeScroll = new JScrollPane(scopeArea);
+    }
+
+    private void highlight(int lineNumber) {
+        String code = getCode();
+        String[] lines = code.split("\n");
+
+        // Line numbers start on 1, indices on 0
+        int startPos = code.indexOf(lines[lineNumber - 1]);
+        int endPos = startPos + lines[lineNumber - 1].length();
+        try {
+            highlightTags.put(lineNumber, getHighlighter().addHighlight(startPos, endPos, painter));
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeHighlight(int lineNumber) {
+        getHighlighter().removeHighlight(highlightTags.get(lineNumber));
+    }
+
+    private void printError(LANGdradigError error) {
+        int lineNumber = Math.min(error.getLineNumber(), getCode().split("\n").length);
+        if (lineNumber > 0) {
+            highlight(lineNumber);
+        }
+        error.setLineNumber(lineNumber);
+        print(error.toString());
+    }
+
+    private void print(String s) {
+        messagesArea.append(s + "\n");
+    }
+
+    public String getFilePath() {
+        return filePaths.get(programPane.getSelectedIndex());
+    }
+
+    public Highlighter getHighlighter() {
+        return ((JTextArea) ((JViewport) ((JScrollPane) programPane.getSelectedComponent()).getComponent(0)).getComponent(0)).getHighlighter();
+    }
+
+    public void popup(String message) {
+        String oldMessage = notificationLabel.getText();
+        String newMessage = oldMessage.equals("") ? message : oldMessage + ", " + message;
+        notificationLabel.setText(newMessage);
+        notificationPanel.setVisible(true);
+
+        if (notificationTimer == null) {
+            notificationTimer = new Timer(3000, e -> {
+                notificationPanel.setVisible(false);
+                notificationLabel.setText("");
+                notificationTimer = null;
+            });
+            notificationTimer.setRepeats(false);
+        } else {
+            notificationTimer.stop();
+            notificationTimer.setInitialDelay(3000);
+        }
+        notificationTimer.start();
+    }
+
+    public void openFile(File file) {
+        JTextArea area = new JTextArea();
+        area.setFont(font);
+        String fileName;
+        if (file == null) {
+            fileName = "NieuwBestand";
+        } else {
+            // Check if file is already opened
+            for (int i = 0; i < filePaths.size(); i++) {
+                String filePath = filePaths.get(i);
+                if (file.getAbsolutePath().equals(filePath)) {
+                    programPane.setSelectedIndex(i);
+                    return;
+                }
+            }
+            fileName = file.getName();
+            try {
+                String content = new String(Files.readAllBytes(file.toPath()));
+                area.setText(content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        area.setTabSize(2);
+        setupKeyListener(area);
         JScrollPane codeScroll = new JScrollPane(area);
         codeScroll.setRowHeaderView(new TextLineNumber(area));
-        JSplitPane splitPane = new JSplitPane();
-        splitPane.setLeftComponent(codeScroll);
-        splitPane.setRightComponent(scopeScroll);
-        splitPane.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                // TODO this is not called when creating a new file
-                splitPane.setDividerLocation(.8);
-            }
-        });
-
-        programPane.addTab(fileName, splitPane);
+        programPane.addTab(fileName, codeScroll);
         programPane.setSelectedIndex(programPane.getTabCount() - 1);
         JPanel tabPanel = new JPanel();
         tabPanel.setOpaque(false);
@@ -481,11 +495,7 @@ public class Main extends JFrame {
     }
 
     public String getCode() {
-        return ((JTextArea) ((JViewport) ((JScrollPane) ((JSplitPane) programPane.getSelectedComponent()).getLeftComponent()).getComponent(0)).getComponent(0)).getText();
-    }
-
-    public JTextArea getScopeView() {
-        return (JTextArea) ((JViewport) ((JScrollPane) ((JSplitPane) programPane.getSelectedComponent()).getRightComponent()).getComponent(0)).getComponent(0);
+        return ((JTextArea) ((JViewport) ((JScrollPane) programPane.getSelectedComponent()).getComponent(0)).getComponent(0)).getText();
     }
 
     public static void main(String[] args) {

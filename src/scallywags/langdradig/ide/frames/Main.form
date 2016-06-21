@@ -21,14 +21,16 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <requestFocusEnabled value="false"/>
           <text value="Nieuw"/>
         </properties>
       </component>
       <component id="5ccc5" class="javax.swing.JButton" binding="openButton" default-binding="true">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <icon value="com/sun/java/swing/plaf/windows/icons/NewFolder.gif"/>
           <text value="Open"/>
         </properties>
       </component>
@@ -37,6 +39,7 @@
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <icon value="javax/swing/plaf/metal/icons/ocean/floppy.gif"/>
           <text value="Opslaan"/>
         </properties>
       </component>
@@ -47,7 +50,7 @@
           </grid>
         </constraints>
         <properties>
-          <dividerLocation value="64"/>
+          <dividerLocation value="32"/>
           <dividerSize value="5"/>
           <lastDividerLocation value="-1"/>
           <orientation value="0"/>
@@ -74,21 +77,55 @@
                 <properties>
                   <columns value="0"/>
                   <editable value="false"/>
+                  <enabled value="true"/>
+                  <focusable value="false"/>
+                  <font/>
                   <lineWrap value="false"/>
                 </properties>
               </component>
             </children>
           </scrollpane>
-          <tabbedpane id="749b1" binding="programPane">
+          <splitpane id="e517d" binding="programmingViews">
             <constraints>
               <splitpane position="left"/>
             </constraints>
             <properties>
-              <toolTipText value=""/>
+              <dividerLocation value="300"/>
+              <dividerSize value="5"/>
+              <orientation value="1"/>
             </properties>
             <border type="none"/>
-            <children/>
-          </tabbedpane>
+            <children>
+              <tabbedpane id="749b1" binding="programPane">
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
+                <properties>
+                  <toolTipText value=""/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </tabbedpane>
+              <scrollpane id="f7fc5">
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="45984" class="javax.swing.JTextArea" binding="variableView">
+                    <constraints/>
+                    <properties>
+                      <editable value="false"/>
+                      <focusable value="false"/>
+                      <tabSize value="2"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </splitpane>
         </children>
       </splitpane>
       <component id="93767" class="javax.swing.JButton" binding="showHideButton" default-binding="true">
