@@ -52,7 +52,7 @@ public class LANGdradigErrorBuilder {
             sb.append("Fout ").append(s).append("    |    ").append("Verkeerd type: verwachte ")
                     .append(expected).append(" maar kreeg ").append(actual).append(" in:    ").append(rest).append("");
         } else {
-            sb.append("Fout (geen extra informatie beschikbaar");
+            sb.append("Fout (geen extra informatie beschikbaar)");
         }
         return new LANGdradigError(sb.toString(), line);
     }

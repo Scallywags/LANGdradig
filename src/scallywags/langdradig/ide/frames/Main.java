@@ -33,7 +33,6 @@ import scallywags.langdradig.Compiler;
 // TODO requestfocus in codearea?
 // TODO fix "'" char error in parser
 // TODO add deelbaar door
-// TODO font scaling
 // TODO JOptionPane
 // TODO saving file with existing name dialog
 // TODO saving file as file that is already open should merge tabs
@@ -43,31 +42,27 @@ import scallywags.langdradig.Compiler;
 // TODO implement stop button for running program
 // TODO limit programs running to 1
 // TODO auto formatting
-// TODO besteed ... uit aan x generates exception during parsing
-// TODO besteed uit name mapping to number
 // TODO more threads than sprockels, what to do ?
+// TODO run breaks
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
-
     private static final Font font = new Font("Verdana", Font.PLAIN, 16);
-
-    private JPanel contentPane;
-    private JButton openButton;
-    private JButton saveButton;
-
-    private final JFileChooser fc = new JFileChooser();
+    private static final JFileChooser fc = new JFileChooser();
 
     private Highlighter.HighlightPainter painter;
     private Map<Integer, Object> highlightTags;
 
-    private JTextArea messagesArea;
-    private JButton clearButton;
-    private JButton showHideButton;
-    private JScrollPane messagesAreaScrollPane;
-    private JPanel messagesPanel;
+    private JPanel contentPane;
+    private JButton openButton;
+    private JButton saveButton;
     private JButton startButton;
     private JButton newButton;
+    private JButton clearButton;
+    private JButton showHideButton;
+    private JTextArea messagesArea;
+    private JScrollPane messagesAreaScrollPane;
+    private JPanel messagesPanel;
 
     private JSplitPane splitPane;
     private JTabbedPane programPane;
