@@ -600,6 +600,7 @@ public class Main extends JFrame {
                 label.setText(label.getText() + "*");
             }
             changes.put(area, true);
+            checkContent();
         }
     }
 

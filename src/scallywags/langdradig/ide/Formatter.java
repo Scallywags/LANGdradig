@@ -6,7 +6,7 @@ package scallywags.langdradig.ide;
 public class Formatter {
 
     public static String format(String content) {
-        return formatTabs(content.trim().replaceAll(" +", " "));
+        return formatTabs(content);
     }
 
     private static String formatTabs(String content) {
@@ -14,23 +14,27 @@ public class Formatter {
         int indent = 0;
         String[] lines = content.split("\n");
         for (String line : lines) {
-            indent += indentation(line);
+            line = line.trim().replace("\t", " ").replace(" +", " ");
+            if (shouldRaise(line)) {
+                indent--;
+            }
             for (int i = 0; i < indent; i++) {
                 sb.append("\t");
             }
             sb.append(line);
             sb.append("\n");
+            if (shouldIndent(line)) {
+                indent++;
+            }
         }
         return sb.toString();
     }
 
-    private static int indentation(String line) {
-        if (line.startsWith("doe") || line.startsWith("besteed") || line.startsWith("kritiek")) {
-            return 1;
-        } else if (line.startsWith("klaar")) {
-            return -1;
-        } else {
-            return 0;
-        }
+    private static boolean shouldIndent(String line) {
+        return line.startsWith("doe") || line.startsWith("besteed") || line.startsWith("kritiek");
+    }
+
+    private static boolean shouldRaise(String line) {
+        return line.startsWith("klaar") || line.startsWith("uit aan");
     }
 }
