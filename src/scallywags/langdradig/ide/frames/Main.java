@@ -127,6 +127,11 @@ public class Main extends JFrame {
             public void componentShown(ComponentEvent e) {
                 programmingViews.setDividerLocation(.8);
             }
+
+            @Override
+            public void componentResized(ComponentEvent e) {
+                programmingViews.setDividerLocation(.8);
+            }
         });
 
         programPane.addChangeListener(changeEvent -> {
@@ -157,6 +162,11 @@ public class Main extends JFrame {
         splitPane.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
+                splitPane.setDividerLocation(.8);
+            }
+
+            @Override
+            public void componentResized(ComponentEvent e) {
                 splitPane.setDividerLocation(.8);
             }
         });

@@ -14,7 +14,7 @@ public class Formatter {
         int indent = 0;
         String[] lines = content.split("\n");
         for (String line : lines) {
-            line = line.trim().replace("\t", " ").replace(" +", " ");
+            line = line.trim().replaceAll("\t", " ").replaceAll(" +", " ");
             if (shouldRaise(line)) {
                 indent--;
             }
@@ -27,14 +27,18 @@ public class Formatter {
                 indent++;
             }
         }
-        return sb.toString();
+        return sb.toString().replaceAll("\t+\n", "\n");
     }
 
     private static boolean shouldIndent(String line) {
-        return line.startsWith("doe") || line.startsWith("besteed") || line.startsWith("kritiek");
+        return line.startsWith("doe") || line.startsWith("besteed") || line.startsWith("kritiek") || line.startsWith("als") || line.startsWith("zolang");
     }
 
     private static boolean shouldRaise(String line) {
         return line.startsWith("klaar") || line.startsWith("uit aan");
+    }
+
+    private static boolean isBlockWithoutEnd(String line) {
+        return line.startsWith("als") || line.startsWith("zolang") || line.startsWith("besteed uit aan");
     }
 }
