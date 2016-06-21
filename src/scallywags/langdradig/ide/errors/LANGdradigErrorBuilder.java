@@ -1,7 +1,6 @@
 package scallywags.langdradig.ide.errors;
 
 import scallywags.langdradig.Translator;
-import scallywags.langdradig.generate.Type;
 import scallywags.langdradig.generate.exceptions.AlreadyDeclaredException;
 import scallywags.langdradig.generate.exceptions.CheckerException;
 import scallywags.langdradig.generate.exceptions.TypeException;
