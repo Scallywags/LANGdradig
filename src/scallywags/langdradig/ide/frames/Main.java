@@ -1,6 +1,8 @@
 package scallywags.langdradig.ide.frames;
 
+import scallywags.langdradig.Translator;
 import scallywags.langdradig.generate.Checker;
+import scallywags.langdradig.generate.Variable;
 import scallywags.langdradig.generate.exceptions.CheckerException;
 import scallywags.langdradig.ide.TextLineNumber;
 import scallywags.langdradig.ide.errors.LANGdradigError;
@@ -10,6 +12,7 @@ import javax.swing.*;
 import javax.swing.Timer;
 import javax.swing.filechooser.*;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import java.awt.*;
@@ -24,10 +27,8 @@ import scallywags.langdradig.Compiler;
 /**
  * Created by Jeroen Weener on 15/06/2016.
  */
-// TODO implement onStart function
 // TODO translate certain errors
 // TODO verwacht onbekend should be undeclared error
-// TODO add view with overview of variables and their types - scopes
 // TODO Exception
 // TODO requestfocus in codearea?
 // TODO fix "'" char error in parser
@@ -38,9 +39,18 @@ import scallywags.langdradig.Compiler;
 // TODO saving file as file that is already open should merge tabs
 // TODO closing unsaved tab should prompt for save
 // TODO support Ctrl + Z and Ctrl + Y
+// TODO only run when no errors
+// TODO implement stop button for running program
+// TODO limit programs running to 1
+// TODO auto formatting
+// TODO besteed ... uit aan x generates exception during parsing
+// TODO besteed uit name mapping to number
+// TODO more threads than sprockels, what to do ?
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
+
+    private static final Font font = new Font("Verdana", Font.PLAIN, 16);
 
     private JPanel contentPane;
     private JButton openButton;
@@ -63,6 +73,8 @@ public class Main extends JFrame {
     private JTabbedPane programPane;
     private JLabel notificationLabel;
     private JPanel notificationPanel;
+    private JTextArea variableView;
+    private JSplitPane programmingViews;
     private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
@@ -70,6 +82,8 @@ public class Main extends JFrame {
     private Timer notificationTimer;
     private Timer contentCheckTimer;
     private int changesCounter;
+
+    private Thread executingThread;
 
     public Main() {
         setContentPane(contentPane);
@@ -85,6 +99,22 @@ public class Main extends JFrame {
 
         showHideButton.addActionListener(e -> toggleMessages());
 
+        messagesArea.setFont(font);
+        variableView.setFont(font);
+        programmingViews.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                programmingViews.setDividerLocation(.8);
+            }
+        });
+
+        setupKeyListener(newButton);
+
+        programPane.addChangeListener(changeEvent -> {
+            if (programPane.getTabCount() > 0) {
+                checkContent();
+            }
+        });
         startButton.addActionListener(e -> onStart());
 
         filePaths = new ArrayList<>();
@@ -93,6 +123,9 @@ public class Main extends JFrame {
         highlightTags = new HashMap<>();
 
         fc.setFileFilter(new FileNameExtensionFilter("langdradig file", "langdradig"));
+
+        DefaultCaret caret = (DefaultCaret) messagesArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -112,10 +145,10 @@ public class Main extends JFrame {
             }
         });
 
-        openFile(null);
+//        openFile(null);
         changesCounter = 0;
 
-        contentCheckTimer = new Timer(1000, f -> checkContent());
+        contentCheckTimer = new Timer(800, f -> checkContent());
         contentCheckTimer.setRepeats(false);
 
         pack();
@@ -125,6 +158,8 @@ public class Main extends JFrame {
         setVisible(true);
 
         // There is a bug in JSplitPane preventing componentShown() from being called if we don't do this
+        programmingViews.setVisible(false);
+        programmingViews.setVisible(true);
         splitPane.setVisible(false);
         splitPane.setVisible(true);
     }
@@ -200,20 +235,39 @@ public class Main extends JFrame {
     }
 
     private void onStart() {
-//        popup("Running " + new File(filePath).getName());
-//        new ErrorDialog("Not yet implemented", "This feature is not yet implemented.");
-
+        onSave();
+        if (executingThread != null) {
+            popup("Er is al een ander programma bezig!");
+            return;
+        }
+        clearMessages();
         Compiler c = Compiler.getInstance();
         try {
-            String compileOutput = c.compile(getFilePath());
-            List<String> runOutput = c.run(new File("."), compileOutput);
-            for (String s : runOutput) {
-                print(s);
+            String filePath = getFilePath();
+            if (filePath == null) {
+                //TODO
+                new ErrorDialog("TODO", "RUN UNSAVED PROGRAM");
+                return;
             }
+            String compileOutput = c.compile(getFilePath());
+            print(compileOutput);
+            File sprilFile = new File(compileOutput);
+            executingThread = new Thread(() -> {
+                try {
+                    List<String> runOutput = c.run(sprilFile.getParentFile(), sprilFile.getAbsolutePath());
+                    runOutput.forEach(this::print);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    executingThread = null;
+                }
+            });
+            executingThread.start();
         } catch (IOException e) {
             //TODO
             e.printStackTrace();
         }
+        popup("Uitvoeren " + new File(getFilePath()).getName());
     }
 
     private void checkContent() {
@@ -238,9 +292,18 @@ public class Main extends JFrame {
         }
 
         //TODO
-        for (String s : checker.getIDs()) {
-            System.out.println(s);
+        printVariables(checker.getVariables());
+    }
+
+    private void printVariables(List<Variable> variables) {
+        StringBuilder sb = new StringBuilder();
+        for (Variable v : variables) {
+            for (int i = 0; i < v.getScope(); i++) {
+                sb.append("\t");
+            }
+            sb.append(v.getVariable()).append(" - ").append(Translator.translateType(v.getType())).append("\n");
         }
+        variableView.setText(sb.toString());
     }
 
     public void clearMessages() {
@@ -257,6 +320,52 @@ public class Main extends JFrame {
             splitPane.setBottomComponent(null);
         }
         this.revalidate();
+    }
+
+    private void setupKeyListener(Component c) {
+        c.addKeyListener(new KeyAdapter() {
+            private boolean changed;
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
+                    /**
+                     * Key shortcuts
+                     *      SAVE:   CTRL + s
+                     *      OPEN:   CTRL + o
+                     *      NEW:    CTRL + n
+                     *      START:  CTRL + r
+                     */
+                    switch (e.getKeyCode()) {
+                        case 83:    // 's' key;
+                            onSave();
+                            changed = false;
+                            changesCounter--;
+                            break;
+                        case 79:    // 'o' key
+                            onOpen();
+                            break;
+                        case 78:    // 'n' key
+                            onNew();
+                            break;
+                        case 82:    // 'r' key
+                            onStart();
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (!e.isActionKey() && !e.isAltDown() && !e.isShiftDown()) {
+                    if (!changed) {
+                        JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
+                        label.setText(label.getText() + "*");
+                        changed = true;
+                        changesCounter++;
+                    }
+                    contentCheckTimer.stop();
+                    contentCheckTimer.start();
+                }
+            }
+        });
     }
 
     private void highlight(int lineNumber) {
@@ -320,6 +429,7 @@ public class Main extends JFrame {
 
     public void openFile(File file) {
         JTextArea area = new JTextArea();
+        area.setFont(font);
         String fileName;
         if (file == null) {
             fileName = "NieuwBestand";
@@ -341,53 +451,10 @@ public class Main extends JFrame {
             }
         }
         area.setTabSize(2);
-        area.addKeyListener(new KeyAdapter() {
-            private boolean changed;
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
-                    /**
-                     * Key shortcuts
-                     *      SAVE:   CTRL + s
-                     *      OPEN:   CTRL + o
-                     *      NEW:    CTRL + n
-                     *      START:  CTRL + r
-                     */
-                    switch (e.getKeyCode()) {
-                        case 83:    // 's' key;
-                            onSave();
-                            changed = false;
-                            changesCounter--;
-                            break;
-                        case 79:    // 'o' key
-                            onOpen();
-                            break;
-                        case 78:    // 'n' key
-                            onNew();
-                            break;
-                        case 82:    // 'r' key
-                            onStart();
-                            break;
-                        default:
-                            break;
-                    }
-                } else if (!e.isActionKey() && !e.isAltDown() && !e.isShiftDown()) {
-                    if (!changed) {
-                        JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
-                        label.setText(label.getText() + "*");
-                        changed = true;
-                        changesCounter++;
-                    }
-                    contentCheckTimer.stop();
-                    contentCheckTimer.start();
-                }
-            }
-        });
-        JScrollPane scroll = new JScrollPane(area);
-        scroll.setRowHeaderView(new TextLineNumber(area));
-
-        programPane.addTab(fileName, scroll);
+        setupKeyListener(area);
+        JScrollPane codeScroll = new JScrollPane(area);
+        codeScroll.setRowHeaderView(new TextLineNumber(area));
+        programPane.addTab(fileName, codeScroll);
         programPane.setSelectedIndex(programPane.getTabCount() - 1);
         JPanel tabPanel = new JPanel();
         tabPanel.setOpaque(false);
@@ -407,7 +474,7 @@ public class Main extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                int index = programPane.indexOfComponent(scroll);
+                int index = programPane.indexOfComponent(codeScroll);
                 removeTab(index);
             }
         });

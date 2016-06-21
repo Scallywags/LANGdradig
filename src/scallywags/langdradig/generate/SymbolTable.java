@@ -3,15 +3,18 @@ package scallywags.langdradig.generate;
 import java.util.*;
 
 public class SymbolTable {
-    private Set<String> ids = new HashSet<>();
+    private int scope = 0;
+    private List<Variable> variables = new ArrayList<>();
 
     private Stack<Scope> scopes = new Stack<>();
 
     public void openScope() {
+        scope++;
         scopes.add(new Scope());
     }
 
     public void closeScope() {
+        scope--;
         scopes.pop();
     }
 
@@ -21,7 +24,7 @@ public class SymbolTable {
      * @return true if the identifier was successfully added, false if the identifier was already declared in the current scope
      */
     public boolean add(String id, Type type) {
-        ids.add(id);
+        variables.add(new Variable(id, type, scope));
         return scopes.peek().add(id, type);
     }
 
@@ -70,8 +73,8 @@ public class SymbolTable {
         }
     }
 
-    public Set<String> getIDs() {
-        return ids;
+    public List<Variable> getVariables() {
+        return variables;
     }
 
 }

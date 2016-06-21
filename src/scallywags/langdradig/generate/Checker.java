@@ -98,6 +98,8 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitForkStat(ForkStatContext ctx) {
+        System.out.println(ctx);
+        System.out.println(ctx.IDENTIFIER());
         forkIDs.add(ctx.IDENTIFIER().getText());
     }
 
@@ -121,6 +123,15 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitDeclStat(DeclStatContext ctx) {
+        Type type = types.get(ctx.type());
+        boolean success = table.add(ctx.IDENTIFIER().getText(), type);
+        if (!success) {
+            exceptions.add(new AlreadyDeclaredException(ctx, ctx.IDENTIFIER().getText()));
+        }
+    }
+
+    @Override
+    public void exitSharedDeclStat(SharedDeclStatContext ctx) {
         Type type = types.get(ctx.type());
         boolean success = table.add(ctx.IDENTIFIER().getText(), type);
         if (!success) {
@@ -156,8 +167,10 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitCrementExpr(CrementExprContext ctx) {
-        Type type = types.get(ctx.IDENTIFIER());
-        if (type != Type.INTEGER) {
+        Type type = table.getType(ctx.IDENTIFIER().getText());
+        if (type == null) {
+            exceptions.add(new UndeclaredException(ctx, ctx.IDENTIFIER().getText()));
+        } else if (type != Type.INTEGER) {
             exceptions.add(new TypeException(ctx, Type.INTEGER, type));
         }
         types.put(ctx, type);
@@ -337,8 +350,8 @@ public class Checker extends LANGdradigBaseListener {
         return errorListener.getErrors();
     }
 
-    public Set<String> getIDs() {
-        return table.getIDs();
+    public List<Variable> getVariables() {
+        return table.getVariables();
     }
 
 
