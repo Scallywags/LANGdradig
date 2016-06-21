@@ -83,6 +83,9 @@ public class Checker extends LANGdradigBaseListener {
     @Override
     public void exitIfStat(IfStatContext ctx) {
         Type exprType = types.get(ctx.expression());
+        if (exprType == null) {
+            exceptions.add(new UndeclaredException(ctx, ctx.expression().i))
+        }
         if (exprType != Type.BOOLEAN) {
             exceptions.add(new TypeException(ctx, Type.BOOLEAN, exprType));
         }

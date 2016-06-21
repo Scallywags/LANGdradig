@@ -10,8 +10,6 @@ import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
@@ -46,6 +44,8 @@ import scallywags.langdradig.Compiler;
 // TODO limit programs running to 1
 // TODO auto formatting
 // TODO besteed ... uit aan x generates exception during parsing
+// TODO besteed uit name mapping to number
+// TODO more threads than sprockels, what to do ?
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -111,7 +111,9 @@ public class Main extends JFrame {
         setupKeyListener(newButton);
 
         programPane.addChangeListener(changeEvent -> {
-            checkContent();
+            if (programPane.getTabCount() > 0) {
+                checkContent();
+            }
         });
         startButton.addActionListener(e -> onStart());
 
@@ -472,7 +474,7 @@ public class Main extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                int index = programPane.indexOfComponent(splitPane);
+                int index = programPane.indexOfComponent(codeScroll);
                 removeTab(index);
             }
         });

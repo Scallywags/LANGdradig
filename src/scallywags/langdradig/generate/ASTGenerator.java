@@ -3,7 +3,9 @@ package scallywags.langdradig.generate;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -96,9 +98,14 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private final File sourceFile;
 	
 	private int noSprockells;
+
+	private Map<String, Integer> forkIDs;
+	private int nextUsableMapping;
 	
 	public ASTGenerator(String sourceFilePath) {
-		
+		forkIDs = new HashMap<>();
+		nextUsableMapping = 0;
+
 		sourceFile = new File(sourceFilePath);
 		String programName = sourceFile.getName();
 		
@@ -238,13 +245,21 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitForkStat(ForkStatContext ctx) {
-		return FORK + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
+		Integer mapping = forkIDs.get(ctx.IDENTIFIER().getText());
+		if (mapping == null) {
+			mapping = nextUsableMapping;
+			forkIDs.put(ctx.IDENTIFIER().getText(), nextUsableMapping);
+			nextUsableMapping++;
+		}
+		forkIDs.put(ctx.IDENTIFIER().getText(), nextUsableMapping);
+		nextUsableMapping++;
+		return FORK + " " + QUOTE + mapping + QUOTE
 				+ " " + LPAR + visit(ctx.statement()) + RPAR;
 	}
 	
 	@Override
 	public String visitJoinStat(JoinStatContext ctx) {
-		return WAIT + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
+		return WAIT + " " + QUOTE + forkIDs.get(ctx.IDENTIFIER().getText()) + QUOTE;
 	}
 	
 	@Override
