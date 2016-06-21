@@ -12,6 +12,7 @@ type Scope          = [Entry]
 type SymbolTable    = ([Scope], Offset)
 
 offset :: [Scope] -> String -> Offset
+offset [] identifier                            = -1
 offset ([]:scopes) identifier                   = offset scopes identifier
 offset (((i, t, o):entries):scopes) identifier  | i == identifier   = o
                                                 | otherwise         = offset (entries:scopes) identifier
@@ -32,189 +33,222 @@ regOut5 :: Int
 regOut5 = regA
 
 generate :: Prog -> [Instruction]
-generate p = fst $ gen p ([], 1) --WHY CAN'T WE START AT ADDRESS ZERO?!!!
+generate p@(Prog cores stmnts) = instructions
+    where (instructions, table, sharedTable) = gen p ([], 1) ([], cores)
 
 class CodeGen c where
-    gen :: c -> SymbolTable -> ([Instruction], SymbolTable)
+    --gen subtree -> localmem table -> sharedmem table -> (instructions, new localmem table, new sharedmemtable)
+    gen :: c -> SymbolTable -> SymbolTable -> ([Instruction], SymbolTable, SymbolTable)
 
 type Stats = [Stat]
 
 instance CodeGen Stats where
-    gen []              table   = ([], table)
-    gen (stat:stats)    table   = (statInstrs ++ restInstrs, restTable) where
-        (statInstrs, statTable) = gen stat table
-        (restInstrs, restTable) = gen stats statTable
+    gen []              table   sharedTable     = ([], table, sharedTable)
+    gen (stat:stats)    table   sharedTable     = (statInstrs ++ restInstrs, restTable, restSharedTable) where
+        (statInstrs, statTable, statSharedTable) = gen stat table sharedTable
+        (restInstrs, restTable, restSharedTable) = gen stats statTable statSharedTable
 
 instance CodeGen Prog where
-    gen (Prog stats) (scopes, offset) = (statInstrs ++ [EndProg], restTable)
-        where (statInstrs, restTable) = gen stats ([]:scopes, offset)
+    gen (Prog _ stats) (scopes, offset) (sharedScopes, sharedOffsets) = (statInstrs ++ [EndProg], restTable, restSharedTable)
+        where (statInstrs, restTable, restSharedTable) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets)
 
 instance CodeGen Stat where
     --DeclStat
-    gen (Decl varName varType) (x:xs, offset)   = (code, table) where        
+    gen (Decl varName varType) (x:xs, offset) sharedTable   = (code, table, sharedTable) where        
         size = case varType of
             IntType     -> 1
             BoolType    -> 1
             ArrayType len _ -> len + 1
-
         table       = (((varName, varType, offset):x):xs, offset + size)
         code        = case varType of
             IntType                 ->  [Store reg0 (DirAddr offset)]    --default value for Int is 0
             BoolType                ->  [Store reg0 (DirAddr offset)]    --default value for Bool is 0
             ArrayType len elemType  ->  [Load (ImmValue len) regOut1, Store regOut1 (DirAddr offset)] ++
-                                        [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len]]
+                                        [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len+1]]
                                         --default value for arrays is all zeros. fix in case the elements are arrays themselves
 
     --BlockStat
-    gen (Block stats) (scopes, offset)          = (statIntrs, (scopes, newOffset)) --we only need to pop the first element so we can reuse 'scopes'.
-        where (statIntrs, (_, newOffset)) = gen stats ([]:scopes, offset) --opens a new scope for the stats. will not be reused after the blockstat.
+    gen (Block stats) (scopes, offset) sharedTable          = (statIntrs, (scopes, newOffset), restSharedTable) --we only need to pop the first element so we can reuse 'scopes'.
+        where (statIntrs, (_, newOffset), restSharedTable) = gen stats ([]:scopes, offset) sharedTable--opens a new scope for the stats. will not be reused after the blockstat.
 
     --ExprStat
-    gen (Expr expr) table                       = gen expr table
+    gen (Expr expr) table sharedTable                       = gen expr table sharedTable
 
     --IfThenStat
-    gen (IfThen expr stat) table                = (code, restTable) where
-        invertedExpr = case expr of
+    gen (IfThen expr stat) table sharedTable                = (code, restTable, restSharedTable) where
+        invertedExpr = case expr of                             -- small optimization
             UnOp Not e -> e
             _ -> UnOp Not expr
-        (exprInstrs, exprTable) = gen invertedExpr table        -- only jump if expression is false
-        (statInstrs, restTable) = gen stat exprTable
+        (exprInstrs, exprTable, exprSharedTable) = gen invertedExpr table sharedTable        -- only jump if expression is false
+        (statInstrs, restTable, restSharedTable) = gen stat exprTable exprSharedTable
         code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 1))] ++ statInstrs
 
     --IfThenElseStat
-    gen (IfThenElse expr stat1 stat2) table     = (code, restTable) where
-        (exprInstrs, exprTable)     = gen expr table
-        (stat1Instrs, stat1Table)   = gen stat1 exprTable
-        (stat2Instrs, restTable)    = gen stat2 stat1Table
+    gen (IfThenElse expr stat1 stat2) table sharedTable     = (code, restTable, restSharedTable) where
+        (exprInstrs, exprTable, exprSharedTable)     = gen expr table sharedTable
+        (stat1Instrs, stat1Table, stat1SharedTable)   = gen stat1 exprTable exprSharedTable
+        (stat2Instrs, restTable, restSharedTable)    = gen stat2 stat1Table stat1SharedTable
         code =  exprInstrs ++ [Branch regOut1 (Rel (length stat2Instrs + 2))] ++
                 stat2Instrs ++ [Jump $ Rel (length stat1Instrs+1)] ++ stat1Instrs   --if not expr stat2 else stat1
 
     --WhileStat
-    gen (While expr stat) table                 = (code, restTable) where
-        invertedExpr = case expr of
+    gen (While expr stat) table sharedTable                 = (code, restTable, sharedRestTable) where
+        invertedExpr = case expr of                      -- small optimization
             UnOp Not e -> e
             _ -> UnOp Not expr
-        (exprInstrs, exprTable) = gen invertedExpr table -- jump past while if and only if expression is false.
-        (statInstrs, restTable) = gen stat exprTable
+        (exprInstrs, exprTable, sharedExprTable) = gen invertedExpr table sharedTable-- jump past while if and only if expression is false.
+        (statInstrs, restTable, sharedRestTable) = gen stat exprTable sharedExprTable
         code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 2))] ++ statInstrs ++ [Jump (Rel $ -(length exprInstrs + length statInstrs + 1))]
 
-    --gen (Fork thread_id stat) table  --TODO
-    --gen (Wait thread_id) table       --TODO
+    --DeclShared
+    gen (DeclShared varName varType) table (x:xs, offset)   = (code, table, sharedTable) where        
+        size = case varType of
+            IntType     -> 1
+            BoolType    -> 1
+            ArrayType len _ -> len + 1
+
+        sharedTable       = (((varName, varType, offset):x):xs, offset + size)
+
+        code        = case varType of
+            IntType                 ->  [WriteInstr reg0 (DirAddr offset)]    --default value for Int is 0
+            BoolType                ->  [WriteInstr reg0 (DirAddr offset)]    --default value for Bool is 0
+            ArrayType len elemType  ->  [Load (ImmValue len) regOut1, WriteInstr regOut1 (DirAddr offset)] ++
+                                        [WriteInstr reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len+1]]
+                                        --default value for arrays is all zeros. fix in case the elements are arrays themselves
+    --ForkStat    
+    gen (Fork spr_id stat) table (sharedScopes, sharedOffset) = (code, restTable, (sharedScopes, newSharedOffset)) where
+        (statInstrs, restTable, (_, newSharedOffset)) = gen stat table ([]:sharedScopes, sharedOffset)
+        forkInstrs =    [Load (ImmValue spr_id) regOut1, Compute NEq regOut1 regSprID regOut1, Branch regOut1 (Rel (length statInstrs + 2))]
+        code = forkInstrs ++ statInstrs ++ [EndProg] --TODO spin and wait for join?
+
+    --gen (Join thread_id) table       --TODO
     --gen (Sync lock stat) table       --TODO
 
 instance CodeGen Expr where
     -- ParExpr
-    gen (Par expr) table                    = gen expr table
+    gen (Par expr) table sharedTable                    = gen expr table sharedTable
 
     -- BoolExpr
-    gen (Bool bool) table                   = ([Load (ImmValue $ intBool bool) regOut1], table)
+    gen (Bool bool) table sharedTable                   = ([Load (ImmValue $ intBool bool) regOut1], table, sharedTable)
 
     -- IdfExpr
-    gen (Idf string) table                  = ([Load (DirAddr $ offset (fst table) string) regOut1], table)
+    gen (Idf string) table sharedTable                 = (code, table, sharedTable) where
+        localAddr = offset (fst table) string
+        sharedAddr = offset (fst sharedTable) string
+        code    | localAddr /= -1         = [Load (DirAddr localAddr) regOut1]
+                | otherwise             = [ReadInstr (DirAddr sharedAddr), Receive regOut1]
 
     -- IntExpr
-    gen (Int int) table                     = ([Load (ImmValue int) regOut1], table)
+    gen (Int int) table sharedTable                     = ([Load (ImmValue int) regOut1], table, sharedTable)
     
     -- UnOpExpr
-    gen (UnOp op expr) table                = (exprInstrs ++ unopInstrs, restTable) where
-        (exprInstrs, exprTable) = gen expr table
-        (unopInstrs, restTable) = gen op exprTable
+    gen (UnOp op expr) table sharedTable               = (exprInstrs ++ unopInstrs, restTable, sharedRestTable) where
+        (exprInstrs, exprTable, sharedExprTable) = gen expr table sharedTable
+        (unopInstrs, restTable, sharedRestTable) = gen op exprTable sharedExprTable
 
     -- BinOpExpr
-    gen (BinOp op expr1 expr2) table        = (code, restTable) where
-        (expr1Instrs, expr1Table)   = gen expr1 table
-        (expr2Instrs, expr2Table)   = gen expr2 expr1Table
-        (opInstrs, restTable)       = gen op expr2Table
+    gen (BinOp op expr1 expr2) table sharedTable        = (code, restTable, sharedRestTable) where
+        (expr1Instrs, expr1Table, sharedExpr1Table)   = gen expr1 table sharedTable
+        (expr2Instrs, expr2Table, sharedExpr2Table)   = gen expr2 expr1Table sharedExpr1Table
+        (opInstrs, restTable, sharedRestTable)        = gen op expr2Table sharedExpr2Table
         code = expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs
 
     -- TrinOpExpr
-    gen (TrinOp op expr lower upper) table  = (code, restTable) where
-        (exprInstrs, exprTable)     = gen expr table
-        (lowerInstrs, lowerTable)   = gen lower exprTable
-        (upperInstrs, upperTable)   = gen upper lowerTable
-        (opInstrs, restTable)       = gen op upperTable
+    gen (TrinOp op expr lower upper) table sharedTable  = (code, restTable, sharedRestTable) where
+        (exprInstrs, exprTable, sharedExprTable)        = gen expr table sharedTable
+        (lowerInstrs, lowerTable, sharedLowerTable)     = gen lower exprTable sharedExprTable
+        (upperInstrs, upperTable, sharedUpperTable)     = gen upper lowerTable sharedLowerTable
+        (opInstrs, restTable, sharedRestTable)          = gen op upperTable sharedUpperTable
         code = exprInstrs ++ [Push regOut1] ++ lowerInstrs ++ [Push regOut1] ++ upperInstrs ++ [Pop regOut3, Pop regOut2] ++ opInstrs
 
     -- CrementExpr
-    gen (Crem crem string) table    = (code, crementTable) where
-        dirAddr = offset (fst table) string
-        (crementInstrs, crementTable)   = gen crem table
-        code = [Load (DirAddr dirAddr) regOut1] ++ crementInstrs ++ [Store regOut1 (DirAddr dirAddr)]
+    gen (Crem crem string) table sharedTable        = (code, crementTable, sharedCrementTable) where
+        localAddr = offset (fst table) string
+        sharedAddr = offset (fst sharedTable) string
+
+        (crementInstrs, crementTable, sharedCrementTable)   = gen crem table sharedTable
+
+        code    | localAddr /= -1   =   [Load (DirAddr localAddr) regOut1] ++ crementInstrs ++ [Store regOut1 (DirAddr localAddr)]
+                | otherwise         =   [ReadInstr (DirAddr sharedAddr), Receive regOut1] ++ crementInstrs ++ [WriteInstr regOut1 (DirAddr sharedAddr)]
+                                        --TODO add loop that spins until value is written successfully?
 
     -- AssignExpr
-    gen (Ass string expr) table             = (code, restTable) where
-        (exprCode, restTable)   = gen expr table
-        dirAddr = offset (fst restTable) string
-        code = exprCode ++ [Store regOut1 (DirAddr dirAddr)]
+    gen (Ass string expr) table sharedTable                 = (code, restTable, restSharedTable) where
+        (exprCode, restTable, restSharedTable)   = gen expr table sharedTable
+        localAddr = offset (fst restTable) string
+        sharedAddr = offset (fst restSharedTable) string
+
+        code    | localAddr /= -1   = exprCode ++ [Store regOut1 (DirAddr localAddr)]
+                | otherwise         = exprCode ++ [WriteInstr regOut1 (DirAddr sharedAddr)]
 
         --TODO make this work correctly for arrays; there is no array expression yet... xD
 
 instance CodeGen UnOp where
     -- NegExpr
-    gen Neg table   = ([Load (ImmValue (-1)) regOut2, Compute Mul regOut1 regOut2 regOut1], table)
+    gen Neg table sharedTable   = ([Load (ImmValue (-1)) regOut2, Compute Mul regOut1 regOut2 regOut1], table, sharedTable)
 
     -- NotExpr
-    gen Not table   = ([Load (ImmValue $ intBool True) regOut2, Compute Xor regOut1 regOut2 regOut1], table)
+    gen Not table sharedTable  = ([Load (ImmValue $ intBool True) regOut2, Compute Xor regOut1 regOut2 regOut1], table, sharedTable)
 
 instance CodeGen BinOp where
     -- Plus
-    gen Plus table          = ([Compute Add regOut2 regOut1 regOut1], table)
+    gen Plus table sharedTable              = ([Compute Add regOut2 regOut1 regOut1], table, sharedTable)
 
     -- Minus
-    gen Minus table         = ([Compute Sub regOut2 regOut1 regOut1], table)
+    gen Minus table sharedTable             = ([Compute Sub regOut2 regOut1 regOut1], table, sharedTable)
 
     -- Times
-    gen Times table         = ([Compute Mul regOut2 regOut1 regOut1], table)
+    gen Times table sharedTable             = ([Compute Mul regOut2 regOut1 regOut1], table, sharedTable)
 
     -- Divide
-    gen Divide table        = ([Compute Div regOut2 regOut1 regOut1], table)
+    gen Divide table sharedTable            = ([Compute Div regOut2 regOut1 regOut1], table, sharedTable)
 
     -- Modulo
-    gen Modulo table        = ([Compute Mod regOut2 regOut1 regOut1], table)
+    gen Modulo table sharedTable            = ([Compute Mod regOut2 regOut1 regOut1], table, sharedTable)
 
     -- Power
-    gen Power table         = ([Compute Pow regOut2 regOut1 regOut1], table)
+    gen Power table sharedTable             = ([Compute Pow regOut2 regOut1 regOut1], table, sharedTable)
 
     -- LessThan
-    gen LessThan table      = ([Compute Lt regOut2 regOut1 regOut1], table)
+    gen LessThan table sharedTable          = ([Compute Lt regOut2 regOut1 regOut1], table, sharedTable)
 
     -- LessThanEq
-    gen LessThanEq table    = ([Compute LtE regOut2 regOut1 regOut1], table)
+    gen LessThanEq table sharedTable        = ([Compute LtE regOut2 regOut1 regOut1], table, sharedTable)
 
     -- GreaterThan
-    gen GreaterThan table   = ([Compute Gt regOut2 regOut1 regOut1], table)
+    gen GreaterThan table sharedTable       = ([Compute Gt regOut2 regOut1 regOut1], table, sharedTable)
 
     -- GreaterThanEq
-    gen GreaterThanEq table = ([Compute GtE regOut2 regOut1 regOut1], table)
+    gen GreaterThanEq table sharedTable     = ([Compute GtE regOut2 regOut1 regOut1], table, sharedTable)
 
     -- Equal
-    gen Equal table         = ([Compute Equ regOut2 regOut1 regOut1], table)
+    gen Equal table sharedTable             = ([Compute Equ regOut2 regOut1 regOut1], table, sharedTable)
 
     -- NotEqual
-    gen NotEqual table      = ([Compute NEq regOut2 regOut1 regOut1], table)
+    gen NotEqual table sharedTable          = ([Compute NEq regOut2 regOut1 regOut1], table, sharedTable)
 
     -- And
-    gen LogicAnd table      = ([Compute And regOut2 regOut1 regOut1], table)
+    gen LogicAnd table sharedTable          = ([Compute And regOut2 regOut1 regOut1], table, sharedTable)
 
     -- Or
-    gen LogicOr table       = ([Compute Or regOut2 regOut1 regOut1], table)
+    gen LogicOr table sharedTable           = ([Compute Or regOut2 regOut1 regOut1], table, sharedTable)
 
 instance CodeGen TrinOp where
     -- Between (regOut3 < regOut2 < regOut1) ----> (regOut3 < regOut2 && regOut2 < regOut1)
-    gen Between table       = (code, table) where
+    gen Between table sharedTable       = (code, table, sharedTable) where
         code = [Compute Lt regOut3 regOut2 regOut4, Compute Lt regOut2 regOut1 regOut5, Compute And regOut4 regOut5 regOut1]
 
     -- Inside (regOut3 <= regOut2 <= regOut1) ----> (regOut3 <= regOut2 && regOut2 <= regOut1)
-    gen Inside table        = (code, table) where
+    gen Inside table sharedTable        = (code, table, sharedTable) where
         code = [Compute LtE regOut3 regOut2 regOut4, Compute LtE regOut2 regOut1 regOut5, Compute And regOut4 regOut5 regOut1]
 
     -- Outside (regOut2 < regOut3 || regOut2 > regOut1)
-    gen Outside table       = (code, table) where
+    gen Outside table sharedTable       = (code, table, sharedTable) where
         code = [Compute Lt regOut2 regOut3 regOut4, Compute Gt regOut2 regOut1 regOut5, Compute Or regOut4 regOut5 regOut1]
 
 instance CodeGen Crem where
     -- Increment
-    gen Increm table    = ([Compute Incr regOut1 reg0 regOut1], table)
+    gen Increm table sharedTable        = ([Compute Incr regOut1 reg0 regOut1], table, sharedTable)
 
     -- Decrement
-    gen Decrem table    = ([Compute Decr regOut1 reg0 regOut1], table)
+    gen Decrem table sharedTable        = ([Compute Decr regOut1 reg0 regOut1], table, sharedTable)
