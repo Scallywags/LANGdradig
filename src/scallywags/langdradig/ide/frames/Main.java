@@ -14,14 +14,9 @@ import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultCaret;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
@@ -37,7 +32,6 @@ import scallywags.langdradig.Compiler;
 // TODO add deelbaar door
 // TODO saving file with existing name dialog
 // TODO saving file as file that is already open should merge tabs
-// TODO support Ctrl + Z and Ctrl + Y
 // TODO support Ctrl + F
 // TODO only run when no errors
 // TODO implement stop button for running program
@@ -369,16 +363,19 @@ public class Main extends JFrame {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 setContentChanges(c);
+                AutoCompleter.complete(c, e);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 setContentChanges(c);
+                AutoCompleter.complete(c, e);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 setContentChanges(c);
+                AutoCompleter.complete(c, e);
             }
         });
         changes.put(c, false);
@@ -522,12 +519,6 @@ public class Main extends JFrame {
         }
         area.setTabSize(2);
         CompoundUndoManager manager = new CompoundUndoManager(area);
-        manager.getUndoAction().addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                System.out.println("propertyChangeEvent");
-            }
-        });
         undoManagers.put(area, manager);
         setupKeyListener(area);
         JScrollPane codeScroll = new JScrollPane(area);
