@@ -8,10 +8,15 @@ import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.*;
 import javax.swing.text.*;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -22,29 +27,62 @@ import java.util.List;
 import scallywags.langdradig.ide.Compiler;
 import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
-import scallywags.langdradig.ide.features.finished.CompoundUndoManager;
 import scallywags.langdradig.ide.features.finished.TextLineNumber;
 import scallywags.langdradig.ide.features.finished.VariableOverview;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
+ * <p>
+ * ------Future features------
+ * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
+ * Support CTRL + F
+ * Auto formatting
+ * Stop button to terminate program
+ * Add warnings (ex. not joining child threads)
+ * Syntax highlighting (ex. variables in italics)
+ * Split highlighter to explicit feature
+ * <p>
+ * ------Future features------
+ * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
+ * Support CTRL + F
+ * Auto formatting
+ * Stop button to terminate program
+ * Add warnings (ex. not joining child threads)
+ * Syntax highlighting (ex. variables in italics)
+ * Split highlighter to explicit feature
+ * <p>
+ * ------Future features------
+ * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
+ * Support CTRL + F
+ * Auto formatting
+ * Stop button to terminate program
+ * Add warnings (ex. not joining child threads)
+ * Syntax highlighting (ex. variables in italics)
+ * Split highlighter to explicit feature
  */
-// TODO Exception
-// TODO fix "'" char error in parser
 // TODO add deelbaar door
 // TODO saving file with existing name dialog
 // TODO saving file as file that is already open should merge tabs
-// TODO support Ctrl + F
 // TODO only run when no errors
-// TODO implement stop button for running program
 // TODO limit programs running to 1
-// TODO auto formatting
 // TODO run breaks
 // TODO autofinish doe klaar block
-// TODO add warnings (join child threads)
-// TODO syntax highlighting
 // TODO receive, readinstr, testandset ??
-// TODO split highlighter to explicit feature
+/**
+ *      ------Future features------
+ *      Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
+ *      Support CTRL + F
+ *      Auto formatting
+ *      Stop button to terminate program
+ *      Add warnings (ex. not joining child threads)
+ *      Syntax highlighting (ex. variables in italics)
+ *      Split highlighter to explicit feature
+ */
+
+/**
+ *      ------Bugs------
+ *      Selected text gets whited out when checkContent() is called afterwards
+ */
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -53,8 +91,8 @@ public class Main extends JFrame {
 
     private enum Status {YES, NO, CANCEL}
 
-    private Highlighter.HighlightPainter painter;
-    private Map<Integer, Object> highlightTags;
+    private Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.PINK);
+    private Map<Integer, Object> highlightTags = new HashMap<>();
 
     private JPanel contentPane;
     private JButton openButton;
@@ -69,25 +107,26 @@ public class Main extends JFrame {
 
     private JSplitPane splitPane;
     private JTabbedPane programPane;
-    private Map<JTextArea, Boolean> changes;
-    private Map<JTextArea, CompoundUndoManager> undoManagers;
+    private Map<JTextArea, Boolean> changes = new HashMap<>();
+    private Map<JTextArea, UndoManager> undoManagers = new HashMap<>();
     private JLabel notificationLabel;
     private JPanel notificationPanel;
     private JTextArea variableView;
     private JSplitPane programmingViews;
+    private JCheckBox autoCompleteCheckBox;
     private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
-    private List<String> filePaths;
+    private List<String> filePaths = new ArrayList<>();
     private Timer notificationTimer;
     private Timer contentCheckTimer;
+    private boolean autocomplete = true;
 
     private Thread executingThread;
 
     public Main() {
         setContentPane(contentPane);
         getRootPane().setDefaultButton(openButton);
-        undoManagers = new HashMap<>();
         newButton.addActionListener(e -> onNew());
         newButton.addKeyListener(new KeyAdapter() {
             @Override
@@ -112,18 +151,14 @@ public class Main extends JFrame {
             }
         });
 
+        autoCompleteCheckBox.addChangeListener(e -> autocomplete = !autocomplete);
         openButton.addActionListener(e -> onOpen());
-
         saveButton.addActionListener(e -> onSave());
-
         clearButton.addActionListener(e -> clearMessages());
-
         showHideButton.addActionListener(e -> toggleMessages());
-
         startButton.addActionListener(e -> onStart());
 
-        DefaultCaret caret = (DefaultCaret) messagesArea.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        ((DefaultCaret) messagesArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         messagesArea.setFont(font);
         variableView.setFont(font);
         programmingViews.addComponentListener(new ComponentAdapter() {
@@ -137,18 +172,11 @@ public class Main extends JFrame {
                 programmingViews.setDividerLocation(.8);
             }
         });
-
         programPane.addChangeListener(changeEvent -> {
             if (programPane.getTabCount() > 0) {
                 checkContent();
             }
         });
-        changes = new HashMap<>();
-
-        filePaths = new ArrayList<>();
-
-        painter = new DefaultHighlighter.DefaultHighlightPainter(Color.PINK);
-        highlightTags = new HashMap<>();
 
         fc.setFileFilter(new FileNameExtensionFilter("langdradig file", "langdradig"));
 
@@ -202,7 +230,7 @@ public class Main extends JFrame {
                     JOptionPane.showMessageDialog(this, "Dit bestandstype wordt niet ondersteunt. Open een bestand met de extensdie .langdradig", "Bestandstype niet ondersteunt", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Het geselecteerd bestand kan niet worden gevonden", "Bestand niet gevonden", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Het door u geselecteerde bestand kan niet worden gevonden", "Bestand niet gevonden", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -358,20 +386,26 @@ public class Main extends JFrame {
         c.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                setContentChanges(c);
-                AutoCompleter.complete(c, e);
+                setContentChanged(c);
+                if (autocomplete) {
+                    AutoCompleter.complete(c, e);
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                setContentChanges(c);
-                AutoCompleter.complete(c, e);
+                setContentChanged(c);
+                if (autocomplete) {
+                    AutoCompleter.complete(c, e);
+                }
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                setContentChanges(c);
-                AutoCompleter.complete(c, e);
+                setContentChanged(c);
+                if (autocomplete) {
+                    AutoCompleter.complete(c, e);
+                }
             }
         });
         changes.put(c, false);
@@ -514,8 +548,11 @@ public class Main extends JFrame {
             }
         }
         area.setTabSize(2);
-        CompoundUndoManager manager = new CompoundUndoManager(area);
+        UndoManager manager = new UndoManager();
+        //-1 means no limit
+        manager.setLimit(-1);
         undoManagers.put(area, manager);
+        area.getDocument().addUndoableEditListener(manager);
         setupKeyListener(area);
         JScrollPane codeScroll = new JScrollPane(area);
         codeScroll.setRowHeaderView(new TextLineNumber(area));
@@ -629,7 +666,7 @@ public class Main extends JFrame {
         }
     }
 
-    private void setContentChanges(JTextArea c) {
+    private void setContentChanged(JTextArea c) {
         if (!changes.get(c)) {
             JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
             label.setText(label.getText() + "*");
@@ -640,13 +677,17 @@ public class Main extends JFrame {
     }
 
     private void undo() {
-        popup("Undo");
-        undoManagers.get(getCodeArea()).undo();
+        try {
+            undoManagers.get(getCodeArea()).undo();
+        } catch (CannotUndoException ignore) {
+        }
     }
 
     private void redo() {
-        popup("Redo");
-        undoManagers.get(getCodeArea()).redo();
+        try {
+            undoManagers.get(getCodeArea()).redo();
+        } catch (CannotRedoException ignore) {
+        }
     }
 
     public static void main(String[] args) {
