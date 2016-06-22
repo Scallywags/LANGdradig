@@ -22,8 +22,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String QUOTE = "\"";
 	private static final String FOUR_SPACES = "    ";
 	
-	private static final String MODULE = "module";
-	private static final String WHERE = "where";
 	private static final String IMPORT_AST = "import AST";
 	private static final String IMPORT_GENERATOR = "import Generator";
 	
@@ -46,12 +44,13 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String CREM = "Crem";
 	
 	private static final String DECL = "Decl";
+	private static final String DECL_SHARED = "DeclShared";
 	private static final String BLOCK = "Block";
 	private static final String IF_THEN = "IfThen";
 	private static final String IF_THEN_ELSE = "IfThenElse";
 	private static final String WHILE = "While";
 	private static final String FORK = "Fork";
-	private static final String WAIT = "Wait";
+	private static final String JOIN = "Join";
 	private static final String SYNC = "Sync";
 	
 	private static final String PLUS = "Plus";
@@ -90,7 +89,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String BOOL_TYPE = "BoolType";
 	private static final String ARRAY_TYPE = "ArrayType";
 
-	private static final String BASE_DIR = "src/scallywags/output/";
+	private static final String HASKELL_DIR = "src/scallywags/haskell/";
 	private static final String EXAMPLE_DIR = "src/scallywags/langdradig/example/";
 
 	private final String programName;
@@ -99,13 +98,10 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	private int noSprockells;
 
-	private Map<String, Integer> forkIDs;
-	private int nextUsableMapping;
+	private Map<String, Integer> forkIDs = new HashMap<>();
+	private int nextUsableMapping = 1;
 	
 	public ASTGenerator(String sourceFilePath) {
-		forkIDs = new HashMap<>();
-		nextUsableMapping = 0;
-
 		sourceFile = new File(sourceFilePath);
 		String programName = sourceFile.getName();
 		
@@ -135,6 +131,14 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public void setNumSprockells(int noSprockells) {
 		this.noSprockells = noSprockells;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		//temporary test main function
+		
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest0.langdradig");
+		gen.setNumSprockells(2);
+		gen.writeAST(HASKELL_DIR);		
 	}
 	
 	public String generate() throws IOException {
@@ -184,7 +188,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate " + noSprockells + " prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate " + (nextUsableMapping + 1) + " prog\"").append(NEWLINE);
 		
 		return builder.toString();
 	}
@@ -195,8 +199,15 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitDeclStat(DeclStatContext ctx) {
 		String identifier = visit(ctx.IDENTIFIER());
 		
-		
 		return DECL + " " + QUOTE + identifier + QUOTE
+				+ " " + LPAR + visit(ctx.type()) + RPAR;
+	}
+	
+	@Override
+	public String visitSharedDeclStat(SharedDeclStatContext ctx) {
+		String identifier = visit(ctx.IDENTIFIER());
+		
+		return DECL_SHARED + " " + QUOTE + identifier + QUOTE
 				+ " " + LPAR + visit(ctx.type()) + RPAR;
 	}
 	
@@ -246,21 +257,19 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitForkStat(ForkStatContext ctx) {
-		Integer mapping = forkIDs.get(ctx.IDENTIFIER().getText());
+		String forkId = visit(ctx.IDENTIFIER());
+		Integer mapping = forkIDs.get(forkId);
 		if (mapping == null) {
 			mapping = nextUsableMapping;
-			forkIDs.put(ctx.IDENTIFIER().getText(), nextUsableMapping);
+			forkIDs.put(forkId, nextUsableMapping);
 			nextUsableMapping++;
 		}
-		forkIDs.put(ctx.IDENTIFIER().getText(), nextUsableMapping);
-		nextUsableMapping++;
-		return FORK + " " + QUOTE + mapping + QUOTE
-				+ " " + LPAR + visit(ctx.statement()) + RPAR;
+		return FORK + " " + mapping + " " + LPAR + visit(ctx.statement()) + RPAR;
 	}
 	
 	@Override
 	public String visitJoinStat(JoinStatContext ctx) {
-		return WAIT + " " + QUOTE + forkIDs.get(ctx.IDENTIFIER().getText()) + QUOTE;
+		return JOIN + " " + forkIDs.get(visit(ctx.IDENTIFIER()));
 	}
 	
 	@Override
