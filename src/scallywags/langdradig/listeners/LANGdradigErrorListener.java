@@ -1,12 +1,16 @@
 package scallywags.langdradig.listeners;
 
 import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.atn.ATNConfigSet;
+import org.antlr.v4.runtime.dfa.DFA;
 import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 import scallywags.langdradig.ide.errors.LANGdradigError;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 
 /**

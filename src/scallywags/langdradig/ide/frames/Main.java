@@ -11,6 +11,8 @@ import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
@@ -18,6 +20,8 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
@@ -39,10 +43,11 @@ import scallywags.langdradig.Compiler;
 // TODO implement stop button for running program
 // TODO limit programs running to 1
 // TODO auto formatting
-// TODO more threads than sprockels, what to do ?
 // TODO run breaks
 // TODO autofinish doe klaar block
 // TODO add warnings (join child threads)
+// TODO syntax highlighting
+// TODO receive, readinstr, testandset ??
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -53,9 +58,6 @@ public class Main extends JFrame {
 
     private Highlighter.HighlightPainter painter;
     private Map<Integer, Object> highlightTags;
-
-    private int revisionPointer;
-    private ArrayList<String> revisions;
 
     private JPanel contentPane;
     private JButton openButton;
@@ -71,6 +73,7 @@ public class Main extends JFrame {
     private JSplitPane splitPane;
     private JTabbedPane programPane;
     private Map<JTextArea, Boolean> changes;
+    private Map<JTextArea, CompoundUndoManager> undoManagers;
     private JLabel notificationLabel;
     private JPanel notificationPanel;
     private JTextArea variableView;
@@ -87,10 +90,7 @@ public class Main extends JFrame {
     public Main() {
         setContentPane(contentPane);
         getRootPane().setDefaultButton(openButton);
-
-        revisionPointer = -1;
-        revisions = new ArrayList<>();
-
+        undoManagers = new HashMap<>();
         newButton.addActionListener(e -> onNew());
         newButton.addKeyListener(new KeyAdapter() {
             @Override
@@ -318,16 +318,11 @@ public class Main extends JFrame {
     }
 
     private void checkContent() {
-        revisions.add(getCode());
-        revisionPointer++;
         clearMessages();
         getHighlighter().removeAllHighlights();
         Checker checker = new Checker();
         checker.checkString(getCode());
-        if (checker.getCheckerExceptions().isEmpty() && checker.getParserExceptions().isEmpty()) {
-            print("Geen errors!");
-            messagesArea.setBackground(new Color(180, 255, 150));
-        } else {
+        if (!checker.getCheckerExceptions().isEmpty() || !checker.getParserExceptions().isEmpty()) {
             List<LANGdradigError> errors = checker.getParserExceptions();
             List<CheckerException> checkerExceptions = checker.getCheckerExceptions();
             checkerExceptions.forEach(e -> errors.add(LANGdradigErrorBuilder.format(getCode(), e)));
@@ -339,7 +334,6 @@ public class Main extends JFrame {
             }
             messagesArea.setBackground(Color.PINK);
         }
-
         printVariables(checker.getVariables());
     }
 
@@ -371,14 +365,29 @@ public class Main extends JFrame {
     }
 
     private void setupKeyListener(JTextArea c) {
+        c.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                setContentChanges(c);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                setContentChanges(c);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                setContentChanges(c);
+            }
+        });
         changes.put(c, false);
         c.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.isControlDown()) {
-                    /**
-                     * Key shortcuts
+                    /**     Key shortcuts
                      *      SAVE:       CTRL + S
                      *      OPEN:       CTRL + O
                      *      NEW:        CTRL + N
@@ -386,6 +395,7 @@ public class Main extends JFrame {
                      *      FORMAT:     CTRL + L
                      *      CLOSE TAB:  CTRL + W
                      *      UNDO:       CTRL + Z
+                     *      REDO:       CTRL + Y
                      */
                     switch (e.getKeyCode()) {
                         case 83:    // 'S' key;
@@ -410,19 +420,15 @@ public class Main extends JFrame {
                         case 87:    // 'W' key
                             removeTab(programPane.getSelectedIndex());
                             break;
+                        case 89:    // 'Y' key
+                            redo();
+                            break;
                         case 90:    // 'Z' key
                             undo();
+                            break;
                         default:
                             break;
                     }
-                } else if (!e.isActionKey() && !e.isAltDown() && !e.isShiftDown()) {
-                    if (!changes.get(c)) {
-                        JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
-                        label.setText(label.getText() + "*");
-                        changes.put(c, true);
-                    }
-                    contentCheckTimer.stop();
-                    contentCheckTimer.start();
                 }
             }
         });
@@ -515,6 +521,14 @@ public class Main extends JFrame {
             }
         }
         area.setTabSize(2);
+        CompoundUndoManager manager = new CompoundUndoManager(area);
+        manager.getUndoAction().addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                System.out.println("propertyChangeEvent");
+            }
+        });
+        undoManagers.put(area, manager);
         setupKeyListener(area);
         JScrollPane codeScroll = new JScrollPane(area);
         codeScroll.setRowHeaderView(new TextLineNumber(area));
@@ -552,7 +566,6 @@ public class Main extends JFrame {
             filePaths.add(null);
         }
         popup(fileName + " geopend");
-        checkContent();
     }
 
     private void removeTab(int index) {
@@ -629,16 +642,30 @@ public class Main extends JFrame {
         }
     }
 
+    private void setContentChanges(JTextArea c) {
+        if (!changes.get(c)) {
+            JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
+            label.setText(label.getText() + "*");
+            changes.put(c, true);
+        }
+        contentCheckTimer.stop();
+        contentCheckTimer.start();
+    }
+
     private void undo() {
-        revisionPointer--;
-        getCodeArea().setText(revisions.get(revisionPointer));
+        popup("Undo");
+        undoManagers.get(getCodeArea()).undo();
+    }
+
+    private void redo() {
+        popup("Redo");
+        undoManagers.get(getCodeArea()).redo();
     }
 
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException ignored) {
         }
         new Main();
     }

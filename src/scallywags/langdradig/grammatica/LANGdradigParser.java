@@ -24,7 +24,8 @@ public class LANGdradigParser extends Parser {
 		ONWAAR=27, KLOPT=28, VERHOOG=29, HOOG=30, VERLAAG=31, LIGT=32, TUSSEN=33, 
 		BINNEN=34, BUITEN=35, DOE=36, KLAAR=37, KRITIEK=38, BESTEED=39, UIT=40, 
 		AAN=41, WACHT=42, GEDEELDE=43, PUNT=44, KOMMA=45, LH=46, RH=47, IS=48, 
-		EEN=49, OP=50, VAN=51, NUMBER=52, IDENTIFIER=53, COMMENTAAR=54, WITRUIMTE=55;
+		EEN=49, OP=50, VAN=51, NUMBER=52, IDENTIFIER=53, COMMENTAAR=54, WITRUIMTE=55, 
+		ERRORCHARACTER=56;
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_expression = 2, RULE_primary = 3, 
 		RULE_type = 4;
@@ -45,7 +46,8 @@ public class LANGdradigParser extends Parser {
 		"STELLING", "REEKS", "TEKST", "WAAR", "ONWAAR", "KLOPT", "VERHOOG", "HOOG", 
 		"VERLAAG", "LIGT", "TUSSEN", "BINNEN", "BUITEN", "DOE", "KLAAR", "KRITIEK", 
 		"BESTEED", "UIT", "AAN", "WACHT", "GEDEELDE", "PUNT", "KOMMA", "LH", "RH", 
-		"IS", "EEN", "OP", "VAN", "NUMBER", "IDENTIFIER", "COMMENTAAR", "WITRUIMTE"
+		"IS", "EEN", "OP", "VAN", "NUMBER", "IDENTIFIER", "COMMENTAAR", "WITRUIMTE", 
+		"ERRORCHARACTER"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -1482,7 +1484,7 @@ public class LANGdradigParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\39\u00a2\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3:\u00a2\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\"\n\3\f\3\16"+
 		"\3%\13\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3/\n\3\3\3\5\3\62\n\3\3\3\3"+

@@ -59,7 +59,6 @@ public class Checker extends LANGdradigBaseListener {
         LANGdradigParser parser = new LANGdradigParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(errorListener);
-
         ParseTree tree = parser.program();
         new ParseTreeWalker().walk(this, tree);
     }
