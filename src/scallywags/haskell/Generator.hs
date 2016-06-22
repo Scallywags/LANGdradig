@@ -49,8 +49,15 @@ instance CodeGen Stats where
         (restInstrs, restTable, restSharedTable) = gen stats statTable statSharedTable
 
 instance CodeGen Prog where
-    gen (Prog _ stats) (scopes, offset) (sharedScopes, sharedOffsets) = (statInstrs ++ [EndProg], restTable, restSharedTable)
-        where (statInstrs, restTable, restSharedTable) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets)
+    gen (Prog numSprockells stats) (scopes, offset) (sharedScopes, sharedOffsets) = (code, restTable, restSharedTable) where
+        (statInstrs, restTable, restSharedTable) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets)
+
+        spinChilds = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]
+        isSprockellID0 = [Compute Equ reg0 regSprID regOut1, Branch regOut1 (Rel (length spinChilds + 1))]
+        endprogLocation = length isSprockellID0 + length spinChilds + length statInstrs + 1 + numSprockells - 1 + 1
+        shutdownOtherThreadsInstr = [Load (ImmValue endprogLocation) regOut1] ++ [WriteInstr regOut1 (DirAddr addr) | addr <- [1..numSprockells - 1]]
+
+        code = isSprockellID0 ++ spinChilds ++ statInstrs ++ shutdownOtherThreadsInstr ++ [EndProg]
 
 instance CodeGen Stat where
     --DeclStat
@@ -118,10 +125,15 @@ instance CodeGen Stat where
     --ForkStat    
     gen (Fork spr_id stat) table (sharedScopes, sharedOffset) = (code, restTable, (sharedScopes, newSharedOffset)) where
         (statInstrs, restTable, (_, newSharedOffset)) = gen stat table ([]:sharedScopes, sharedOffset)
-        forkInstrs =    [Load (ImmValue spr_id) regOut1, Compute NEq regOut1 regSprID regOut1, Branch regOut1 (Rel (length statInstrs + 2))]
-        code = forkInstrs ++ statInstrs ++ [EndProg] --TODO spin and wait for join?
+        spinInstrs = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]
+        forkInstrs = [Load (ImmValue spr_id) regOut1, Compute NEq regOut1 regSprID regOut1, Branch regOut1 (Rel (length statInstrs + length spinInstrs + 1))]
+        setForkInstrs = [TestAndSet (DirAddr spr_id), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))]
+        code = setForkInstrs ++ forkInstrs ++ statInstrs ++ spinInstrs
 
-    --gen (Join thread_id) table       --TODO
+    --JoinStat
+    gen (Join spr_id) table sharedTable = (code, table, sharedTable) where
+        code = [ReadInstr (DirAddr spr_id), Receive regOut1, Branch regOut1 (Rel (-3))]
+
     --gen (Sync lock stat) table       --TODO
 
 instance CodeGen Expr where

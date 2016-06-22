@@ -5,6 +5,7 @@ import HardwareTypes
 import Sprockell
 import System
 import Simulation
+import AST
 
 addAB :: [Instruction]
 addAB = [Load (ImmValue 5) regA
@@ -54,10 +55,69 @@ spin =  [Compute Equ regSprID reg0 regE
         ,EndProg
         ]
 
+crash :: [Instruction]
+crash = [Jump $ Rel 0]
+
+spinChilds :: [Instruction]
+spinChilds =    [WriteInstr reg0 (IndAddr regSprID)
+                ,Compute Equ reg0 regSprID regA
+                ,Branch regA (Rel 5)
+                ,ReadInstr (IndAddr regSprID)
+                ,Receive regA
+                ,Branch regA (Ind regA)
+                ,Jump (Rel (-3))
+                ,Load (ImmValue 9) regA
+                ,WriteInstr regA (DirAddr 1)
+                ,EndProg
+                ]
+
+forkjoin :: [Instruction]
+forkjoin    =   [WriteInstr reg0 (IndAddr regSprID)
+                ,Compute Equ reg0 regSprID regA
+                ,Branch regA (Rel 10)
+                ,ReadInstr (IndAddr regSprID)
+                ,Receive regA
+                ,Jump (Ind regA)
+                ,Compute Add regA reg0 regB
+                ,ReadInstr (IndAddr regSprID)
+                ,Receive regA
+                ,Jump (Ind regA)
+                
+
+                ,Load (ImmValue 6) regA
+                ,Nop
+                ,Nop
+                ,Nop
+                ,Nop
+                ,WriteInstr regA (DirAddr 1)
+                ,WriteInstr regA (DirAddr 2)
+                ,Load (ImmValue 1337) regA
+                ,Nop
+                ,Nop
+                ,Nop
+                ,WriteInstr regA (DirAddr 3)
+                ,Load (ImmValue 27) regA
+                ,Nop
+                ,Nop
+                ,WriteInstr regA (DirAddr 1)
+                ,WriteInstr regA (DirAddr 2)
+                ,EndProg
+                ]
+
+receive :: [Instruction]
+receive = [Load (ImmValue 1337) regB] ++ [WriteInstr regB (DirAddr 0)] ++ replicate 20 Nop ++ [ReadInstr (DirAddr 0)] ++ [Receive regA, Nop, EndProg]
+
 testLocalMem    = sysTest [locmem]
 testAdd         = sysTest [addAB]
 testSharedMem   = sysTest [sharedmem, sharedmem, sharedmem]
 testSpin        = sysTest [spin, spin]
+testSpinChilds  = sysTest [spinChilds, spinChilds]
+testCrash       = sysTest [crash]
+testForkJoin    = sysTest $ replicate 3 forkjoin
+
+--exampleAST :: Prog
+--exampleAST = Prog 
+
 
 {-
 intVar is een geheel getal.                 //zet intVar in het geheugen.

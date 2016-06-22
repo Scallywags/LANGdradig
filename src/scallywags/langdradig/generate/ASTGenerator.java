@@ -160,6 +160,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(AST_FUN_DECL).append(' ');
 		
 		builder.append(PROG).append(' ');
+		builder.append(noSprockells).append(' ');
 		builder.append(LPAR);
 		for (StatementContext stmnt : ctx.statement()) {
 			builder.append(visit(stmnt)).append(COLON);
