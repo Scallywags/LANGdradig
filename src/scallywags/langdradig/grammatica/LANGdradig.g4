@@ -29,7 +29,7 @@ expression	:	primary																					#primExpr
 			|	expression (PLUS | MIN) expression														#termExpr
 
 			|	expression LIGT (TUSSEN | BINNEN | BUITEN) expression EN expression                     #rangeExpr
-			|   expression (TUSSEN | BINNEN | BUITEN) expression EN expression LIGT                     #rangeExpr //kan dit zo ? (het werkt iig)
+			|   expression (TUSSEN | BINNEN | BUITEN) expression EN expression LIGT                     #rangeExpr
 			|	expression (KLEINERDAN | GROTERDAN | KLEINEROFGELIJK | GROTEROFGELIJK) expression		#cmpExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr

@@ -1,6 +1,5 @@
 package scallywags.langdradig.ide.frames;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import scallywags.langdradig.Translator;
 import scallywags.langdradig.generate.Checker;
 import scallywags.langdradig.generate.Variable;
@@ -42,6 +41,8 @@ import scallywags.langdradig.Compiler;
 // TODO auto formatting
 // TODO more threads than sprockels, what to do ?
 // TODO run breaks
+// TODO autofinish doe klaar block
+// TODO add warnings (join child threads)
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -52,6 +53,9 @@ public class Main extends JFrame {
 
     private Highlighter.HighlightPainter painter;
     private Map<Integer, Object> highlightTags;
+
+    private int revisionPointer;
+    private ArrayList<String> revisions;
 
     private JPanel contentPane;
     private JButton openButton;
@@ -83,6 +87,9 @@ public class Main extends JFrame {
     public Main() {
         setContentPane(contentPane);
         getRootPane().setDefaultButton(openButton);
+
+        revisionPointer = -1;
+        revisions = new ArrayList<>();
 
         newButton.addActionListener(e -> onNew());
         newButton.addKeyListener(new KeyAdapter() {
@@ -311,6 +318,8 @@ public class Main extends JFrame {
     }
 
     private void checkContent() {
+        revisions.add(getCode());
+        revisionPointer++;
         clearMessages();
         getHighlighter().removeAllHighlights();
         Checker checker = new Checker();
@@ -331,7 +340,6 @@ public class Main extends JFrame {
             messagesArea.setBackground(Color.PINK);
         }
 
-        //TODO
         printVariables(checker.getVariables());
     }
 
@@ -377,6 +385,7 @@ public class Main extends JFrame {
                      *      START:      CTRL + R
                      *      FORMAT:     CTRL + L
                      *      CLOSE TAB:  CTRL + W
+                     *      UNDO:       CTRL + Z
                      */
                     switch (e.getKeyCode()) {
                         case 83:    // 'S' key;
@@ -395,11 +404,14 @@ public class Main extends JFrame {
                             onStart();
                             break;
                         case 76:    // 'L' key
-                            format();
+                            //TODO fix formatting
+//                            format();
                             break;
                         case 87:    // 'W' key
                             removeTab(programPane.getSelectedIndex());
                             break;
+                        case 90:    // 'Z' key
+                            undo();
                         default:
                             break;
                     }
@@ -564,6 +576,9 @@ public class Main extends JFrame {
         changes.remove(area);
         filePaths.remove(index);
         programPane.removeTabAt(index);
+        if (programPane.getTabCount() == 0) {
+            variableView.setText("");
+        }
     }
 
     private Status promptSave(String title, String message) {
@@ -612,6 +627,11 @@ public class Main extends JFrame {
             changes.put(area, true);
             checkContent();
         }
+    }
+
+    private void undo() {
+        revisionPointer--;
+        getCodeArea().setText(revisions.get(revisionPointer));
     }
 
     public static void main(String[] args) {

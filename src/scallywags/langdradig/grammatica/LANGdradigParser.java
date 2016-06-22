@@ -1,4 +1,4 @@
-// Generated from LANGdradig.g4 by ANTLR 4.4
+// Generated from C:/Users/Jeroen Weener/Documents/Intellij Projects/LANGdradig/src/scallywags/langdradig/grammatica\LANGdradig.g4 by ANTLR 4.5.1
 package scallywags.langdradig.grammatica;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class LANGdradigParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.4", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.5.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -25,16 +25,6 @@ public class LANGdradigParser extends Parser {
 		BINNEN=34, BUITEN=35, DOE=36, KLAAR=37, KRITIEK=38, BESTEED=39, UIT=40, 
 		AAN=41, WACHT=42, GEDEELDE=43, PUNT=44, KOMMA=45, LH=46, RH=47, IS=48, 
 		EEN=49, OP=50, VAN=51, NUMBER=52, IDENTIFIER=53, COMMENTAAR=54, WITRUIMTE=55;
-	public static final String[] tokenNames = {
-		"<INVALID>", "PLUS", "MIN", "KEER", "GEDEELDDOOR", "TOTDEMACHT", "MODULUS", 
-		"NIET", "EN", "OF", "GELIJKAAN", "ONGELIJKAAN", "KLEINERDAN", "GROTERDAN", 
-		"KLEINEROFGELIJK", "GROTEROFGELIJK", "WORDT", "ALS", "DAN", "ANDERS", 
-		"VOOR", "ZOLANG", "GETAL", "STELLING", "REEKS", "TEKST", "WAAR", "ONWAAR", 
-		"KLOPT", "VERHOOG", "HOOG", "VERLAAG", "LIGT", "TUSSEN", "BINNEN", "BUITEN", 
-		"DOE", "KLAAR", "KRITIEK", "BESTEED", "UIT", "AAN", "WACHT", "GEDEELDE", 
-		"'.'", "','", "'('", "')'", "IS", "EEN", "OP", "VAN", "NUMBER", "IDENTIFIER", 
-		"COMMENTAAR", "WITRUIMTE"
-	};
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_expression = 2, RULE_primary = 3, 
 		RULE_type = 4;
@@ -42,11 +32,56 @@ public class LANGdradigParser extends Parser {
 		"program", "statement", "expression", "primary", "type"
 	};
 
-	@Override
-	public String getGrammarFileName() { return "LANGdradig.g4"; }
+	private static final String[] _LITERAL_NAMES = {
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, "'.'", "','", "'('", "')'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "PLUS", "MIN", "KEER", "GEDEELDDOOR", "TOTDEMACHT", "MODULUS", "NIET", 
+		"EN", "OF", "GELIJKAAN", "ONGELIJKAAN", "KLEINERDAN", "GROTERDAN", "KLEINEROFGELIJK", 
+		"GROTEROFGELIJK", "WORDT", "ALS", "DAN", "ANDERS", "VOOR", "ZOLANG", "GETAL", 
+		"STELLING", "REEKS", "TEKST", "WAAR", "ONWAAR", "KLOPT", "VERHOOG", "HOOG", 
+		"VERLAAG", "LIGT", "TUSSEN", "BINNEN", "BUITEN", "DOE", "KLAAR", "KRITIEK", 
+		"BESTEED", "UIT", "AAN", "WACHT", "GEDEELDE", "PUNT", "KOMMA", "LH", "RH", 
+		"IS", "EEN", "OP", "VAN", "NUMBER", "IDENTIFIER", "COMMENTAAR", "WITRUIMTE"
+	};
+	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+
+	/**
+	 * @deprecated Use {@link #VOCABULARY} instead.
+	 */
+	@Deprecated
+	public static final String[] tokenNames;
+	static {
+		tokenNames = new String[_SYMBOLIC_NAMES.length];
+		for (int i = 0; i < tokenNames.length; i++) {
+			tokenNames[i] = VOCABULARY.getLiteralName(i);
+			if (tokenNames[i] == null) {
+				tokenNames[i] = VOCABULARY.getSymbolicName(i);
+			}
+
+			if (tokenNames[i] == null) {
+				tokenNames[i] = "<INVALID>";
+			}
+		}
+	}
 
 	@Override
-	public String[] getTokenNames() { return tokenNames; }
+	@Deprecated
+	public String[] getTokenNames() {
+		return tokenNames;
+	}
+
+	@Override
+
+	public Vocabulary getVocabulary() {
+		return VOCABULARY;
+	}
+
+	@Override
+	public String getGrammarFileName() { return "LANGdradig.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -62,11 +97,11 @@ public class LANGdradigParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class ProgramContext extends ParserRuleContext {
-		public StatementContext statement(int i) {
-			return getRuleContext(StatementContext.class,i);
-		}
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
+		}
+		public StatementContext statement(int i) {
+			return getRuleContext(StatementContext.class,i);
 		}
 		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -100,7 +135,8 @@ public class LANGdradigParser extends Parser {
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MIN) | (1L << NIET) | (1L << ALS) | (1L << ZOLANG) | (1L << WAAR) | (1L << ONWAAR) | (1L << VERHOOG) | (1L << HOOG) | (1L << VERLAAG) | (1L << DOE) | (1L << KRITIEK) | (1L << BESTEED) | (1L << WACHT) | (1L << LH) | (1L << NUMBER) | (1L << IDENTIFIER))) != 0)) {
 				{
 				{
-				setState(10); statement();
+				setState(10);
+				statement();
 				}
 				}
 				setState(15);
@@ -132,20 +168,20 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class IfStatContext extends StatementContext {
-		public TerminalNode DAN() { return getToken(LANGdradigParser.DAN, 0); }
-		public TerminalNode KLOPT() { return getToken(LANGdradigParser.KLOPT, 0); }
-		public TerminalNode ANDERS() { return getToken(LANGdradigParser.ANDERS, 0); }
-		public StatementContext statement(int i) {
-			return getRuleContext(StatementContext.class,i);
-		}
-		public List<StatementContext> statement() {
-			return getRuleContexts(StatementContext.class);
-		}
-		public TerminalNode NIET() { return getToken(LANGdradigParser.NIET, 0); }
+		public TerminalNode ALS() { return getToken(LANGdradigParser.ALS, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode ALS() { return getToken(LANGdradigParser.ALS, 0); }
+		public TerminalNode DAN() { return getToken(LANGdradigParser.DAN, 0); }
+		public List<StatementContext> statement() {
+			return getRuleContexts(StatementContext.class);
+		}
+		public StatementContext statement(int i) {
+			return getRuleContext(StatementContext.class,i);
+		}
+		public TerminalNode KLOPT() { return getToken(LANGdradigParser.KLOPT, 0); }
+		public TerminalNode ANDERS() { return getToken(LANGdradigParser.ANDERS, 0); }
+		public TerminalNode NIET() { return getToken(LANGdradigParser.NIET, 0); }
 		public IfStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -163,14 +199,14 @@ public class LANGdradigParser extends Parser {
 	}
 	public static class BlockStatContext extends StatementContext {
 		public TerminalNode DOE() { return getToken(LANGdradigParser.DOE, 0); }
+		public TerminalNode KLAAR() { return getToken(LANGdradigParser.KLAAR, 0); }
 		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
-		public StatementContext statement(int i) {
-			return getRuleContext(StatementContext.class,i);
-		}
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
 		}
-		public TerminalNode KLAAR() { return getToken(LANGdradigParser.KLAAR, 0); }
+		public StatementContext statement(int i) {
+			return getRuleContext(StatementContext.class,i);
+		}
 		public BlockStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -187,14 +223,14 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class SharedDeclStatContext extends StatementContext {
-		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
 		public TerminalNode IS() { return getToken(LANGdradigParser.IS, 0); }
+		public TerminalNode EEN() { return getToken(LANGdradigParser.EEN, 0); }
 		public TerminalNode GEDEELDE() { return getToken(LANGdradigParser.GEDEELDE, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
-		public TerminalNode EEN() { return getToken(LANGdradigParser.EEN, 0); }
+		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
 		public SharedDeclStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -211,10 +247,10 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class ExprStatContext extends StatementContext {
-		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
 		public ExprStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -231,11 +267,11 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class SyncStatContext extends StatementContext {
+		public TerminalNode KRITIEK() { return getToken(LANGdradigParser.KRITIEK, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
-		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
-		public TerminalNode KRITIEK() { return getToken(LANGdradigParser.KRITIEK, 0); }
 		public SyncStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -252,14 +288,14 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class ForkStatContext extends StatementContext {
-		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
+		public TerminalNode BESTEED() { return getToken(LANGdradigParser.BESTEED, 0); }
 		public TerminalNode UIT() { return getToken(LANGdradigParser.UIT, 0); }
 		public TerminalNode AAN() { return getToken(LANGdradigParser.AAN, 0); }
-		public TerminalNode BESTEED() { return getToken(LANGdradigParser.BESTEED, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
-		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
+		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
 		public ForkStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -276,13 +312,13 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class DeclStatContext extends StatementContext {
-		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
 		public TerminalNode IS() { return getToken(LANGdradigParser.IS, 0); }
+		public TerminalNode EEN() { return getToken(LANGdradigParser.EEN, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
-		public TerminalNode EEN() { return getToken(LANGdradigParser.EEN, 0); }
+		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
 		public DeclStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -299,10 +335,10 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class JoinStatContext extends StatementContext {
-		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
-		public TerminalNode OP() { return getToken(LANGdradigParser.OP, 0); }
 		public TerminalNode WACHT() { return getToken(LANGdradigParser.WACHT, 0); }
+		public TerminalNode OP() { return getToken(LANGdradigParser.OP, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
+		public TerminalNode PUNT() { return getToken(LANGdradigParser.PUNT, 0); }
 		public JoinStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -319,15 +355,15 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class WhileStatContext extends StatementContext {
-		public TerminalNode KLOPT() { return getToken(LANGdradigParser.KLOPT, 0); }
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
-		public TerminalNode NIET() { return getToken(LANGdradigParser.NIET, 0); }
+		public TerminalNode ZOLANG() { return getToken(LANGdradigParser.ZOLANG, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode ZOLANG() { return getToken(LANGdradigParser.ZOLANG, 0); }
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
+		}
+		public TerminalNode KLOPT() { return getToken(LANGdradigParser.KLOPT, 0); }
+		public TerminalNode NIET() { return getToken(LANGdradigParser.NIET, 0); }
 		public WhileStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -355,61 +391,80 @@ public class LANGdradigParser extends Parser {
 				_localctx = new DeclStatContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(16); match(IDENTIFIER);
-				setState(17); match(IS);
-				setState(18); match(EEN);
-				setState(19); type();
-				setState(20); match(PUNT);
+				setState(16);
+				match(IDENTIFIER);
+				setState(17);
+				match(IS);
+				setState(18);
+				match(EEN);
+				setState(19);
+				type();
+				setState(20);
+				match(PUNT);
 				}
 				break;
 			case 2:
 				_localctx = new SharedDeclStatContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(22); match(IDENTIFIER);
-				setState(23); match(IS);
-				setState(24); match(EEN);
-				setState(25); match(GEDEELDE);
-				setState(26); type();
-				setState(27); match(PUNT);
+				setState(22);
+				match(IDENTIFIER);
+				setState(23);
+				match(IS);
+				setState(24);
+				match(EEN);
+				setState(25);
+				match(GEDEELDE);
+				setState(26);
+				type();
+				setState(27);
+				match(PUNT);
 				}
 				break;
 			case 3:
 				_localctx = new BlockStatContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(29); match(DOE);
+				setState(29);
+				match(DOE);
 				setState(33);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MIN) | (1L << NIET) | (1L << ALS) | (1L << ZOLANG) | (1L << WAAR) | (1L << ONWAAR) | (1L << VERHOOG) | (1L << HOOG) | (1L << VERLAAG) | (1L << DOE) | (1L << KRITIEK) | (1L << BESTEED) | (1L << WACHT) | (1L << LH) | (1L << NUMBER) | (1L << IDENTIFIER))) != 0)) {
 					{
 					{
-					setState(30); statement();
+					setState(30);
+					statement();
 					}
 					}
 					setState(35);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(36); match(KLAAR);
-				setState(37); match(PUNT);
+				setState(36);
+				match(KLAAR);
+				setState(37);
+				match(PUNT);
 				}
 				break;
 			case 4:
 				_localctx = new ExprStatContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(38); expression(0);
-				setState(39); match(PUNT);
+				setState(38);
+				expression(0);
+				setState(39);
+				match(PUNT);
 				}
 				break;
 			case 5:
 				_localctx = new IfStatContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(41); match(ALS);
-				setState(42); expression(0);
+				setState(41);
+				match(ALS);
+				setState(42);
+				expression(0);
 				setState(47);
 				_la = _input.LA(1);
 				if (_la==NIET || _la==KLOPT) {
@@ -418,22 +473,28 @@ public class LANGdradigParser extends Parser {
 					_la = _input.LA(1);
 					if (_la==NIET) {
 						{
-						setState(43); match(NIET);
+						setState(43);
+						match(NIET);
 						}
 					}
 
-					setState(46); match(KLOPT);
+					setState(46);
+					match(KLOPT);
 					}
 				}
 
-				setState(49); match(DAN);
-				setState(50); statement();
+				setState(49);
+				match(DAN);
+				setState(50);
+				statement();
 				setState(53);
 				switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 				case 1:
 					{
-					setState(51); match(ANDERS);
-					setState(52); statement();
+					setState(51);
+					match(ANDERS);
+					setState(52);
+					statement();
 					}
 					break;
 				}
@@ -443,8 +504,10 @@ public class LANGdradigParser extends Parser {
 				_localctx = new WhileStatContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(55); match(ZOLANG);
-				setState(56); expression(0);
+				setState(55);
+				match(ZOLANG);
+				setState(56);
+				expression(0);
 				setState(61);
 				switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 				case 1:
@@ -453,57 +516,78 @@ public class LANGdradigParser extends Parser {
 					_la = _input.LA(1);
 					if (_la==NIET) {
 						{
-						setState(57); match(NIET);
+						setState(57);
+						match(NIET);
 						}
 					}
 
-					setState(60); match(KLOPT);
+					setState(60);
+					match(KLOPT);
 					}
 					break;
 				}
-				setState(63); statement();
+				setState(63);
+				statement();
 				}
 				break;
 			case 7:
 				_localctx = new ForkStatContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(65); match(BESTEED);
-				setState(66); match(UIT);
-				setState(67); match(AAN);
-				setState(68); match(IDENTIFIER);
-				setState(69); statement();
+				setState(65);
+				match(BESTEED);
+				setState(66);
+				match(UIT);
+				setState(67);
+				match(AAN);
+				setState(68);
+				match(IDENTIFIER);
+				setState(69);
+				statement();
 				}
 				break;
 			case 8:
 				_localctx = new ForkStatContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(70); match(BESTEED);
-				setState(71); statement();
-				setState(72); match(UIT);
-				setState(73); match(AAN);
-				setState(74); match(IDENTIFIER);
-				setState(75); match(PUNT);
+				setState(70);
+				match(BESTEED);
+				setState(71);
+				statement();
+				setState(72);
+				match(UIT);
+				setState(73);
+				match(AAN);
+				setState(74);
+				match(IDENTIFIER);
+				setState(75);
+				match(PUNT);
 				}
 				break;
 			case 9:
 				_localctx = new JoinStatContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(77); match(WACHT);
-				setState(78); match(OP);
-				setState(79); match(IDENTIFIER);
-				setState(80); match(PUNT);
+				setState(77);
+				match(WACHT);
+				setState(78);
+				match(OP);
+				setState(79);
+				match(IDENTIFIER);
+				setState(80);
+				match(PUNT);
 				}
 				break;
 			case 10:
 				_localctx = new SyncStatContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(81); match(KRITIEK);
-				setState(82); match(IDENTIFIER);
-				setState(83); statement();
+				setState(81);
+				match(KRITIEK);
+				setState(82);
+				match(IDENTIFIER);
+				setState(83);
+				statement();
 				}
 				break;
 			}
@@ -531,14 +615,14 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class EqExprContext extends ExpressionContext {
-		public TerminalNode GELIJKAAN() { return getToken(LANGdradigParser.GELIJKAAN, 0); }
-		public TerminalNode ONGELIJKAAN() { return getToken(LANGdradigParser.ONGELIJKAAN, 0); }
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode GELIJKAAN() { return getToken(LANGdradigParser.GELIJKAAN, 0); }
+		public TerminalNode ONGELIJKAAN() { return getToken(LANGdradigParser.ONGELIJKAAN, 0); }
 		public EqExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -614,14 +698,14 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class TermExprContext extends ExpressionContext {
-		public TerminalNode MIN() { return getToken(LANGdradigParser.MIN, 0); }
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public TerminalNode PLUS() { return getToken(LANGdradigParser.PLUS, 0); }
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
+		public TerminalNode MIN() { return getToken(LANGdradigParser.MIN, 0); }
 		public TermExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -638,8 +722,8 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class AssExprContext extends ExpressionContext {
-		public TerminalNode WORDT() { return getToken(LANGdradigParser.WORDT, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
+		public TerminalNode WORDT() { return getToken(LANGdradigParser.WORDT, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -659,11 +743,11 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class CrementExprContext extends ExpressionContext {
-		public TerminalNode OP() { return getToken(LANGdradigParser.OP, 0); }
-		public TerminalNode VERLAAG() { return getToken(LANGdradigParser.VERLAAG, 0); }
-		public TerminalNode HOOG() { return getToken(LANGdradigParser.HOOG, 0); }
-		public TerminalNode VERHOOG() { return getToken(LANGdradigParser.VERHOOG, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
+		public TerminalNode HOOG() { return getToken(LANGdradigParser.HOOG, 0); }
+		public TerminalNode OP() { return getToken(LANGdradigParser.OP, 0); }
+		public TerminalNode VERHOOG() { return getToken(LANGdradigParser.VERHOOG, 0); }
+		public TerminalNode VERLAAG() { return getToken(LANGdradigParser.VERLAAG, 0); }
 		public CrementExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -680,13 +764,13 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class PowExprContext extends ExpressionContext {
-		public TerminalNode TOTDEMACHT() { return getToken(LANGdradigParser.TOTDEMACHT, 0); }
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode TOTDEMACHT() { return getToken(LANGdradigParser.TOTDEMACHT, 0); }
 		public PowExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -703,14 +787,14 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class BoolExprContext extends ExpressionContext {
-		public TerminalNode OF() { return getToken(LANGdradigParser.OF, 0); }
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
 		public TerminalNode EN() { return getToken(LANGdradigParser.EN, 0); }
+		public TerminalNode OF() { return getToken(LANGdradigParser.OF, 0); }
 		public BoolExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -727,15 +811,15 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class FactorExprContext extends ExpressionContext {
-		public TerminalNode KEER() { return getToken(LANGdradigParser.KEER, 0); }
-		public TerminalNode GEDEELDDOOR() { return getToken(LANGdradigParser.GEDEELDDOOR, 0); }
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode MODULUS() { return getToken(LANGdradigParser.MODULUS, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode KEER() { return getToken(LANGdradigParser.KEER, 0); }
+		public TerminalNode GEDEELDDOOR() { return getToken(LANGdradigParser.GEDEELDDOOR, 0); }
+		public TerminalNode MODULUS() { return getToken(LANGdradigParser.MODULUS, 0); }
 		public FactorExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -752,17 +836,17 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class RangeExprContext extends ExpressionContext {
-		public TerminalNode BINNEN() { return getToken(LANGdradigParser.BINNEN, 0); }
-		public TerminalNode LIGT() { return getToken(LANGdradigParser.LIGT, 0); }
-		public TerminalNode BUITEN() { return getToken(LANGdradigParser.BUITEN, 0); }
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode TUSSEN() { return getToken(LANGdradigParser.TUSSEN, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode LIGT() { return getToken(LANGdradigParser.LIGT, 0); }
 		public TerminalNode EN() { return getToken(LANGdradigParser.EN, 0); }
+		public TerminalNode TUSSEN() { return getToken(LANGdradigParser.TUSSEN, 0); }
+		public TerminalNode BINNEN() { return getToken(LANGdradigParser.BINNEN, 0); }
+		public TerminalNode BUITEN() { return getToken(LANGdradigParser.BUITEN, 0); }
 		public RangeExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -779,16 +863,16 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class CmpExprContext extends ExpressionContext {
-		public TerminalNode GROTERDAN() { return getToken(LANGdradigParser.GROTERDAN, 0); }
-		public TerminalNode GROTEROFGELIJK() { return getToken(LANGdradigParser.GROTEROFGELIJK, 0); }
-		public TerminalNode KLEINEROFGELIJK() { return getToken(LANGdradigParser.KLEINEROFGELIJK, 0); }
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public TerminalNode KLEINERDAN() { return getToken(LANGdradigParser.KLEINERDAN, 0); }
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
+		public TerminalNode GROTERDAN() { return getToken(LANGdradigParser.GROTERDAN, 0); }
+		public TerminalNode KLEINEROFGELIJK() { return getToken(LANGdradigParser.KLEINEROFGELIJK, 0); }
+		public TerminalNode GROTEROFGELIJK() { return getToken(LANGdradigParser.GROTEROFGELIJK, 0); }
 		public CmpExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -829,8 +913,10 @@ public class LANGdradigParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(87); match(MIN);
-				setState(88); expression(12);
+				setState(87);
+				match(MIN);
+				setState(88);
+				expression(12);
 				}
 				break;
 			case 2:
@@ -838,8 +924,10 @@ public class LANGdradigParser extends Parser {
 				_localctx = new NotExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(89); match(NIET);
-				setState(90); expression(11);
+				setState(89);
+				match(NIET);
+				setState(90);
+				expression(11);
 				}
 				break;
 			case 3:
@@ -847,9 +935,12 @@ public class LANGdradigParser extends Parser {
 				_localctx = new AssExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(91); match(IDENTIFIER);
-				setState(92); match(WORDT);
-				setState(93); expression(1);
+				setState(91);
+				match(IDENTIFIER);
+				setState(92);
+				match(WORDT);
+				setState(93);
+				expression(1);
 				}
 				break;
 			case 4:
@@ -857,7 +948,8 @@ public class LANGdradigParser extends Parser {
 				_localctx = new PrimExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(94); primary();
+				setState(94);
+				primary();
 				}
 				break;
 			case 5:
@@ -875,18 +967,23 @@ public class LANGdradigParser extends Parser {
 					_la = _input.LA(1);
 					if ( !(_la==VERHOOG || _la==VERLAAG) ) {
 					_errHandler.recoverInline(this);
+					} else {
+						consume();
 					}
-					consume();
-					setState(96); match(IDENTIFIER);
+					setState(96);
+					match(IDENTIFIER);
 					}
 					}
 					break;
 				case HOOG:
 					{
 					{
-					setState(97); match(HOOG);
-					setState(98); match(IDENTIFIER);
-					setState(99); match(OP);
+					setState(97);
+					match(HOOG);
+					setState(98);
+					match(IDENTIFIER);
+					setState(99);
+					match(OP);
 					}
 					}
 					break;
@@ -913,8 +1010,10 @@ public class LANGdradigParser extends Parser {
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(104);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(105); match(TOTDEMACHT);
-						setState(106); expression(9);
+						setState(105);
+						match(TOTDEMACHT);
+						setState(106);
+						expression(9);
 						}
 						break;
 					case 2:
@@ -927,9 +1026,11 @@ public class LANGdradigParser extends Parser {
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << KEER) | (1L << GEDEELDDOOR) | (1L << MODULUS))) != 0)) ) {
 						_errHandler.recoverInline(this);
+						} else {
+							consume();
 						}
-						consume();
-						setState(109); expression(9);
+						setState(109);
+						expression(9);
 						}
 						break;
 					case 3:
@@ -942,9 +1043,11 @@ public class LANGdradigParser extends Parser {
 						_la = _input.LA(1);
 						if ( !(_la==PLUS || _la==MIN) ) {
 						_errHandler.recoverInline(this);
+						} else {
+							consume();
 						}
-						consume();
-						setState(112); expression(8);
+						setState(112);
+						expression(8);
 						}
 						break;
 					case 4:
@@ -953,16 +1056,21 @@ public class LANGdradigParser extends Parser {
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(113);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(114); match(LIGT);
+						setState(114);
+						match(LIGT);
 						setState(115);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TUSSEN) | (1L << BINNEN) | (1L << BUITEN))) != 0)) ) {
 						_errHandler.recoverInline(this);
+						} else {
+							consume();
 						}
-						consume();
-						setState(116); expression(0);
-						setState(117); match(EN);
-						setState(118); expression(7);
+						setState(116);
+						expression(0);
+						setState(117);
+						match(EN);
+						setState(118);
+						expression(7);
 						}
 						break;
 					case 5:
@@ -975,9 +1083,11 @@ public class LANGdradigParser extends Parser {
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << KLEINERDAN) | (1L << GROTERDAN) | (1L << KLEINEROFGELIJK) | (1L << GROTEROFGELIJK))) != 0)) ) {
 						_errHandler.recoverInline(this);
+						} else {
+							consume();
 						}
-						consume();
-						setState(122); expression(5);
+						setState(122);
+						expression(5);
 						}
 						break;
 					case 6:
@@ -990,9 +1100,11 @@ public class LANGdradigParser extends Parser {
 						_la = _input.LA(1);
 						if ( !(_la==GELIJKAAN || _la==ONGELIJKAAN) ) {
 						_errHandler.recoverInline(this);
+						} else {
+							consume();
 						}
-						consume();
-						setState(125); expression(4);
+						setState(125);
+						expression(4);
 						}
 						break;
 					case 7:
@@ -1005,9 +1117,11 @@ public class LANGdradigParser extends Parser {
 						_la = _input.LA(1);
 						if ( !(_la==EN || _la==OF) ) {
 						_errHandler.recoverInline(this);
+						} else {
+							consume();
 						}
-						consume();
-						setState(128); expression(3);
+						setState(128);
+						expression(3);
 						}
 						break;
 					case 8:
@@ -1020,12 +1134,17 @@ public class LANGdradigParser extends Parser {
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TUSSEN) | (1L << BINNEN) | (1L << BUITEN))) != 0)) ) {
 						_errHandler.recoverInline(this);
+						} else {
+							consume();
 						}
-						consume();
-						setState(131); expression(0);
-						setState(132); match(EN);
-						setState(133); expression(0);
-						setState(134); match(LIGT);
+						setState(131);
+						expression(0);
+						setState(132);
+						match(EN);
+						setState(133);
+						expression(0);
+						setState(134);
+						match(LIGT);
 						}
 						break;
 					}
@@ -1060,11 +1179,11 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class ParExprContext extends PrimaryContext {
-		public TerminalNode RH() { return getToken(LANGdradigParser.RH, 0); }
 		public TerminalNode LH() { return getToken(LANGdradigParser.LH, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RH() { return getToken(LANGdradigParser.RH, 0); }
 		public ParExprContext(PrimaryContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -1159,37 +1278,44 @@ public class LANGdradigParser extends Parser {
 				_localctx = new ParExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(141); match(LH);
-				setState(142); expression(0);
-				setState(143); match(RH);
+				setState(141);
+				match(LH);
+				setState(142);
+				expression(0);
+				setState(143);
+				match(RH);
 				}
 				break;
 			case WAAR:
 				_localctx = new TrueExprContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(145); match(WAAR);
+				setState(145);
+				match(WAAR);
 				}
 				break;
 			case ONWAAR:
 				_localctx = new FalseExprContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(146); match(ONWAAR);
+				setState(146);
+				match(ONWAAR);
 				}
 				break;
 			case IDENTIFIER:
 				_localctx = new IdfExprContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(147); match(IDENTIFIER);
+				setState(147);
+				match(IDENTIFIER);
 				}
 				break;
 			case NUMBER:
 				_localctx = new NumExprContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(148); match(NUMBER);
+				setState(148);
+				match(NUMBER);
 				}
 				break;
 			default:
@@ -1219,12 +1345,12 @@ public class LANGdradigParser extends Parser {
 		}
 	}
 	public static class ArrayTypeContext extends TypeContext {
-		public TerminalNode VAN() { return getToken(LANGdradigParser.VAN, 0); }
 		public TerminalNode REEKS() { return getToken(LANGdradigParser.REEKS, 0); }
+		public TerminalNode VAN() { return getToken(LANGdradigParser.VAN, 0); }
+		public TerminalNode NUMBER() { return getToken(LANGdradigParser.NUMBER, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode NUMBER() { return getToken(LANGdradigParser.NUMBER, 0); }
 		public ArrayTypeContext(TypeContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -1285,24 +1411,30 @@ public class LANGdradigParser extends Parser {
 				_localctx = new IntTypeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(151); match(GETAL);
+				setState(151);
+				match(GETAL);
 				}
 				break;
 			case STELLING:
 				_localctx = new BoolTypeContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(152); match(STELLING);
+				setState(152);
+				match(STELLING);
 				}
 				break;
 			case REEKS:
 				_localctx = new ArrayTypeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(153); match(REEKS);
-				setState(154); match(VAN);
-				setState(155); match(NUMBER);
-				setState(156); type();
+				setState(153);
+				match(REEKS);
+				setState(154);
+				match(VAN);
+				setState(155);
+				match(NUMBER);
+				setState(156);
+				type();
 				}
 				break;
 			default:
@@ -1322,20 +1454,29 @@ public class LANGdradigParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 2: return expression_sempred((ExpressionContext)_localctx, predIndex);
+		case 2:
+			return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
 	}
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return precpred(_ctx, 9);
-		case 1: return precpred(_ctx, 8);
-		case 2: return precpred(_ctx, 7);
-		case 3: return precpred(_ctx, 6);
-		case 4: return precpred(_ctx, 4);
-		case 5: return precpred(_ctx, 3);
-		case 6: return precpred(_ctx, 2);
-		case 7: return precpred(_ctx, 5);
+		case 0:
+			return precpred(_ctx, 9);
+		case 1:
+			return precpred(_ctx, 8);
+		case 2:
+			return precpred(_ctx, 7);
+		case 3:
+			return precpred(_ctx, 6);
+		case 4:
+			return precpred(_ctx, 4);
+		case 5:
+			return precpred(_ctx, 3);
+		case 6:
+			return precpred(_ctx, 2);
+		case 7:
+			return precpred(_ctx, 5);
 		}
 		return true;
 	}
