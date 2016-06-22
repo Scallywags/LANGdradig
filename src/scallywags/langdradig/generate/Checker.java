@@ -98,9 +98,9 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitForkStat(ForkStatContext ctx) {
-        System.out.println(ctx);
-        System.out.println(ctx.IDENTIFIER());
-        forkIDs.add(ctx.IDENTIFIER().getText());
+        if (ctx.IDENTIFIER() != null) {
+            forkIDs.add(ctx.IDENTIFIER().getText());
+        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package scallywags.langdradig.ide.errors;
 
 import scallywags.langdradig.Translator;
-import scallywags.langdradig.generate.Type;
 import scallywags.langdradig.generate.exceptions.AlreadyDeclaredException;
 import scallywags.langdradig.generate.exceptions.CheckerException;
 import scallywags.langdradig.generate.exceptions.TypeException;
@@ -52,7 +51,7 @@ public class LANGdradigErrorBuilder {
             sb.append("Fout ").append(s).append("    |    ").append("Verkeerd type: verwachte ")
                     .append(expected).append(" maar kreeg ").append(actual).append(" in:    ").append(rest).append("");
         } else {
-            sb.append("Fout (geen extra informatie beschikbaar");
+            sb.append("Fout (geen extra informatie beschikbaar)");
         }
         return new LANGdradigError(sb.toString(), line);
     }
