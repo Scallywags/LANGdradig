@@ -1,11 +1,8 @@
 package scallywags.langdradig.ide.frames;
 
-import scallywags.langdradig.Translator;
 import scallywags.langdradig.generate.Checker;
 import scallywags.langdradig.generate.Variable;
 import scallywags.langdradig.generate.exceptions.CheckerException;
-import scallywags.langdradig.ide.*;
-import scallywags.langdradig.ide.Formatter;
 import scallywags.langdradig.ide.errors.LANGdradigError;
 import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
@@ -22,7 +19,12 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 
-import scallywags.langdradig.Compiler;
+import scallywags.langdradig.ide.Compiler;
+import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
+import scallywags.langdradig.ide.features.unfinished.Formatter;
+import scallywags.langdradig.ide.features.finished.CompoundUndoManager;
+import scallywags.langdradig.ide.features.finished.TextLineNumber;
+import scallywags.langdradig.ide.features.finished.VariableOverview;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
@@ -42,6 +44,7 @@ import scallywags.langdradig.Compiler;
 // TODO add warnings (join child threads)
 // TODO syntax highlighting
 // TODO receive, readinstr, testandset ??
+// TODO split highlighter to explicit feature
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
@@ -332,14 +335,7 @@ public class Main extends JFrame {
     }
 
     private void printVariables(List<Variable> variables) {
-        StringBuilder sb = new StringBuilder();
-        for (Variable v : variables) {
-            for (int i = 0; i < v.getScope(); i++) {
-                sb.append("\t");
-            }
-            sb.append(v.getVariable()).append(" - ").append(Translator.translateType(v.getType())).append("\n");
-        }
-        variableView.setText(sb.toString());
+        variableView.setText(VariableOverview.printScopes(variables));
     }
 
     public void clearMessages() {

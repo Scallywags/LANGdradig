@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.features.finished;
 
 import java.awt.event.*;
 import javax.swing.*;

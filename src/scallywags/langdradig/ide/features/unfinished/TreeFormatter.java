@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.features.unfinished;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.features.unfinished;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

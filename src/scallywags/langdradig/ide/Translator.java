@@ -1,4 +1,4 @@
-package scallywags.langdradig;
+package scallywags.langdradig.ide;
 
 import scallywags.langdradig.generate.Type;
 

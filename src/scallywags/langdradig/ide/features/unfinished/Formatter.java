@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.features.unfinished;
 
 /**
  * Created by Jeroen Weener on 21/06/2016.
