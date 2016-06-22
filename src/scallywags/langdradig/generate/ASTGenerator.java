@@ -99,11 +99,9 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private int noSprockells;
 
 	private Map<String, Integer> forkIDs = new HashMap<>();
-	private int nextUsableMapping;
+	private int nextUsableMapping = 1;
 	
 	public ASTGenerator(String sourceFilePath) {
-		nextUsableMapping = 0;
-
 		sourceFile = new File(sourceFilePath);
 		String programName = sourceFile.getName();
 		

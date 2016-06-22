@@ -50,11 +50,11 @@ instance CodeGen Stats where
 
 instance CodeGen Prog where
     gen (Prog numSprockells stats) (scopes, offset) (sharedScopes, sharedOffsets) pc    = (code, restTable, restSharedTable, restPc) where
-        (statInstrs, restTable, restSharedTable, statPc) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets) pc
+        (statInstrs, restTable, restSharedTable, statPc) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets) (pc + 2 + 5) --length spinChilds + length isId0
 
         spinChilds = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]
         isSprockellID0 = [Compute Equ reg0 regSprID regOut1, Branch regOut1 (Rel (length spinChilds + 1))]
-        endprogLocation = length isSprockellID0 + length spinChilds + length statInstrs + 1 + numSprockells - 1 + 1
+        endprogLocation = length isSprockellID0 + length spinChilds + length statInstrs + 1 + numSprockells - 1
         shutdownOtherThreadsInstr = [Load (ImmValue endprogLocation) regOut1] ++ [WriteInstr regOut1 (DirAddr addr) | addr <- [1..numSprockells - 1]]
 
         code = isSprockellID0 ++ spinChilds ++ statInstrs ++ shutdownOtherThreadsInstr ++ [EndProg]
@@ -134,8 +134,9 @@ instance CodeGen Stat where
     gen (Fork spr_id stat) table (sharedScopes, sharedOffset) pc = (code, restTable, (sharedScopes, newSharedOffset), restPc) where
         jumpPc = pc + 6 --length forkInstrs + length setForkInstrs
         forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr spr_id)] --make the other sprockell jump to new programcounter
-        setForkInstrs = [TestAndSet (DirAddr spr_id), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))]
+        setForkInstrs = [TestAndSet (DirAddr spr_id), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))] --TODO use readinstr instead of testandset
         spinInstrs = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]
+            --TODO jump to initial spin instead of a new one
 
         (statInstrs, restTable, (_, newSharedOffset), statPc) = gen stat table ([]:sharedScopes, sharedOffset) (pc + length forkInstrs + length setForkInstrs)
 

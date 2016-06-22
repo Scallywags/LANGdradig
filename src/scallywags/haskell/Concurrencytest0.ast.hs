@@ -2,7 +2,7 @@ import AST
 import Generator
 
 ast :: Prog
-ast =  Prog 2 (Fork 0 (Block ([])):Join 0:[])
+ast =  Prog 2 (Fork 1 (Decl "a" (IntType)):Join 1:[])
 
 main :: IO ()
 main = writeFile "Concurrencytest0.spril.hs" text where
@@ -11,4 +11,4 @@ main = writeFile "Concurrencytest0.spril.hs" text where
             "prog :: [Instruction]\n" ++
             "prog = " ++ (show $ generate ast) ++ "\n\n" ++ --TODO also add optimizer
             "main :: IO ()\n" ++ 
-            "main = sysTest $ replicate 2 prog"
+            "main = sysTest $ replicate 3 prog"
