@@ -6,7 +6,29 @@ package scallywags.langdradig.ide;
 public class Formatter {
 
     public static String format(String content) {
-        return formatTabs(content);
+        return createArtificialEndNodes(content);
+    }
+
+    private static String createArtificialEndNodes(String content) {
+        StringBuilder sb = new StringBuilder();
+        String[] lines = content.split("\n");
+        int pointer = 0;
+        while (pointer < lines.length) {
+            String line = lines[pointer];
+            sb.append(line).append("\n");
+            if (blockOpening(line)) {
+                String nextLine = lines[pointer + 1];
+                if (!blockOpening(nextLine)) {
+                    sb.append(nextLine).append("\n");
+                    sb.append("%end%").append("\n");
+                    pointer++;
+                } else {
+
+                }
+            }
+            pointer++;
+        }
+        return sb.toString();
     }
 
     private static String formatTabs(String content) {
@@ -15,7 +37,7 @@ public class Formatter {
         String[] lines = content.split("\n");
         for (String line : lines) {
             line = line.trim().replaceAll("\t", " ").replaceAll(" +", " ");
-            if (shouldRaise(line)) {
+            if (blockClosing(line)) {
                 indent--;
             }
             for (int i = 0; i < indent; i++) {
@@ -23,22 +45,18 @@ public class Formatter {
             }
             sb.append(line);
             sb.append("\n");
-            if (shouldIndent(line)) {
+            if (blockOpening(line)) {
                 indent++;
             }
         }
         return sb.toString().replaceAll("\t+\n", "\n");
     }
 
-    private static boolean shouldIndent(String line) {
+    private static boolean blockOpening(String line) {
         return line.startsWith("doe") || line.startsWith("besteed") || line.startsWith("kritiek") || line.startsWith("als") || line.startsWith("zolang");
     }
 
-    private static boolean shouldRaise(String line) {
+    private static boolean blockClosing(String line) {
         return line.startsWith("klaar") || line.startsWith("uit aan");
-    }
-
-    private static boolean isBlockWithoutEnd(String line) {
-        return line.startsWith("als") || line.startsWith("zolang") || line.startsWith("besteed uit aan");
     }
 }

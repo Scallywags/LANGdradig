@@ -89,7 +89,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String BOOL_TYPE = "BoolType";
 	private static final String ARRAY_TYPE = "ArrayType";
 
-	private static final String BASE_DIR = "src/scallywags/output/";
+	private static final String HASKELL_DIR = "src/scallywags/haskell/";
 	private static final String EXAMPLE_DIR = "src/scallywags/langdradig/example/";
 
 	private final String programName;
@@ -133,6 +133,14 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public void setNumSprockells(int noSprockells) {
 		this.noSprockells = noSprockells;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		//temporary test main function
+		
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest0.langdradig");
+		gen.setNumSprockells(2);
+		gen.writeAST(HASKELL_DIR);		
 	}
 	
 	public String generate() throws IOException {
@@ -182,7 +190,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate " + noSprockells + " prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate " + (nextUsableMapping + 1) + " prog\"").append(NEWLINE);
 		
 		return builder.toString();
 	}
@@ -258,13 +266,12 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 			forkIDs.put(forkId, nextUsableMapping);
 			nextUsableMapping++;
 		}
-		return FORK + " " + QUOTE + mapping + QUOTE
-				+ " " + LPAR + visit(ctx.statement()) + RPAR;
+		return FORK + " " + mapping + " " + LPAR + visit(ctx.statement()) + RPAR;
 	}
 	
 	@Override
 	public String visitJoinStat(JoinStatContext ctx) {
-		return JOIN + " " + QUOTE + forkIDs.get(visit(ctx.IDENTIFIER())) + QUOTE;
+		return JOIN + " " + forkIDs.get(visit(ctx.IDENTIFIER()));
 	}
 	
 	@Override

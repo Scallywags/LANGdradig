@@ -107,6 +107,9 @@ forkjoin    =   [WriteInstr reg0 (IndAddr regSprID)
 receive :: [Instruction]
 receive = [Load (ImmValue 1337) regB] ++ [WriteInstr regB (DirAddr 0)] ++ replicate 20 Nop ++ [ReadInstr (DirAddr 0)] ++ [Receive regA, Nop, EndProg]
 
+programcount :: [Instruction]
+programcount = [Jump (Abs 0)]
+
 testLocalMem    = sysTest [locmem]
 testAdd         = sysTest [addAB]
 testSharedMem   = sysTest [sharedmem, sharedmem, sharedmem]

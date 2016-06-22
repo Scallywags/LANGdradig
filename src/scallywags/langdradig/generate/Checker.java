@@ -1,10 +1,7 @@
 package scallywags.langdradig.generate;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -31,7 +28,8 @@ public class Checker extends LANGdradigBaseListener {
 
     private ParseTreeProperty<Type> types = new ParseTreeProperty<>();
 
-    private Set<String> forkIDs = new HashSet<>();
+    //    private Set<String> forkIDs = new HashSet<>();
+    private Map<String, Integer> forkIDs = new HashMap<>();
 
     private List<CheckerException> exceptions = new ArrayList<>();
 
@@ -99,15 +97,22 @@ public class Checker extends LANGdradigBaseListener {
     @Override
     public void exitForkStat(ForkStatContext ctx) {
         if (ctx.IDENTIFIER() != null) {
-            forkIDs.add(ctx.IDENTIFIER().getText());
+            String id = ctx.IDENTIFIER().getText();
+            if (forkIDs.keySet().contains(id)) {
+                forkIDs.put(id, forkIDs.get(id) + 1);
+            } else {
+                forkIDs.put(id, 1);
+            }
         }
     }
 
     @Override
     public void exitJoinStat(JoinStatContext ctx) {
         String id = ctx.IDENTIFIER().getText();
-        if (!forkIDs.contains(id)) {
+        if (!forkIDs.keySet().contains(id)) {
             exceptions.add(new UndeclaredException(ctx, id));
+        } else if (forkIDs.get(id) > 0) {
+            forkIDs.put(id, forkIDs.get(id) - 1);
         }
     }
 
@@ -167,13 +172,15 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitCrementExpr(CrementExprContext ctx) {
-        Type type = table.getType(ctx.IDENTIFIER().getText());
-        if (type == null) {
-            exceptions.add(new UndeclaredException(ctx, ctx.IDENTIFIER().getText()));
-        } else if (type != Type.INTEGER) {
-            exceptions.add(new TypeException(ctx, Type.INTEGER, type));
+        if (ctx.IDENTIFIER() != null) {
+            Type type = table.getType(ctx.IDENTIFIER().getText());
+            if (type == null) {
+                exceptions.add(new UndeclaredException(ctx, ctx.IDENTIFIER().getText()));
+            } else if (type != Type.INTEGER) {
+                exceptions.add(new TypeException(ctx, Type.INTEGER, type));
+            }
+            types.put(ctx, type);
         }
-        types.put(ctx, type);
     }
 
     @Override
@@ -331,12 +338,12 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitArrayType(ArrayTypeContext ctx) {
-    	Type elemType = types.get(ctx.type());
-    	types.put(ctx, Type.ARRAY(elemType, Integer.parseInt(ctx.NUMBER().getText())));
+        Type elemType = types.get(ctx.type());
+        types.put(ctx, Type.ARRAY(elemType, Integer.parseInt(ctx.NUMBER().getText())));
     }
-    
+
     // ------------- Other -------------
-    
+
     @Override
     public void visitErrorNode(ErrorNode ctx) {
         //TODO
