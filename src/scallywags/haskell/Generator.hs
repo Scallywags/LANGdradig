@@ -11,11 +11,21 @@ type Entry          = (String, Type, Offset)
 type Scope          = [Entry]
 type SymbolTable    = ([Scope], Offset)
 
+data Tables = Tables    {   localVars :: SymbolTable
+                        ,   sharedVars :: SymbolTable
+                        ,   locks :: ([(String, Offset)], Offset)
+                        }
+
 offset :: [Scope] -> String -> Offset
 offset [] identifier                            = -1
 offset ([]:scopes) identifier                   = offset scopes identifier
 offset (((i, t, o):entries):scopes) identifier  | i == identifier   = o
                                                 | otherwise         = offset (entries:scopes) identifier
+
+lockOffset :: [(String, Offset)] -> String -> Offset
+lockOffset table string = case lookup string table of
+    Just address    -> address
+    Nothing         -> (-1)
 
 regOut1 :: Int
 regOut1 = regE
@@ -149,7 +159,7 @@ instance CodeGen Stat where
     gen (Sync lock stat) table (scope:scopes, sharedOffset) pc = (code, restTable, sharedRestTable, restPc) where
 
         dirAddrM    = offset (scope:scopes) lock
-        dirAddr     | dirAddrM == (-1)  = sharedOffset
+        dirAddr     | dirAddrM == (-1)  = sharedOffset      --BROKEN DUE TO SCOPING!!!! LOCKS SHOULD BE GLOBAL!!!
                     | otherwise         = dirAddrM
 
         sharedTable | dirAddrM == (-1)  = (((lock, BoolType, sharedOffset):scope):scopes, sharedOffset + 1)

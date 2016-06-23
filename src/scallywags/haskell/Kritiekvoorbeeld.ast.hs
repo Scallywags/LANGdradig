@@ -2,7 +2,7 @@ import AST
 import Generator
 
 ast :: Prog
-ast =  Prog (DeclShared "i" (IntType):Fork 1 (Block (Sync "locki" (Expr (Ass "i" (BinOp Plus ((Idf "i")) ((Int 1))))):[])):Fork 2 (Block (Sync "locki" (Expr (Ass "i" (BinOp Plus ((Idf "i")) ((Int 1))))):[])):Join 1:Join 2:[]) 3 
+ast =  Prog (DeclShared "i" (IntType):Decl "locki" (BoolType):Fork 1 (Block (Sync "locki" (Expr (Ass "i" (BinOp Plus ((Idf "i")) ((Int 1))))):[])):Fork 2 (Block (Sync "locki" (Expr (Ass "i" (BinOp Plus ((Idf "i")) ((Int 1))))):[])):Join 1:Join 2:[]) 3 
 
 main :: IO ()
 main = writeFile "Kritiekvoorbeeld.spril.hs" text where
