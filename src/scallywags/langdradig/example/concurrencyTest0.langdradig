@@ -1,8 +1,19 @@
+a is een getal.
+
 besteed
 	doe
-		a is een getal.
-		a wordt 1337.
-	klaar.
-uit aan x.
+		a wordt 8.
+		b is een stelling.
+		b wordt onwaar.
+		besteed
+			doe
+				b wordt waar.
+				a wordt 10.
+			klaar.
+		uit aan workerY.
 
-wacht op x.
+		wacht op workerY.
+	klaar.
+uit aan workerX.
+
+wacht op workerX.

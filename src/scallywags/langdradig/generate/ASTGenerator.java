@@ -95,8 +95,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private final String programName;
 	private final String sourceProgramPath;
 	private final File sourceFile;
-	
-	private int noSprockells;
 
 	private Map<String, Integer> forkIDs = new HashMap<>();
 	private int nextUsableMapping = 1;
@@ -129,15 +127,9 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		return sourceFile;
 	}
 	
-	public void setNumSprockells(int noSprockells) {
-		this.noSprockells = noSprockells;
-	}
-	
 	public static void main(String[] args) throws IOException {
-		//temporary test main function
-		
+		//temporary test main function	
 		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest0.langdradig");
-		gen.setNumSprockells(3);
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
@@ -164,13 +156,13 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(AST_FUN_DECL).append(' ');
 		
 		builder.append(PROG).append(' ');
-		builder.append(noSprockells).append(' ');
 		builder.append(LPAR);
 		for (StatementContext stmnt : ctx.statement()) {
 			builder.append(visit(stmnt)).append(COLON);
 		}
 		builder.append(LSQ).append(RSQ);
-		builder.append(RPAR);
+		builder.append(RPAR).append(' ');
+		builder.append(nextUsableMapping).append(' ');
 		
 		builder.append(NEWLINE).append(NEWLINE);
 		

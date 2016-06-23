@@ -13,7 +13,7 @@ statement	:	IDENTIFIER IS EEN type PUNT		            										    #declStat
 			|	ALS expression (NIET? KLOPT)? DAN statement (ANDERS statement)? 		                #ifStat
 			|	ZOLANG expression (NIET? KLOPT)? statement					        		            #whileStat
 			|	BESTEED UIT AAN IDENTIFIER statement  										            #forkStat
-			|   BESTEED statement UIT AAN IDENTIFIER PUNT                                               #forkStat
+			|   BESTEED statement UIT AAN IDENTIFIER PUNT                                               #forkStat   //TODO replace statement with statement*
 			|   WACHT OP IDENTIFIER PUNT                                                                #joinStat
 			|	KRITIEK IDENTIFIER statement												            #syncStat
 			;

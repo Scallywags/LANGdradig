@@ -33,7 +33,7 @@ regOut5 :: Int
 regOut5 = regA
 
 generate :: Prog -> [Instruction]
-generate p@(Prog cores stmnts) = instructions
+generate p@(Prog stmnts cores) = instructions
     where (instructions, table, sharedTable, pc) = gen p ([], 1) ([], cores) 0
 
 class CodeGen c where
@@ -49,7 +49,7 @@ instance CodeGen Stats where
         (restInstrs, restTable, restSharedTable, restPc) = gen stats statTable statSharedTable statPc
 
 instance CodeGen Prog where
-    gen (Prog numSprockells stats) (scopes, offset) (sharedScopes, sharedOffsets) pc    = (code, restTable, restSharedTable, restPc) where
+    gen (Prog stats numSprockells) (scopes, offset) (sharedScopes, sharedOffsets) pc    = (code, restTable, restSharedTable, restPc) where
         (statInstrs, restTable, restSharedTable, statPc) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets) (pc + 2 + 5) --length spinChilds + length isId0
 
         spinChilds = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]

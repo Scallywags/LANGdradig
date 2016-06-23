@@ -140,6 +140,6 @@ fragment X		: [Xx];
 fragment Y		: [Yy];
 fragment Z		: [Zz];
 
-COMMENTAAR      :   '#' .*? ('\n' | EOF)    -> skip;
-WITRUIMTE		: 	[ \t\r\n]+	-> skip	;
-ERRORCHARACTER  :   .;
+COMMENTAAR      :   '#' .*? ('\n' | EOF)    -> skip ;
+WITRUIMTE		: 	[ \t\r\n]+	-> skip	            ;
+ERRORCHARACTER  :   .                               ;

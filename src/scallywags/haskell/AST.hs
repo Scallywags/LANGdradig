@@ -3,7 +3,7 @@ module AST where
 type NumSprockells = Int
 type SprockellID = Int
 
-data Prog   = Prog NumSprockells [Stat] deriving (Show, Eq)
+data Prog   = Prog [Stat] NumSprockells deriving (Show, Eq)
 
 data Stat   = Decl String Type
             | DeclShared String Type
