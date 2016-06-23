@@ -11,11 +11,21 @@ type Entry          = (String, Type, Offset)
 type Scope          = [Entry]
 type SymbolTable    = ([Scope], Offset)
 
+data Tables = Tables    {   localVars :: SymbolTable
+                        ,   sharedVars :: SymbolTable
+                        ,   locks :: ([(String, Offset)], Offset)
+                        }
+
 offset :: [Scope] -> String -> Offset
 offset [] identifier                            = -1
 offset ([]:scopes) identifier                   = offset scopes identifier
 offset (((i, t, o):entries):scopes) identifier  | i == identifier   = o
                                                 | otherwise         = offset (entries:scopes) identifier
+
+lockOffset :: [(String, Offset)] -> String -> Offset
+lockOffset table string = case lookup string table of
+    Just address    -> address
+    Nothing         -> (-1)
 
 regOut1 :: Int
 regOut1 = regE
@@ -33,7 +43,7 @@ regOut5 :: Int
 regOut5 = regA
 
 generate :: Prog -> [Instruction]
-generate p@(Prog cores stmnts) = instructions
+generate p@(Prog stmnts cores) = instructions
     where (instructions, table, sharedTable, pc) = gen p ([], 1) ([], cores) 0
 
 class CodeGen c where
@@ -49,7 +59,7 @@ instance CodeGen Stats where
         (restInstrs, restTable, restSharedTable, restPc) = gen stats statTable statSharedTable statPc
 
 instance CodeGen Prog where
-    gen (Prog numSprockells stats) (scopes, offset) (sharedScopes, sharedOffsets) pc    = (code, restTable, restSharedTable, restPc) where
+    gen (Prog stats numSprockells) (scopes, offset) (sharedScopes, sharedOffsets) pc    = (code, restTable, restSharedTable, restPc) where
         (statInstrs, restTable, restSharedTable, statPc) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets) (pc + 2 + 5) --length spinChilds + length isId0
 
         spinChilds = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]
@@ -145,7 +155,21 @@ instance CodeGen Stat where
     gen (Join spr_id) table sharedTable pc = (code, table, sharedTable, pc + 3) where
         code = [ReadInstr (DirAddr spr_id), Receive regOut1, Branch regOut1 (Rel (-2))]
 
-    --gen (Sync lock stat) table       --TODO
+    --SyncStat
+    gen (Sync lock stat) table (scope:scopes, sharedOffset) pc = (code, restTable, sharedRestTable, restPc) where
+
+        dirAddrM    = offset (scope:scopes) lock
+        dirAddr     | dirAddrM == (-1)  = sharedOffset      --BROKEN DUE TO SCOPING!!!! LOCKS SHOULD BE GLOBAL!!!
+                    | otherwise         = dirAddrM
+
+        sharedTable | dirAddrM == (-1)  = (((lock, BoolType, sharedOffset):scope):scopes, sharedOffset + 1)
+                    | otherwise         = (scope:scopes, sharedOffset)
+
+        (statInstrs, restTable, sharedRestTable, statPc) = gen stat table sharedTable (pc + length spinInstrs)
+
+        spinInstrs = [TestAndSet (DirAddr dirAddr), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))]
+        code = spinInstrs ++ statInstrs ++ [WriteInstr reg0 (DirAddr dirAddr)]
+        restPc = pc + length code
 
 instance CodeGen Expr where
     -- ParExpr
