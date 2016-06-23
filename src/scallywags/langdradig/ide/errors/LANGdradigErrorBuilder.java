@@ -1,10 +1,7 @@
 package scallywags.langdradig.ide.errors;
 
+import scallywags.langdradig.generate.exceptions.*;
 import scallywags.langdradig.ide.Translator;
-import scallywags.langdradig.generate.exceptions.AlreadyDeclaredException;
-import scallywags.langdradig.generate.exceptions.CheckerException;
-import scallywags.langdradig.generate.exceptions.TypeException;
-import scallywags.langdradig.generate.exceptions.UndeclaredException;
 
 /**
  * Created by Jeroen Weener on 16/06/2016.
@@ -49,7 +46,13 @@ public class LANGdradigErrorBuilder {
             line = findLine(code, rest);
             String s = line == -1 ? "" : "op regel " + line;
             sb.append("Fout ").append(s).append("    |    ").append("Verkeerd type: verwachte ")
-                    .append(expected).append(" maar kreeg ").append(actual).append(" in:    ").append(rest).append("");
+                    .append(expected).append(" maar kreeg ").append(actual).append(" in:    ").append(rest);
+        } else if (e instanceof NotWaitingForThreadException) {
+            String id = ((NotWaitingForThreadException) e).getID();
+            String rest = e.getText();
+            line = findLine(code, rest);
+            String s = line == -1 ? "" : "op regel " + line;
+            sb.append("Fout ").append(s).append("    |    ").append("Er wordt door de ouderthread niet gewacht op zijn kind ").append(id).append(" in:    ").append(rest);
         } else {
             sb.append("Fout (geen extra informatie beschikbaar)");
         }

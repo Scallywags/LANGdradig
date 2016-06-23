@@ -8,8 +8,6 @@ import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.*;
@@ -47,8 +45,10 @@ import scallywags.langdradig.ide.features.finished.VariableOverview;
  *      Auto formatting
  *      Stop button to terminate program
  *      Add warnings (ex. not joining child threads)
- *      Syntax highlighting (ex. variables in italics)
+ *      Syntax highlighting (ex. variables in italics, comments greyed out)
  *      Split highlighter to explicit feature
+ *      Overview of threads
+ *      Wordt -> Is ?
  *
  *      ------Bugs------
  *      Selected text gets whited out when checkContent() is called afterwards
