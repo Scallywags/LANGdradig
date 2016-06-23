@@ -129,7 +129,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest0.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest1.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
