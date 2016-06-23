@@ -137,7 +137,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		//temporary test main function
 		
 		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest0.langdradig");
-		gen.setNumSprockells(2);
+		gen.setNumSprockells(3);
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
