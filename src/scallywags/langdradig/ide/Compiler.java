@@ -1,4 +1,4 @@
-package scallywags.langdradig;
+package scallywags.langdradig.ide;
 
 import java.io.BufferedReader;
 import java.io.File;

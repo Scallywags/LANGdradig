@@ -1,11 +1,13 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.ide.features.unfinished;
 
 /**
  * Created by Jeroen Weener on 21/06/2016.
  */
 public class Formatter {
+    private static final boolean ON = false;
 
     public static String format(String content) {
+        if (!ON) return content;
         return createArtificialEndNodes(content);
     }
 
