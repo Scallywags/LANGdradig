@@ -34,7 +34,7 @@ public class AutoCompleter {
                     SwingUtilities.invokeLater(() -> {
                         try {
                             int offset = c.getCaretPosition();
-                            doc.insertString(offset, "\n\t\nuit aan *.", null);
+                            doc.insertString(offset, "\n\t\nuit aan *.\nwacht op *.", null);
                             c.setCaretPosition(offset + 2);
                         } catch (BadLocationException ignore) {
                         }

@@ -72,7 +72,6 @@ public class Checker extends LANGdradigBaseListener {
     public void exitProgram(ProgramContext ctx) {
         symbolTable.closeScope();
         if (!forkTable.waitedOnAll()) {
-            System.out.println("exitProgram");
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
         forkTable.closeScope();
@@ -101,7 +100,6 @@ public class Checker extends LANGdradigBaseListener {
         if (ctx.IDENTIFIER() != null) {
             String id = ctx.IDENTIFIER().getText();
             if (forkTable.contains(id) && !forkTable.getWaitedOn(id)) {
-                System.out.println("enterFork");
                 exceptions.add(new NotWaitingForThreadException(ctx, id));
             }
         }
@@ -112,7 +110,6 @@ public class Checker extends LANGdradigBaseListener {
     @Override
     public void exitForkStat(ForkStatContext ctx) {
         if (!forkTable.waitedOnAll()) {
-            System.out.println("exitFork");
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
         forkTable.closeScope();
