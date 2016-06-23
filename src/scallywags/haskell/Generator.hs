@@ -145,7 +145,21 @@ instance CodeGen Stat where
     gen (Join spr_id) table sharedTable pc = (code, table, sharedTable, pc + 3) where
         code = [ReadInstr (DirAddr spr_id), Receive regOut1, Branch regOut1 (Rel (-2))]
 
-    --gen (Sync lock stat) table       --TODO
+    --SyncStat
+    gen (Sync lock stat) table (scope:scopes, sharedOffset) pc = (code, restTable, sharedRestTable, restPc) where
+
+        dirAddrM    = offset (scope:scopes) lock
+        dirAddr     | dirAddrM == (-1)  = sharedOffset
+                    | otherwise         = dirAddrM
+
+        sharedTable | dirAddrM == (-1)  = (((lock, BoolType, sharedOffset):scope):scopes, sharedOffset + 1)
+                    | otherwise         = (scope:scopes, sharedOffset)
+
+        (statInstrs, restTable, sharedRestTable, statPc) = gen stat table sharedTable (pc + length spinInstrs)
+
+        spinInstrs = [TestAndSet (DirAddr dirAddr), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))]
+        code = spinInstrs ++ statInstrs ++ [WriteInstr reg0 (DirAddr dirAddr)]
+        restPc = pc + length code
 
 instance CodeGen Expr where
     -- ParExpr

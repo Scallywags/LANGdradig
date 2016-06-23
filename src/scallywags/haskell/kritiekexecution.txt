@@ -1,0 +1,972 @@
+[Compute Equ 0 1 6,Compute Equ 0 1 6,Compute Equ 0 1 6]
+SprState {pc = 1, sp = 16, regbank = [0,0,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 1, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 1, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 6),Branch 6 (Rel 6),Branch 6 (Rel 6)]
+SprState {pc = 7, sp = 16, regbank = [0,0,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 2, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 2, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0]
+
+[WriteInstr 0 (DirAddr 3),WriteInstr 0 (IndAddr 1),WriteInstr 0 (IndAddr 1)]
+SprState {pc = 8, sp = 16, regbank = [0,0,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,WriteReq 0 3],[NoRequest,NoRequest,NoRequest,WriteReq 0 1],[NoRequest,NoRequest,NoRequest,WriteReq 0 2]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 11) 6,ReadInstr (IndAddr 1),ReadInstr (IndAddr 1)]
+SprState {pc = 9, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,WriteReq 0 3,NoRequest],[NoRequest,NoRequest,WriteReq 0 1,ReadReq 1],[NoRequest,NoRequest,WriteReq 0 2,ReadReq 2]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0]
+
+[WriteInstr 6 (DirAddr 1),Receive 6,Receive 6]
+SprState {pc = 10, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,WriteReq 0 3,NoRequest,WriteReq 11 1],[NoRequest,WriteReq 0 1,ReadReq 1,NoRequest],[NoRequest,WriteReq 0 2,ReadReq 2,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0]
+
+[Jump (Rel 14),Receive 6,Receive 6]
+SprState {pc = 24, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[WriteReq 0 3,NoRequest,WriteReq 11 1,NoRequest],[WriteReq 0 1,ReadReq 1,NoRequest,NoRequest],[WriteReq 0 2,ReadReq 2,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 27) 6,Receive 6,Receive 6]
+SprState {pc = 25, sp = 16, regbank = [0,0,0,0,0,0,27,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,WriteReq 11 1,NoRequest,NoRequest],[ReadReq 1,NoRequest,NoRequest,NoRequest],[ReadReq 2,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,WriteReq 0 3),(1,WriteReq 0 1),(2,WriteReq 0 2)]
+[0,0,0,0,0,0,0,0]
+
+[WriteInstr 6 (DirAddr 2),Receive 6,Receive 6]
+SprState {pc = 26, sp = 16, regbank = [0,0,0,0,0,0,27,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[WriteReq 11 1,NoRequest,NoRequest,WriteReq 27 2],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,WriteReq 0 1),(2,WriteReq 0 2),(1,ReadReq 1),(2,ReadReq 2)]
+[0,0,0,0,0,0,0,0]
+
+[Jump (Rel 14),Receive 6,Receive 6]
+SprState {pc = 40, sp = 16, regbank = [0,0,0,0,0,0,27,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,WriteReq 27 2,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,WriteReq 0 2),(1,ReadReq 1),(2,ReadReq 2),(0,WriteReq 11 1)]
+[0,0,0,0,0,0,0,0]
+
+[ReadInstr (DirAddr 1),Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,27,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,WriteReq 27 2,NoRequest,ReadReq 1],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,ReadReq 1),(2,ReadReq 2),(0,WriteReq 11 1)]
+[0,0,0,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[WriteReq 27 2,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,ReadReq 2),(0,WriteReq 11 1)]
+[0,0,0,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing]]
+[(0,WriteReq 11 1),(0,WriteReq 27 2)]
+[0,0,0,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,WriteReq 27 2)]
+[0,11,0,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,ReadReq 1)]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Just 11],[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Branch 6 (Ind 6),Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Just 11,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Jump (Rel (-3)),Branch 6 (Ind 6)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Just 11,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,ReadInstr (IndAddr 1),Jump (Rel (-3))]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 1],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Just 11,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,ReadInstr (IndAddr 1)]
+SprState {pc = 42, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 2]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Branch 6 (Rel (-2)),Receive 6,Receive 6]
+SprState {pc = 40, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 2,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[ReadInstr (DirAddr 1),Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,ReadReq 1],[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 2,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 2,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,ReadReq 1)]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 11],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,ReadReq 2)]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 11,Nothing],[Nothing,Nothing,Nothing,Just 27],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 11,Nothing,Nothing],[Nothing,Nothing,Just 27,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,ReadReq 1)]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Just 11],[Just 11,Nothing,Nothing,Nothing],[Nothing,Just 27,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,1,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Just 11,Nothing],[Nothing,Nothing,Nothing,Nothing],[Just 27,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Branch 6 (Ind 6),Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 11, sp = 16, regbank = [0,1,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,2,0,0,0,0,27,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Just 11,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,TestAndSet (DirAddr 4),Branch 6 (Ind 6)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 27, sp = 16, regbank = [0,2,0,0,0,0,27,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,TestReq 4],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Just 11,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,TestAndSet (DirAddr 5)]
+SprState {pc = 42, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,27,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,TestReq 4,NoRequest],[NoRequest,NoRequest,NoRequest,TestReq 5]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Branch 6 (Rel (-2)),Receive 6,Receive 6]
+SprState {pc = 40, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,TestReq 4,NoRequest,NoRequest],[NoRequest,NoRequest,TestReq 5,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[ReadInstr (DirAddr 1),Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,ReadReq 1],[TestReq 4,NoRequest,NoRequest,NoRequest],[NoRequest,TestReq 5,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[TestReq 5,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,TestReq 4)]
+[0,11,27,0,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 1],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,TestReq 5)]
+[0,11,27,0,1,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 1,Nothing],[Nothing,Nothing,Nothing,Just 1],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 1,Nothing,Nothing],[Nothing,Nothing,Just 1,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,ReadReq 1)]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 12, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Just 11],[Just 1,Nothing,Nothing,Nothing],[Nothing,Just 1,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 13, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 28, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Just 11,Nothing],[Nothing,Nothing,Nothing,Nothing],[Just 1,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Compute Equ 6 0 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 14, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 29, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Just 11,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Branch 6 (Rel (-3)),Compute Equ 6 0 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 15, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 30, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Just 11,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,ReadInstr (DirAddr 3),Branch 6 (Rel (-3))]
+SprState {pc = 42, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 31, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 3],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Branch 6 (Rel (-2)),Receive 6,ReadInstr (DirAddr 3)]
+SprState {pc = 40, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 3,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 3]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[ReadInstr (DirAddr 1),Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,ReadReq 1],[NoRequest,ReadReq 3,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 3,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,ReadReq 1,NoRequest],[ReadReq 3,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 3,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 3,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,ReadReq 3)]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,ReadReq 3)]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing]]
+[(0,ReadReq 1)]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Just 11],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 16, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Just 11,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 17, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 32, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Just 11,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Push 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 18, sp = 15, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 33, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Just 11,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Load (ImmValue 1) 6,Push 6]
+SprState {pc = 42, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 19, sp = 15, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 34, sp = 15, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Branch 6 (Rel (-2)),Pop 5,Load (ImmValue 1) 6]
+SprState {pc = 40, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 20, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 35, sp = 15, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[ReadInstr (DirAddr 1),Compute Add 5 6 6,Pop 5]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 21, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 36, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,ReadReq 1],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,WriteInstr 6 (DirAddr 3),Compute Add 5 6 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 22, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 37, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,WriteReq 1 3],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,WriteInstr 0 (DirAddr 4),WriteInstr 6 (DirAddr 3)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 23, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 38, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,WriteReq 1 3,WriteReq 0 4],[NoRequest,NoRequest,NoRequest,WriteReq 1 3]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Jump (Abs 2),WriteInstr 0 (DirAddr 5)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 2, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 39, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,WriteReq 1 3,WriteReq 0 4,NoRequest],[NoRequest,NoRequest,WriteReq 1 3,WriteReq 0 5]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,WriteInstr 0 (IndAddr 1),Jump (Abs 2)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 2, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[WriteReq 1 3,WriteReq 0 4,NoRequest,WriteReq 0 1],[NoRequest,WriteReq 1 3,WriteReq 0 5,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,ReadReq 1)]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,ReadInstr (IndAddr 1),WriteInstr 0 (IndAddr 1)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[WriteReq 0 4,NoRequest,WriteReq 0 1,ReadReq 1],[WriteReq 1 3,WriteReq 0 5,NoRequest,WriteReq 0 2]]
+[[Nothing,Nothing,Nothing,Just 11],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,WriteReq 1 3)]
+[0,11,27,0,1,1,0,0]
+
+[Receive 6,Receive 6,ReadInstr (IndAddr 1)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,WriteReq 0 1,ReadReq 1,NoRequest],[WriteReq 0 5,NoRequest,WriteReq 0 2,ReadReq 2]]
+[[Nothing,Nothing,Just 11,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,WriteReq 0 4),(2,WriteReq 1 3)]
+[0,11,27,1,1,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[WriteReq 0 1,ReadReq 1,NoRequest,NoRequest],[NoRequest,WriteReq 0 2,ReadReq 2,NoRequest]]
+[[Nothing,Just 11,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,WriteReq 1 3),(2,WriteReq 0 5)]
+[0,11,27,1,0,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 1,NoRequest,NoRequest,NoRequest],[WriteReq 0 2,ReadReq 2,NoRequest,NoRequest]]
+[[Just 11,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,WriteReq 0 5),(1,WriteReq 0 1)]
+[0,11,27,1,0,1,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 42, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 2,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,WriteReq 0 1),(1,ReadReq 1),(2,WriteReq 0 2)]
+[0,11,27,1,0,0,0,0]
+
+[Branch 6 (Rel (-2)),Receive 6,Receive 6]
+SprState {pc = 40, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,ReadReq 1),(2,WriteReq 0 2),(2,ReadReq 2)]
+[0,0,27,1,0,0,0,0]
+
+[ReadInstr (DirAddr 1),Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,11,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,ReadReq 1],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,WriteReq 0 2),(2,ReadReq 2)]
+[0,0,27,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,ReadReq 2)]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,ReadReq 1)]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Branch 6 (Ind 6),Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Jump (Rel (-3)),Receive 6]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,ReadInstr (IndAddr 1),Branch 6 (Ind 6)]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 1],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Jump (Rel (-3))]
+SprState {pc = 41, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,ReadInstr (IndAddr 1)]
+SprState {pc = 42, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 2]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Branch 6 (Rel (-2)),Receive 6,Receive 6]
+SprState {pc = 43, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 2,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[ReadInstr (DirAddr 2),Receive 6,Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,ReadReq 2],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 2,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,ReadReq 1)]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,ReadReq 2,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 2,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,ReadReq 2,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,ReadReq 2)]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[ReadReq 2,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,ReadReq 2)]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Branch 6 (Ind 6),Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Jump (Rel (-3)),Receive 6]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,ReadInstr (IndAddr 1),Branch 6 (Ind 6)]
+SprState {pc = 44, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 1],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Receive 6,Receive 6,Jump (Rel (-3))]
+SprState {pc = 45, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Branch 6 (Rel (-2)),Receive 6,ReadInstr (IndAddr 1)]
+SprState {pc = 46, sp = 16, regbank = [0,0,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 2]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[Load (ImmValue 49) 6,Receive 6,Receive 6]
+SprState {pc = 47, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 2,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[WriteInstr 6 (DirAddr 1),Receive 6,Receive 6]
+SprState {pc = 48, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,WriteReq 49 1],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 2,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,ReadReq 1)]
+[0,0,0,1,0,0,0,0]
+
+[WriteInstr 6 (DirAddr 2),Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,WriteReq 49 1,WriteReq 49 2],[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 2,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,WriteReq 49 1,WriteReq 49 2,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,ReadReq 2)]
+[0,0,0,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[WriteReq 49 1,WriteReq 49 2,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 0],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[WriteReq 49 2,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 0,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,WriteReq 49 1)]
+[0,0,0,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 0,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(0,WriteReq 49 2)]
+[0,49,0,1,0,0,0,0]
+
+[EndProg,Branch 6 (Ind 6),Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Just 0,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Jump (Rel (-3)),Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,ReadInstr (IndAddr 1),Branch 6 (Ind 6)]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 6, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 1],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Jump (Rel (-3))]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 3, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 1,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,ReadInstr (IndAddr 1)]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 1,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,ReadReq 2]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 1,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,ReadReq 2,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,ReadReq 2,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(1,ReadReq 1)]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[ReadReq 2,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 49],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 49,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[(2,ReadReq 2)]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 49,Nothing,Nothing],[Nothing,Nothing,Nothing,Just 49],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,1,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Just 49,Nothing,Nothing,Nothing],[Nothing,Nothing,Just 49,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Receive 6,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,1,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Just 49,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,Branch 6 (Ind 6),Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 49, sp = 16, regbank = [0,1,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 4, sp = 16, regbank = [0,2,0,0,0,0,0,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Just 49,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,EndProg,Receive 6]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 49, sp = 16, regbank = [0,1,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 5, sp = 16, regbank = [0,2,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
+[EndProg,EndProg,Branch 6 (Ind 6)]
+SprState {pc = 49, sp = 16, regbank = [0,0,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 49, sp = 16, regbank = [0,1,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+SprState {pc = 49, sp = 16, regbank = [0,2,0,0,0,0,49,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest],[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,49,49,1,0,0,0,0]
+
