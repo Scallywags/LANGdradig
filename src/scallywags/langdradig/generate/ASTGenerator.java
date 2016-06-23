@@ -164,7 +164,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(AST_FUN_DECL).append(' ');
 		
 		builder.append(PROG).append(' ');
-		builder.append(noSprockells).append(' ');
+		builder.append(noSprockells).append(' ');			// TODO replace with nextUsableMapping
 		builder.append(LPAR);
 		for (StatementContext stmnt : ctx.statement()) {
 			builder.append(visit(stmnt)).append(COLON);
@@ -188,7 +188,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate " + (nextUsableMapping + 1) + " prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate " + nextUsableMapping + " prog\"").append(NEWLINE);
 		
 		return builder.toString();
 	}

@@ -32,34 +32,6 @@ import scallywags.langdradig.ide.features.finished.VariableOverview;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
- * <p>
- * ------Future features------
- * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
- * Support CTRL + F
- * Auto formatting
- * Stop button to terminate program
- * Add warnings (ex. not joining child threads)
- * Syntax highlighting (ex. variables in italics)
- * Split highlighter to explicit feature
- * <p>
- * ------Future features------
- * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
- * Support CTRL + F
- * Auto formatting
- * Stop button to terminate program
- * Add warnings (ex. not joining child threads)
- * Syntax highlighting (ex. variables in italics)
- * Split highlighter to explicit feature
- * <p>
- * ------Future features------
- * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
- * Support CTRL + F
- * Auto formatting
- * Stop button to terminate program
- * Add warnings (ex. not joining child threads)
- * Syntax highlighting (ex. variables in italics)
- * Split highlighter to explicit feature
- */
 // TODO add deelbaar door
 // TODO saving file with existing name dialog
 // TODO saving file as file that is already open should merge tabs
@@ -68,7 +40,7 @@ import scallywags.langdradig.ide.features.finished.VariableOverview;
 // TODO run breaks
 // TODO autofinish doe klaar block
 // TODO receive, readinstr, testandset ??
-/**
+ *
  *      ------Future features------
  *      Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
  *      Support CTRL + F
@@ -77,9 +49,7 @@ import scallywags.langdradig.ide.features.finished.VariableOverview;
  *      Add warnings (ex. not joining child threads)
  *      Syntax highlighting (ex. variables in italics)
  *      Split highlighter to explicit feature
- */
-
-/**
+ *
  *      ------Bugs------
  *      Selected text gets whited out when checkContent() is called afterwards
  */

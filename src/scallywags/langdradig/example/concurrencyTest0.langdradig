@@ -1,5 +1,18 @@
-besteed
-	a is een getal.
-uit aan x.
+a is een getal.
 
-wacht op x.
+besteed
+	doe
+		a wordt 8.
+		b is een stelling.
+		b wordt onwaar.
+		besteed
+			doe
+				b wordt waar.
+				a wordt 10.
+			klaar.
+		uit aan workerY.
+		wacht op workerY.
+	klaar.
+uit aan workerX.
+
+wacht op workerX.
