@@ -188,7 +188,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate " + (nextUsableMapping + 1) + " prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate " + nextUsableMapping + " prog\"").append(NEWLINE);
 		
 		return builder.toString();
 	}

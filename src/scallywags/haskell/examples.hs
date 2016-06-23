@@ -110,6 +110,10 @@ receive = [Load (ImmValue 1337) regB] ++ [WriteInstr regB (DirAddr 0)] ++ replic
 programcount :: [Instruction]
 programcount = [Jump (Abs 0)]
 
+
+testAndSet :: [Instruction]
+testAndSet  = [Load (ImmValue 0) regE, WriteInstr regE (DirAddr 0), TestAndSet (DirAddr 0), Receive regE, EndProg]
+
 testLocalMem    = sysTest [locmem]
 testAdd         = sysTest [addAB]
 testSharedMem   = sysTest [sharedmem, sharedmem, sharedmem]

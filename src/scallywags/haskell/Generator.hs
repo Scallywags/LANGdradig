@@ -132,20 +132,18 @@ instance CodeGen Stat where
 
     --ForkStat    
     gen (Fork spr_id stat) table (sharedScopes, sharedOffset) pc = (code, restTable, (sharedScopes, newSharedOffset), restPc) where
-        jumpPc = pc + 6 --length forkInstrs + length setForkInstrs
-        forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr spr_id)] --make the other sprockell jump to new programcounter
-        setForkInstrs = [TestAndSet (DirAddr spr_id), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))] --TODO use readinstr instead of testandset
-        spinInstrs = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]
-            --TODO jump to initial spin instead of a new one
+        jumpPc = pc + 3 --length forkInstrs
+        forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr spr_id), Jump (Rel (length statInstrs + length spinInstrs + 1))] --make the other sprockell jump to new programcounter
+        spinInstrs = [Jump (Abs 2)]
 
-        (statInstrs, restTable, (_, newSharedOffset), statPc) = gen stat table ([]:sharedScopes, sharedOffset) (pc + length forkInstrs + length setForkInstrs)
+        (statInstrs, restTable, (_, newSharedOffset), statPc) = gen stat table ([]:sharedScopes, sharedOffset) (pc + length forkInstrs)
 
-        code = setForkInstrs ++ forkInstrs ++ statInstrs ++ spinInstrs
+        code = forkInstrs ++ statInstrs ++ spinInstrs
         restPc = pc + length code
 
     --JoinStat
     gen (Join spr_id) table sharedTable pc = (code, table, sharedTable, pc + 3) where
-        code = [ReadInstr (DirAddr spr_id), Receive regOut1, Branch regOut1 (Rel (-3))]
+        code = [ReadInstr (DirAddr spr_id), Receive regOut1, Branch regOut1 (Rel (-2))]
 
     --gen (Sync lock stat) table       --TODO
 
