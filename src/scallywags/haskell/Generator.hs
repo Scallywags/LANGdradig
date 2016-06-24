@@ -3,29 +3,42 @@
 module Generator where
 
 import AST
-import HardwareTypes
+import HardwareTypes hiding (pc)
 import BasicFunctions
 
 type Offset         = Int
 type Entry          = (String, Type, Offset)
 type Scope          = [Entry]
-type SymbolTable    = ([Scope], Offset)
 
-data Tables = Tables    {   localVars :: SymbolTable
-                        ,   sharedVars :: SymbolTable
-                        ,   locks :: ([(String, Offset)], Offset)
-                        }
+data CompileState = CompileState 
+    {   localVars :: [Scope]
+    ,   sharedVars :: [Scope]
+    ,   locks :: [(String, Offset)]
+    ,   t_ids :: [(String, Offset)]
+    ,   nextLocalOffset :: Offset
+    ,   nextSharedOffset :: Offset
+    ,   pc :: Int
+    }
 
-offset :: [Scope] -> String -> Offset
-offset [] identifier                            = -1
+startState :: CompileState
+startState = CompileState
+    {   localVars = []
+    ,   sharedVars = []
+    ,   locks = []
+    ,   t_ids = []
+    ,   nextLocalOffset = 1
+    ,   nextSharedOffset = 0
+    ,   pc = 0
+    }
+
+offset :: [Scope] -> String -> Maybe Offset
+offset [] identifier                            = Nothing
 offset ([]:scopes) identifier                   = offset scopes identifier
-offset (((i, t, o):entries):scopes) identifier  | i == identifier   = o
+offset (((i, t, o):entries):scopes) identifier  | i == identifier   = Just o
                                                 | otherwise         = offset (entries:scopes) identifier
 
-lockOffset :: [(String, Offset)] -> String -> Offset
-lockOffset table string = case lookup string table of
-    Just address    -> address
-    Nothing         -> (-1)
+t_offset :: [(String, Offset)] -> String -> Maybe Offset
+t_offset table string = lookup string table
 
 regOut1 :: Int
 regOut1 = regE
@@ -42,28 +55,27 @@ regOut4 = regB
 regOut5 :: Int
 regOut5 = regA
 
-generate :: Prog -> [Instruction]
-generate p@(Prog stmnts cores) = instructions
-    where (instructions, table, sharedTable, pc) = gen p ([], 1) ([], cores) 0
+generate :: Prog -> ([Instruction], CompileState)
+generate p@(Prog stmnts) = gen p startState
 
 class CodeGen c where
-    --gen subtree -> localmem table -> sharedmem table -> (instructions, new localmem table, new sharedmemtable)
-    gen :: c -> SymbolTable -> SymbolTable -> Int -> ([Instruction], SymbolTable, SymbolTable, Int)
+    gen :: c -> CompileState -> ([Instruction], CompileState)
 
 type Stats = [Stat]
 
 instance CodeGen Stats where
-    gen []              table   sharedTable     pc  = ([], table, sharedTable, pc)
-    gen (stat:stats)    table   sharedTable     pc  = (statInstrs ++ restInstrs, restTable, restSharedTable, restPc) where
-        (statInstrs, statTable, statSharedTable, statPc) = gen stat table sharedTable pc
-        (restInstrs, restTable, restSharedTable, restPc) = gen stats statTable statSharedTable statPc
+    gen [] compState  = ([], compState)
+    gen (stat:stats)   compState  = (statInstrs ++ restInstrs, restState) where
+        (statInstrs, statState) = gen stat compState
+        (restInstrs, restState) = gen stats statState
 
 instance CodeGen Prog where
-    gen (Prog stats numSprockells) (scopes, offset) (sharedScopes, sharedOffsets) pc    = (code, restTable, restSharedTable, restPc) where
-        (statInstrs, restTable, restSharedTable, statPc) = gen stats ([]:scopes, offset) ([]:sharedScopes, sharedOffsets) (pc + 2 + 5) --length spinChilds + length isId0
+    gen (Prog stats) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc}    = (code, statState{pc=restPc}) where
+        (statInstrs, statState@CompileState{t_ids=t_ids, pc=statPc}) = gen stats cs{localVars=[]:lv, sharedVars=[]:sv, pc=pc+2+5} --length spinChilds + length isId0
 
         spinChilds = [WriteInstr reg0 (IndAddr regSprID), ReadInstr (IndAddr regSprID), Receive regOut1, Branch regOut1 (Ind regOut1), Jump (Rel (-3))]
         isSprockellID0 = [Compute Equ reg0 regSprID regOut1, Branch regOut1 (Rel (length spinChilds + 1))]
+        numSprockells = length t_ids + 1
         endprogLocation = length isSprockellID0 + length spinChilds + length statInstrs + 1 + numSprockells - 1
         shutdownOtherThreadsInstr = [Load (ImmValue endprogLocation) regOut1] ++ [WriteInstr regOut1 (DirAddr addr) | addr <- [1..numSprockells - 1]]
 
@@ -72,240 +84,252 @@ instance CodeGen Prog where
 
 instance CodeGen Stat where
     --DeclStat
-    gen (Decl varName varType) (x:xs, offset) sharedTable pc  = (code, table, sharedTable, restPc) where        
+    gen (Decl varName varType) cs@CompileState{localVars=scope:scopes, nextLocalOffset=offset, pc=pc} = (code, restState) where
         size = case varType of
             IntType     -> 1
             BoolType    -> 1
             ArrayType len _ -> len + 1
-        table       = (((varName, varType, offset):x):xs, offset + size)
         code        = case varType of
             IntType                 ->  [Store reg0 (DirAddr offset)]    --default value for Int is 0
             BoolType                ->  [Store reg0 (DirAddr offset)]    --default value for Bool is 0
             ArrayType len elemType  ->  [Load (ImmValue len) regOut1, Store regOut1 (DirAddr offset)] ++
                                         [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len+1]]
-                                        --default value for arrays is all zeros. fix in case the elements are arrays themselves
-        
-        restPc = pc + length code
+                                        --default value for arrays is all zeros. are we allowing arrays of arrays?
+        restState = cs{localVars=((varName, varType, offset):scope):scopes, nextLocalOffset=offset+size, pc=pc+length code}
 
     --BlockStat
-    gen (Block stats) (scopes, offset) sharedTable pc         = (statIntrs, (scopes, newOffset), restSharedTable, newPc) where --we only need to pop the first element so we can reuse 'scopes'.
-        (statIntrs, (_, newOffset), restSharedTable, newPc) = gen stats ([]:scopes, offset) sharedTable pc --opens a new scope for the stats. will not be reused after the blockstat.
+    gen (Block stats) cs@CompileState{localVars=scopes}     = (statIntrs, statState{localVars=scopes}) where --we only need to pop the first element so we can reuse 'scopes'.
+        (statIntrs, statState) = gen stats cs{localVars=[]:scopes} --opens a new scope for the stats. will not be reused after the blockstat.
 
     --ExprStat
-    gen (Expr expr) table sharedTable pc                      = gen expr table sharedTable pc
+    gen (Expr expr) compileState                            = gen expr compileState
 
     --IfThenStat
-    gen (IfThen expr stat) table sharedTable pc               = (code, restTable, restSharedTable, restPc) where
+    gen (IfThen expr stat) cs@CompileState{pc=pc}           = (code, statState{pc=pc+length code}) where
         invertedExpr = case expr of                             -- small optimization
             UnOp Not e -> e
             _ -> UnOp Not expr
-        (exprInstrs, exprTable, exprSharedTable, exprPc) = gen invertedExpr table sharedTable pc       -- only jump if expression is false
-        (statInstrs, restTable, restSharedTable, statPc) = gen stat exprTable exprSharedTable (exprPc + 1)
+        (exprInstrs, exprState@CompileState{pc=exprPc})  = gen invertedExpr cs     -- only jump if expression is false
+        (statInstrs, statState)                          = gen stat exprState{pc=exprPc+1}
         code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 1))] ++ statInstrs
-        restPc = pc + length code
 
     --IfThenElseStat
-    gen (IfThenElse expr stat1 stat2) table sharedTable pc    = (code, restTable, restSharedTable, restPc) where
-        (exprInstrs, exprTable, exprSharedTable, exprPc)     = gen expr table sharedTable pc
-        (stat1Instrs, stat1Table, stat1SharedTable, stat1Pc) = gen stat1 exprTable exprSharedTable (stat2Pc + 1)
-        (stat2Instrs, restTable, restSharedTable, stat2Pc)   = gen stat2 stat1Table stat1SharedTable (exprPc + 1)
+    gen (IfThenElse expr stat1 stat2) cs@CompileState{pc=pc}    = (code, stat1State{pc=pc+length code}) where
+        (exprInstrs, exprState@CompileState{pc=exprPc})      = gen expr cs
+        (stat1Instrs, stat1State)                            = gen stat1 stat2State{pc=stat2Pc+1}
+        (stat2Instrs, stat2State@CompileState{pc=stat2Pc})   = gen stat2 exprState{pc=exprPc+1}
         code =  exprInstrs ++ [Branch regOut1 (Rel (length stat2Instrs + 2))] ++
                 stat2Instrs ++ [Jump $ Rel (length stat1Instrs+1)] ++ stat1Instrs   --if not expr stat2 else stat1
-        restPc = pc + length code
 
     --WhileStat
-    gen (While expr stat) table sharedTable pc                = (code, restTable, sharedRestTable, restPc) where
+    gen (While expr stat) cs@CompileState{pc=pc}               = (code, statState{pc=pc+length code}) where
         invertedExpr = case expr of                      -- small optimization
             UnOp Not e -> e
             _ -> UnOp Not expr
-        (exprInstrs, exprTable, sharedExprTable, exprPc) = gen invertedExpr table sharedTable pc-- jump past while if and only if expression is false.
-        (statInstrs, restTable, sharedRestTable, statPc) = gen stat exprTable sharedExprTable (exprPc + 1)
+        (exprInstrs, exprState@CompileState{pc=exprPc})  = gen invertedExpr cs   -- jump past while if and only if expression is false.
+        (statInstrs, statState)                          = gen stat exprState{pc=exprPc+1}
         code = exprInstrs ++ [Branch regOut1 (Rel (length statInstrs + 2))] ++ statInstrs ++ [Jump (Rel $ -(length exprInstrs + length statInstrs + 1))]
-        restPc = pc + length code
 
     --DeclShared
-    gen (DeclShared varName varType) table (x:xs, offset) pc  = (code, table, sharedTable, restPc) where        
+    gen (DeclShared varName varType) cs@CompileState{sharedVars=scope:scopes, nextSharedOffset=offset, pc=pc}  = (code, restState) where          
         size = case varType of
             IntType     -> 1
             BoolType    -> 1
             ArrayType len _ -> len + 1
-
-        sharedTable       = (((varName, varType, offset):x):xs, offset + size)
-
         code        = case varType of
             IntType                 ->  [WriteInstr reg0 (DirAddr offset)]    --default value for Int is 0
             BoolType                ->  [WriteInstr reg0 (DirAddr offset)]    --default value for Bool is 0
             ArrayType len elemType  ->  [Load (ImmValue len) regOut1, WriteInstr regOut1 (DirAddr offset)] ++
                                         [WriteInstr reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len+1]]
                                         --default value for arrays is all zeros. fix in case the elements are arrays themselves
-        restPc = pc + length code
 
-    --ForkStat    
-    gen (Fork spr_id stat) table (sharedScopes, sharedOffset) pc = (code, restTable, (sharedScopes, newSharedOffset), restPc) where
+        restState = cs{sharedVars=((varName, varType, offset):scope):scopes, nextSharedOffset=offset+size, pc=pc+length code}
+
+    --ForkStat
+    gen (Fork spr_id stat) cs@CompileState{localVars=lv, sharedVars=sv, nextLocalOffset=nlo, nextSharedOffset=nso, pc=pc, t_ids=t_ids} = (code, cs{sharedVars=sv, nextSharedOffset=nso, pc=pc+length code, t_ids=newT_ids}) where
         jumpPc = pc + 3 --length forkInstrs
-        forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr spr_id), Jump (Rel (length statInstrs + length spinInstrs + 1))] --make the other sprockell jump to new programcounter
+
+        addrM = t_offset t_ids spr_id
+        addr = case addrM of
+            Just a      -> a
+            Nothing     -> case t_ids of
+                []  -> 1
+                _   -> maximum (map snd t_ids) + 1
+
+        newT_ids = case addrM of
+            Just _      -> t_ids
+            Nothing     -> (spr_id, addr):t_ids
+
+        forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr addr), Jump (Rel (length statInstrs + length spinInstrs + 1))] --make the other sprockell jump to new programcounter
         spinInstrs = [Jump (Abs 2)]
 
-        (statInstrs, restTable, (_, newSharedOffset), statPc) = gen stat table ([]:sharedScopes, sharedOffset) (pc + length forkInstrs)
-
+        (statInstrs, statState@CompileState{nextSharedOffset=nso})         = gen stat cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, pc=pc+length forkInstrs}
         code = forkInstrs ++ statInstrs ++ spinInstrs
-        restPc = pc + length code
 
     --JoinStat
-    gen (Join spr_id) table sharedTable pc = (code, table, sharedTable, pc + 3) where
-        code = [ReadInstr (DirAddr spr_id), Receive regOut1, Branch regOut1 (Rel (-2))]
+    gen (Join spr_id) cs@CompileState{pc=pc, t_ids=t_ids} = (code, cs{pc=pc+length code}) where
+        Just addr = t_offset t_ids spr_id --should always work.
+        code = [ReadInstr (DirAddr addr), Receive regOut1, Branch regOut1 (Rel (-2))]
 
     --SyncStat
-    gen (Sync lock stat) table (scope:scopes, sharedOffset) pc = (code, restTable, sharedRestTable, restPc) where
+    gen (Sync lock stat) cs@CompileState{sharedVars=scope:scopes, nextSharedOffset=offset, locks=locks, pc=pc} = (code, restState) where
+        lockOffsetMaybe   = t_offset locks lock
+        dirAddr = case lockOffsetMaybe of
+            Just addr   -> addr
+            Nothing     -> offset
 
-        dirAddrM    = offset (scope:scopes) lock
-        dirAddr     | dirAddrM == (-1)  = sharedOffset      --BROKEN DUE TO SCOPING!!!! LOCKS SHOULD BE GLOBAL!!!
-                    | otherwise         = dirAddrM
+        newLocks = case lockOffsetMaybe of
+            Just addr   -> locks
+            Nothing     -> (lock, offset):locks
 
-        sharedTable | dirAddrM == (-1)  = (((lock, BoolType, sharedOffset):scope):scopes, sharedOffset + 1)
-                    | otherwise         = (scope:scopes, sharedOffset)
+        nso = case lockOffsetMaybe of
+            Just addr   -> offset
+            Nothing     -> offset + 1
 
-        (statInstrs, restTable, sharedRestTable, statPc) = gen stat table sharedTable (pc + length spinInstrs)
+        (statInstrs, statState) = gen stat cs{pc=pc+length spinInstrs}
 
         spinInstrs = [TestAndSet (DirAddr dirAddr), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))]
         code = spinInstrs ++ statInstrs ++ [WriteInstr reg0 (DirAddr dirAddr)]
-        restPc = pc + length code
+        restState = statState{nextSharedOffset=nso, locks=newLocks, pc=pc+length code}
 
 instance CodeGen Expr where
     -- ParExpr
-    gen (Par expr) table sharedTable pc                   = gen expr table sharedTable pc
+    gen (Par expr) compileState                                             = gen expr compileState
 
     -- BoolExpr
-    gen (Bool bool) table sharedTable pc                  = ([Load (ImmValue $ intBool bool) regOut1], table, sharedTable, pc + 1)
+    gen (Bool bool) cs@CompileState{pc=pc}                                  = ([Load (ImmValue $ intBool bool) regOut1], cs{pc=pc+1})
 
     -- IdfExpr
-    gen (Idf string) table sharedTable pc                = (code, table, sharedTable, restPc) where
-        localAddr = offset (fst table) string
-        sharedAddr = offset (fst sharedTable) string
-        code    | localAddr /= -1   = [Load (DirAddr localAddr) regOut1]
-                | otherwise         = [ReadInstr (DirAddr sharedAddr), Receive regOut1]
-        restPc = pc + length code
+    gen (Idf string) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc}    = (code, cs{pc=pc+length code}) where
+        localAddrMaybe      = offset lv string
+        sharedAddrMaybe     = offset sv string
+        code = case localAddrMaybe of
+            Just localAddr  -> [Load (DirAddr localAddr) regOut1]
+            Nothing          -> case sharedAddrMaybe of
+                Just sharedAddr     -> [ReadInstr (DirAddr sharedAddr), Receive regOut1]
+                Nothing             -> error ("variable " ++ string ++ " not found!")
 
     -- IntExpr
-    gen (Int int) table sharedTable pc                    = ([Load (ImmValue int) regOut1], table, sharedTable, pc + 1)
+    gen (Int int) cs@CompileState{pc=pc}                                    = ([Load (ImmValue int) regOut1], cs{pc=pc+1})
     
     -- UnOpExpr
-    gen (UnOp op expr) table sharedTable pc              = (code, restTable, sharedRestTable, restPc) where
-        (exprInstrs, exprTable, sharedExprTable, exprPc) = gen expr table sharedTable pc
-        (unopInstrs, restTable, sharedRestTable, unopPc) = gen op exprTable sharedExprTable exprPc
+    gen (UnOp op expr) cs@CompileState{pc=pc}                               = (code, unopState{pc=pc+length code}) where
+        (exprInstrs, exprState@CompileState{pc=exprPc})     = gen expr cs
+        (unopInstrs, unopState)                             = gen op exprState
         code = exprInstrs ++ unopInstrs
-        restPc = pc + length code
 
     -- BinOpExpr
-    gen (BinOp op expr1 expr2) table sharedTable pc       = (code, restTable, sharedRestTable, restPc) where
-        (expr1Instrs, expr1Table, sharedExpr1Table, expr1Pc)   = gen expr1 table sharedTable pc
-        (expr2Instrs, expr2Table, sharedExpr2Table, expr2Pc)   = gen expr2 expr1Table sharedExpr1Table (expr1Pc + 1)
-        (opInstrs, restTable, sharedRestTable, opPc)           = gen op expr2Table sharedExpr2Table (expr1Pc + 1)
+    gen (BinOp op expr1 expr2) cs@CompileState{pc=pc}       = (code, opState{pc=pc+length code}) where
+        (expr1Instrs, expr1State@CompileState{pc=expr1Pc})  = gen expr1 cs
+        (expr2Instrs, expr2State@CompileState{pc=expr2Pc})  = gen expr2 expr1State{pc=expr1Pc+1}
+        (opInstrs, opState)                                 = gen op expr2State{pc=expr2Pc+1}
         code = expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs
-        restPc = pc + length code
 
     -- TrinOpExpr
-    gen (TrinOp op expr lower upper) table sharedTable pc   = (code, restTable, sharedRestTable, restPc) where
-        (exprInstrs, exprTable, sharedExprTable, exprPc)        = gen expr table sharedTable pc
-        (lowerInstrs, lowerTable, sharedLowerTable, lowerPc)    = gen lower exprTable sharedExprTable (exprPc + 1)
-        (upperInstrs, upperTable, sharedUpperTable, upperPc)    = gen upper lowerTable sharedLowerTable (lowerPc + 1)
-        (opInstrs, restTable, sharedRestTable, opPc)            = gen op upperTable sharedUpperTable (upperPc + 2)
+    gen (TrinOp op expr lower upper) cs@CompileState{pc=pc}   = (code, opState{pc=pc+length code}) where
+        (exprInstrs, exprState@CompileState{pc=exprPc})      = gen expr cs
+        (lowerInstrs, lowerState@CompileState{pc=lowerPc})   = gen lower exprState{pc=exprPc+1}
+        (upperInstrs, upperState@CompileState{pc=upperPc})   = gen upper lowerState{pc=lowerPc+1}
+        (opInstrs, opState)                     = gen op upperState{pc=upperPc+2}
         code = exprInstrs ++ [Push regOut1] ++ lowerInstrs ++ [Push regOut1] ++ upperInstrs ++ [Pop regOut3, Pop regOut2] ++ opInstrs
-        restPc = pc + length code
 
     -- CrementExpr
-    gen (Crem crem string) table sharedTable pc       = (code, crementTable, sharedCrementTable, restPc) where
-        localAddr = offset (fst table) string
-        sharedAddr = offset (fst sharedTable) string
+    gen (Crem crem string) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, crementState{pc=pc+length code}) where
+        localAddrMaybe = offset lv string
+        sharedAddrMaybe = offset sv string
 
-        isLocal = localAddr /= -1 
+        (crementInstrs, crementState)   = case localAddrMaybe of
+            Just addr   -> gen crem cs{pc=pc+1}
+            Nothing     -> case sharedAddrMaybe of
+                Just addr   -> gen crem cs{pc=pc+2}
+                Nothing     -> error ("variable " ++ string ++ " not found.")
 
-        (crementInstrs, crementTable, sharedCrementTable, cremPc)   = gen crem table sharedTable (if isLocal then pc + 1 else pc + 2)
-
-        code    | isLocal           =   [Load (DirAddr localAddr) regOut1] ++ crementInstrs ++ [Store regOut1 (DirAddr localAddr)]
-                | otherwise         =   [ReadInstr (DirAddr sharedAddr), Receive regOut1] ++ crementInstrs ++ [WriteInstr regOut1 (DirAddr sharedAddr)]
-                                        --TODO add loop that spins until value is written successfully?
-        restPc = pc + length code
+        code = case localAddrMaybe of
+            Just localAddr  -> [Load (DirAddr localAddr) regOut1] ++ crementInstrs ++ [Store regOut1 (DirAddr localAddr)]
+            Nothing         -> case sharedAddrMaybe of
+                Just sharedAddr     -> [ReadInstr (DirAddr sharedAddr), Receive regOut1] ++ crementInstrs ++ [WriteInstr regOut1 (DirAddr sharedAddr)]
+                Nothing             -> error ("variable " ++ string ++ " not found.")
 
     -- AssignExpr
-    gen (Ass string expr) table sharedTable pc                = (code, restTable, restSharedTable, restPc) where
-        (exprCode, restTable, restSharedTable, exprPc)   = gen expr table sharedTable pc
-        localAddr = offset (fst restTable) string
-        sharedAddr = offset (fst restSharedTable) string
+    gen (Ass string expr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, exprState{pc=pc+length code}) where
+        (exprCode, exprState)   = gen expr cs
+        localAddrMaybe  = offset lv string
+        sharedAddrMaybe = offset sv string
 
-        code    | localAddr /= -1   = exprCode ++ [Store regOut1 (DirAddr localAddr)]
-                | otherwise         = exprCode ++ [WriteInstr regOut1 (DirAddr sharedAddr)]
+        code = exprCode ++ case localAddrMaybe of
+            Just localAddr  -> [Store regOut1 (DirAddr localAddr)]
+            Nothing         -> case sharedAddrMaybe of
+                Just sharedAddr     -> [WriteInstr regOut1 (DirAddr sharedAddr)]
+                Nothing             -> error ("variable " ++ string ++ " not found.") 
 
-        restPc = pc + length code
-
-        --TODO make this work correctly for arrays; there is no array expression yet... xD
+        --TODO make this work correctly for arrays;
 
 instance CodeGen UnOp where
     -- NegExpr
-    gen Neg table sharedTable pc  = ([Load (ImmValue (-1)) regOut2, Compute Mul regOut1 regOut2 regOut1], table, sharedTable, pc + 2)
+    gen Neg cs@CompileState{pc=pc}  = ([Load (ImmValue (-1)) regOut2, Compute Mul regOut1 regOut2 regOut1], cs{pc=pc+2})
 
     -- NotExpr
-    gen Not table sharedTable pc  = ([Load (ImmValue $ intBool True) regOut2, Compute Xor regOut1 regOut2 regOut1], table, sharedTable, pc + 2)
+    gen Not cs@CompileState{pc=pc}  = ([Load (ImmValue $ intBool True) regOut2, Compute Xor regOut1 regOut2 regOut1], cs{pc=pc+2})
 
 instance CodeGen BinOp where
     -- Plus
-    gen Plus table sharedTable pc             = ([Compute Add regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen Plus cs@CompileState{pc=pc}           = ([Compute Add regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- Minus
-    gen Minus table sharedTable pc            = ([Compute Sub regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen Minus cs@CompileState{pc=pc}           = ([Compute Sub regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- Times
-    gen Times table sharedTable pc            = ([Compute Mul regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen Times cs@CompileState{pc=pc}            = ([Compute Mul regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- Divide
-    gen Divide table sharedTable pc           = ([Compute Div regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen Divide cs@CompileState{pc=pc}           = ([Compute Div regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- Modulo
-    gen Modulo table sharedTable pc           = ([Compute Mod regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen Modulo cs@CompileState{pc=pc}           = ([Compute Mod regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- Power
-    gen Power table sharedTable pc            = ([Compute Pow regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen Power cs@CompileState{pc=pc}            = ([Compute Pow regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- LessThan
-    gen LessThan table sharedTable pc         = ([Compute Lt regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen LessThan cs@CompileState{pc=pc}         = ([Compute Lt regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- LessThanEq
-    gen LessThanEq table sharedTable pc       = ([Compute LtE regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen LessThanEq cs@CompileState{pc=pc}       = ([Compute LtE regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- GreaterThan
-    gen GreaterThan table sharedTable pc      = ([Compute Gt regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen GreaterThan cs@CompileState{pc=pc}      = ([Compute Gt regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- GreaterThanEq
-    gen GreaterThanEq table sharedTable pc    = ([Compute GtE regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen GreaterThanEq cs@CompileState{pc=pc}    = ([Compute GtE regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- Equal
-    gen Equal table sharedTable pc            = ([Compute Equ regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen Equal cs@CompileState{pc=pc}            = ([Compute Equ regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- NotEqual
-    gen NotEqual table sharedTable pc         = ([Compute NEq regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen NotEqual cs@CompileState{pc=pc}         = ([Compute NEq regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- And
-    gen LogicAnd table sharedTable pc         = ([Compute And regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen LogicAnd cs@CompileState{pc=pc}         = ([Compute And regOut2 regOut1 regOut1], cs{pc=pc+1})
 
     -- Or
-    gen LogicOr table sharedTable pc          = ([Compute Or regOut2 regOut1 regOut1], table, sharedTable, pc + 1)
+    gen LogicOr cs@CompileState{pc=pc}          = ([Compute Or regOut2 regOut1 regOut1], cs{pc=pc+1})
 
 instance CodeGen TrinOp where
     -- Between (regOut3 < regOut2 < regOut1) ----> (regOut3 < regOut2 && regOut2 < regOut1)
-    gen Between table sharedTable pc      = (code, table, sharedTable, pc + 3) where
+    gen Between cs@CompileState{pc=pc}      = (code, cs{pc=pc+3}) where
         code = [Compute Lt regOut3 regOut2 regOut4, Compute Lt regOut2 regOut1 regOut5, Compute And regOut4 regOut5 regOut1]
 
     -- Inside (regOut3 <= regOut2 <= regOut1) ----> (regOut3 <= regOut2 && regOut2 <= regOut1)
-    gen Inside table sharedTable pc       = (code, table, sharedTable, pc + 3) where
+    gen Inside cs@CompileState{pc=pc}      = (code,  cs{pc=pc+3}) where
         code = [Compute LtE regOut3 regOut2 regOut4, Compute LtE regOut2 regOut1 regOut5, Compute And regOut4 regOut5 regOut1]
 
     -- Outside (regOut2 < regOut3 || regOut2 > regOut1)
-    gen Outside table sharedTable pc      = (code, table, sharedTable, pc + 3) where
+    gen Outside cs@CompileState{pc=pc}      = (code, cs{pc=pc+3}) where
         code = [Compute Lt regOut2 regOut3 regOut4, Compute Gt regOut2 regOut1 regOut5, Compute Or regOut4 regOut5 regOut1]
 
 instance CodeGen Crem where
     -- Increment
-    gen Increm table sharedTable pc       = ([Compute Incr regOut1 reg0 regOut1], table, sharedTable, pc + 1)
+    gen Increm cs@CompileState{pc=pc}       = ([Compute Incr regOut1 reg0 regOut1], cs{pc=pc+1})
 
     -- Decrement
-    gen Decrem table sharedTable pc       = ([Compute Decr regOut1 reg0 regOut1], table, sharedTable, pc + 1)
+    gen Decrem cs@CompileState{pc=pc}       = ([Compute Decr regOut1 reg0 regOut1], cs{pc=pc+1})

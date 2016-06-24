@@ -1,9 +1,6 @@
 module AST where
 
-type NumSprockells = Int
-type SprockellID = Int
-
-data Prog   = Prog [Stat] NumSprockells deriving (Show, Eq)
+data Prog   = Prog [Stat] deriving (Show, Eq)
 
 data Stat   = Decl String Type
             | DeclShared String Type
@@ -12,8 +9,8 @@ data Stat   = Decl String Type
             | IfThen Expr Stat
             | IfThenElse Expr Stat Stat
             | While Expr Stat
-            | Fork SprockellID Stat
-            | Join SprockellID
+            | Fork String Stat
+            | Join String
             | Sync String Stat
             deriving (Show, Eq)
 
