@@ -2,10 +2,10 @@ import AST
 import Generator
 
 ast :: Prog
-ast =  Prog (DeclShared "a" (IntType):DeclShared "c" (IntType):Fork "x" (Expr (Ass "a" ((Int 1337))):Decl "b" (IntType):Expr (Ass "b" ((Int 2))):Expr (Ass "c" (BinOp Times ((Idf "a")) ((Idf "b")))):[]):Decl "d" (IntType):Join "x":Expr (Ass "d" ((Idf "c"))):Fork "x" (Expr (Ass "a" ((Int 600))):[]):Decl "e" (IntType):Join "x":Expr (Ass "e" (BinOp Plus ((Idf "a")) ((Int 66)))):[]) 
+ast =  Prog (DeclShared "a" (IntType):Fork "x" (Expr (Ass "a" ((Int 1337))):Expr (Ass "a" (BinOp Times ((Idf "a")) ((Int 2)))):[]):Join "x":Fork "x" (Expr (Ass "a" (BinOp Minus ((Idf "a")) ((Int 1000)))):Expr (Ass "a" (BinOp Minus ((Idf "a")) ((Int 1000)))):[]):Join "x":[]) 
 
 main :: IO ()
-main = writeFile "Concurrencytest1.spril.hs" text where
+main = writeFile "Forktest.spril.hs" text where
     text =  
             "import HardwareTypes\nimport Simulation\n\n" ++
             "prog :: [Instruction]\n" ++

@@ -147,7 +147,7 @@ instance CodeGen Stat where
         restState = cs{sharedVars=((varName, varType, offset):scope):scopes, nextSharedOffset=offset+size, pc=pc+length code}
 
     --ForkStat
-    gen (Fork spr_id stat) cs@CompileState{localVars=lv, sharedVars=sv, nextLocalOffset=nlo, nextSharedOffset=nso, pc=pc, t_ids=t_ids} = (code, restState) where
+    gen (Fork spr_id stats) cs@CompileState{localVars=lv, sharedVars=sv, nextLocalOffset=nlo, nextSharedOffset=nso, pc=pc, t_ids=t_ids} = (code, restState) where
         jumpPc = pc + 3 --length forkInstrs
 
         addrM = t_offset t_ids spr_id
@@ -164,7 +164,7 @@ instance CodeGen Stat where
         forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr addr), Jump (Rel (length statInstrs + length spinInstrs + 1))] --make the other sprockell jump to new programcounter
         spinInstrs = [Jump (Abs 2)]
 
-        (statInstrs, statState@CompileState{nextSharedOffset=nso})         = gen stat cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, pc=pc+length forkInstrs}
+        (statInstrs, statState@CompileState{nextSharedOffset=nso})         = gen (Block stats) cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, pc=pc+length forkInstrs}
         code = forkInstrs ++ statInstrs ++ spinInstrs
         restState = statState{localVars=lv, nextLocalOffset=nlo, sharedVars=sv, pc=pc+length code, t_ids=newT_ids}
 

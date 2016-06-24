@@ -127,7 +127,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "zolang_example.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest1.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
@@ -250,7 +250,18 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitForkStat(ForkStatContext ctx) {
-		return FORK + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE + " " + LPAR + visit(ctx.statement()) + RPAR;
+		return FORK + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE + " " + LPAR + visit(ctx.statement()) + COLON + LSQ + RSQ + RPAR;
+	}
+	
+	@Override
+	public String visitBlockForkStat(BlockForkStatContext ctx) {
+		StringBuilder builder = new StringBuilder()
+				.append(FORK).append(' ').append(QUOTE).append(visit(ctx.IDENTIFIER())).append(QUOTE)
+				.append(' ').append(LPAR);
+		ctx.statement().forEach(stat -> builder.append(visit(stat)).append(COLON));
+		builder.append(LSQ).append(RSQ).append(RPAR);
+		
+		return builder.toString();
 	}
 	
 	@Override

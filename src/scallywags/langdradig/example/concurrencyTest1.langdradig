@@ -2,12 +2,10 @@ a is een gedeeld getal.
 c is een gedeeld getal.
 
 besteed
-	doe
-		a wordt 1337.
-		b is een getal.
-		b wordt 2.
-		c wordt a keer b.
-	klaar.
+	a wordt 1337.
+	b is een getal.
+	b wordt 2.
+	c wordt a keer b.
 uit aan x.
 
 d is een getal.

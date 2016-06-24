@@ -119,6 +119,31 @@ public class Checker extends LANGdradigBaseListener {
             forkTable.addWorker(id);
         }
     }
+    
+    @Override
+    public void enterBlockForkStat(BlockForkStatContext ctx) {
+    	if (ctx.IDENTIFIER() != null) {
+            String id = ctx.IDENTIFIER().getText();
+            if (forkTable.contains(id) && !forkTable.getWaitedOn(id)) {
+                exceptions.add(new NotWaitingForThreadException(ctx, id));
+            }
+        }
+        forkTable.openScope();
+        symbolTable.openScope();
+    }
+    
+    @Override
+    public void exitBlockForkStat(BlockForkStatContext ctx) {
+        if (!forkTable.waitedOnAll()) {
+            exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
+        }
+        forkTable.closeScope();
+        symbolTable.closeScope();
+        if (ctx.IDENTIFIER() != null) {
+            String id = ctx.IDENTIFIER().getText();
+            forkTable.addWorker(id);
+        }
+    }
 
     @Override
     public void exitJoinStat(JoinStatContext ctx) {
