@@ -1,11 +1,5 @@
-x is een geheel getal.
-y is een geheel getal.
-z is een geheel getal.
+b is een getal.
+b wordt 0.
 
-x wordt 0.
-y wordt 0.
-
-
-zolang x kleiner is dan 10
-    zolang y kleiner is dan 10
-        z wordt z plus x keer y.
+zolang b kleiner is dan 10
+	verhoog b.

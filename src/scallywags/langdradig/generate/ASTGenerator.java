@@ -127,7 +127,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "gauss.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "zolang_example.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
@@ -283,7 +283,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitCrementExpr(CrementExprContext ctx) {
-		return CREM + " " + ctx.VERLAAG() == null ? INCREM : DECREM
+		return CREM + " " + (ctx.VERLAAG() == null ? INCREM : DECREM)
 				+ " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	
