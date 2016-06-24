@@ -24,6 +24,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	private static final String IMPORT_AST = "import AST";
 	private static final String IMPORT_GENERATOR = "import Generator";
+	private static final String WHERE = "where";
 	
 	private static final String AST_TYPE_DECL = "ast :: Prog";
 	private static final String AST_FUN_DECL = "ast = ";
@@ -95,9 +96,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private final String programName;
 	private final String sourceProgramPath;
 	private final File sourceFile;
-
-	private Map<String, Integer> forkIDs = new HashMap<>();
-	private int nextUsableMapping = 1;
 	
 	public ASTGenerator(String sourceFilePath) {
 		sourceFile = new File(sourceFilePath);
@@ -162,7 +160,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		}
 		builder.append(LSQ).append(RSQ);
 		builder.append(RPAR).append(' ');
-		builder.append(nextUsableMapping).append(' ');
 		
 		builder.append(NEWLINE).append(NEWLINE);
 		
@@ -176,11 +173,15 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"prog :: [Instruction]\\n\" ++").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"prog = \" ++ (show $ generate ast) ++ \"\\n\\n\" ++ --TODO also add optimizer").append(NEWLINE);	//TODO add optimizer :-)
+		builder.append("\"prog = \" ++ show instructions ++ \"\\n\\n\" ++ --TODO also add optimizer").append(NEWLINE);	//TODO add optimizer :-)
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate " + nextUsableMapping + " prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
+		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
+		builder.append(WHERE).append(NEWLINE);
+		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
+		builder.append("(instructions, state) = generate ast").append(NEWLINE);
 		
 		return builder.toString();
 	}
@@ -249,19 +250,12 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitForkStat(ForkStatContext ctx) {
-		String forkId = visit(ctx.IDENTIFIER());
-		Integer mapping = forkIDs.get(forkId);
-		if (mapping == null) {
-			mapping = nextUsableMapping;
-			forkIDs.put(forkId, nextUsableMapping);
-			nextUsableMapping++;
-		}
-		return FORK + " " + mapping + " " + LPAR + visit(ctx.statement()) + RPAR;
+		return FORK + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE + " " + LPAR + visit(ctx.statement()) + RPAR;
 	}
 	
 	@Override
 	public String visitJoinStat(JoinStatContext ctx) {
-		return JOIN + " " + forkIDs.get(visit(ctx.IDENTIFIER()));
+		return JOIN + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	
 	@Override
