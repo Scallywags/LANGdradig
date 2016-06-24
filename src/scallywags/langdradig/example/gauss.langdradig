@@ -1,0 +1,10 @@
+i is een getal.
+plafond is een getal.
+plafond wordt 10.
+som is een getal.
+
+zolang i kleiner is dan of gelijk is aan plafond
+	doe
+		som wordt som plus i.
+		i wordt i plus 1.
+	klaar.

@@ -127,7 +127,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "kritiekvoorbeeld.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "gauss.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
