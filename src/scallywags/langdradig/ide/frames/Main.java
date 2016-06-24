@@ -33,22 +33,17 @@ import scallywags.langdradig.ide.features.finished.VariableOverview;
  * // TODO add deelbaar door
  * // TODO saving file with existing name dialog
  * // TODO saving file as file that is already open should merge tabs
- * // TODO only run when no errors
- * // TODO limit programs running to 1
  * // TODO run breaks
- * // TODO receive, readinstr, testandset ??
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
  * Support CTRL + F
  * Auto formatting
- * Stop button to terminate program
  * Add warnings (ex. not joining child threads)
  * Syntax highlighting (ex. variables in italics, comments greyed out)
  * Split highlighter to explicit feature
  * Overview of threads
  * Wordt -> Is ?
- * Add redo and undo button
  * Split error and running view
  * <p>
  * ------Bugs------
