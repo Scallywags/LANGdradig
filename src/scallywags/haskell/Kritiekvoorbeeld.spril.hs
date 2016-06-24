@@ -13,7 +13,7 @@ prog = [Compute Equ 0 1 6
 		,Load (ImmValue 11) 6 			
 		,WriteInstr 6 (DirAddr 1) 		--tx mag naar regel 11 (de test and set)
 		,Jump (Rel 14)					--main should now skip the paralellised instructions
-		,TestAndSet (DirAddr 1) 		--spinlock locki
+		,TestAndSet (DirAddr 1) 		--spinlock locki - kritiek
 		,Receive 6
 		,Compute Equ 6 0 6
 		,Branch 6 (Rel (-3)) 			--spinlock locki end
