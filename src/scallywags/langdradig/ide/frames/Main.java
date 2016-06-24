@@ -342,17 +342,12 @@ public class Main extends JFrame {
         }
     }
 
-    public void onStop() {
+    public Process onStop() {
         if (runningProgram != null) {
-            try {
-                runningProgram.getErrorStream().close();
-                runningProgram.getInputStream().close();
-                runningProgram.getOutputStream().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             runningProgram.destroy();
+            runningProgram = null;
         }
+        return Compiler.killGHC();
     }
 
     private int forceSave() {
@@ -411,6 +406,13 @@ public class Main extends JFrame {
             return;
         }
         clearMessages();
+        Process killP = onStop();
+        if (killP != null) {
+            try {
+                killP.waitFor();
+            } catch (InterruptedException ignore) {
+            }
+        }
         Compiler c = Compiler.getInstance();
         try {
             runningProgram = c.compileAndRun(getFilePath(), this);

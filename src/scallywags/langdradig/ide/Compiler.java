@@ -247,12 +247,22 @@ public class Compiler {
             }
             try {
                 t.join();
-                main.print("\nKlaar.");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            main.print("\nKlaar.");
         }).start();
         return process;
+    }
+
+    //Hacky fix to stop programs
+    public static Process killGHC() {
+        try {
+            return Runtime.getRuntime().exec("taskkill /F /IM ghc.exe");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
