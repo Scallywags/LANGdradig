@@ -74,11 +74,16 @@ myShow (instrs,s) = show instrs ++ "\n" ++
                     show (requestFifo s) ++ "\n" ++
                     show (sharedMem s)
 
+--TODO
+printOnlyShow :: [Instruction] -> [String]
+printOnlyShow []             = []
+printOnlyShow ((Print i):is) = show i : printOnlyShow is
+printOnlyShow (i:is)         = printOnlyShow is
 
 sysTest :: [[Instruction]] -> IO ()                             -- instrss: list of instructions per Sprockell
 sysTest instrss = putStr                                        -- putStr: standard Haskell IO-function
                 $ unlines
                 $ map (++"\n")
-                $ map myShow                                    -- make your own show-function?
+                $ map printOnlyShow
                 $ systemSim instrss initSystemState clock
 
