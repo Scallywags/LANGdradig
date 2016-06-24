@@ -56,7 +56,8 @@ regOut5 :: Int
 regOut5 = regA
 
 generate :: Prog -> ([Instruction], CompileState)
-generate p@(Prog stmnts) = gen p startState
+generate p@(Prog stmnts) = (instructions, endstate)
+    where (instructions, endstate@CompileState{t_ids=t_ids}) = gen p startState {nextSharedOffset=length t_ids+1}
 
 class CodeGen c where
     gen :: c -> CompileState -> ([Instruction], CompileState)
@@ -146,7 +147,7 @@ instance CodeGen Stat where
         restState = cs{sharedVars=((varName, varType, offset):scope):scopes, nextSharedOffset=offset+size, pc=pc+length code}
 
     --ForkStat
-    gen (Fork spr_id stat) cs@CompileState{localVars=lv, sharedVars=sv, nextLocalOffset=nlo, nextSharedOffset=nso, pc=pc, t_ids=t_ids} = (code, cs{sharedVars=sv, nextSharedOffset=nso, pc=pc+length code, t_ids=newT_ids}) where
+    gen (Fork spr_id stat) cs@CompileState{localVars=lv, sharedVars=sv, nextLocalOffset=nlo, nextSharedOffset=nso, pc=pc, t_ids=t_ids} = (code, restState) where
         jumpPc = pc + 3 --length forkInstrs
 
         addrM = t_offset t_ids spr_id
@@ -165,6 +166,7 @@ instance CodeGen Stat where
 
         (statInstrs, statState@CompileState{nextSharedOffset=nso})         = gen stat cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, pc=pc+length forkInstrs}
         code = forkInstrs ++ statInstrs ++ spinInstrs
+        restState = statState{localVars=lv, nextLocalOffset=nlo, pc=pc+length code, t_ids=newT_ids}
 
     --JoinStat
     gen (Join spr_id) cs@CompileState{pc=pc, t_ids=t_ids} = (code, cs{pc=pc+length code}) where
