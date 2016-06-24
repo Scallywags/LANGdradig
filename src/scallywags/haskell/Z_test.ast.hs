@@ -2,10 +2,10 @@ import AST
 import Generator
 
 ast :: Prog
-ast =  Prog (Decl "lkjlkjkjkj" (BoolType):Decl "b" (BoolType):Decl "a" (IntType):While ((Idf "b")) (Block (Fork "x" (Block (Expr (Ass "a" (BinOp Plus ((Idf "a")) ((Idf "a")))):[])):[])):[])
+ast =  Prog (Decl "a" (IntType):[]) 1 
 
 main :: IO ()
-main = writeFile "Test6.spril.hs" text where
+main = writeFile "Z_test.spril.hs" text where
     text =  
             "import HardwareTypes\nimport Simulation\n\n" ++
             "prog :: [Instruction]\n" ++

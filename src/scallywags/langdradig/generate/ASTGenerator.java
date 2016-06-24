@@ -406,5 +406,4 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitTerminal(TerminalNode ctx) {
 		return ctx.getText();
 	}
-
 }

@@ -2,7 +2,7 @@ import AST
 import Generator
 
 ast :: Prog
-ast =  Prog (Decl "a" (IntType):Decl "b" (BoolType):Decl "c" (IntType):While (BinOp LessThanEq ((Idf "a")) ((Int 8))) (Block (Expr (Ass "c" (BinOp Power ((Idf "c")) ((Int 6)))):Expr (Ass "a" (BinOp Plus ((Idf "a")) ((Int 1)))):[])):[])
+ast =  Prog (Decl "a" (IntType):Expr (Ass "a" ((Int 18))):[]) 1 
 
 main :: IO ()
 main = writeFile "Test2.spril.hs" text where

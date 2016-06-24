@@ -8,8 +8,6 @@ import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
 import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.*;
@@ -32,32 +30,36 @@ import scallywags.langdradig.ide.features.finished.VariableOverview;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
-// TODO add deelbaar door
-// TODO saving file with existing name dialog
-// TODO saving file as file that is already open should merge tabs
-// TODO only run when no errors
-// TODO limit programs running to 1
-// TODO run breaks
-// TODO autofinish doe klaar block
-// TODO receive, readinstr, testandset ??
- *
- *      ------Future features------
- *      Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
- *      Support CTRL + F
- *      Auto formatting
- *      Stop button to terminate program
- *      Add warnings (ex. not joining child threads)
- *      Syntax highlighting (ex. variables in italics)
- *      Split highlighter to explicit feature
- *
- *      ------Bugs------
- *      Selected text gets whited out when checkContent() is called afterwards
+ * // TODO add deelbaar door
+ * // TODO saving file with existing name dialog
+ * // TODO saving file as file that is already open should merge tabs
+ * // TODO only run when no errors
+ * // TODO limit programs running to 1
+ * // TODO run breaks
+ * // TODO receive, readinstr, testandset ??
+ * <p>
+ * ------Future features------
+ * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
+ * Support CTRL + F
+ * Auto formatting
+ * Stop button to terminate program
+ * Add warnings (ex. not joining child threads)
+ * Syntax highlighting (ex. variables in italics, comments greyed out)
+ * Split highlighter to explicit feature
+ * Overview of threads
+ * Wordt -> Is ?
+ * Add redo and undo button
+ * Split error and running view
+ * <p>
+ * ------Bugs------
+ * Selected text gets whited out when checkContent() is called afterwards
  */
 
 public class Main extends JFrame {
     private static final String EXTENSION = ".langdradig";
     private static final Font font = new Font("Verdana", Font.PLAIN, 16);
     private final JFileChooser fc = new JFileChooser();
+    private Process runningProgram;
 
     private enum Status {YES, NO, CANCEL}
 
@@ -84,6 +86,9 @@ public class Main extends JFrame {
     private JTextArea variableView;
     private JSplitPane programmingViews;
     private JCheckBox autoCompleteCheckBox;
+    private JButton stopButton;
+    private JButton undoButton;
+    private JButton redoButton;
     private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
@@ -91,8 +96,7 @@ public class Main extends JFrame {
     private Timer notificationTimer;
     private Timer contentCheckTimer;
     private boolean autocomplete = true;
-
-    private Thread executingThread;
+    private boolean correctProgram = false;
 
     public Main() {
         setContentPane(contentPane);
@@ -127,21 +131,13 @@ public class Main extends JFrame {
         clearButton.addActionListener(e -> clearMessages());
         showHideButton.addActionListener(e -> toggleMessages());
         startButton.addActionListener(e -> onStart());
+        stopButton.addActionListener(e -> onStop());
+        undoButton.addActionListener(e -> undo());
+        redoButton.addActionListener(e -> redo());
 
         ((DefaultCaret) messagesArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         messagesArea.setFont(font);
         variableView.setFont(font);
-        programmingViews.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                programmingViews.setDividerLocation(.8);
-            }
-
-            @Override
-            public void componentResized(ComponentEvent e) {
-                programmingViews.setDividerLocation(.8);
-            }
-        });
         programPane.addChangeListener(changeEvent -> {
             if (programPane.getTabCount() > 0) {
                 checkContent();
@@ -160,18 +156,6 @@ public class Main extends JFrame {
 
         // call onClose() on ESCAPE
         contentPane.registerKeyboardAction(e -> onClose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
-        splitPane.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                splitPane.setDividerLocation(.8);
-            }
-
-            @Override
-            public void componentResized(ComponentEvent e) {
-                splitPane.setDividerLocation(.8);
-            }
-        });
         contentCheckTimer = new Timer(800, f -> checkContent());
         contentCheckTimer.setRepeats(false);
 
@@ -225,6 +209,7 @@ public class Main extends JFrame {
                     return;
             }
         }
+        onStop();
         dispose();
     }
 
@@ -233,6 +218,7 @@ public class Main extends JFrame {
     }
 
     public int onSave() {
+        if (programPane.getTabCount() <= 0) return -1;
         if (changes.get(getCodeArea())) {
             String content = getCode();
             String filePath = getFilePath();
@@ -240,6 +226,24 @@ public class Main extends JFrame {
         } else {
             return 0;
         }
+    }
+
+    public void onStop() {
+        if (runningProgram != null) {
+            try {
+                runningProgram.getErrorStream().close();
+                runningProgram.getInputStream().close();
+                runningProgram.getOutputStream().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            runningProgram.destroy();
+        }
+    }
+
+    private int forceSave() {
+        if (programPane.getTabCount() <= 0) return -1;
+        return save(getCode(), getFilePath());
     }
 
     public int onSave(int tabIndex) {
@@ -277,39 +281,28 @@ public class Main extends JFrame {
 
 
     private void onStart() {
-        onSave();
-        JOptionPane.showMessageDialog(this, "TODO: BE UNABLE TO RUN A PROGRAM WITH ERRORS", "TODO", JOptionPane.ERROR_MESSAGE);
-        if (executingThread != null) {
-            popup("Er is al een ander programma bezig!");
+        if (programPane.getTabCount() <= 0) return;
+        String filePath = getFilePath();
+        int result;
+        if (filePath == null) {
+            result = forceSave();
+        } else {
+            result = onSave();
+        }
+        if (result != 0) return;
+        if (!correctProgram) {
+            clearMessages();
+            messagesArea.setBackground(Color.PINK);
+            print("Het programma kan niet gestart worden omdat het fouten bevat.");
             return;
         }
         clearMessages();
         Compiler c = Compiler.getInstance();
         try {
-            String filePath = getFilePath();
-            if (filePath == null) {
-                //TODO
-                return;
-            }
-            String compileOutput = c.compile(getFilePath());
-            print(compileOutput);
-            File sprilFile = new File(compileOutput);
-            executingThread = new Thread(() -> {
-                try {
-                    List<String> runOutput = c.run(sprilFile.getParentFile(), sprilFile.getAbsolutePath());
-                    runOutput.forEach(this::print);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    executingThread = null;
-                }
-            });
-            executingThread.start();
+            runningProgram = c.compileAndRun(getFilePath(), this);
         } catch (IOException e) {
-            //TODO
             e.printStackTrace();
         }
-        popup("Uitvoeren " + new File(getFilePath()).getName());
     }
 
     private void checkContent() {
@@ -318,6 +311,7 @@ public class Main extends JFrame {
         Checker checker = new Checker();
         checker.checkString(getCode());
         if (!checker.getCheckerExceptions().isEmpty() || !checker.getParserExceptions().isEmpty()) {
+            correctProgram = false;
             List<LANGdradigError> errors = checker.getParserExceptions();
             List<CheckerException> checkerExceptions = checker.getCheckerExceptions();
             checkerExceptions.forEach(e -> errors.add(LANGdradigErrorBuilder.format(getCode(), e)));
@@ -328,6 +322,8 @@ public class Main extends JFrame {
                 print("");
             }
             messagesArea.setBackground(Color.PINK);
+        } else {
+            correctProgram = true;
         }
         printVariables(checker.getVariables());
     }
@@ -458,7 +454,7 @@ public class Main extends JFrame {
         print(error.toString());
     }
 
-    private void print(String s) {
+    public void print(String s) {
         messagesArea.append(s + "\n");
     }
 
@@ -660,11 +656,38 @@ public class Main extends JFrame {
         }
     }
 
+    public void addMainListener() {
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                handleResize();
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+                super.componentMoved(e);
+                handleResize();
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                super.componentShown(e);
+                handleResize();
+            }
+        });
+    }
+
+    private void handleResize() {
+        programmingViews.setDividerLocation(.8);
+        splitPane.setDividerLocation(.8);
+    }
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException ignored) {
         }
-        new Main();
+        new Main().addMainListener();
     }
 }

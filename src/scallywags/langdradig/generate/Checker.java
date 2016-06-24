@@ -21,15 +21,12 @@ import scallywags.langdradig.listeners.LANGdradigErrorListener;
  * The type- and scope checker for the LANGdradig programming language.
  */
 
-//TODO add listener methods for newly added expressions and statements such as increment and decrement
 public class Checker extends LANGdradigBaseListener {
 
-    private SymbolTable table = new SymbolTable();
+    private SymbolTable symbolTable = new SymbolTable();
+    private ForkTable forkTable = new ForkTable();
 
     private ParseTreeProperty<Type> types = new ParseTreeProperty<>();
-
-    //    private Set<String> forkIDs = new HashSet<>();
-    private Map<String, Integer> forkIDs = new HashMap<>();
 
     private List<CheckerException> exceptions = new ArrayList<>();
 
@@ -67,12 +64,17 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void enterProgram(ProgramContext ctx) {
-        table.openScope();
+        symbolTable.openScope();
+        forkTable.openScope();
     }
 
     @Override
     public void exitProgram(ProgramContext ctx) {
-        table.closeScope();
+        symbolTable.closeScope();
+        if (!forkTable.waitedOnAll()) {
+            exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
+        }
+        forkTable.closeScope();
     }
 
     // ------------- Statement -------------
@@ -94,41 +96,56 @@ public class Checker extends LANGdradigBaseListener {
     }
 
     @Override
-    public void exitForkStat(ForkStatContext ctx) {
+    public void enterForkStat(ForkStatContext ctx) {
         if (ctx.IDENTIFIER() != null) {
             String id = ctx.IDENTIFIER().getText();
-            if (forkIDs.keySet().contains(id)) {
-                forkIDs.put(id, forkIDs.get(id) + 1);
-            } else {
-                forkIDs.put(id, 1);
+            if (forkTable.contains(id) && !forkTable.getWaitedOn(id)) {
+                exceptions.add(new NotWaitingForThreadException(ctx, id));
             }
+        }
+        forkTable.openScope();
+        symbolTable.openScope();
+    }
+
+    @Override
+    public void exitForkStat(ForkStatContext ctx) {
+        if (!forkTable.waitedOnAll()) {
+            exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
+        }
+        forkTable.closeScope();
+        symbolTable.closeScope();
+        if (ctx.IDENTIFIER() != null) {
+            String id = ctx.IDENTIFIER().getText();
+            forkTable.addWorker(id);
         }
     }
 
     @Override
     public void exitJoinStat(JoinStatContext ctx) {
-        String id = ctx.IDENTIFIER().getText();
-        if (!forkIDs.keySet().contains(id)) {
-            exceptions.add(new UndeclaredException(ctx, id));
-        } else if (forkIDs.get(id) > 0) {
-            forkIDs.put(id, forkIDs.get(id) - 1);
+        if (ctx.IDENTIFIER() != null) {
+            String id = ctx.IDENTIFIER().getText();
+            if (!forkTable.contains(id)) {
+                exceptions.add(new UndeclaredException(ctx, id));
+            } else {
+                forkTable.waitWorker(id);
+            }
         }
     }
 
     @Override
     public void enterBlockStat(BlockStatContext ctx) {
-        table.openScope();
+        symbolTable.openScope();
     }
 
     @Override
     public void exitBlockStat(BlockStatContext ctx) {
-        table.closeScope();
+        symbolTable.closeScope();
     }
 
     @Override
     public void exitDeclStat(DeclStatContext ctx) {
         Type type = types.get(ctx.type());
-        boolean success = table.add(ctx.IDENTIFIER().getText(), type);
+        boolean success = symbolTable.add(ctx.IDENTIFIER().getText(), type);
         if (!success) {
             exceptions.add(new AlreadyDeclaredException(ctx, ctx.IDENTIFIER().getText()));
         }
@@ -137,7 +154,7 @@ public class Checker extends LANGdradigBaseListener {
     @Override
     public void exitSharedDeclStat(SharedDeclStatContext ctx) {
         Type type = types.get(ctx.type());
-        boolean success = table.add(ctx.IDENTIFIER().getText(), type);
+        boolean success = symbolTable.add(ctx.IDENTIFIER().getText(), type);
         if (!success) {
             exceptions.add(new AlreadyDeclaredException(ctx, ctx.IDENTIFIER().getText()));
         }
@@ -172,7 +189,7 @@ public class Checker extends LANGdradigBaseListener {
     @Override
     public void exitCrementExpr(CrementExprContext ctx) {
         if (ctx.IDENTIFIER() != null) {
-            Type type = table.getType(ctx.IDENTIFIER().getText());
+            Type type = symbolTable.getType(ctx.IDENTIFIER().getText());
             if (type == null) {
                 exceptions.add(new UndeclaredException(ctx, ctx.IDENTIFIER().getText()));
             } else if (type != Type.INTEGER) {
@@ -284,7 +301,7 @@ public class Checker extends LANGdradigBaseListener {
     @Override
     public void exitAssExpr(AssExprContext ctx) {
         Type exprType = types.get(ctx.expression());
-        Type idfType = table.getType(ctx.IDENTIFIER().getText());
+        Type idfType = symbolTable.getType(ctx.IDENTIFIER().getText());
         if (exprType != idfType) {
             exceptions.add(new TypeException(ctx, idfType, exprType));
         }
@@ -311,7 +328,7 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitIdfExpr(IdfExprContext ctx) {
-        Type type = table.getType(ctx.getText());
+        Type type = symbolTable.getType(ctx.getText());
         if (type == null) {
             exceptions.add(new UndeclaredException(ctx, ctx.getText()));
         }
@@ -357,7 +374,7 @@ public class Checker extends LANGdradigBaseListener {
     }
 
     public List<Variable> getVariables() {
-        return table.getVariables();
+        return symbolTable.getVariables();
     }
 
 
