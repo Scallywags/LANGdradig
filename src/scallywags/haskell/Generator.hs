@@ -166,7 +166,7 @@ instance CodeGen Stat where
 
         (statInstrs, statState@CompileState{nextSharedOffset=nso})         = gen stat cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, pc=pc+length forkInstrs}
         code = forkInstrs ++ statInstrs ++ spinInstrs
-        restState = statState{localVars=lv, nextLocalOffset=nlo, pc=pc+length code, t_ids=newT_ids}
+        restState = statState{localVars=lv, nextLocalOffset=nlo, sharedVars=sv, pc=pc+length code, t_ids=newT_ids}
 
     --JoinStat
     gen (Join spr_id) cs@CompileState{pc=pc, t_ids=t_ids} = (code, cs{pc=pc+length code}) where
