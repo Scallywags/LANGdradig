@@ -12,7 +12,7 @@ import javax.swing.text.Utilities;
 public class AutoCompleter {
     private static final boolean ON = true;
 
-    public static void complete(JTextArea c, DocumentEvent e) {
+    public static void complete(JTextPane c, DocumentEvent e) {
         if (!ON) return;
         try {
             int start = Utilities.getWordStart(c, c.getCaretPosition());

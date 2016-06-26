@@ -27,13 +27,13 @@ import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
 import scallywags.langdradig.ide.features.finished.TextLineNumber;
 import scallywags.langdradig.ide.features.finished.VariableOverview;
+import scallywags.langdradig.ide.features.unfinished.SyntaxHighlighter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
  * // TODO add deelbaar door
  * // TODO saving file with existing name dialog
  * // TODO saving file as file that is already open should merge tabs
- * // TODO run breaks
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
@@ -43,8 +43,6 @@ import scallywags.langdradig.ide.features.finished.VariableOverview;
  * Syntax highlighting (ex. variables in italics, comments greyed out)
  * Split highlighter to explicit feature
  * Overview of threads
- * Wordt -> Is ?
- * Split error and running view
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -74,7 +72,7 @@ public class Main extends JFrame {
         contentPane = new JPanel();
         contentPane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(5, 4, new Insets(10, 10, 10, 10), -1, -1));
         startButton = new JButton();
-        startButton.setText("Start");
+        startButton.setText("Start (CTRL + R)");
         contentPane.add(startButton, new com.intellij.uiDesigner.core.GridConstraints(0, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         splitPane = new JSplitPane();
         splitPane.setDividerLocation(32);
@@ -142,7 +140,7 @@ public class Main extends JFrame {
         notificationLabel.setVisible(true);
         scrollPane2.setViewportView(notificationLabel);
         stopButton = new JButton();
-        stopButton.setText("Stop");
+        stopButton.setText("Stop (CTRL + K)");
         contentPane.add(stopButton, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         autoCompleteCheckBox = new JCheckBox();
         autoCompleteCheckBox.setSelected(true);
@@ -150,21 +148,21 @@ public class Main extends JFrame {
         contentPane.add(autoCompleteCheckBox, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         newButton = new JButton();
         newButton.setRequestFocusEnabled(false);
-        newButton.setText("Nieuw");
+        newButton.setText("Nieuw (CTRL + N)");
         contentPane.add(newButton, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         openButton = new JButton();
         openButton.setIcon(new ImageIcon(getClass().getResource("/com/sun/java/swing/plaf/windows/icons/NewFolder.gif")));
-        openButton.setText("Open");
+        openButton.setText("Open (CTRL + O)");
         contentPane.add(openButton, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         saveButton = new JButton();
         saveButton.setIcon(new ImageIcon(getClass().getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
-        saveButton.setText("Opslaan");
+        saveButton.setText("Opslaan (CTRL + S)");
         contentPane.add(saveButton, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         undoButton = new JButton();
-        undoButton.setText("Undo");
+        undoButton.setText("Ongedaan maken (CTRL + Z)");
         contentPane.add(undoButton, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         redoButton = new JButton();
-        redoButton.setText("Redo");
+        redoButton.setText("Herhalen (CTRL + Y)");
         contentPane.add(redoButton, new com.intellij.uiDesigner.core.GridConstraints(1, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
@@ -193,8 +191,8 @@ public class Main extends JFrame {
 
     private JSplitPane splitPane;
     private JTabbedPane programPane;
-    private Map<JTextArea, Boolean> changes = new HashMap<>();
-    private Map<JTextArea, UndoManager> undoManagers = new HashMap<>();
+    private Map<JTextPane, Boolean> changes = new HashMap<>();
+    private Map<JTextPane, UndoManager> undoManagers = new HashMap<>();
     private JLabel notificationLabel;
     private JPanel notificationPanel;
     private JTextArea variableView;
@@ -222,8 +220,8 @@ public class Main extends JFrame {
                 if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
                     /**
                      * Key shortcuts
-                     *      OPEN:   CTRL + o
-                     *      NEW:    CTRL + n
+                     *      OPEN:   CTRL + O
+                     *      NEW:    CTRL + N
                      */
                     switch (e.getKeyCode()) {
                         case 79:    // 'o' key
@@ -335,6 +333,7 @@ public class Main extends JFrame {
         if (programPane.getTabCount() <= 0) return -1;
         if (changes.get(getCodeArea())) {
             String content = getCode();
+            SyntaxHighlighter.colorKeywords(getCodeArea(), content);
             String filePath = getFilePath();
             return save(content, filePath);
         } else {
@@ -464,7 +463,7 @@ public class Main extends JFrame {
         this.revalidate();
     }
 
-    private void setupKeyListener(JTextArea c) {
+    private void setupKeyListener(JTextPane c) {
         c.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -505,6 +504,7 @@ public class Main extends JFrame {
                      *      CLOSE TAB:  CTRL + W
                      *      UNDO:       CTRL + Z
                      *      REDO:       CTRL + Y
+                     *      STOP        CTRL + K
                      */
                     switch (e.getKeyCode()) {
                         case 83:    // 'S' key;
@@ -521,6 +521,9 @@ public class Main extends JFrame {
                             break;
                         case 82:    // 'R' key
                             onStart();
+                            break;
+                        case 75:
+                            onStop();
                             break;
                         case 76:    // 'L' key
                             //TODO fix formatting
@@ -607,7 +610,7 @@ public class Main extends JFrame {
     }
 
     public void openFile(File file) {
-        JTextArea area = new JTextArea();
+        JTextPane area = new JTextPane();
         area.setFont(font);
         String fileName;
         if (file == null) {
@@ -624,12 +627,12 @@ public class Main extends JFrame {
             fileName = file.getName();
             try {
                 String content = new String(Files.readAllBytes(file.toPath()));
-                area.setText(content);
+                SyntaxHighlighter.colorKeywords(area, content);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        area.setTabSize(2);
+//        area.setTabSize(2);
         UndoManager manager = new UndoManager();
         //-1 means no limit
         manager.setLimit(-1);
@@ -675,7 +678,7 @@ public class Main extends JFrame {
     }
 
     private void removeTab(int index) {
-        JTextArea area = getCodeArea(index);
+        JTextPane area = getCodeArea(index);
         if (changes.get(area)) {
             Status status = promptSave("Opslaan?", "Dit bestand bevat onopgeslagen wijzigen, wilt u deze opslaan?");
             switch (status) {
@@ -714,12 +717,12 @@ public class Main extends JFrame {
         }
     }
 
-    public JTextArea getCodeArea() {
-        return (JTextArea) ((JViewport) ((JScrollPane) programPane.getSelectedComponent()).getComponent(0)).getComponent(0);
+    public JTextPane getCodeArea() {
+        return (JTextPane) ((JViewport) ((JScrollPane) programPane.getSelectedComponent()).getComponent(0)).getComponent(0);
     }
 
-    public JTextArea getCodeArea(int index) {
-        return (JTextArea) ((JViewport) ((JScrollPane) programPane.getComponentAt(index)).getComponent(0)).getComponent(0);
+    public JTextPane getCodeArea(int index) {
+        return (JTextPane) ((JViewport) ((JScrollPane) programPane.getComponentAt(index)).getComponent(0)).getComponent(0);
     }
 
     public String getCode(int index) {
@@ -735,7 +738,7 @@ public class Main extends JFrame {
     }
 
     private void format() {
-        JTextArea area = getCodeArea();
+        JTextPane area = getCodeArea();
         String newContent = Formatter.format(getCode());
         if (!newContent.equals(getCode())) {
             area.setText(newContent);
@@ -748,7 +751,7 @@ public class Main extends JFrame {
         }
     }
 
-    private void setContentChanged(JTextArea c) {
+    private void setContentChanged(JTextPane c) {
         if (!changes.get(c)) {
             JLabel label = ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0));
             label.setText(label.getText() + "*");
