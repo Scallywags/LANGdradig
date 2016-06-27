@@ -77,7 +77,7 @@ public class Main extends JFrame {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 3, new Insets(10, 10, 10, 10), -1, -1));
+        contentPane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 3, new Insets(0, 0, 10, 10), -1, -1));
         splitPane = new JSplitPane();
         splitPane.setDividerLocation(32);
         splitPane.setDividerSize(5);
@@ -151,26 +151,15 @@ public class Main extends JFrame {
         toolBar1.setOrientation(0);
         toolBar1.putClientProperty("JToolBar.isRollover", Boolean.TRUE);
         contentPane.add(toolBar1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        fileComboBox = new JComboBox();
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        defaultComboBoxModel1.addElement("Bestand");
-        defaultComboBoxModel1.addElement("Nieuw (CTRL + N)");
-        defaultComboBoxModel1.addElement("Openen (CTRL + O)");
-        defaultComboBoxModel1.addElement("Opslaan (CTRL + S)");
-        fileComboBox.setModel(defaultComboBoxModel1);
-        toolBar1.add(fileComboBox);
-        editComboBox = new JComboBox();
-        final DefaultComboBoxModel defaultComboBoxModel2 = new DefaultComboBoxModel();
-        defaultComboBoxModel2.addElement("Wijzigen");
-        defaultComboBoxModel2.addElement("Ongedaan maken (CTRL + Z)");
-        defaultComboBoxModel2.addElement("Herhalen (CTRL + Y)");
-        defaultComboBoxModel2.addElement("Knippen (CTRL + X)");
-        defaultComboBoxModel2.addElement("Kopieëren (CTRL + C)");
-        defaultComboBoxModel2.addElement("Plakken (CTRL + V)");
-        editComboBox.setModel(defaultComboBoxModel2);
-        toolBar1.add(editComboBox);
+        fileButton = new JButton();
+        fileButton.setText("Bestand");
+        toolBar1.add(fileButton);
+        editButton = new JButton();
+        editButton.setText("Wijzigen");
+        toolBar1.add(editButton);
         startButton = new JButton();
-        startButton.setFont(new Font(startButton.getFont().getName(), Font.BOLD | Font.ITALIC, startButton.getFont().getSize()));
+        startButton.setEnabled(false);
+        startButton.setFont(new Font(startButton.getFont().getName(), Font.BOLD, startButton.getFont().getSize()));
         startButton.setText("Start");
         toolBar1.add(startButton);
         autoCompleteCheckBox = new JCheckBox();
@@ -194,10 +183,7 @@ public class Main extends JFrame {
     private Map<Integer, Object> highlightTags = new HashMap<>();
 
     private JPanel contentPane;
-    private JButton openButton;
-    private JButton saveButton;
     private JButton startButton;
-    private JButton newButton;
     private JButton clearButton;
     private JButton showHideButton;
     private JTextArea messagesArea;
@@ -214,71 +200,87 @@ public class Main extends JFrame {
     private JSplitPane programmingViews;
     private JCheckBox autoCompleteCheckBox;
     private JButton stopButton;
-    private JComboBox fileComboBox;
-    private JComboBox editComboBox;
+    private JButton fileButton;
+    private JButton editButton;
     private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
     private List<String> filePaths = new ArrayList<>();
     private Timer notificationTimer;
     private Timer contentCheckTimer;
-    private boolean autocomplete = false;
+    private boolean autoComplete = false;
     private boolean correctProgram = false;
 
     public Main() {
         setContentPane(contentPane);
-        getRootPane().setDefaultButton(openButton);
-        fileComboBox.addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-                int index = fileComboBox.getSelectedIndex();
-                fileComboBox.setSelectedIndex(0);
-                switch (index) {
-                    case 1:
-                        onNew();
-                        break;
-                    case 2:
-                        onOpen();
-                        break;
-                    case 3:
-                        onSave();
-                        break;
-                    default:
-                        break;
-                }
+
+        final JPopupMenu filePopup = new JPopupMenu();
+        filePopup.add(new JMenuItem(new AbstractAction("Nieuw (CTRL + N)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onNew();
+            }
+        }));
+        filePopup.add(new JMenuItem(new AbstractAction("Openen (CTRL + O)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onOpen();
+            }
+        }));
+        filePopup.add(new JMenuItem(new AbstractAction("Opslaan (CTRL + S)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onSave();
+            }
+        }));
+        fileButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                filePopup.show(e.getComponent(), e.getX(), e.getY());
             }
         });
-        editComboBox.addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-                int index = editComboBox.getSelectedIndex();
-                editComboBox.setSelectedIndex(0);
-                JTextPane area = getCodeArea();
-                switch (index) {
-                    case 1:
-                        undo();
-                        break;
-                    case 2:
-                        redo();
-                        break;
-                    case 3:
-                        if (area != null) {
-                            area.cut();
-                        }
-                        break;
-                    case 4:
-                        if (area != null) {
-                            area.copy();
-                        }
-                        break;
-                    case 5:
-                        if (area != null) {
-                            area.paste();
-                        }
-                    default:
-                        break;
+        final JPopupMenu editPopup = new JPopupMenu();
+        editPopup.add(new JMenuItem(new AbstractAction("Ongedaan maken (CTRL + Z)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                undo();
+            }
+        }));
+        editPopup.add(new JMenuItem(new AbstractAction("Opnieuw uitvoeren (CTRL + Y)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                redo();
+            }
+        }));
+        editPopup.add(new JMenuItem(new AbstractAction("Knippen (CTRL + X)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (getCodeArea() != null) {
+                    getCodeArea().cut();
                 }
             }
+        }));
+        editPopup.add(new JMenuItem(new AbstractAction("Kopieëren (CTRL + C)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (getCodeArea() != null) {
+                    getCodeArea().copy();
+                }
+            }
+        }));
+        editPopup.add(new JMenuItem(new AbstractAction("Plakken (CTRL + V)") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (getCodeArea() != null) {
+                    getCodeArea().paste();
+                }
+            }
+        }));
+        editButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                editPopup.show(e.getComponent(), e.getX(), e.getY());
+            }
         });
-        fileComboBox.addKeyListener(new KeyAdapter() {
+        fileButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
@@ -301,7 +303,7 @@ public class Main extends JFrame {
             }
         });
 
-        autoCompleteCheckBox.addChangeListener(e -> autocomplete = !autocomplete);
+        autoCompleteCheckBox.addChangeListener(e -> autoComplete = !autoComplete);
         clearButton.addActionListener(e -> clearMessages());
         showHideButton.addActionListener(e -> toggleMessages());
         startButton.addActionListener(e -> onStart());
@@ -330,7 +332,6 @@ public class Main extends JFrame {
         contentPane.registerKeyboardAction(e -> onClose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         contentCheckTimer = new Timer(800, f -> checkContent());
         contentCheckTimer.setRepeats(false);
-
         pack();
         setTitle("LANGdradig IDE");
         setResizable(true);
@@ -338,10 +339,10 @@ public class Main extends JFrame {
         setVisible(true);
 
         // There is a bug in JSplitPane preventing componentShown() from being called if we don't do this
-        programmingViews.setVisible(false);
-        programmingViews.setVisible(true);
-        splitPane.setVisible(false);
-        splitPane.setVisible(true);
+//        programmingViews.setVisible(false);
+//        programmingViews.setVisible(true);
+//        splitPane.setVisible(false);
+//        splitPane.setVisible(true);
     }
 
     private void onOpen() {
@@ -500,6 +501,7 @@ public class Main extends JFrame {
         } else {
             correctProgram = true;
         }
+        SyntaxHighlighter.colorKeywords(getCodeArea());
         variableView.setText(ProgramStructureOverview.printScopes(checker.getForkTable()));
     }
 
@@ -524,7 +526,7 @@ public class Main extends JFrame {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 setContentChanged(c);
-                if (autocomplete) {
+                if (autoComplete) {
                     AutoCompleter.complete(c, e);
                 }
             }
@@ -532,7 +534,7 @@ public class Main extends JFrame {
             @Override
             public void removeUpdate(DocumentEvent e) {
                 setContentChanged(c);
-                if (autocomplete) {
+                if (autoComplete) {
                     AutoCompleter.complete(c, e);
                 }
             }
@@ -540,7 +542,7 @@ public class Main extends JFrame {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 setContentChanged(c);
-                if (autocomplete) {
+                if (autoComplete) {
                     AutoCompleter.complete(c, e);
                 }
             }
@@ -684,7 +686,6 @@ public class Main extends JFrame {
             try {
                 String content = new String(Files.readAllBytes(file.toPath()));
                 area.setText(content);
-                SyntaxHighlighter.colorKeywords(area);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -693,7 +694,6 @@ public class Main extends JFrame {
         //-1 means no limit
         manager.setLimit(-1);
         undoManagers.put(area, manager);
-//        area.getDocument().addUndoableEditListener(manager);
         area.getStyledDocument().addUndoableEditListener(manager);
         setupKeyListener(area);
         JScrollPane codeScroll = new JScrollPane(area);
@@ -731,6 +731,7 @@ public class Main extends JFrame {
         } else {
             filePaths.add(null);
         }
+        startButton.setEnabled(true);
         popup(fileName + " geopend");
     }
 
@@ -757,6 +758,7 @@ public class Main extends JFrame {
         programPane.removeTabAt(index);
         if (programPane.getTabCount() == 0) {
             variableView.setText("");
+            startButton.setEnabled(false);
         }
     }
 

@@ -4,8 +4,6 @@ import scallywags.langdradig.generate.ForkTable;
 import scallywags.langdradig.ide.Translator;
 import scallywags.langdradig.generate.Variable;
 
-import java.util.List;
-
 /**
  * Created by Jeroen Weener on 22/06/2016.
  */

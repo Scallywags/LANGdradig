@@ -7,6 +7,8 @@ import javax.swing.undo.UndoableEdit;
 
 /**
  * Created by Jeroen Weener on 27/06/2016.
+ *
+ * Undomanager for the IDE to ignore the changes by the syntaxhighlighting done by SyntaxHighlighter.colorKeywords()
  */
 public class IDEUndoManager extends UndoManager {
     public synchronized boolean addEdit(UndoableEdit anEdit)
