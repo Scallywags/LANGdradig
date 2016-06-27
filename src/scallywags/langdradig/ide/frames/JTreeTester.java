@@ -27,6 +27,9 @@ public class JTreeTester extends JFrame {
                 new DefaultMutableTreeNode("The Java Series");
         createNodes(top);
         tree1 = new JTree(top);
+        for (int i = 0; i < tree1.getRowCount(); i++) {
+            tree1.expandRow(i);
+        }
         scrollPane.getViewport().setView(tree1);
     }
 
@@ -48,6 +51,9 @@ public class JTreeTester extends JFrame {
         //Swing Tutorial
         book = new DefaultMutableTreeNode("The Swing Tutorial: A Guide to Constructing GUIs");
         category.add(book);
+
+        book.add(new DefaultMutableTreeNode("TEST"));
+
 
         //...add more books for programmers...
 

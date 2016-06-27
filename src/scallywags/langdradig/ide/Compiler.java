@@ -251,6 +251,7 @@ public class Compiler {
                 e.printStackTrace();
             }
             main.print("\nKlaar.");
+            main.onStop();
         }).start();
         return process;
     }

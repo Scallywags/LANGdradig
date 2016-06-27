@@ -17,6 +17,8 @@ import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
@@ -46,7 +48,7 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
  * saving file with existing name dialog
  * saving file as file that is already open should merge tabs
  * make variable overview a tree component
-
+ * <p>
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -127,7 +129,7 @@ public class Main extends JFrame {
         clearButton.setVerticalTextPosition(0);
         contentPane.add(clearButton, new com.intellij.uiDesigner.core.GridConstraints(3, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_SOUTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         notificationPanel = new JPanel();
-        notificationPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        notificationPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 10, 0, 0), -1, -1));
         notificationPanel.setVisible(false);
         contentPane.add(notificationPanel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JScrollPane scrollPane2 = new JScrollPane();
@@ -136,11 +138,14 @@ public class Main extends JFrame {
         notificationPanel.add(scrollPane2, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         notificationLabel = new JLabel();
         notificationLabel.setFont(new Font(notificationLabel.getFont().getName(), Font.BOLD, notificationLabel.getFont().getSize()));
+        notificationLabel.setIcon(new ImageIcon(getClass().getResource("/scallywags/langdradig/ide/icons/bell.png")));
         notificationLabel.setText("");
         notificationLabel.setVerticalTextPosition(0);
         notificationLabel.setVisible(true);
         scrollPane2.setViewportView(notificationLabel);
         stopButton = new JButton();
+        stopButton.setEnabled(false);
+        stopButton.setIcon(new ImageIcon(getClass().getResource("/scallywags/langdradig/ide/icons/delete.png")));
         stopButton.setText("Stop (CTRL + K)");
         contentPane.add(stopButton, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JToolBar toolBar1 = new JToolBar();
@@ -409,6 +414,7 @@ public class Main extends JFrame {
         if (runningProgram != null) {
             runningProgram.destroy();
             runningProgram = null;
+            stopButton.setEnabled(false);
         }
         return Compiler.killGHC();
     }
@@ -478,6 +484,7 @@ public class Main extends JFrame {
         }
         Compiler c = Compiler.getInstance();
         try {
+            stopButton.setEnabled(true);
             runningProgram = c.compileAndRun(getFilePath(), this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -706,7 +713,8 @@ public class Main extends JFrame {
         JPanel tabPanel = new JPanel();
         tabPanel.setOpaque(false);
         tabPanel.add(new JLabel(fileName));
-        JButton closeButton = new JButton("X");
+        JButton closeButton = new JButton();
+        closeButton.setIcon(new ImageIcon("src\\scallywags\\langdradig\\ide\\icons\\cancel.png"));
         closeButton.setContentAreaFilled(false);
         closeButton.addMouseListener(new MouseAdapter() {
             @Override
