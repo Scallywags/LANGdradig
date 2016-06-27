@@ -35,7 +35,6 @@ expression	:	primary																					#primExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr
 			
-			|	LSQ expression (KOMMA expression)* RSQ													#arrayExpr
 			|	expression OP DE TELWOORD PLEK															#indexExpr
 			
 			|	<assoc=right> IDENTIFIER WORDT expression												#assExpr
@@ -47,6 +46,7 @@ primary		:	LH expression RH						                                               
 			|	ONWAAR									                                                #falseExpr
 			|	IDENTIFIER								                                                #idfExpr
 			|	NUMBER									                                                #numExpr
+			|	LSQ expression (KOMMA expression)* RSQ													#arrayExpr
 			;
 			
 type	    :   GETAL   		                                                                        #intType
