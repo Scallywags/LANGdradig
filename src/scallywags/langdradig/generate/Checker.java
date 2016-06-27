@@ -158,16 +158,6 @@ public class Checker extends LANGdradigBaseListener {
     }
 
     @Override
-    public void exitPrintStat(PrintStatContext ctx) {
-        if (ctx.IDENTIFIER() != null) {
-            String id = ctx.IDENTIFIER().getText();
-            if (!symbolTable.contains(id)) {
-                exceptions.add(new UndeclaredException(ctx, id));
-            }
-        }
-    }
-
-    @Override
     public void enterBlockStat(BlockStatContext ctx) {
         symbolTable.openScope();
     }
