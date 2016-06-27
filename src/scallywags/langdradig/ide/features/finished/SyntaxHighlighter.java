@@ -13,13 +13,30 @@ import java.awt.*;
 public class SyntaxHighlighter {
     private static final String[] keywords = {"als", "anders", "zolang", "getal", "stelling", "besteed", "uit", "aan", "kritiek", "wacht op", "gedeeld", "gedeelde", "doe", "klaar"};
 
-    public static void colorKeywords(JTextPane area) {
+    public static void highlightSyntax(JTextPane area) {
+        StyledDocument doc = area.getStyledDocument();
+        Style defaultStyle = StyleContext.
+                getDefaultStyleContext().
+                getStyle(StyleContext.DEFAULT_STYLE);
+        doc.setCharacterAttributes(0, doc.getLength(), defaultStyle, true);
         try {
+            colorComments(area);
+            colorKeywords(area);
+        } catch (BadLocationException ignore){}
+    }
+
+    private static void colorComments(JTextPane area) throws BadLocationException {
+        StyledDocument doc = area.getStyledDocument();
+        String content = doc.getText(0, doc.getLength());
+        String[] intermediate = content.split("#");
+        String[] comments = new String[intermediate.length];
+        for (int i = 1; i < intermediate.length; i++) {
+            comments[i] = intermediate[i].split("\n")[0];
+        }
+    }
+
+    private static void colorKeywords(JTextPane area) throws BadLocationException {
             StyledDocument doc = area.getStyledDocument();
-            Style defaultStyle = StyleContext.
-                    getDefaultStyleContext().
-                    getStyle(StyleContext.DEFAULT_STYLE);
-            doc.setCharacterAttributes(0, doc.getLength(), defaultStyle, true);
             for (String keyword : keywords) {
                 SimpleAttributeSet set = new SimpleAttributeSet();
                 StyleConstants.setForeground(set, getKeywordColor(keyword));
@@ -34,9 +51,6 @@ public class SyntaxHighlighter {
                 }
             }
             area.setCharacterAttributes(new SimpleAttributeSet(), true);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
     }
 
     private static Color getKeywordColor(String keyword) {

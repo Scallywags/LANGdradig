@@ -33,7 +33,6 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
  * Created by Jeroen Weener on 15/06/2016.
  * // TODO translate True and False in compiler
  * // TODO add tests for arrays to ParseTest
- * // TODO error highlighting seems off
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
@@ -42,14 +41,12 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
  * Add warnings (ex. not joining child threads)
  * Syntax highlighting (ex. variables in italics, comments greyed out)
  * Split highlighter to explicit feature
- * Overview of threads
  * For loop
  * add deelbaar door
  * saving file with existing name dialog
  * saving file as file that is already open should merge tabs
  * make variable overview a tree component
- * replace ugle buttons with a nice toolbar
- * Add save as function
+
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -331,19 +328,18 @@ public class Main extends JFrame {
 
         // call onClose() on ESCAPE
         contentPane.registerKeyboardAction(e -> onClose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        contentCheckTimer = new Timer(800, f -> checkContent());
+        contentCheckTimer = new Timer(800, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkContent();
+            }
+        });
         contentCheckTimer.setRepeats(false);
         pack();
         setTitle("LANGdradig IDE");
         setResizable(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
-
-        // There is a bug in JSplitPane preventing componentShown() from being called if we don't do this
-//        programmingViews.setVisible(false);
-//        programmingViews.setVisible(true);
-//        splitPane.setVisible(false);
-//        splitPane.setVisible(true);
     }
 
     private void onOpen() {
@@ -395,7 +391,7 @@ public class Main extends JFrame {
         if (programPane.getTabCount() <= 0) return -1;
         if (changes.get(getCodeArea())) {
             String content = getCode();
-            SyntaxHighlighter.colorKeywords(getCodeArea());
+            SyntaxHighlighter.highlightSyntax(getCodeArea());
             String filePath = getFilePath();
             return save(content, filePath);
         } else {
@@ -508,7 +504,7 @@ public class Main extends JFrame {
         } else {
             correctProgram = true;
         }
-        SyntaxHighlighter.colorKeywords(getCodeArea());
+        SyntaxHighlighter.highlightSyntax(getCodeArea());
         variableView.setText(ProgramStructureOverview.printScopes(checker.getForkTable()));
     }
 
@@ -548,10 +544,7 @@ public class Main extends JFrame {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                setContentChanged(c);
-                if (autoComplete) {
-                    AutoCompleter.complete(c, e);
-                }
+                // Do nothing
             }
         });
         changes.put(c, false);

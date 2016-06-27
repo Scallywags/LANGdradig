@@ -66,6 +66,7 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void enterProgram(ProgramContext ctx) {
+        System.out.println("open - enterProgram");
         forkTable.openScope("Main");
     }
 
@@ -74,6 +75,7 @@ public class Checker extends LANGdradigBaseListener {
         if (!forkTable.waitedOnAll()) {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
+        System.out.println("close - exitProgram");
         forkTable.closeScope();
     }
 
@@ -97,15 +99,19 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void enterForkStat(ForkStatContext ctx) {
+        String id;
         if (ctx.IDENTIFIER() != null) {
-            String id = ctx.IDENTIFIER().getText();
+            id = ctx.IDENTIFIER().getText();
             if (forkTable.contains(id) && !forkTable.getWaitedOn(id)) {
                 exceptions.add(new NotWaitingForThreadException(ctx, id));
             } else {
                 forkTable.addThread(id);
             }
-            forkTable.openScope(id);
+            System.out.println("open - enterForkStat");
+        } else {
+            id = "onbekend";
         }
+        forkTable.openScope(id);
     }
 
     @Override
@@ -113,6 +119,7 @@ public class Checker extends LANGdradigBaseListener {
         if (!forkTable.waitedOnAll()) {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
+        System.out.println("close - exitForkStat");
         forkTable.closeScope();
     }
 
@@ -125,6 +132,7 @@ public class Checker extends LANGdradigBaseListener {
             } else {
                 forkTable.addThread(id);
             }
+            System.out.println("open - enterBlockForkStat");
             forkTable.openScope(id);
         }
     }
@@ -134,6 +142,7 @@ public class Checker extends LANGdradigBaseListener {
         if (!forkTable.waitedOnAll()) {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
+        System.out.println("close - exitBlockForkStat");
         forkTable.closeScope();
     }
 
