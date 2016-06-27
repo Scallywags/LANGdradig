@@ -16,6 +16,7 @@ statement	:	IDENTIFIER IS EEN type PUNT		            										    #declStat
 			|   BESTEED statement+ UIT AAN IDENTIFIER PUNT                                              #blockForkStat
 			|   WACHT OP IDENTIFIER PUNT                                                                #joinStat
 			|	KRITIEK IDENTIFIER statement												            #syncStat
+			|   LAAT IDENTIFIER ZIEN PUNT                                                               #printStat
 			;
 
 expression	:	primary																					#primExpr
