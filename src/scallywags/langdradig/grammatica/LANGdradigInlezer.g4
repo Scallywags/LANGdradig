@@ -77,6 +77,10 @@ WACHT           :   W A C H T                                       ;
 GEDEELDE        :   G E D E E L D
                 |   G E D E E L D E                                 ;
 
+// Print block
+LAAT            :   L A A T                                         ;
+ZIEN            :   Z I E N                                         ;
+
 PUNT			: '.'                                               ;
 KOMMA			: ','                                               ;
 LH				: '('                                               ;

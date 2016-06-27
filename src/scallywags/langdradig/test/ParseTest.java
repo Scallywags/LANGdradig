@@ -114,8 +114,15 @@ public class ParseTest {
 
     @Test
     public void testComments() {
-        testCorrectProgram("# dit is commentaar");                                                            // Just a comment
-        testCorrectProgram("#");                                                                              // An empty comment
+        testCorrectProgram("# dit is commentaar");                                                              // Just a comment
+        testCorrectProgram("#");                                                                                // An empty comment
+        testIncorrectProgram("dit is commentaar zonder hekje");                                                 // A comment without a '#'
+    }
+
+    @Test
+    public void testLaatZien() {
+        testCorrectProgram("Laat a zien");                                                                      // Standard "laat zien" statement
+        testIncorrectProgram("laat zien");                                                                      // "Laat zien" statement without a variable
     }
 
     @Test
