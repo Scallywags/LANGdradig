@@ -59,6 +59,17 @@ public class Checker extends LANGdradigBaseListener {
         ParseTree tree = parser.program();
         new ParseTreeWalker().walk(this, tree);
     }
+    
+    public static void main(String[] args) throws Exception {
+    	Checker checker = new Checker();
+    	checker.checkFile("src/scallywags/langdradig/example/print.langdradig");
+    	System.out.println(checker.getParserExceptions());
+    	checker.getVariables();
+    }
+    
+    public Type getType(ParseTree node) {
+    	return types.get(node);
+    }
 
     // ------------- Program -------------
 
@@ -401,6 +412,5 @@ public class Checker extends LANGdradigBaseListener {
     public List<Variable> getVariables() {
         return symbolTable.getVariables();
     }
-
 
 }

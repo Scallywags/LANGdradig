@@ -1,0 +1,13 @@
+a is een getal.
+b is een stelling.
+
+i is een getal.
+i wordt 20.
+zolang i groter is dan 0
+	doe
+		verlaag i.
+		a wordt a*3+1.
+		b wordt niet b.
+		laat a zien.
+		laat b zien.
+	klaar.

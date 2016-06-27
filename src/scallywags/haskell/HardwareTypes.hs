@@ -111,7 +111,9 @@ data Instruction = Compute Operator RegAddr RegAddr RegAddr     -- Compute op r0
 
                  | Nop                                          -- Operation "do nothing"
 
-                 | Print RegAddr                                -- Prints value of the given register
+                 | PrintInt RegAddr                             -- Prints value of the given register
+                 | PrintBool RegAddr                            -- Print the value in the register as a boolean
+
                  | Debug String                                 -- No real instruction, for debug purposes.
                  deriving (Eq,Show,Read)
 

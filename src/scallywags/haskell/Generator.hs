@@ -195,9 +195,11 @@ instance CodeGen Stat where
         restState = statState{nextSharedOffset=nso, locks=newLocks, pc=pc+length code}
 
     --PrintStat
-    gen (Show expr) cs@CompileState{pc=pc}  = (code, cs{pc=pc+length code}) where
+    gen (Print expr exprType) cs@CompileState{pc=pc}  = (code, cs{pc=pc+length code}) where
         (exprCode, exprState) = gen expr cs
-        code = exprCode ++ [Print regOut1]
+        code = exprCode ++ case exprType of
+            IntType     -> [PrintInt regOut1 exprType]
+            BoolType    -> [PrintBool regOut1 exprType]
 
 instance CodeGen Expr where
     -- ParExpr

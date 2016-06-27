@@ -9,7 +9,7 @@ data Stat   = Decl String Type
             | IfThen Expr Stat
             | IfThenElse Expr Stat Stat
             | While Expr Stat
-            | Show Expr
+            | Print Expr Type
             | Fork String [Stat]
             | Join String
             | Sync String Stat
