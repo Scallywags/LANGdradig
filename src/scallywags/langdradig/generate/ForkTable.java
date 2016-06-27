@@ -18,6 +18,7 @@ public class ForkTable {
     }
 
     public void closeScope() {
+        depth--;
         scopes.pop();
     }
 
