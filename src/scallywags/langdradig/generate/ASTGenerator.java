@@ -3,10 +3,14 @@ package scallywags.langdradig.generate;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.util.IdentityHashMap;
 import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -49,8 +53,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String IF_THEN = "IfThen";
 	private static final String IF_THEN_ELSE = "IfThenElse";
 	private static final String WHILE = "While";
-	private static final String PRINT_INT = "PrintInt";
-	private static final String PRINT_BOOL = "PrintBool";
+	private static final String PRINT = "Print";
 	private static final String FORK = "Fork";
 	private static final String JOIN = "Join";
 	private static final String SYNC = "Sync";
@@ -98,6 +101,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private final String sourceProgramPath;
 	private final File sourceFile;
 	
+	private Checker checker;
+	
 	public ASTGenerator(String sourceFilePath) {
 		sourceFile = new File(sourceFilePath);
 		String programName = sourceFile.getName();
@@ -133,7 +138,12 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	}
 	
 	public String generate() throws IOException {
-		return visitProgram(new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program());
+		ProgramContext tree = new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program();
+		checker = new Checker();;
+		ParseTreeWalker walker = new ParseTreeWalker();
+		walker.walk(checker, tree);
+		
+		return visitProgram(tree);
 	}
 
 	public void writeAST(String directory) throws IOException {
@@ -268,17 +278,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitPrintStat(PrintStatContext ctx) {
 		ExpressionContext exprContext = ctx.expression();
-		Checker checker = new Checker();
-		ParseTreeWalker walker = new ParseTreeWalker();
-		walker.walk(checker, exprContext);
-		Type type = checker.getType(exprContext);
-		String print = null;
-		if (type.equals(Type.INTEGER)) { 		//WHY IS TYPE NULL!!
-			print = PRINT_INT;
-		} else if (type.equals(Type.BOOLEAN)) {
-			print = PRINT_BOOL;
-		}
-		return print + " " + LPAR + visit(exprContext) + RPAR + " " + type;
+		Type type = checker.getType(exprContext);		
+		return PRINT + " " + LPAR + visit(exprContext) + RPAR + " " + type;
 	}
 	
 	@Override

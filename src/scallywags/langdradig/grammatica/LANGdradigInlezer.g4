@@ -38,11 +38,11 @@ ANDERS			:	A N D E R S			                            ;
 
 // "Zolang" block
 VOOR			:	V O O R				                            ;
-ZOLANG			:	Z O L A N G			                            ;
+ZOLANG			:	Z O L A N G	| T E R W I J L                     ;
 
 // Types
-GETAL		    :   G E T A L                                       ;
-STELLING		:	S T E L L I N G				                    ;
+GETAL		    :   G E T A L | G E T A L L E N                     ;
+STELLING		:	S T E L L I N G	| S T E L L I N G E N           ;
 REEKS			:	R E E K S					                    ;
 TEKST			:	T E K S T					                    ;
 
@@ -85,13 +85,18 @@ PUNT			: '.'                                               ;
 KOMMA			: ','                                               ;
 LH				: '('                                               ;
 RH				: ')'                                               ;
+LSQ				: '['												;
+RSQ				: ']'												;
 IS				: I S                                               ;
 EEN				: E E N                                             ;
 OP              : O P	                                            ;
 VAN				: V A N												;
+DE				: D E												;
+PLEK			: P L E K											;
 
 NUMBER			: DIGIT+			                                ;
 IDENTIFIER		: LETTER ALPHANUM*	                                ;
+TELWOORD		: NUMBER ('e' | [de] | [ste])						;
 
 fragment DIGIT		: [0-9]				                            ;
 fragment LETTER		: [a-zA-Z]			                            ;
@@ -107,7 +112,6 @@ fragment GROTER		: G R O T E R		                            ;
 fragment GEDEELD    : G E D E E L D                                 ;
 fragment DOOR       : D O O R                                       ;
 fragment TOT        : T O T                                         ;
-fragment DE         : D E                                           ;
 fragment MACHT      : M A C H T                                     ;
 
 // Special characters

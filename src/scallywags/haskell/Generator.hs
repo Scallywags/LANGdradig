@@ -198,8 +198,8 @@ instance CodeGen Stat where
     gen (Print expr exprType) cs@CompileState{pc=pc}  = (code, cs{pc=pc+length code}) where
         (exprCode, exprState) = gen expr cs
         code = exprCode ++ case exprType of
-            IntType     -> [PrintInt regOut1 exprType]
-            BoolType    -> [PrintBool regOut1 exprType]
+            IntType     -> [PrintInt regOut1]
+            BoolType    -> [PrintBool regOut1]
 
 instance CodeGen Expr where
     -- ParExpr
