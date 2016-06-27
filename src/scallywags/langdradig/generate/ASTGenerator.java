@@ -265,7 +265,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitPrintStat(PrintStatContext ctx) {
-		return PRINT + " " + visit(ctx.IDENTIFIER());
+		return PRINT + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	
 	@Override
