@@ -48,6 +48,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String IF_THEN = "IfThen";
 	private static final String IF_THEN_ELSE = "IfThenElse";
 	private static final String WHILE = "While";
+	private static final String PRINT = "Show";
 	private static final String FORK = "Fork";
 	private static final String JOIN = "Join";
 	private static final String SYNC = "Sync";
@@ -175,7 +176,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
+		builder.append("\"main = sysRun $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append(WHERE).append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
@@ -260,6 +261,11 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(LSQ).append(RSQ).append(RPAR);
 		
 		return builder.toString();
+	}
+	
+	@Override
+	public String visitPrintStat(PrintStatContext ctx) {
+		return PRINT + " " + visit(ctx.IDENTIFIER());
 	}
 	
 	@Override

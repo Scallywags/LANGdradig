@@ -114,6 +114,10 @@ programcount = [Jump (Abs 0)]
 testAndSet :: [Instruction]
 testAndSet  = [Load (ImmValue 0) regE, WriteInstr regE (DirAddr 0), TestAndSet (DirAddr 0), Receive regE, EndProg]
 
+printt :: [Instruction]
+printt = [Load (ImmValue 1337) regE, Print regE, EndProg]
+
+testPrint       = sysRun [printt]
 testLocalMem    = sysTest [locmem]
 testAdd         = sysTest [addAB]
 testSharedMem   = sysTest [sharedmem, sharedmem, sharedmem]

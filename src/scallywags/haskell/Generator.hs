@@ -194,6 +194,14 @@ instance CodeGen Stat where
         code = spinInstrs ++ statInstrs ++ [WriteInstr reg0 (DirAddr dirAddr)]
         restState = statState{nextSharedOffset=nso, locks=newLocks, pc=pc+length code}
 
+    --PrintStat
+    gen (Show string) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc}  = (code, cs{pc=pc+length code}) where
+        code = case offset lv string of
+            Just addr   -> [Load (DirAddr addr) regOut5, Print regOut5]
+            Nothing     -> case offset sv string of
+                Just addr   -> [ReadInstr (DirAddr addr), Receive regOut5, Print regOut5]
+                Nothing     -> error ("variable " ++ string ++ " not found!")
+
 instance CodeGen Expr where
     -- ParExpr
     gen (Par expr) compileState                                             = gen expr compileState

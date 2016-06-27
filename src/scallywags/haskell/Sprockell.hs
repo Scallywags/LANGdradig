@@ -127,6 +127,8 @@ decode instr = case instr of
 
   Debug _                     -> nullcode       -- only for development purposes
 
+  Print _                     -> nullcode
+
 
 {- ===============================================================
 Meaning registers regX and regY (containing x and y, respectively)

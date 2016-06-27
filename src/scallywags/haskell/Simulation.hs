@@ -74,11 +74,18 @@ myShow (instrs,s) = show instrs ++ "\n" ++
                     show (requestFifo s) ++ "\n" ++
                     show (sharedMem s)
 
---TODO
---printOnlyShow :: [Instruction] -> [String]
---printOnlyShow []             = []
---printOnlyShow ((Print i):is) = show i : printOnlyShow is
---printOnlyShow (i:is)         = printOnlyShow is
+printOnlyShow :: ([Instruction], SystemState) -> String
+printOnlyShow ([], _)                                                   = ""
+printOnlyShow (i:is, systemState@SystemState{sprStates=state:states})   = aString where
+    aString = case i of
+        Print regIndex  -> show (regbank state !! regIndex) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+        _               -> printOnlyShow (is, systemState{sprStates=states})
+
+sysRun :: [[Instruction]] -> IO ()
+sysRun instrss = putStr
+                $ concat
+                $ map printOnlyShow
+                $ systemSim instrss initSystemState clock
 
 sysTest :: [[Instruction]] -> IO ()                             -- instrss: list of instructions per Sprockell
 sysTest instrss = putStr                                        -- putStr: standard Haskell IO-function
