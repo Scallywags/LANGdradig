@@ -31,11 +31,9 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
- * // TODO add deelbaar door
- * // TODO saving file with existing name dialog
- * // TODO saving file as file that is already open should merge tabs
  * // TODO translate True and False in compiler
  * // TODO add tests for arrays to ParseTest
+ * // TODO error highlighting seems off
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
@@ -46,6 +44,9 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
  * Split highlighter to explicit feature
  * Overview of threads
  * For loop
+ * add deelbaar door
+ * saving file with existing name dialog
+ * saving file as file that is already open should merge tabs
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -733,7 +734,14 @@ public class Main extends JFrame {
     }
 
     public String getCode() {
-        return getCodeArea().getText();
+        Document doc = getCodeArea().getStyledDocument();
+        String result = "";
+        try {
+            result = doc.getText(0, doc.getLength());
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     private boolean changes() {

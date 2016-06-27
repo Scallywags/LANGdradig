@@ -23,7 +23,6 @@ import scallywags.langdradig.listeners.LANGdradigErrorListener;
 
 public class Checker extends LANGdradigBaseListener {
 
-    private SymbolTable symbolTable = new SymbolTable();
     private ForkTable forkTable = new ForkTable();
 
     private ParseTreeProperty<Type> types = new ParseTreeProperty<>();
@@ -67,13 +66,11 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void enterProgram(ProgramContext ctx) {
-        symbolTable.openScope();
         forkTable.openScope();
     }
 
     @Override
     public void exitProgram(ProgramContext ctx) {
-        symbolTable.closeScope();
         if (!forkTable.waitedOnAll()) {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
@@ -109,7 +106,6 @@ public class Checker extends LANGdradigBaseListener {
             }
         }
         forkTable.openScope();
-        symbolTable.openScope();
     }
 
     @Override
@@ -118,7 +114,6 @@ public class Checker extends LANGdradigBaseListener {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
         forkTable.closeScope();
-        symbolTable.closeScope();
     }
     
     @Override
@@ -132,7 +127,6 @@ public class Checker extends LANGdradigBaseListener {
             }
         }
         forkTable.openScope();
-        symbolTable.openScope();
     }
     
     @Override
@@ -141,7 +135,6 @@ public class Checker extends LANGdradigBaseListener {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
         forkTable.closeScope();
-        symbolTable.closeScope();
     }
 
     @Override
@@ -158,18 +151,18 @@ public class Checker extends LANGdradigBaseListener {
 
 	@Override
 	public void enterBlockStat(BlockStatContext ctx) {
-		symbolTable.openScope();
+		forkTable.openScopeSymbolTable();
 	}
 
 	@Override
 	public void exitBlockStat(BlockStatContext ctx) {
-		symbolTable.closeScope();
+		forkTable.closeScopeSymbolTable();
 	}
 
 	@Override
 	public void exitDeclStat(DeclStatContext ctx) {
 		Type type = types.get(ctx.type());
-		boolean success = symbolTable.add(ctx.IDENTIFIER().getText(), type, false);
+		boolean success = forkTable.add(ctx.IDENTIFIER().getText(), type, false);
 		if (!success) {
 			exceptions.add(new AlreadyDeclaredException(ctx, ctx.IDENTIFIER().getText()));
 		}
@@ -178,7 +171,7 @@ public class Checker extends LANGdradigBaseListener {
 	@Override
 	public void exitSharedDeclStat(SharedDeclStatContext ctx) {
 		Type type = types.get(ctx.type());
-		boolean success = symbolTable.add(ctx.IDENTIFIER().getText(), type, true);
+		boolean success = forkTable.add(ctx.IDENTIFIER().getText(), type, true);
 		if (!success) {
 			exceptions.add(new AlreadyDeclaredException(ctx, ctx.IDENTIFIER().getText()));
 		}
@@ -213,7 +206,7 @@ public class Checker extends LANGdradigBaseListener {
 	@Override
 	public void exitCrementExpr(CrementExprContext ctx) {
 		if (ctx.IDENTIFIER() != null) {
-			Type type = symbolTable.getType(ctx.IDENTIFIER().getText());
+			Type type = forkTable.getType(ctx.IDENTIFIER().getText());
 			if (type == null) {
 				exceptions.add(new UndeclaredException(ctx, ctx.IDENTIFIER().getText()));
 			} else if (type != Type.INTEGER) {
@@ -325,7 +318,7 @@ public class Checker extends LANGdradigBaseListener {
 	@Override
 	public void exitAssExpr(AssExprContext ctx) {
 		Type exprType = types.get(ctx.expression());
-		Type idfType = symbolTable.getType(ctx.IDENTIFIER().getText());
+		Type idfType = forkTable.getType(ctx.IDENTIFIER().getText());
 		if (exprType != idfType) {
 			exceptions.add(new TypeException(ctx, idfType, exprType));
 		}
@@ -352,7 +345,7 @@ public class Checker extends LANGdradigBaseListener {
 
 	@Override
 	public void exitIdfExpr(IdfExprContext ctx) {
-		Type type = symbolTable.getType(ctx.getText());
+		Type type = forkTable.getType(ctx.getText());
 		if (type == null) {
 			exceptions.add(new UndeclaredException(ctx, ctx.getText()));
 		}
@@ -409,8 +402,10 @@ public class Checker extends LANGdradigBaseListener {
 		return errorListener.getErrors();
 	}
 
+    //TODO fix at a later date
 	public List<Variable> getVariables() {
-		return symbolTable.getVariables();
+//		return symbolTable.getVariables();
+        return new ArrayList<>();
 	}
 
 }

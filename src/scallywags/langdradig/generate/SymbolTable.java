@@ -40,6 +40,15 @@ public class SymbolTable {
         return scopes.stream().anyMatch(scope -> scope.contains(id));
     }
 
+    public boolean isShared(String id) {
+        for (Scope scope : scopes) {
+            if (scope.contains(id)) {
+                return scope.isShared(id);
+            }
+        }
+        return false;
+    }
+
     /**
      * @param id the identifier
      * @return the Type of the identifier, or null if the identifier could not be found in any of the scopes.

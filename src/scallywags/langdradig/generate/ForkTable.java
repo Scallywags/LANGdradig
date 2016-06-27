@@ -51,8 +51,52 @@ public class ForkTable {
         return b == null ? false : b;
     }
 
+
+
+    //Methods needed to access the symbol table in the current thread
+
+    public void openScopeSymbolTable() {
+        scopes.peek().getSymbolTable().openScope();
+    }
+
+    public void closeScopeSymbolTable() {
+        scopes.peek().getSymbolTable().closeScope();
+    }
+
+    public boolean add(String identifier, Type type, boolean isShared) {
+        return scopes.peek().getSymbolTable().add(identifier, type, isShared);
+    }
+
+    public Type getType(String identifier) {
+        Type result = scopes.peek().getSymbolTable().getType(identifier);
+        if (result == null) {
+            for (Scope scope : scopes) {
+                SymbolTable symbolTable = scope.getSymbolTable();
+                // isShared returns false if the identifier is not in the symbolTable
+                if (symbolTable.isShared(identifier)) {
+                    result = symbolTable.getType(identifier);
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // The inner class Scope
+
     private class Scope {
+        SymbolTable symbolTable = new SymbolTable();
         Map<String, Boolean> threads = new HashMap<>();
+
+        public Scope() {
+            symbolTable.openScope();
+        }
+
+        public SymbolTable getSymbolTable() {
+            return this.symbolTable;
+        }
 
         public Map<String, Boolean> getThreads() {
             return threads;
