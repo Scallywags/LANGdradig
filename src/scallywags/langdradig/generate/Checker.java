@@ -149,10 +149,20 @@ public class Checker extends LANGdradigBaseListener {
     public void exitJoinStat(JoinStatContext ctx) {
         if (ctx.IDENTIFIER() != null) {
             String id = ctx.IDENTIFIER().getText();
-            if (!forkTable.contains(id)) {
+            if (forkTable.contains(id)) {
                 exceptions.add(new UndeclaredException(ctx, id));
             } else {
                 forkTable.waitWorker(id);
+            }
+        }
+    }
+
+    @Override
+    public void exitPrintStat(PrintStatContext ctx) {
+        if (ctx.IDENTIFIER() != null) {
+            String id = ctx.IDENTIFIER().getText();
+            if (!symbolTable.contains(id)) {
+                exceptions.add(new UndeclaredException(ctx, id));
             }
         }
     }
