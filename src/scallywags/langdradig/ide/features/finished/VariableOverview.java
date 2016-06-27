@@ -16,7 +16,7 @@ public class VariableOverview {
             for (int i = 0; i < v.getScope(); i++) {
                 sb.append("\t");
             }
-            sb.append(v.getVariable()).append(" - ").append(Translator.translateType(v.getType())).append("\n");
+            sb.append(v.getVariable()).append(" - ").append(Translator.translateType(v.getType())).append(v.isShared() ? " (gedeeld)" : "").append("\n");
         }
         return sb.toString();
     }

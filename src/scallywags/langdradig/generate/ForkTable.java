@@ -21,53 +21,58 @@ public class ForkTable {
     /**
      * @param id   the identifier
      */
-    public void addWorker(String id) {
-        scopes.peek().startWorker(id);
+    public void addThread(String id) {
+        scopes.peek().addThread(id);
     }
 
-    public void waitWorker(String id) {
-        scopes.peek().waitForWorker(id);
+    public void waitForThread(String id) {
+        scopes.peek().waitForThread(id);
     }
 
     public boolean contains(String id) {
-        return scopes.peek().contains(id);
+        for (Scope scope : scopes) {
+            if (scope.contains(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean waitedOnAll() {
-        return scopes.peek().getWorkers().values().stream().allMatch(e -> e);
+        return scopes.peek().getThreads().values().stream().allMatch(e -> e);
     }
 
     public String getNotWaitedOn() {
-        return scopes.peek().getWorkers().entrySet().stream().filter(e -> !e.getValue()).findFirst().get().getKey();
+        return scopes.peek().getThreads().entrySet().stream().filter(e -> !e.getValue()).findFirst().get().getKey();
     }
 
     public boolean getWaitedOn(String id) {
-        Boolean b = scopes.peek().getWorkers().get(id);
+        Boolean b = scopes.peek().getThreads().get(id);
         return b == null ? false : b;
     }
 
     private class Scope {
-        Map<String, Boolean> workers = new HashMap<>();
+        Map<String, Boolean> threads = new HashMap<>();
 
-        public Map<String, Boolean> getWorkers() {
-            return workers;
+        public Map<String, Boolean> getThreads() {
+            return threads;
         }
 
-        public void startWorker(String identifier) {
-            workers.put(identifier, false);
+        public void addThread(String identifier) {
+            threads.put(identifier, false);
         }
 
-        public void waitForWorker(String identifier) {
-            workers.put(identifier, true);
+        public void waitForThread(String identifier) {
+            threads.put(identifier, true);
         }
 
         public boolean contains(String identifier) {
-            return workers.containsKey(identifier);
+            return threads.containsKey(identifier);
         }
 
         @Override
         public String toString() {
-            return "Scope{\nworkers = " + workers + "}";
+            return "Scope{\nthreads = " + threads + "}";
         }
     }
 }

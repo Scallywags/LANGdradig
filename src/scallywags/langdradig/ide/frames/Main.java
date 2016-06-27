@@ -27,7 +27,7 @@ import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
 import scallywags.langdradig.ide.features.finished.TextLineNumber;
 import scallywags.langdradig.ide.features.finished.VariableOverview;
-import scallywags.langdradig.ide.features.unfinished.SyntaxHighlighter;
+import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
@@ -35,6 +35,7 @@ import scallywags.langdradig.ide.features.unfinished.SyntaxHighlighter;
  * // TODO saving file with existing name dialog
  * // TODO saving file as file that is already open should merge tabs
  * // TODO translate True and False in compiler
+ * // TODO add tests for arrays to ParseTest
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
@@ -44,10 +45,10 @@ import scallywags.langdradig.ide.features.unfinished.SyntaxHighlighter;
  * Syntax highlighting (ex. variables in italics, comments greyed out)
  * Split highlighter to explicit feature
  * Overview of threads
+ * For loop
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
- * Saved file are not saved or are not loaded properly
  */
 
 public class Main extends JFrame {

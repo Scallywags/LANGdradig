@@ -18,4 +18,15 @@ public class Translator {
             return "<onbekend>";
         }
     }
+
+    public static String translateBoolean(String value) {
+        switch (value) {
+            case "True":
+                return "Waar";
+            case "False":
+                return "Onwaar";
+            default:
+                return "ERROR";
+        }
+    }
 }

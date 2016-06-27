@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide.features.unfinished;
+package scallywags.langdradig.ide.features.finished;
 
 import javax.swing.*;
 import javax.swing.text.*;

@@ -7,11 +7,13 @@ public class Variable {
     private String variable;
     private Type type;
     private int scope;
+    private boolean shared;
 
-    public Variable(String variable, Type type, int scope) {
+    public Variable(String variable, Type type, int scope, boolean shared) {
         this.variable = variable;
         this.scope = scope;
         this.type = type;
+        this.shared = shared;
     }
 
     public String getVariable() {
@@ -24,6 +26,10 @@ public class Variable {
 
     public Type getType() {
         return type;
+    }
+
+    public boolean isShared() {
+        return shared;
     }
 
     @Override
