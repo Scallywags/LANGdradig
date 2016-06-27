@@ -2,22 +2,25 @@ package scallywags.langdradig.generate;
 
 public interface Type {
 	
+	public String getName();
+	public int getSize();
+	public String toString();	//returns the type declaration as of in the AST.
+	
 	public static final Type INTEGER = new Type() {
 		@Override public String getName() {return "INTEGER";}
 		@Override public int getSize() {return 1;}
+		@Override public String toString() {return "IntType";}
 	};
 	
 	public static final Type BOOLEAN = new Type() {
 		@Override public String getName() {return "BOOLEAN";}
 		@Override public int getSize() {return 1;}
+		@Override public String toString() {return "BoolType";}
 	};
 	
 	public static Type ARRAY(Type elemType, int numElems) {
 		return new ArrayType(elemType, numElems);
 	}
-	
-	public String getName();
-	public int getSize();
 	
 	static class ArrayType implements Type {
 		private final Type elemType;
@@ -40,6 +43,7 @@ public interface Type {
 		
 		@Override public String getName() {return "ARRAY";}
 		@Override public int getSize() {return numElems + 1;}
+		@Override public String toString() {return "ArrayType " + numElems + " " + elemType;}
 		
 		@Override
 		public int hashCode() {

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import scallywags.langdradig.grammatica.LANGdradigBaseVisitor;
@@ -48,7 +49,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String IF_THEN = "IfThen";
 	private static final String IF_THEN_ELSE = "IfThenElse";
 	private static final String WHILE = "While";
-	private static final String PRINT = "Show";
+	private static final String PRINT_INT = "PrintInt";
+	private static final String PRINT_BOOL = "PrintBool";
 	private static final String FORK = "Fork";
 	private static final String JOIN = "Join";
 	private static final String SYNC = "Sync";
@@ -126,7 +128,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest1.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "print.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
@@ -265,7 +267,18 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitPrintStat(PrintStatContext ctx) {
-		return PRINT + " " + visit(ctx.IDENTIFIER());
+		ExpressionContext exprContext = ctx.expression();
+		Checker checker = new Checker();
+		ParseTreeWalker walker = new ParseTreeWalker();
+		walker.walk(checker, exprContext);
+		Type type = checker.getType(exprContext);
+		String print = null;
+		if (type.equals(Type.INTEGER)) { 		//WHY IS TYPE NULL!!
+			print = PRINT_INT;
+		} else if (type.equals(Type.BOOLEAN)) {
+			print = PRINT_BOOL;
+		}
+		return print + " " + LPAR + visit(exprContext) + RPAR + " " + type;
 	}
 	
 	@Override

@@ -1,20 +1,22 @@
 package scallywags.langdradig.generate;
 
-import java.util.*;
+import java.util.Stack;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class SymbolTable {
-    private int scope = 0;
-    private List<Variable> variables = new ArrayList<>();
 
     private Stack<Scope> scopes = new Stack<>();
 
     public void openScope() {
-        scope++;
         scopes.add(new Scope());
     }
 
     public void closeScope() {
-        scope--;
         scopes.pop();
     }
 
@@ -24,7 +26,6 @@ public class SymbolTable {
      * @return true if the identifier was successfully added, false if the identifier was already declared in the current scope
      */
     public boolean add(String id, Type type) {
-        variables.add(new Variable(id, type, scope));
         return scopes.peek().add(id, type);
     }
 
@@ -66,6 +67,10 @@ public class SymbolTable {
         public Type getType(String identifier) {
             return types.get(identifier);
         }
+        
+        public Set<Entry<String, Type>> entrySet() {
+        	return types.entrySet();
+        }
 
         @Override
         public String toString() {
@@ -74,7 +79,14 @@ public class SymbolTable {
     }
 
     public List<Variable> getVariables() {
-        return variables;
+    	List<Variable> list = new ArrayList<>();
+        for (int i = 0; i < scopes.size(); i++) {
+        	Scope s = scopes.get(i);
+        	for (Entry<String, Type> e : s.entrySet()) {
+        		list.add(new Variable(e.getKey(), e.getValue(), i));
+        	}
+        }
+        return list;
     }
 
 }

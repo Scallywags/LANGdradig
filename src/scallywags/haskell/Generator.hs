@@ -195,12 +195,11 @@ instance CodeGen Stat where
         restState = statState{nextSharedOffset=nso, locks=newLocks, pc=pc+length code}
 
     --PrintStat
-    gen (Show string) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc}  = (code, cs{pc=pc+length code}) where
-        code = case offset lv string of
-            Just addr   -> [Load (DirAddr addr) regOut5, Print regOut5]
-            Nothing     -> case offset sv string of
-                Just addr   -> [ReadInstr (DirAddr addr), Receive regOut5, Print regOut5]
-                Nothing     -> error ("variable " ++ string ++ " not found!")
+    gen (Print expr exprType) cs@CompileState{pc=pc}  = (code, cs{pc=pc+length code}) where
+        (exprCode, exprState) = gen expr cs
+        code = exprCode ++ case exprType of
+            IntType     -> [PrintInt regOut1 exprType]
+            BoolType    -> [PrintBool regOut1 exprType]
 
 instance CodeGen Expr where
     -- ParExpr
