@@ -35,7 +35,11 @@ expression	:	primary																					#primExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr
 			
+			|	LSQ expression (KOMMA expression)* RSQ													#arrayExpr
+			|	expression OP DE TELWOORD PLEK															#indexExpr
+			
 			|	<assoc=right> IDENTIFIER WORDT expression												#assExpr
+			|	<assoc=right> expression OP DE TELWOORD PLEK WORDT expression							#indexAssExpr
 			;
 
 primary		:	LH expression RH						                                                #parExpr
