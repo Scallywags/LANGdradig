@@ -233,6 +233,12 @@ public class Main extends JFrame {
                 onSave();
             }
         }));
+        filePopup.add(new JMenuItem(new AbstractAction("Opslaan als... (CTRL + T") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onSaveAs();
+            }
+        }));
         fileButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 filePopup.show(e.getComponent(), e.getX(), e.getY());
@@ -312,11 +318,6 @@ public class Main extends JFrame {
         ((DefaultCaret) messagesArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         messagesArea.setFont(font);
         variableView.setFont(font);
-        programPane.addChangeListener(changeEvent -> {
-            if (programPane.getTabCount() > 0) {
-                checkContent();
-            }
-        });
 
         fc.setFileFilter(new FileNameExtensionFilter("langdradig file", "langdradig"));
 
@@ -402,6 +403,12 @@ public class Main extends JFrame {
         }
     }
 
+    public void onSaveAs() {
+        if (programPane.getTabCount() > 0) {
+            save(getCode(), null);
+        }
+    }
+
     public Process onStop() {
         if (runningProgram != null) {
             runningProgram.destroy();
@@ -443,8 +450,8 @@ public class Main extends JFrame {
         }
         String name = new File(filePath).getName();
         ((JLabel) ((JPanel) programPane.getTabComponentAt(programPane.getSelectedIndex())).getComponent(0)).setText(name);
-        popup(name + " opgeslagen");
         checkContent();
+        popup(name + " opgeslagen");
         return 0;
     }
 
@@ -555,6 +562,7 @@ public class Main extends JFrame {
                 if (e.isControlDown()) {
                     /**     Key shortcuts
                      *      SAVE:       CTRL + S
+                     *      SAVE AS:    CTRL + T
                      *      OPEN:       CTRL + O
                      *      NEW:        CTRL + N
                      *      START:      CTRL + R
@@ -565,11 +573,14 @@ public class Main extends JFrame {
                      *      STOP        CTRL + K
                      */
                     switch (e.getKeyCode()) {
-                        case 83:    // 'S' key;
+                        case 83:    // 'S' key
                             int result = onSave();
                             if (result == 0) {
                                 changes.put(c, false);
                             }
+                            break;
+                        case 84:    // 'T' key
+                            onSaveAs();
                             break;
                         case 79:    // 'O' key
                             onOpen();
@@ -695,7 +706,6 @@ public class Main extends JFrame {
         manager.setLimit(-1);
         undoManagers.put(area, manager);
         area.getStyledDocument().addUndoableEditListener(manager);
-        setupKeyListener(area);
         JScrollPane codeScroll = new JScrollPane(area);
         codeScroll.setRowHeaderView(new TextLineNumber(area));
         programPane.addTab(fileName, codeScroll);
@@ -732,6 +742,10 @@ public class Main extends JFrame {
             filePaths.add(null);
         }
         startButton.setEnabled(true);
+
+        // Call setupKeyListener() after checkContent(), to ignore the change the syntaxHighlighter makes when first reading the document
+        checkContent();
+        setupKeyListener(area);
         popup(fileName + " geopend");
     }
 
