@@ -2,6 +2,7 @@ package scallywags.langdradig.ide.features.finished;
 
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.undo.UndoManager;
 import java.awt.*;
 
 /**
@@ -14,12 +15,11 @@ public class SyntaxHighlighter {
 
     public static void colorKeywords(JTextPane area) {
         try {
-            StyledDocument sDoc = area.getStyledDocument();
+            StyledDocument doc = area.getStyledDocument();
             Style defaultStyle = StyleContext.
                     getDefaultStyleContext().
                     getStyle(StyleContext.DEFAULT_STYLE);
-            sDoc.setCharacterAttributes(0, sDoc.getLength(), defaultStyle, true);
-            Document doc = area.getStyledDocument();
+            doc.setCharacterAttributes(0, doc.getLength(), defaultStyle, true);
             for (String keyword : keywords) {
                 SimpleAttributeSet set = new SimpleAttributeSet();
                 StyleConstants.setForeground(set, getKeywordColor(keyword));
@@ -27,8 +27,7 @@ public class SyntaxHighlighter {
                 int start = searchString.indexOf(keyword);
                 int acc = start;
                 while (start != -1) {
-                    doc.insertString(acc, keyword, set);
-                    doc.remove(acc + keyword.length(), keyword.length());
+                    doc.setCharacterAttributes(acc, keyword.length(), set, true);
                     searchString = searchString.substring(start + 1);
                     start = searchString.indexOf(keyword);
                     acc += start + 1;

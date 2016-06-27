@@ -22,6 +22,7 @@ import java.util.*;
 import java.util.List;
 
 import scallywags.langdradig.ide.Compiler;
+import scallywags.langdradig.ide.features.finished.IDEUndoManager;
 import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
 import scallywags.langdradig.ide.features.finished.TextLineNumber;
@@ -47,6 +48,8 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
  * saving file with existing name dialog
  * saving file as file that is already open should merge tabs
  * make variable overview a tree component
+ * replace ugle buttons with a nice toolbar
+ * Add save as function
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -74,10 +77,7 @@ public class Main extends JFrame {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(5, 4, new Insets(10, 10, 10, 10), -1, -1));
-        startButton = new JButton();
-        startButton.setText("Start (CTRL + R)");
-        contentPane.add(startButton, new com.intellij.uiDesigner.core.GridConstraints(0, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        contentPane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 3, new Insets(10, 10, 10, 10), -1, -1));
         splitPane = new JSplitPane();
         splitPane.setDividerLocation(32);
         splitPane.setDividerSize(5);
@@ -85,7 +85,7 @@ public class Main extends JFrame {
         splitPane.setOrientation(0);
         splitPane.setResizeWeight(0.0);
         splitPane.setVerifyInputWhenFocusTarget(false);
-        contentPane.add(splitPane, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 4, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 200), null, 0, false));
+        contentPane.add(splitPane, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 200), null, 0, false));
         messagesAreaScrollPane = new JScrollPane();
         messagesAreaScrollPane.setToolTipText("");
         messagesAreaScrollPane.setVisible(true);
@@ -121,18 +121,18 @@ public class Main extends JFrame {
         showHideButton.setMargin(new Insets(2, 14, 2, 14));
         showHideButton.setText("Toon/Verstop berichten");
         showHideButton.setVerticalAlignment(0);
-        contentPane.add(showHideButton, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_SOUTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(showHideButton, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_SOUTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         clearButton = new JButton();
         clearButton.setInheritsPopupMenu(false);
         clearButton.setMargin(new Insets(2, 14, 2, 14));
         clearButton.setText("Leeg berichten");
         clearButton.setVerticalAlignment(0);
         clearButton.setVerticalTextPosition(0);
-        contentPane.add(clearButton, new com.intellij.uiDesigner.core.GridConstraints(4, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_SOUTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(clearButton, new com.intellij.uiDesigner.core.GridConstraints(3, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_SOUTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         notificationPanel = new JPanel();
         notificationPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         notificationPanel.setVisible(false);
-        contentPane.add(notificationPanel, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 4, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        contentPane.add(notificationPanel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JScrollPane scrollPane2 = new JScrollPane();
         scrollPane2.setVerticalScrollBarPolicy(21);
         scrollPane2.setVisible(true);
@@ -145,29 +145,40 @@ public class Main extends JFrame {
         scrollPane2.setViewportView(notificationLabel);
         stopButton = new JButton();
         stopButton.setText("Stop (CTRL + K)");
-        contentPane.add(stopButton, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(stopButton, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JToolBar toolBar1 = new JToolBar();
+        toolBar1.setFloatable(false);
+        toolBar1.setOrientation(0);
+        toolBar1.putClientProperty("JToolBar.isRollover", Boolean.TRUE);
+        contentPane.add(toolBar1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        fileComboBox = new JComboBox();
+        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+        defaultComboBoxModel1.addElement("Bestand");
+        defaultComboBoxModel1.addElement("Nieuw (CTRL + N)");
+        defaultComboBoxModel1.addElement("Openen (CTRL + O)");
+        defaultComboBoxModel1.addElement("Opslaan (CTRL + S)");
+        fileComboBox.setModel(defaultComboBoxModel1);
+        toolBar1.add(fileComboBox);
+        editComboBox = new JComboBox();
+        final DefaultComboBoxModel defaultComboBoxModel2 = new DefaultComboBoxModel();
+        defaultComboBoxModel2.addElement("Wijzigen");
+        defaultComboBoxModel2.addElement("Ongedaan maken (CTRL + Z)");
+        defaultComboBoxModel2.addElement("Herhalen (CTRL + Y)");
+        defaultComboBoxModel2.addElement("Knippen (CTRL + X)");
+        defaultComboBoxModel2.addElement("Kopieëren (CTRL + C)");
+        defaultComboBoxModel2.addElement("Plakken (CTRL + V)");
+        editComboBox.setModel(defaultComboBoxModel2);
+        toolBar1.add(editComboBox);
+        startButton = new JButton();
+        startButton.setFont(new Font(startButton.getFont().getName(), Font.BOLD | Font.ITALIC, startButton.getFont().getSize()));
+        startButton.setText("Start");
+        toolBar1.add(startButton);
         autoCompleteCheckBox = new JCheckBox();
+        autoCompleteCheckBox.setActionCommand("Autocomplete (experimental)");
+        autoCompleteCheckBox.setLabel("Autocomplete (experimenteel)");
         autoCompleteCheckBox.setSelected(false);
-        autoCompleteCheckBox.setText("Autocomplete (experimental)");
-        contentPane.add(autoCompleteCheckBox, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        newButton = new JButton();
-        newButton.setRequestFocusEnabled(false);
-        newButton.setText("Nieuw (CTRL + N)");
-        contentPane.add(newButton, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        openButton = new JButton();
-        openButton.setIcon(new ImageIcon(getClass().getResource("/com/sun/java/swing/plaf/windows/icons/NewFolder.gif")));
-        openButton.setText("Open (CTRL + O)");
-        contentPane.add(openButton, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        saveButton = new JButton();
-        saveButton.setIcon(new ImageIcon(getClass().getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
-        saveButton.setText("Opslaan (CTRL + S)");
-        contentPane.add(saveButton, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        undoButton = new JButton();
-        undoButton.setText("Ongedaan maken (CTRL + Z)");
-        contentPane.add(undoButton, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        redoButton = new JButton();
-        redoButton.setText("Herhalen (CTRL + Y)");
-        contentPane.add(redoButton, new com.intellij.uiDesigner.core.GridConstraints(1, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        autoCompleteCheckBox.setText("Autocomplete (experimenteel)");
+        contentPane.add(autoCompleteCheckBox, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -203,8 +214,8 @@ public class Main extends JFrame {
     private JSplitPane programmingViews;
     private JCheckBox autoCompleteCheckBox;
     private JButton stopButton;
-    private JButton undoButton;
-    private JButton redoButton;
+    private JComboBox fileComboBox;
+    private JComboBox editComboBox;
     private JScrollPane notificationScrollPane;
     private int dividerLocation;
 
@@ -217,8 +228,57 @@ public class Main extends JFrame {
     public Main() {
         setContentPane(contentPane);
         getRootPane().setDefaultButton(openButton);
-        newButton.addActionListener(e -> onNew());
-        newButton.addKeyListener(new KeyAdapter() {
+        fileComboBox.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                int index = fileComboBox.getSelectedIndex();
+                fileComboBox.setSelectedIndex(0);
+                switch (index) {
+                    case 1:
+                        onNew();
+                        break;
+                    case 2:
+                        onOpen();
+                        break;
+                    case 3:
+                        onSave();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        editComboBox.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                int index = editComboBox.getSelectedIndex();
+                editComboBox.setSelectedIndex(0);
+                JTextPane area = getCodeArea();
+                switch (index) {
+                    case 1:
+                        undo();
+                        break;
+                    case 2:
+                        redo();
+                        break;
+                    case 3:
+                        if (area != null) {
+                            area.cut();
+                        }
+                        break;
+                    case 4:
+                        if (area != null) {
+                            area.copy();
+                        }
+                        break;
+                    case 5:
+                        if (area != null) {
+                            area.paste();
+                        }
+                    default:
+                        break;
+                }
+            }
+        });
+        fileComboBox.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
@@ -242,14 +302,10 @@ public class Main extends JFrame {
         });
 
         autoCompleteCheckBox.addChangeListener(e -> autocomplete = !autocomplete);
-        openButton.addActionListener(e -> onOpen());
-        saveButton.addActionListener(e -> onSave());
         clearButton.addActionListener(e -> clearMessages());
         showHideButton.addActionListener(e -> toggleMessages());
         startButton.addActionListener(e -> onStart());
         stopButton.addActionListener(e -> onStop());
-        undoButton.addActionListener(e -> undo());
-        redoButton.addActionListener(e -> redo());
 
         ((DefaultCaret) messagesArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         messagesArea.setFont(font);
@@ -633,11 +689,12 @@ public class Main extends JFrame {
                 e.printStackTrace();
             }
         }
-        UndoManager manager = new UndoManager();
+        UndoManager manager = new IDEUndoManager();
         //-1 means no limit
         manager.setLimit(-1);
         undoManagers.put(area, manager);
-        area.getDocument().addUndoableEditListener(manager);
+//        area.getDocument().addUndoableEditListener(manager);
+        area.getStyledDocument().addUndoableEditListener(manager);
         setupKeyListener(area);
         JScrollPane codeScroll = new JScrollPane(area);
         codeScroll.setRowHeaderView(new TextLineNumber(area));
@@ -718,7 +775,12 @@ public class Main extends JFrame {
     }
 
     public JTextPane getCodeArea() {
-        return (JTextPane) ((JViewport) ((JScrollPane) programPane.getSelectedComponent()).getComponent(0)).getComponent(0);
+        Component c = programPane.getSelectedComponent();
+        if (c == null) {
+            return null;
+        } else {
+            return (JTextPane) ((JViewport) ((JScrollPane) c).getComponent(0)).getComponent(0);
+        }
     }
 
     public JTextPane getCodeArea(int index) {
@@ -770,14 +832,20 @@ public class Main extends JFrame {
 
     private void undo() {
         try {
-            undoManagers.get(getCodeArea()).undo();
+            JTextPane area = getCodeArea();
+            if (area != null) {
+                undoManagers.get(area).undo();
+            }
         } catch (CannotUndoException ignore) {
         }
     }
 
     private void redo() {
         try {
-            undoManagers.get(getCodeArea()).redo();
+            JTextPane area = getCodeArea();
+            if (area != null) {
+                undoManagers.get(area).redo();
+            }
         } catch (CannotRedoException ignore) {
         }
     }
