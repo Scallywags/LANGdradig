@@ -34,6 +34,7 @@ import scallywags.langdradig.ide.features.unfinished.SyntaxHighlighter;
  * // TODO add deelbaar door
  * // TODO saving file with existing name dialog
  * // TODO saving file as file that is already open should merge tabs
+ * // TODO translate True and False in compiler
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
@@ -46,6 +47,7 @@ import scallywags.langdradig.ide.features.unfinished.SyntaxHighlighter;
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
+ * Saved file are not saved or are not loaded properly
  */
 
 public class Main extends JFrame {
@@ -143,8 +145,8 @@ public class Main extends JFrame {
         stopButton.setText("Stop (CTRL + K)");
         contentPane.add(stopButton, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         autoCompleteCheckBox = new JCheckBox();
-        autoCompleteCheckBox.setSelected(true);
-        autoCompleteCheckBox.setText("Autocomplete");
+        autoCompleteCheckBox.setSelected(false);
+        autoCompleteCheckBox.setText("Autocomplete (experimental)");
         contentPane.add(autoCompleteCheckBox, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         newButton = new JButton();
         newButton.setRequestFocusEnabled(false);
@@ -207,7 +209,7 @@ public class Main extends JFrame {
     private List<String> filePaths = new ArrayList<>();
     private Timer notificationTimer;
     private Timer contentCheckTimer;
-    private boolean autocomplete = true;
+    private boolean autocomplete = false;
     private boolean correctProgram = false;
 
     public Main() {
@@ -224,10 +226,10 @@ public class Main extends JFrame {
                      *      NEW:    CTRL + N
                      */
                     switch (e.getKeyCode()) {
-                        case 79:    // 'o' key
+                        case 79:    // 'O' key
                             onOpen();
                             break;
-                        case 78:    // 'n' key
+                        case 78:    // 'N' key
                             onNew();
                             break;
                         default:
@@ -333,7 +335,7 @@ public class Main extends JFrame {
         if (programPane.getTabCount() <= 0) return -1;
         if (changes.get(getCodeArea())) {
             String content = getCode();
-            SyntaxHighlighter.colorKeywords(getCodeArea(), content);
+            SyntaxHighlighter.colorKeywords(getCodeArea());
             String filePath = getFilePath();
             return save(content, filePath);
         } else {
@@ -627,12 +629,12 @@ public class Main extends JFrame {
             fileName = file.getName();
             try {
                 String content = new String(Files.readAllBytes(file.toPath()));
-                SyntaxHighlighter.colorKeywords(area, content);
+                area.setText(content);
+                SyntaxHighlighter.colorKeywords(area);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-//        area.setTabSize(2);
         UndoManager manager = new UndoManager();
         //-1 means no limit
         manager.setLimit(-1);
