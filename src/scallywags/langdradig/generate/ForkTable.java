@@ -1,17 +1,20 @@
 package scallywags.langdradig.generate;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by Jeroen Weener on 23/06/2016.
  */
 public class ForkTable {
     private Stack<Scope> scopes = new Stack<>();
+    private List<Scope> scopeList = new ArrayList<>();
+    private int depth = 0;
 
-    public void openScope() {
-        scopes.add(new Scope());
+    public void openScope(String name) {
+        depth++;
+        Scope scope = new Scope(name, depth);
+        scopes.add(scope);
+        scopeList.add(scope);
     }
 
     public void closeScope() {
@@ -51,6 +54,10 @@ public class ForkTable {
         return b == null ? false : b;
     }
 
+    public List<Scope> getScopeList() {
+        return scopeList;
+    }
+
 
 
     //Methods needed to access the symbol table in the current thread
@@ -86,11 +93,15 @@ public class ForkTable {
 
     // The inner class Scope
 
-    private class Scope {
-        SymbolTable symbolTable = new SymbolTable();
-        Map<String, Boolean> threads = new HashMap<>();
+    public class Scope {
+        private SymbolTable symbolTable = new SymbolTable();
+        private Map<String, Boolean> threads = new HashMap<>();
+        private String name;
+        private int depth;
 
-        public Scope() {
+        public Scope(String name, int depth) {
+            this.depth = depth;
+            this.name = name;
             symbolTable.openScope();
         }
 
@@ -114,9 +125,13 @@ public class ForkTable {
             return threads.containsKey(identifier);
         }
 
+        public int getDepth() {
+            return depth;
+        }
+
         @Override
         public String toString() {
-            return "Scope{\nthreads = " + threads + "}";
+            return name;
         }
     }
 }

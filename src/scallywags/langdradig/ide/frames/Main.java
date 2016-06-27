@@ -1,7 +1,6 @@
 package scallywags.langdradig.ide.frames;
 
 import scallywags.langdradig.generate.Checker;
-import scallywags.langdradig.generate.Variable;
 import scallywags.langdradig.generate.exceptions.CheckerException;
 import scallywags.langdradig.ide.errors.LANGdradigError;
 import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
@@ -26,7 +25,7 @@ import scallywags.langdradig.ide.Compiler;
 import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
 import scallywags.langdradig.ide.features.finished.TextLineNumber;
-import scallywags.langdradig.ide.features.finished.VariableOverview;
+import scallywags.langdradig.ide.features.finished.ProgramStructureOverview;
 import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
 
 /**
@@ -47,6 +46,7 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
  * add deelbaar door
  * saving file with existing name dialog
  * saving file as file that is already open should merge tabs
+ * make variable overview a tree component
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -444,11 +444,7 @@ public class Main extends JFrame {
         } else {
             correctProgram = true;
         }
-        printVariables(checker.getVariables());
-    }
-
-    private void printVariables(List<Variable> variables) {
-        variableView.setText(VariableOverview.printScopes(variables));
+        variableView.setText(ProgramStructureOverview.printScopes(checker.getForkTable()));
     }
 
     public void clearMessages() {
