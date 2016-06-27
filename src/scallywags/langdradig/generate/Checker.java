@@ -64,7 +64,7 @@ public class Checker extends LANGdradigBaseListener {
     	Checker checker = new Checker();
     	checker.checkFile("src/scallywags/langdradig/example/print.langdradig");
     	System.out.println(checker.getParserExceptions());
-    	checker.getVariables();
+    	System.out.println(checker.getCheckerExceptions());
     }
     
     public Type getType(ParseTree node) {
