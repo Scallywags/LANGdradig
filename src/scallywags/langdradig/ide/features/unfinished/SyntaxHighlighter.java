@@ -1,46 +1,62 @@
 package scallywags.langdradig.ide.features.unfinished;
 
-import scallywags.langdradig.generate.Variable;
-
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
+import javax.swing.text.*;
 import java.awt.*;
-import java.util.List;
 
 /**
  * Created by Jeroen Weener on 22/06/2016.
+ *
+ * A very naïve syntaxHighlighter
  */
 public class SyntaxHighlighter {
-    private static final boolean ON = false;
+    private static final String[] keywords = {"als", "anders", "zolang", "getal", "stelling", "besteed", "uit", "aan", "kritiek", "wacht op", "gedeeld", "gedeelde", "doe", "klaar"};
 
-    public static void highlightVariables(JTextArea area, List<Variable> variables) {
-        if (!ON) return;
-        //TODO
-    }
-
-    public static void colorKeywords(JTextPane area, String content) {
+    public static void colorKeywords(JTextPane area) {
         try {
-            SimpleAttributeSet set = new SimpleAttributeSet();
-            StyleConstants.setItalic(set, true);
-            StyleConstants.setForeground(set, Color.YELLOW);
-            String searchString = content;
+            StyledDocument sDoc = area.getStyledDocument();
+            Style defaultStyle = StyleContext.
+                    getDefaultStyleContext().
+                    getStyle(StyleContext.DEFAULT_STYLE);
+            sDoc.setCharacterAttributes(0, sDoc.getLength(), defaultStyle, true);
             Document doc = area.getStyledDocument();
-            int start;
-            int acc = 0;
-            do {
-                start = searchString.indexOf("als");
-                acc = start + searchString.indexOf("als");
-                doc.insertString(start, "SLA", set);
-                doc.remove(start + 3, 3);
-                searchString = searchString.substring(acc);
-                System.out.println("TEST");
-            } while (start != -1);
+            for (String keyword : keywords) {
+                SimpleAttributeSet set = new SimpleAttributeSet();
+                StyleConstants.setForeground(set, getKeywordColor(keyword));
+                String searchString = doc.getText(0, doc.getLength());
+                int start = searchString.indexOf(keyword);
+                int acc = start;
+                while (start != -1) {
+                    doc.insertString(acc, keyword, set);
+                    doc.remove(acc + keyword.length(), keyword.length());
+                    searchString = searchString.substring(start + 1);
+                    start = searchString.indexOf(keyword);
+                    acc += start + 1;
+                }
+            }
             area.setCharacterAttributes(new SimpleAttributeSet(), true);
         } catch (BadLocationException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static Color getKeywordColor(String keyword) {
+        // Branch statements are blue
+        if (keyword.equals("als") || keyword.equals("anders") || keyword.equals("zolang")) {
+            return Color.BLUE;
+
+            // Type syntax is orange
+        } else if (keyword.equals("getal") || keyword.equals("stelling")) {
+            return Color.decode("#FF8800");
+
+            // Concurrency syntax is red
+        } else if (keyword.equals("besteed") || keyword.equals("uit") || keyword.equals("aan") || keyword.equals("kritiek") ||
+                keyword.equals("wacht op") || keyword.equals("gedeeld") || keyword.equals("gedeelde")) {
+            return Color.RED;
+
+        } else {
+            // The rest of the keywords are just black
+            return Color.BLACK;
         }
     }
 }
