@@ -53,6 +53,7 @@ ONWAAR			:	O N WAAR							            ;
 // Arrays
 PLEK			: P L E K											;
 LENGTE			: L E N G T E										;
+ZET				: Z E T												;
 
 // Syntactic sugar
 KLOPT			:	K L O P T							            ;
