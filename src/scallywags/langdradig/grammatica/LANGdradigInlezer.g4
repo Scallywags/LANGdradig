@@ -43,7 +43,7 @@ ZOLANG			:	Z O L A N G	| T E R W I J L                     ;
 // Types
 GETAL		    :   G E T A L | G E T A L L E N                     ;
 STELLING		:	S T E L L I N G	| S T E L L I N G E N           ;
-REEKS			:	R E E K S					                    ;
+REEKS			:	R E E K S | R E E K S E N	                    ;
 TEKST			:	T E K S T					                    ;
 
 // Values for stelling
