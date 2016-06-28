@@ -31,22 +31,18 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
- * // TODO translate True and False in compiler
- * // TODO add tests for arrays to ParseTest
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
  * Support CTRL + F
  * Auto formatting
  * Add warnings (ex. not joining child threads)
- * Syntax highlighting (ex. variables in italics, comments greyed out)
  * Split highlighter to explicit feature
  * For loop
  * add deelbaar door
  * saving file with existing name dialog
  * saving file as file that is already open should merge tabs
  * make variable overview a tree component
- * <p>
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
