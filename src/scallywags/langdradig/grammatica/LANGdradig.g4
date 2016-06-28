@@ -21,6 +21,10 @@ statement	:	IDENTIFIER IS EEN type PUNT		            										    #declStat
 
 expression	:	primary																					#primExpr
 			
+			|	<assoc=right> IDENTIFIER OP PLEK expression WORDT expression							#indexAssExpr
+			|	IDENTIFIER OP PLEK expression															#indexExpr
+			|	DE LENGTE VAN expression																#lengthExpr
+			
 			|	MIN expression																			#negExpr
 			|	NIET expression 																		#notExpr
 			|   (((VERHOOG | VERLAAG) IDENTIFIER) | (HOOG IDENTIFIER OP))                               #crementExpr
@@ -37,9 +41,6 @@ expression	:	primary																					#primExpr
 						
 			|	<assoc=right> IDENTIFIER WORDT expression												#assExpr
 			
-			|	<assoc=right> IDENTIFIER OP PLEK expression WORDT expression							#indexAssExpr
-			|	IDENTIFIER OP PLEK expression															#indexExpr
-			|	DE LENGTE VAN expression																#lengthExpr
 			;
 
 primary		:	LH expression RH						                                                #parExpr

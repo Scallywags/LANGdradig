@@ -968,52 +968,52 @@ public class LANGdradigParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				{
-				_localctx = new NegExprContext(_localctx);
+				_localctx = new IndexExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(96); match(MIN);
-				setState(97); expression(15);
+				setState(96); match(IDENTIFIER);
+				setState(97); match(OP);
+				setState(98); match(PLEK);
+				setState(99); expression(14);
 				}
 				break;
 			case 2:
 				{
-				_localctx = new NotExprContext(_localctx);
+				_localctx = new LengthExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(98); match(NIET);
-				setState(99); expression(14);
+				setState(100); match(DE);
+				setState(101); match(LENGTE);
+				setState(102); match(VAN);
+				setState(103); expression(13);
 				}
 				break;
 			case 3:
 				{
-				_localctx = new AssExprContext(_localctx);
+				_localctx = new NegExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(100); match(IDENTIFIER);
-				setState(101); match(WORDT);
-				setState(102); expression(4);
+				setState(104); match(MIN);
+				setState(105); expression(12);
 				}
 				break;
 			case 4:
 				{
-				_localctx = new IndexExprContext(_localctx);
+				_localctx = new NotExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(103); match(IDENTIFIER);
-				setState(104); match(OP);
-				setState(105); match(PLEK);
-				setState(106); expression(2);
+				setState(106); match(NIET);
+				setState(107); expression(11);
 				}
 				break;
 			case 5:
 				{
-				_localctx = new LengthExprContext(_localctx);
+				_localctx = new AssExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(107); match(DE);
-				setState(108); match(LENGTE);
-				setState(109); match(VAN);
+				setState(108); match(IDENTIFIER);
+				setState(109); match(WORDT);
 				setState(110); expression(1);
 				}
 				break;
@@ -1027,50 +1027,50 @@ public class LANGdradigParser extends Parser {
 				break;
 			case 7:
 				{
+				_localctx = new IndexAssExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(112); match(IDENTIFIER);
+				setState(113); match(OP);
+				setState(114); match(PLEK);
+				setState(115); expression(0);
+				setState(116); match(WORDT);
+				setState(117); expression(0);
+				}
+				break;
+			case 8:
+				{
 				_localctx = new CrementExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(117);
+				setState(124);
 				switch (_input.LA(1)) {
 				case VERHOOG:
 				case VERLAAG:
 					{
 					{
-					setState(112);
+					setState(119);
 					_la = _input.LA(1);
 					if ( !(_la==VERHOOG || _la==VERLAAG) ) {
 					_errHandler.recoverInline(this);
 					}
 					consume();
-					setState(113); match(IDENTIFIER);
+					setState(120); match(IDENTIFIER);
 					}
 					}
 					break;
 				case HOOG:
 					{
 					{
-					setState(114); match(HOOG);
-					setState(115); match(IDENTIFIER);
-					setState(116); match(OP);
+					setState(121); match(HOOG);
+					setState(122); match(IDENTIFIER);
+					setState(123); match(OP);
 					}
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				}
-				break;
-			case 8:
-				{
-				_localctx = new IndexAssExprContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(119); match(IDENTIFIER);
-				setState(120); match(OP);
-				setState(121); match(PLEK);
-				setState(122); expression(0);
-				setState(123); match(WORDT);
-				setState(124); expression(0);
 				}
 				break;
 			}
@@ -1090,9 +1090,9 @@ public class LANGdradigParser extends Parser {
 						_localctx = new PowExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(128);
-						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(129); match(TOTDEMACHT);
-						setState(130); expression(12);
+						setState(130); expression(9);
 						}
 						break;
 					case 2:
@@ -1100,14 +1100,14 @@ public class LANGdradigParser extends Parser {
 						_localctx = new FactorExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(131);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(132);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << KEER) | (1L << GEDEELDDOOR) | (1L << MODULUS))) != 0)) ) {
 						_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(133); expression(12);
+						setState(133); expression(9);
 						}
 						break;
 					case 3:
@@ -1115,14 +1115,14 @@ public class LANGdradigParser extends Parser {
 						_localctx = new TermExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(134);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(135);
 						_la = _input.LA(1);
 						if ( !(_la==PLUS || _la==MIN) ) {
 						_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(136); expression(11);
+						setState(136); expression(8);
 						}
 						break;
 					case 4:
@@ -1130,7 +1130,7 @@ public class LANGdradigParser extends Parser {
 						_localctx = new RangeExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(137);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(138); match(LIGT);
 						setState(139);
 						_la = _input.LA(1);
@@ -1140,7 +1140,7 @@ public class LANGdradigParser extends Parser {
 						consume();
 						setState(140); expression(0);
 						setState(141); match(EN);
-						setState(142); expression(10);
+						setState(142); expression(7);
 						}
 						break;
 					case 5:
@@ -1148,14 +1148,14 @@ public class LANGdradigParser extends Parser {
 						_localctx = new CmpExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(144);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(145);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << KLEINERDAN) | (1L << GROTERDAN) | (1L << KLEINEROFGELIJK) | (1L << GROTEROFGELIJK))) != 0)) ) {
 						_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(146); expression(8);
+						setState(146); expression(5);
 						}
 						break;
 					case 6:
@@ -1163,14 +1163,14 @@ public class LANGdradigParser extends Parser {
 						_localctx = new EqExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(147);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(148);
 						_la = _input.LA(1);
 						if ( !(_la==GELIJKAAN || _la==ONGELIJKAAN) ) {
 						_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(149); expression(7);
+						setState(149); expression(4);
 						}
 						break;
 					case 7:
@@ -1178,14 +1178,14 @@ public class LANGdradigParser extends Parser {
 						_localctx = new BoolExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(150);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(151);
 						_la = _input.LA(1);
 						if ( !(_la==EN || _la==OF) ) {
 						_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(152); expression(6);
+						setState(152); expression(3);
 						}
 						break;
 					case 8:
@@ -1193,7 +1193,7 @@ public class LANGdradigParser extends Parser {
 						_localctx = new RangeExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(153);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(154);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TUSSEN) | (1L << BINNEN) | (1L << BUITEN))) != 0)) ) {
@@ -1558,14 +1558,14 @@ public class LANGdradigParser extends Parser {
 	}
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return precpred(_ctx, 12);
-		case 1: return precpred(_ctx, 11);
-		case 2: return precpred(_ctx, 10);
-		case 3: return precpred(_ctx, 9);
-		case 4: return precpred(_ctx, 7);
-		case 5: return precpred(_ctx, 6);
-		case 6: return precpred(_ctx, 5);
-		case 7: return precpred(_ctx, 8);
+		case 0: return precpred(_ctx, 9);
+		case 1: return precpred(_ctx, 8);
+		case 2: return precpred(_ctx, 7);
+		case 3: return precpred(_ctx, 6);
+		case 4: return precpred(_ctx, 4);
+		case 5: return precpred(_ctx, 3);
+		case 6: return precpred(_ctx, 2);
+		case 7: return precpred(_ctx, 5);
 		}
 		return true;
 	}
@@ -1578,11 +1578,11 @@ public class LANGdradigParser extends Parser {
 		"\3\3\3\3\3\5\38\n\3\3\3\3\3\3\3\5\3=\n\3\3\3\5\3@\n\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\6\3K\n\3\r\3\16\3L\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3`\n\3\3\4\3\4\3\4\3\4\3\4\3"+
-		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4"+
-		"x\n\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\u0081\n\4\3\4\3\4\3\4\3\4\3\4\3"+
 		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
-		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\u00a3\n\4\f\4\16\4\u00a6\13\4"+
-		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5\u00b4\n\5\f\5\16"+
+		"\3\4\3\4\3\4\3\4\3\4\3\4\5\4\177\n\4\5\4\u0081\n\4\3\4\3\4\3\4\3\4\3\4"+
+		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
+		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\u00a3\n\4\f\4\16\4\u00a6\13"+
+		"\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5\u00b4\n\5\f\5\16"+
 		"\5\u00b7\13\5\3\5\3\5\5\5\u00bb\n\5\3\6\3\6\3\6\3\6\3\6\3\6\5\6\u00c3"+
 		"\n\6\3\6\2\3\6\7\2\4\6\b\n\2\t\4\2!!##\4\2\5\6\b\b\3\2\3\4\3\2%\'\3\2"+
 		"\16\21\3\2\f\r\3\2\n\13\u00e9\2\17\3\2\2\2\4_\3\2\2\2\6\u0080\3\2\2\2"+
@@ -1603,21 +1603,21 @@ public class LANGdradigParser extends Parser {
 		"XY\7>\2\2Y`\5\4\3\2Z[\7\60\2\2[\\\5\6\4\2\\]\7\61\2\2]^\7\62\2\2^`\3\2"+
 		"\2\2_\22\3\2\2\2_\30\3\2\2\2_\37\3\2\2\2_(\3\2\2\2_+\3\2\2\2_9\3\2\2\2"+
 		"_C\3\2\2\2_H\3\2\2\2_S\3\2\2\2_W\3\2\2\2_Z\3\2\2\2`\5\3\2\2\2ab\b\4\1"+
-		"\2bc\7\4\2\2c\u0081\5\6\4\21de\7\t\2\2e\u0081\5\6\4\20fg\7>\2\2gh\7\22"+
-		"\2\2h\u0081\5\6\4\6ij\7>\2\2jk\7:\2\2kl\7\36\2\2l\u0081\5\6\4\4mn\7<\2"+
-		"\2no\7\37\2\2op\7;\2\2p\u0081\5\6\4\3q\u0081\5\b\5\2rs\t\2\2\2sx\7>\2"+
-		"\2tu\7\"\2\2uv\7>\2\2vx\7:\2\2wr\3\2\2\2wt\3\2\2\2x\u0081\3\2\2\2yz\7"+
-		">\2\2z{\7:\2\2{|\7\36\2\2|}\5\6\4\2}~\7\22\2\2~\177\5\6\4\2\177\u0081"+
-		"\3\2\2\2\u0080a\3\2\2\2\u0080d\3\2\2\2\u0080f\3\2\2\2\u0080i\3\2\2\2\u0080"+
-		"m\3\2\2\2\u0080q\3\2\2\2\u0080w\3\2\2\2\u0080y\3\2\2\2\u0081\u00a4\3\2"+
-		"\2\2\u0082\u0083\f\16\2\2\u0083\u0084\7\7\2\2\u0084\u00a3\5\6\4\16\u0085"+
-		"\u0086\f\r\2\2\u0086\u0087\t\3\2\2\u0087\u00a3\5\6\4\16\u0088\u0089\f"+
-		"\f\2\2\u0089\u008a\t\4\2\2\u008a\u00a3\5\6\4\r\u008b\u008c\f\13\2\2\u008c"+
+		"\2bc\7>\2\2cd\7:\2\2de\7\36\2\2e\u0081\5\6\4\20fg\7<\2\2gh\7\37\2\2hi"+
+		"\7;\2\2i\u0081\5\6\4\17jk\7\4\2\2k\u0081\5\6\4\16lm\7\t\2\2m\u0081\5\6"+
+		"\4\rno\7>\2\2op\7\22\2\2p\u0081\5\6\4\3q\u0081\5\b\5\2rs\7>\2\2st\7:\2"+
+		"\2tu\7\36\2\2uv\5\6\4\2vw\7\22\2\2wx\5\6\4\2x\u0081\3\2\2\2yz\t\2\2\2"+
+		"z\177\7>\2\2{|\7\"\2\2|}\7>\2\2}\177\7:\2\2~y\3\2\2\2~{\3\2\2\2\177\u0081"+
+		"\3\2\2\2\u0080a\3\2\2\2\u0080f\3\2\2\2\u0080j\3\2\2\2\u0080l\3\2\2\2\u0080"+
+		"n\3\2\2\2\u0080q\3\2\2\2\u0080r\3\2\2\2\u0080~\3\2\2\2\u0081\u00a4\3\2"+
+		"\2\2\u0082\u0083\f\13\2\2\u0083\u0084\7\7\2\2\u0084\u00a3\5\6\4\13\u0085"+
+		"\u0086\f\n\2\2\u0086\u0087\t\3\2\2\u0087\u00a3\5\6\4\13\u0088\u0089\f"+
+		"\t\2\2\u0089\u008a\t\4\2\2\u008a\u00a3\5\6\4\n\u008b\u008c\f\b\2\2\u008c"+
 		"\u008d\7$\2\2\u008d\u008e\t\5\2\2\u008e\u008f\5\6\4\2\u008f\u0090\7\n"+
-		"\2\2\u0090\u0091\5\6\4\f\u0091\u00a3\3\2\2\2\u0092\u0093\f\t\2\2\u0093"+
-		"\u0094\t\6\2\2\u0094\u00a3\5\6\4\n\u0095\u0096\f\b\2\2\u0096\u0097\t\7"+
-		"\2\2\u0097\u00a3\5\6\4\t\u0098\u0099\f\7\2\2\u0099\u009a\t\b\2\2\u009a"+
-		"\u00a3\5\6\4\b\u009b\u009c\f\n\2\2\u009c\u009d\t\5\2\2\u009d\u009e\5\6"+
+		"\2\2\u0090\u0091\5\6\4\t\u0091\u00a3\3\2\2\2\u0092\u0093\f\6\2\2\u0093"+
+		"\u0094\t\6\2\2\u0094\u00a3\5\6\4\7\u0095\u0096\f\5\2\2\u0096\u0097\t\7"+
+		"\2\2\u0097\u00a3\5\6\4\6\u0098\u0099\f\4\2\2\u0099\u009a\t\b\2\2\u009a"+
+		"\u00a3\5\6\4\5\u009b\u009c\f\7\2\2\u009c\u009d\t\5\2\2\u009d\u009e\5\6"+
 		"\4\2\u009e\u009f\7\n\2\2\u009f\u00a0\5\6\4\2\u00a0\u00a1\7$\2\2\u00a1"+
 		"\u00a3\3\2\2\2\u00a2\u0082\3\2\2\2\u00a2\u0085\3\2\2\2\u00a2\u0088\3\2"+
 		"\2\2\u00a2\u008b\3\2\2\2\u00a2\u0092\3\2\2\2\u00a2\u0095\3\2\2\2\u00a2"+
@@ -1633,7 +1633,7 @@ public class LANGdradigParser extends Parser {
 		"\u00af\3\2\2\2\u00bb\t\3\2\2\2\u00bc\u00c3\7\30\2\2\u00bd\u00c3\7\31\2"+
 		"\2\u00be\u00bf\7\32\2\2\u00bf\u00c0\7;\2\2\u00c0\u00c1\7=\2\2\u00c1\u00c3"+
 		"\5\n\6\2\u00c2\u00bc\3\2\2\2\u00c2\u00bd\3\2\2\2\u00c2\u00be\3\2\2\2\u00c3"+
-		"\13\3\2\2\2\22\17#.\61\67<?L_w\u0080\u00a2\u00a4\u00b5\u00ba\u00c2";
+		"\13\3\2\2\2\22\17#.\61\67<?L_~\u0080\u00a2\u00a4\u00b5\u00ba\u00c2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

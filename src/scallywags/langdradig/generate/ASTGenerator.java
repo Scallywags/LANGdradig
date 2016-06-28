@@ -381,6 +381,12 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 				+ " " + LPAR + visit(ctx.expression()) + RPAR;
 	}
 	
+	//TODO arrayExpressions
+	@Override
+	public String visitIndexExpr(IndexExprContext ctx) {
+		return SPOT + " " + LPAR + visit(ctx.expression()) + RPAR + " " + visit(ctx.IDENTIFIER());
+	}
+	
 	// -------------- Primary --------------
 	
 	public String visitParExpr(ParExprContext ctx) {
@@ -415,11 +421,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		}
 		builder.append(LSQ).append(RSQ).append(RPAR);
 		return builder.toString();
-	}
-	
-	@Override
-	public String visitIndexExpr(IndexExprContext ctx) {
-		return SPOT + " " + LPAR + visit(ctx.expression()) + RPAR + " " + visit(ctx.IDENTIFIER());
 	}
 	
 	// -------------- Type --------------
