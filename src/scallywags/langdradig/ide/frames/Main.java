@@ -17,8 +17,6 @@ import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
@@ -714,17 +712,15 @@ public class Main extends JFrame {
         tabPanel.setOpaque(false);
         tabPanel.add(new JLabel(fileName));
         JButton closeButton = new JButton();
-        closeButton.setIcon(new ImageIcon("src\\scallywags\\langdradig\\ide\\icons\\cancel.png"));
+        closeButton.setIcon(new ImageIcon("src\\scallywags\\langdradig\\ide\\icons\\cross.png"));
         closeButton.setContentAreaFilled(false);
         closeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                closeButton.setForeground(Color.RED);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                closeButton.setForeground(Color.BLACK);
             }
 
             @Override

@@ -10,7 +10,7 @@ statement	:	IDENTIFIER IS EEN type PUNT		            										    #declStat
             |   IDENTIFIER IS EEN GEDEELDE type PUNT												    #sharedDeclStat
 			|	DOE statement* KLAAR PUNT 																#blockStat
 			|	expression PUNT																            #exprStat
-			|	ALS expression (NIET? KLOPT)? DAN statement (ANDERS statement)? 		                #ifStat
+			|	ALS expression (NIET? KLOPT)? DAN? statement (ANDERS statement)? 		                #ifStat
 			|	ZOLANG expression (NIET? KLOPT)? statement					        		            #whileStat
 			|	BESTEED UIT AAN IDENTIFIER statement  										            #forkStat
 			|   BESTEED statement+ UIT AAN IDENTIFIER PUNT                                              #blockForkStat
@@ -40,7 +40,10 @@ expression	:	primary																					#primExpr
 			|	expression (EN | OF) expression															#boolExpr
 						
 			|	<assoc=right> IDENTIFIER WORDT expression												#assExpr
-			
+
+			|	<assoc=right> IDENTIFIER OP PLEK expression WORDT expression							#indexAssExpr
+			|	IDENTIFIER OP PLEK expression															#indexExpr
+			|	DE LENGTE VAN IDENTIFIER																#lengthExpr
 			;
 
 primary		:	LH expression RH						                                                #parExpr

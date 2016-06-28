@@ -7,7 +7,7 @@ import java.awt.*;
 
 /**
  * Created by Jeroen Weener on 22/06/2016.
- *
+ * <p>
  * A very naïve syntaxHighlighter
  */
 public class SyntaxHighlighter {
@@ -15,42 +15,48 @@ public class SyntaxHighlighter {
 
     public static void highlightSyntax(JTextPane area) {
         StyledDocument doc = area.getStyledDocument();
-        Style defaultStyle = StyleContext.
-                getDefaultStyleContext().
-                getStyle(StyleContext.DEFAULT_STYLE);
+        Style defaultStyle = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
         doc.setCharacterAttributes(0, doc.getLength(), defaultStyle, true);
         try {
-            colorComments(area);
             colorKeywords(area);
-        } catch (BadLocationException ignore){}
+            colorComments(area);
+        } catch (BadLocationException ignore) {
+        }
     }
 
     private static void colorComments(JTextPane area) throws BadLocationException {
         StyledDocument doc = area.getStyledDocument();
-        String content = doc.getText(0, doc.getLength());
-        String[] intermediate = content.split("#");
-        String[] comments = new String[intermediate.length];
-        for (int i = 1; i < intermediate.length; i++) {
-            comments[i] = intermediate[i].split("\n")[0];
+        SimpleAttributeSet set = new SimpleAttributeSet();
+        StyleConstants.setForeground(set, Color.GRAY);
+        String searchString = doc.getText(0, doc.getLength());
+        int start = searchString.indexOf('#');
+        int acc = start;
+        searchString = searchString.substring(start + 1);
+        while (start != -1) {
+            int end = searchString.indexOf('\n');
+            end = end == -1 ? searchString.length() : end;
+            doc.setCharacterAttributes(acc, end + 1, set, true);
+            searchString = searchString.substring(start + 1);
+            acc += start + 1;
         }
     }
 
     private static void colorKeywords(JTextPane area) throws BadLocationException {
-            StyledDocument doc = area.getStyledDocument();
-            for (String keyword : keywords) {
-                SimpleAttributeSet set = new SimpleAttributeSet();
-                StyleConstants.setForeground(set, getKeywordColor(keyword));
-                String searchString = doc.getText(0, doc.getLength());
-                int start = searchString.indexOf(keyword);
-                int acc = start;
-                while (start != -1) {
-                    doc.setCharacterAttributes(acc, keyword.length(), set, true);
-                    searchString = searchString.substring(start + 1);
-                    start = searchString.indexOf(keyword);
-                    acc += start + 1;
-                }
+        StyledDocument doc = area.getStyledDocument();
+        for (String keyword : keywords) {
+            SimpleAttributeSet set = new SimpleAttributeSet();
+            StyleConstants.setForeground(set, getKeywordColor(keyword));
+            String searchString = doc.getText(0, doc.getLength());
+            int start = searchString.indexOf(keyword);
+            int acc = start;
+            while (start != -1) {
+                doc.setCharacterAttributes(acc, keyword.length(), set, true);
+                searchString = searchString.substring(start + 1);
+                start = searchString.indexOf(keyword);
+                acc += start + 1;
             }
-            area.setCharacterAttributes(new SimpleAttributeSet(), true);
+        }
+        area.setCharacterAttributes(new SimpleAttributeSet(), true);
     }
 
     private static Color getKeywordColor(String keyword) {

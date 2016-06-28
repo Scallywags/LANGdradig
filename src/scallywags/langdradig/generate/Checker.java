@@ -66,7 +66,6 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void enterProgram(ProgramContext ctx) {
-        System.out.println("open - enterProgram");
         forkTable.openScope("Main");
     }
 
@@ -75,7 +74,6 @@ public class Checker extends LANGdradigBaseListener {
         if (!forkTable.waitedOnAll()) {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
-        System.out.println("close - exitProgram");
         forkTable.closeScope();
     }
 
@@ -107,7 +105,6 @@ public class Checker extends LANGdradigBaseListener {
             } else {
                 forkTable.addThread(id);
             }
-            System.out.println("open - enterForkStat");
         } else {
             id = "onbekend";
         }
@@ -119,7 +116,6 @@ public class Checker extends LANGdradigBaseListener {
         if (!forkTable.waitedOnAll()) {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
-        System.out.println("close - exitForkStat");
         forkTable.closeScope();
     }
 
@@ -132,7 +128,6 @@ public class Checker extends LANGdradigBaseListener {
             } else {
                 forkTable.addThread(id);
             }
-            System.out.println("open - enterBlockForkStat");
             forkTable.openScope(id);
         }
     }
@@ -142,7 +137,6 @@ public class Checker extends LANGdradigBaseListener {
         if (!forkTable.waitedOnAll()) {
             exceptions.add(new NotWaitingForThreadException(ctx, forkTable.getNotWaitedOn()));
         }
-        System.out.println("close - exitBlockForkStat");
         forkTable.closeScope();
     }
 
@@ -332,6 +326,51 @@ public class Checker extends LANGdradigBaseListener {
             exceptions.add(new TypeException(ctx, idfType, exprType));
         }
         types.put(ctx, exprType);
+    }
+
+    @Override
+    public void exitIndexExpr(IndexExprContext ctx) {
+        Type arrayType = forkTable.getType(ctx.IDENTIFIER().getText());
+        Type exprType = types.get(ctx.expression());
+        if (arrayType instanceof Type.ArrayType) {
+            types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
+        } else {
+            //TODO
+            exceptions.add(new TypeException(ctx, Type.ARRAY(null, 0), arrayType));
+        }
+        if (exprType != Type.INTEGER) {
+            exceptions.add(new TypeException(ctx, Type.INTEGER, exprType));
+        }
+    }
+
+    @Override
+    public void exitIndexAssExpr(IndexAssExprContext ctx) {
+        List<ExpressionContext> expressions = ctx.expression();
+        Type arrayType = forkTable.getType(ctx.IDENTIFIER().getText());
+        Type indexType = types.get(expressions.get(0));
+        Type valueType = types.get(expressions.get(1));
+        if (arrayType instanceof Type.ArrayType) {
+            if (valueType != ((Type.ArrayType) arrayType).getElemType()) {
+                exceptions.add(new TypeException(ctx, ((Type.ArrayType) arrayType).getElemType(), valueType));
+            }
+            types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
+        } else {
+            //TODO
+            exceptions.add(new TypeException(ctx, Type.ARRAY(null, 0), arrayType));
+        }
+        if (indexType != Type.INTEGER) {
+            exceptions.add(new TypeException(ctx, Type.INTEGER, indexType));
+        }
+    }
+
+    @Override
+    public void exitLengthExpr(LengthExprContext ctx) {
+        Type exprType = forkTable.getType(ctx.IDENTIFIER().getText());
+        if (exprType instanceof Type.ArrayType) {
+            types.put(ctx, exprType);
+        } else {
+            exceptions.add(new TypeException(ctx, Type.ARRAY(null, 0), exprType));
+        }
     }
 
     // ------------- Primary -------------

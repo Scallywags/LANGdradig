@@ -53,11 +53,23 @@ public class ParseTest {
     }
 
     @Test
+    public void testArrayOperators() {
+        testCorrectProgram("a wordt array op plek 200.");
+        testCorrectProgram("as op plek 128 wordt 5 + 6 keer 18.");
+        testCorrectProgram("as wordt [1,2,3,4,5].");
+        testCorrectProgram("as wordt [waar, onwaar, niet waar, waar].");
+    }
+
+    @Test
     public void testDeclarations() {
         testCorrectProgram("b is een stelling.");
         testCorrectProgram("a is een getal.");
         testCorrectProgram("b is een gedeelde stelling.");
         testCorrectProgram("a is een gedeeld getal.");
+        testCorrectProgram("a is een reeks van 8 getallen.");
+        testCorrectProgram("b is een reeks van 16 stellingen.");
+        testCorrectProgram("a is een gedeelde reeks van 32 getallen.");
+        testCorrectProgram("b is een gedeelde reeks van 64 stellingen.");
     }
 
     @Test
@@ -121,8 +133,8 @@ public class ParseTest {
 
     @Test
     public void testLaatZien() {
-        testCorrectProgram("Laat a zien");                                                                      // Standard "laat zien" statement
-        testIncorrectProgram("laat zien");                                                                      // "Laat zien" statement without a variable
+        testCorrectProgram("laat a zien.");                                                                      // Standard "laat zien" statement
+        testIncorrectProgram("laat zien.");                                                                      // "Laat zien" statement without a variable
     }
 
     @Test
