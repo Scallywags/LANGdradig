@@ -46,7 +46,7 @@ public class SyntaxHighlighter {
         for (String keyword : keywords) {
             SimpleAttributeSet set = new SimpleAttributeSet();
             StyleConstants.setForeground(set, getKeywordColor(keyword));
-            String searchString = doc.getText(0, doc.getLength());
+            String searchString = doc.getText(0, doc.getLength()).toLowerCase();
             int start = searchString.indexOf(keyword);
             int acc = start;
             while (start != -1) {

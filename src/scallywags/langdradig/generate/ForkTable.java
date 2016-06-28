@@ -11,15 +11,15 @@ public class ForkTable {
     private int depth = 0;
 
     public void openScope(String name) {
-        depth++;
         Scope scope = new Scope(name, depth);
         scopes.add(scope);
         scopeList.add(scope);
+        depth++;
     }
 
     public void closeScope() {
-        depth--;
         scopes.pop();
+        depth--;
     }
 
     /**

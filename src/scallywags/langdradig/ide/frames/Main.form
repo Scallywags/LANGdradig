@@ -78,14 +78,9 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="45984" class="javax.swing.JTextArea" binding="variableView">
+                  <component id="95b34" class="javax.swing.JTextArea" binding="variableView">
                     <constraints/>
-                    <properties>
-                      <editable value="false"/>
-                      <focusable value="false"/>
-                      <tabSize value="2"/>
-                      <text value=""/>
-                    </properties>
+                    <properties/>
                   </component>
                 </children>
               </scrollpane>

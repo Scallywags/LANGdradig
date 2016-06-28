@@ -104,10 +104,6 @@ public class Main extends JFrame {
         final JScrollPane scrollPane1 = new JScrollPane();
         programmingViews.setRightComponent(scrollPane1);
         variableView = new JTextArea();
-        variableView.setEditable(false);
-        variableView.setFocusable(false);
-        variableView.setTabSize(2);
-        variableView.setText("");
         scrollPane1.setViewportView(variableView);
         showHideButton = new JButton();
         showHideButton.setInheritsPopupMenu(false);
@@ -334,6 +330,7 @@ public class Main extends JFrame {
             }
         });
         contentCheckTimer.setRepeats(false);
+
         pack();
         setTitle("LANGdradig IDE");
         setResizable(true);
