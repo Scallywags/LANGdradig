@@ -75,7 +75,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String NOT_EQUAL = "NotEqual";
 	private static final String LOGIC_AND = "LogicAnd";
 	private static final String LOGIC_OR = "LogicOr";
-	private static final String ASS = "Ass";	
+	private static final String ASS = "Ass";
+	private static final String SPOT = "Spot";
 	
 	private static final String NEG = "Neg";
 	private static final String NOT = "Not";
@@ -414,6 +415,11 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		}
 		builder.append(LSQ).append(RSQ).append(RPAR);
 		return builder.toString();
+	}
+	
+	@Override
+	public String visitIndexExpr(IndexExprContext ctx) {
+		return SPOT + " " + LPAR + visit(ctx.expression()) + RPAR + " " + visit(ctx.IDENTIFIER());
 	}
 	
 	// -------------- Type --------------

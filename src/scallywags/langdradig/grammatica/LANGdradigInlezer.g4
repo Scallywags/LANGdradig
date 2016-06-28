@@ -50,6 +50,10 @@ TEKST			:	T E K S T					                    ;
 WAAR			:	W A A R								            ;
 ONWAAR			:	O N WAAR							            ;
 
+// Arrays
+PLEK			: P L E K											;
+LENGTE			: L E N G T E										;
+
 // Syntactic sugar
 KLOPT			:	K L O P T							            ;
 
@@ -92,7 +96,6 @@ EEN				: E E N                                             ;
 OP              : O P	                                            ;
 VAN				: V A N												;
 DE				: D E												;
-PLEK			: P L E K											;
 
 NUMBER			: DIGIT+			                                ;
 IDENTIFIER		: LETTER ALPHANUM*	                                ;

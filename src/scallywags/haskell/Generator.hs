@@ -265,13 +265,42 @@ instance CodeGen Expr where
         localAddrMaybe  = offset lv string
         sharedAddrMaybe = offset sv string
 
+        --TODO fix for arrays?
         code = exprCode ++ case localAddrMaybe of
             Just localAddr  -> [Store regOut1 (DirAddr localAddr)]
             Nothing         -> case sharedAddrMaybe of
                 Just sharedAddr     -> [WriteInstr regOut1 (DirAddr sharedAddr)]
                 Nothing             -> error ("variable " ++ string ++ " not found.") 
 
-        --TODO make this work correctly for arrays;
+    -- SpotExpr
+    gen (Spot identifier indexExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, exprState{pc=pc+length code}) where
+            (indexCode, exprState)    = gen indexExpr cs
+
+            code = indexCode ++ case offset lv identifier of
+                Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
+
+                Nothing     -> case offset sv identifier of
+                    Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, ReadInstr (IndAddr regOut1), Receive regOut1]
+
+                    Nothing     -> error ("variable " ++ identifier ++ " not found.")
+
+    -- SpotAssExpr
+    gen (SpotAss identifier indexExpr valExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, valState{pc=pc+length code}) where
+        (indexCode, indexExprState{pc=indexPc}) = gen indexExpr cs
+        (valCode, valState)                   = gen valExpr indexExprState{pc=indexPc+1}
+
+        code = indexCode ++ [Push regOut1] ++ valCode ++ [Pop regOut2] ++ case offset lv identifier of --index: regOut2, newValue: regOut1
+            Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, Store (IndAddr regOut4) regOut1]
+
+            Nothing     -> case offset sv identifier of
+                Just addr   -> [Load (ImmValue addr) regOut3, Compute add regOut2 regOut3 regOut4, WriteInstr (IndAddr regOut4) regOut1]
+
+                Nothing     -> error ("variable " ++ identifier ++ " not found.")
+
+    -- ArrayExpr
+    gen (Array exprs) cs@CompileState{localVars=lv, nextLocalOffset=nlo, pc=pc} = (code, restState) where
+        code = [] --TODO
+        restState = cs{pc=pc+length code} --TODO?
 
 instance CodeGen UnOp where
     -- NegExpr

@@ -34,11 +34,12 @@ expression	:	primary																					#primExpr
 			|	expression (KLEINERDAN | GROTERDAN | KLEINEROFGELIJK | GROTEROFGELIJK) expression		#cmpExpr
 			|	expression (GELIJKAAN | ONGELIJKAAN) expression		                    				#eqExpr
 			|	expression (EN | OF) expression															#boolExpr
-			
-			|	expression OP DE TELWOORD PLEK															#indexExpr
-			
+						
 			|	<assoc=right> IDENTIFIER WORDT expression												#assExpr
-			|	<assoc=right> expression OP DE TELWOORD PLEK WORDT expression							#indexAssExpr
+			
+			|	<assoc=right> IDENTIFIER OP PLEK expression WORDT expression							#indexAssExpr
+			|	IDENTIFIER OP PLEK expression															#indexExpr
+			|	DE LENGTE VAN expression																#lengthExpr
 			;
 
 primary		:	LH expression RH						                                                #parExpr

@@ -19,12 +19,14 @@ data Expr   = Par Expr
             | Bool Bool
             | Idf String
             | Int Int
-            | Array [Expr]                                      --TODO fix codegen for array cases.
+            | Array [Expr]
             | UnOp UnOp Expr
             | BinOp BinOp Expr Expr
             | TrinOp TrinOp Expr Expr Expr
             | Crem Crem String
             | Ass String Expr
+            | Spot String Expr
+            | SpotAss String Expr Expr
             deriving (Show, Eq)
 
 data Crem   = Increm
