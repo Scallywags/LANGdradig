@@ -40,6 +40,12 @@ offset (((i, t, o):entries):scopes) identifier  | i == identifier   = Just o
 t_offset :: [(String, Offset)] -> String -> Maybe Offset
 t_offset table string = lookup string table
 
+entry :: [Scope] -> String -> Maybe Entry
+entry [] identifier                             = Nothing
+entry ([]:scopes) identifier                    = entry scopes identifier
+entry (((i, t, o):entries):scopes) identifier   | i == identifier   = Just (i, t, o)
+                                                | otherwise         = entry (entries:scopes) identifier
+
 regOut1 :: Int
 regOut1 = regE
 
@@ -63,12 +69,19 @@ class CodeGen c where
     gen :: c -> CompileState -> ([Instruction], CompileState)
 
 type Stats = [Stat]
+type Exprs = [Expr]
 
 instance CodeGen Stats where
-    gen [] compState  = ([], compState)
-    gen (stat:stats)   compState  = (statInstrs ++ restInstrs, restState) where
+    gen [] compState    = ([], compState)
+    gen (stat:stats)   compState    = (statInstrs ++ restInstrs, restState) where
         (statInstrs, statState) = gen stat compState
         (restInstrs, restState) = gen stats statState
+
+instance CodeGen Exprs where
+    gen [] compState    = ([], compState)
+    gen (expr:exprs)    compState   = (exprInstrs ++ restInstrs, restState) where
+        (exprInstrs, exprState) = gen expr compState
+        (restInstrs, restState) = gen exprs exprState
 
 instance CodeGen Prog where
     gen (Prog stats) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc}    = (code, statState{pc=restPc}) where
@@ -262,15 +275,26 @@ instance CodeGen Expr where
     -- AssignExpr
     gen (Ass string expr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, exprState{pc=pc+length code}) where
         (exprCode, exprState)   = gen expr cs
-        localAddrMaybe  = offset lv string
-        sharedAddrMaybe = offset sv string
 
-        --TODO fix for arrays?
-        code = exprCode ++ case localAddrMaybe of
-            Just localAddr  -> [Store regOut1 (DirAddr localAddr)]
-            Nothing         -> case sharedAddrMaybe of
-                Just sharedAddr     -> [WriteInstr regOut1 (DirAddr sharedAddr)]
-                Nothing             -> error ("variable " ++ string ++ " not found.") 
+        localEntryMaybe  = entry lv string
+        sharedEntryMaybe = entry sv string
+
+        code = case localEntryMaybe of
+            Just (localAddr, t, o)  -> case t of
+                IntType                 -> exprCode ++ [Store regOut1 (DirAddr o)]
+                BoolType                -> exprCode ++ [Store regOut1 (DirAddr o)]
+                ArrayType len _         -> fst (gen assExprs cs) where
+                        Array exprs = expr --should always succeed
+                        assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+
+            Nothing                 -> case sharedEntryMaybe of
+                Just (sharedAddr, t, o) -> case t of
+                    IntType                 -> exprCode ++ [WriteInstr regOut1 (DirAddr o)]
+                    BoolType                -> exprCode ++ [WriteInstr regOut1 (DirAddr o)]
+                    ArrayType len _         -> fst (gen assExprs cs) where
+                        Array exprs = expr --should always succeed
+                        assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                Nothing                 -> error ("variable " ++ string ++ " not found.") 
 
     -- SpotExpr
     gen (Spot identifier indexExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, exprState{pc=pc+length code}) where
@@ -298,9 +322,7 @@ instance CodeGen Expr where
                 Nothing     -> error ("variable " ++ identifier ++ " not found.")
 
     -- ArrayExpr
-    gen (Array exprs) cs@CompileState{localVars=lv, nextLocalOffset=nlo, pc=pc} = (code, restState) where
-        code = [] --TODO
-        restState = cs{pc=pc+length code} --TODO?
+    gen (Array exprs) cs@CompileState{pc=pc} = ([Load (ImmValue $ length exprs) regOut1], cs{pc=pc+1}) where
 
 instance CodeGen UnOp where
     -- NegExpr

@@ -78,7 +78,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String ASS = "Ass";
 	private static final String SPOT = "Spot";
 	private static final String SPOT_ASS = "SpotAss";
-	private static final String LENGTH = "Length";
 	
 	private static final String NEG = "Neg";
 	private static final String NOT = "Not";
@@ -136,13 +135,13 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest2.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "maximum.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
 	public String generate() throws IOException {
 		ProgramContext tree = new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program();
-		checker = new Checker();;
+		checker = new Checker();
 		ParseTreeWalker walker = new ParseTreeWalker();
 		walker.walk(checker, tree);
 		
@@ -385,7 +384,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitIndexExpr(IndexExprContext ctx) {
-		return SPOT + " " + LPAR + visit(ctx.expression()) + RPAR + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
+		return SPOT + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE + " " + LPAR + visit(ctx.expression()) + RPAR;
 	}
 	
 	@Override
@@ -397,7 +396,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitLengthExpr(LengthExprContext ctx) {
-		return LENGTH + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
+		return IDF + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	
 	// -------------- Primary --------------
