@@ -1,7 +1,8 @@
-package scallywags.langdradig.ide.features.unfinished;
+package scallywags.langdradig.ide.features.finished;
 
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.undo.UndoManager;
 import java.awt.*;
 
 /**
@@ -12,14 +13,30 @@ import java.awt.*;
 public class SyntaxHighlighter {
     private static final String[] keywords = {"als", "anders", "zolang", "getal", "stelling", "besteed", "uit", "aan", "kritiek", "wacht op", "gedeeld", "gedeelde", "doe", "klaar"};
 
-    public static void colorKeywords(JTextPane area) {
+    public static void highlightSyntax(JTextPane area) {
+        StyledDocument doc = area.getStyledDocument();
+        Style defaultStyle = StyleContext.
+                getDefaultStyleContext().
+                getStyle(StyleContext.DEFAULT_STYLE);
+        doc.setCharacterAttributes(0, doc.getLength(), defaultStyle, true);
         try {
-            StyledDocument sDoc = area.getStyledDocument();
-            Style defaultStyle = StyleContext.
-                    getDefaultStyleContext().
-                    getStyle(StyleContext.DEFAULT_STYLE);
-            sDoc.setCharacterAttributes(0, sDoc.getLength(), defaultStyle, true);
-            Document doc = area.getStyledDocument();
+            colorComments(area);
+            colorKeywords(area);
+        } catch (BadLocationException ignore){}
+    }
+
+    private static void colorComments(JTextPane area) throws BadLocationException {
+        StyledDocument doc = area.getStyledDocument();
+        String content = doc.getText(0, doc.getLength());
+        String[] intermediate = content.split("#");
+        String[] comments = new String[intermediate.length];
+        for (int i = 1; i < intermediate.length; i++) {
+            comments[i] = intermediate[i].split("\n")[0];
+        }
+    }
+
+    private static void colorKeywords(JTextPane area) throws BadLocationException {
+            StyledDocument doc = area.getStyledDocument();
             for (String keyword : keywords) {
                 SimpleAttributeSet set = new SimpleAttributeSet();
                 StyleConstants.setForeground(set, getKeywordColor(keyword));
@@ -27,17 +44,13 @@ public class SyntaxHighlighter {
                 int start = searchString.indexOf(keyword);
                 int acc = start;
                 while (start != -1) {
-                    doc.insertString(acc, keyword, set);
-                    doc.remove(acc + keyword.length(), keyword.length());
+                    doc.setCharacterAttributes(acc, keyword.length(), set, true);
                     searchString = searchString.substring(start + 1);
                     start = searchString.indexOf(keyword);
                     acc += start + 1;
                 }
             }
             area.setCharacterAttributes(new SimpleAttributeSet(), true);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
     }
 
     private static Color getKeywordColor(String keyword) {

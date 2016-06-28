@@ -9,14 +9,20 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public class SymbolTable {
+    private int scope = 0;
+
+    // This list is used for the IDE to be able to print the variables and their scopes
+    private List<Variable> variables = new ArrayList<>();
 
     private Stack<Scope> scopes = new Stack<>();
 
     public void openScope() {
+        scope++;
         scopes.add(new Scope());
     }
 
     public void closeScope() {
+        scope--;
         scopes.pop();
     }
 
@@ -25,12 +31,22 @@ public class SymbolTable {
      * @param type the type
      * @return true if the identifier was successfully added, false if the identifier was already declared in the current scope
      */
-    public boolean add(String id, Type type) {
-        return scopes.peek().add(id, type);
+    public boolean add(String id, Type type, boolean isShared) {
+        variables.add(new Variable(id, type, scope, isShared));
+        return scopes.peek().add(id, type, isShared);
     }
 
     public boolean contains(String id) {
         return scopes.stream().anyMatch(scope -> scope.contains(id));
+    }
+
+    public boolean isShared(String id) {
+        for (Scope scope : scopes) {
+            if (scope.contains(id)) {
+                return scope.isShared(id);
+            }
+        }
+        return false;
     }
 
     /**
@@ -55,8 +71,10 @@ public class SymbolTable {
 
     private class Scope {
         Map<String, Type> types = new HashMap<>();
+        Map<String, Boolean> shared = new HashMap<>();
 
-        public boolean add(String identifier, Type type) {
+        public boolean add(String identifier, Type type, boolean isShared) {
+            shared.put(identifier, isShared);
             return types.putIfAbsent(identifier, type) == null;
         }
 
@@ -67,9 +85,9 @@ public class SymbolTable {
         public Type getType(String identifier) {
             return types.get(identifier);
         }
-        
-        public Set<Entry<String, Type>> entrySet() {
-        	return types.entrySet();
+
+        public boolean isShared(String identifier) {
+            return shared.get(identifier);
         }
 
         @Override
@@ -79,14 +97,8 @@ public class SymbolTable {
     }
 
     public List<Variable> getVariables() {
-    	List<Variable> list = new ArrayList<>();
-        for (int i = 0; i < scopes.size(); i++) {
-        	Scope s = scopes.get(i);
-        	for (Entry<String, Type> e : s.entrySet()) {
-        		list.add(new Variable(e.getKey(), e.getValue(), i));
-        	}
-        }
-        return list;
+        return variables;
     }
+
 
 }
