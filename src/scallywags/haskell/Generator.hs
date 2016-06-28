@@ -286,14 +286,14 @@ instance CodeGen Expr where
 
     -- SpotAssExpr
     gen (SpotAss identifier indexExpr valExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, valState{pc=pc+length code}) where
-        (indexCode, indexExprState{pc=indexPc}) = gen indexExpr cs
-        (valCode, valState)                   = gen valExpr indexExprState{pc=indexPc+1}
+        (indexCode, indexExprState@CompileState{pc=indexPc})    = gen indexExpr cs
+        (valCode, valState)                                     = gen valExpr indexExprState{pc=indexPc+1}
 
         code = indexCode ++ [Push regOut1] ++ valCode ++ [Pop regOut2] ++ case offset lv identifier of --index: regOut2, newValue: regOut1
-            Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, Store (IndAddr regOut4) regOut1]
+            Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, Store regOut1 (IndAddr regOut4)]
 
             Nothing     -> case offset sv identifier of
-                Just addr   -> [Load (ImmValue addr) regOut3, Compute add regOut2 regOut3 regOut4, WriteInstr (IndAddr regOut4) regOut1]
+                Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, WriteInstr regOut1 (IndAddr regOut4)]
 
                 Nothing     -> error ("variable " ++ identifier ++ " not found.")
 
