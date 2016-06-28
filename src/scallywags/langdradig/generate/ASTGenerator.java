@@ -3,14 +3,10 @@ package scallywags.langdradig.generate;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.util.IdentityHashMap;
 import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -90,7 +86,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String INT = "Int";
 	private static final String TRUE = "True";
 	private static final String FALSE = "False";
-	private static final String ARRAY = "Array";										//TODO
+	private static final String ARRAY = "Array";
 	
 	private static final String INT_TYPE = "IntType";
 	private static final String BOOL_TYPE = "BoolType";
@@ -135,7 +131,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "maximum.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "reverse.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
@@ -181,7 +177,6 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 			.append(QUOTE).append(programName).append(".spril.hs").append(QUOTE).append(' ')
 			.append("text").append(' ').append("where").append(NEWLINE);
 		builder.append(FOUR_SPACES).append("text =  ");
-		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"import HardwareTypes\\nimport Simulation\\n\\n\" ++").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"prog :: [Instruction]\\n\" ++").append(NEWLINE);
@@ -279,7 +274,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitPrintStat(PrintStatContext ctx) {
 		ExpressionContext exprContext = ctx.expression();
 		Type type = checker.getType(exprContext);		
-		return PRINT + " " + LPAR + visit(exprContext) + RPAR + " " + type;
+		return PRINT + " " + LPAR + visit(exprContext) + RPAR + " " + LPAR + type + RPAR;
 	}
 	
 	@Override
@@ -390,8 +385,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitIndexAssExpr(IndexAssExprContext ctx) {
 		return SPOT_ASS + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
-				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
-				+ " " +	LPAR + visit(ctx.expression(1)) + RPAR;
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR
+				+ " " +	LPAR + visit(ctx.expression(0)) + RPAR;
 	}
 	
 	@Override

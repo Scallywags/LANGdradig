@@ -1,0 +1,19 @@
+i is een getal.
+j is een getal.
+
+arr is een reeks van 6 getallen.
+arr wordt [8,7,6,5,4,3].
+temp is een getal.
+
+len is een getal.
+len wordt de lengte van arr.
+
+zolang verhoog i kleiner is dan of gelijk is aan len gedeeld door 2
+	doe
+		j wordt len-i+1.
+		temp wordt arr op plek i.
+		zet arr op plek j op plek i van arr.
+		zet temp op plek j van arr.
+	klaar.
+
+laat arr zien.

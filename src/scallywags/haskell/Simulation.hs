@@ -76,10 +76,20 @@ myShow (instrs,s) = show instrs ++ "\n" ++
 
 printOnlyShow :: ([Instruction], SystemState) -> String
 printOnlyShow ([], _)                                                   = ""
-printOnlyShow (i:is, systemState@SystemState{sprStates=state:states})   = aString where
+printOnlyShow (i:is, systemState@SystemState{sprStates=state:states, sharedMem=sharedMem})   = aString where
     aString = case i of
         PrintInt regIndex   -> show (regbank state !! regIndex) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+        
         PrintBool regIndex  -> showBool (boolInt (regbank state !! regIndex)) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+        
+        PrintLocalRange addr range -> case addr of
+            DirAddr offset      -> show (take range $ drop offset $ localMem state) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+            IndAddr regIndex    -> show (take range $ drop (regbank state !! regIndex) $ localMem state) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+
+        PrintSharedRange addr range -> case addr of
+            DirAddr offset      -> show (take range $ drop offset $ sharedMem) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+            IndAddr regIndex    -> show (take range $ drop (regbank state !! regIndex) $ sharedMem) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+
         _                   -> printOnlyShow (is, systemState{sprStates=states})
 
 showBool :: Bool -> String

@@ -208,11 +208,18 @@ instance CodeGen Stat where
         restState = statState{nextSharedOffset=nso, locks=newLocks, pc=pc+length code}
 
     --PrintStat
-    gen (Print expr exprType) cs@CompileState{pc=pc}  = (code, cs{pc=pc+length code}) where
+    gen (Print expr exprType) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc}  = (code, cs{pc=pc+length code}) where
         (exprCode, exprState) = gen expr cs
-        code = exprCode ++ case exprType of
-            IntType     -> [PrintInt regOut1]
-            BoolType    -> [PrintBool regOut1]
+        code = case exprType of
+            IntType             -> exprCode ++ [PrintInt regOut1]
+            BoolType            -> exprCode ++ [PrintBool regOut1]
+            ArrayType len t     -> case expr of
+                Idf identifier  -> case offset lv identifier of
+                    Just addr   -> [PrintLocalRange (DirAddr (addr+1)) len]
+                    Nothing     -> case offset sv identifier of
+                        Just addr   -> [PrintSharedRange (DirAddr (addr+1)) len]
+                        Nothing     -> error ("variable " ++ identifier ++ " not found!")
+                _               -> [] --not supported.
 
 instance CodeGen Expr where
     -- ParExpr

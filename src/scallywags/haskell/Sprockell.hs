@@ -127,8 +127,10 @@ decode instr = case instr of
 
   Debug _                     -> nullcode       -- only for development purposes
 
-  PrintInt _                  -> nullcode       -- handled in simuluation
-  PrintBool _                 -> nullcode       -- handles in simulation
+  PrintInt _                  -> nullcode       -- handled in simulation
+  PrintBool _                 -> nullcode       -- handled in simulation
+  PrintLocalRange _ _         -> nullcode       -- handled in simulation
+  PrintSharedRange _ _        -> nullcode       -- handles in simulation
 
 
 {- ===============================================================
