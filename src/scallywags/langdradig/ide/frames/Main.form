@@ -80,7 +80,10 @@
                 <children>
                   <component id="95b34" class="javax.swing.JTextArea" binding="variableView">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <editable value="false"/>
+                      <focusable value="false"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>

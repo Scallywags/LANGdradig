@@ -104,6 +104,8 @@ public class Main extends JFrame {
         final JScrollPane scrollPane1 = new JScrollPane();
         programmingViews.setRightComponent(scrollPane1);
         variableView = new JTextArea();
+        variableView.setEditable(false);
+        variableView.setFocusable(false);
         scrollPane1.setViewportView(variableView);
         showHideButton = new JButton();
         showHideButton.setInheritsPopupMenu(false);

@@ -347,8 +347,8 @@ public class Checker extends LANGdradigBaseListener {
     public void exitIndexAssExpr(IndexAssExprContext ctx) {
         List<ExpressionContext> expressions = ctx.expression();
         Type arrayType = forkTable.getType(ctx.IDENTIFIER().getText());
-        Type indexType = types.get(expressions.get(0));
-        Type valueType = types.get(expressions.get(1));
+        Type valueType = types.get(expressions.get(0));
+        Type indexType = types.get(expressions.get(1));
         if (arrayType instanceof Type.ArrayType) {
             if (valueType != ((Type.ArrayType) arrayType).getElemType()) {
                 exceptions.add(new TypeException(ctx, ((Type.ArrayType) arrayType).getElemType(), valueType));
