@@ -23,7 +23,7 @@ expression	:	primary																					#primExpr
 			
 			|	<assoc=right> IDENTIFIER OP PLEK expression WORDT expression							#indexAssExpr
 			|	IDENTIFIER OP PLEK expression															#indexExpr
-			|	DE LENGTE VAN expression																#lengthExpr
+			|	DE LENGTE VAN IDENTIFIER																#lengthExpr
 			
 			|	MIN expression																			#negExpr
 			|	NIET expression 																		#notExpr

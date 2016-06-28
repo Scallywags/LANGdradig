@@ -77,6 +77,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String LOGIC_OR = "LogicOr";
 	private static final String ASS = "Ass";
 	private static final String SPOT = "Spot";
+	private static final String SPOT_ASS = "SpotAss";
+	private static final String LENGTH = "Length";
 	
 	private static final String NEG = "Neg";
 	private static final String NOT = "Not";
@@ -381,10 +383,21 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 				+ " " + LPAR + visit(ctx.expression()) + RPAR;
 	}
 	
-	//TODO arrayExpressions
 	@Override
 	public String visitIndexExpr(IndexExprContext ctx) {
-		return SPOT + " " + LPAR + visit(ctx.expression()) + RPAR + " " + visit(ctx.IDENTIFIER());
+		return SPOT + " " + LPAR + visit(ctx.expression()) + RPAR + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
+	}
+	
+	@Override
+	public String visitIndexAssExpr(IndexAssExprContext ctx) {
+		return SPOT_ASS + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR
+				+ " " +	LPAR + visit(ctx.expression(1)) + RPAR;
+	}
+	
+	@Override
+	public String visitLengthExpr(LengthExprContext ctx) {
+		return LENGTH + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
 	}
 	
 	// -------------- Primary --------------

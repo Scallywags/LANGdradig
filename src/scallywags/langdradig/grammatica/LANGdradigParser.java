@@ -749,9 +749,7 @@ public class LANGdradigParser extends Parser {
 		public TerminalNode DE() { return getToken(LANGdradigParser.DE, 0); }
 		public TerminalNode VAN() { return getToken(LANGdradigParser.VAN, 0); }
 		public TerminalNode LENGTE() { return getToken(LANGdradigParser.LENGTE, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
+		public TerminalNode IDENTIFIER() { return getToken(LANGdradigParser.IDENTIFIER, 0); }
 		public LengthExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -980,62 +978,62 @@ public class LANGdradigParser extends Parser {
 				break;
 			case 2:
 				{
-				_localctx = new LengthExprContext(_localctx);
+				_localctx = new NegExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(100); match(DE);
-				setState(101); match(LENGTE);
-				setState(102); match(VAN);
-				setState(103); expression(13);
+				setState(100); match(MIN);
+				setState(101); expression(12);
 				}
 				break;
 			case 3:
 				{
-				_localctx = new NegExprContext(_localctx);
+				_localctx = new NotExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(104); match(MIN);
-				setState(105); expression(12);
+				setState(102); match(NIET);
+				setState(103); expression(11);
 				}
 				break;
 			case 4:
 				{
-				_localctx = new NotExprContext(_localctx);
+				_localctx = new AssExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(106); match(NIET);
-				setState(107); expression(11);
+				setState(104); match(IDENTIFIER);
+				setState(105); match(WORDT);
+				setState(106); expression(1);
 				}
 				break;
 			case 5:
 				{
-				_localctx = new AssExprContext(_localctx);
+				_localctx = new PrimExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(108); match(IDENTIFIER);
-				setState(109); match(WORDT);
-				setState(110); expression(1);
+				setState(107); primary();
 				}
 				break;
 			case 6:
 				{
-				_localctx = new PrimExprContext(_localctx);
+				_localctx = new IndexAssExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(111); primary();
+				setState(108); match(IDENTIFIER);
+				setState(109); match(OP);
+				setState(110); match(PLEK);
+				setState(111); expression(0);
+				setState(112); match(WORDT);
+				setState(113); expression(0);
 				}
 				break;
 			case 7:
 				{
-				_localctx = new IndexAssExprContext(_localctx);
+				_localctx = new LengthExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(112); match(IDENTIFIER);
-				setState(113); match(OP);
-				setState(114); match(PLEK);
-				setState(115); expression(0);
-				setState(116); match(WORDT);
-				setState(117); expression(0);
+				setState(115); match(DE);
+				setState(116); match(LENGTE);
+				setState(117); match(VAN);
+				setState(118); match(IDENTIFIER);
 				}
 				break;
 			case 8:
@@ -1603,13 +1601,13 @@ public class LANGdradigParser extends Parser {
 		"XY\7>\2\2Y`\5\4\3\2Z[\7\60\2\2[\\\5\6\4\2\\]\7\61\2\2]^\7\62\2\2^`\3\2"+
 		"\2\2_\22\3\2\2\2_\30\3\2\2\2_\37\3\2\2\2_(\3\2\2\2_+\3\2\2\2_9\3\2\2\2"+
 		"_C\3\2\2\2_H\3\2\2\2_S\3\2\2\2_W\3\2\2\2_Z\3\2\2\2`\5\3\2\2\2ab\b\4\1"+
-		"\2bc\7>\2\2cd\7:\2\2de\7\36\2\2e\u0081\5\6\4\20fg\7<\2\2gh\7\37\2\2hi"+
-		"\7;\2\2i\u0081\5\6\4\17jk\7\4\2\2k\u0081\5\6\4\16lm\7\t\2\2m\u0081\5\6"+
-		"\4\rno\7>\2\2op\7\22\2\2p\u0081\5\6\4\3q\u0081\5\b\5\2rs\7>\2\2st\7:\2"+
-		"\2tu\7\36\2\2uv\5\6\4\2vw\7\22\2\2wx\5\6\4\2x\u0081\3\2\2\2yz\t\2\2\2"+
-		"z\177\7>\2\2{|\7\"\2\2|}\7>\2\2}\177\7:\2\2~y\3\2\2\2~{\3\2\2\2\177\u0081"+
-		"\3\2\2\2\u0080a\3\2\2\2\u0080f\3\2\2\2\u0080j\3\2\2\2\u0080l\3\2\2\2\u0080"+
-		"n\3\2\2\2\u0080q\3\2\2\2\u0080r\3\2\2\2\u0080~\3\2\2\2\u0081\u00a4\3\2"+
+		"\2bc\7>\2\2cd\7:\2\2de\7\36\2\2e\u0081\5\6\4\20fg\7\4\2\2g\u0081\5\6\4"+
+		"\16hi\7\t\2\2i\u0081\5\6\4\rjk\7>\2\2kl\7\22\2\2l\u0081\5\6\4\3m\u0081"+
+		"\5\b\5\2no\7>\2\2op\7:\2\2pq\7\36\2\2qr\5\6\4\2rs\7\22\2\2st\5\6\4\2t"+
+		"\u0081\3\2\2\2uv\7<\2\2vw\7\37\2\2wx\7;\2\2x\u0081\7>\2\2yz\t\2\2\2z\177"+
+		"\7>\2\2{|\7\"\2\2|}\7>\2\2}\177\7:\2\2~y\3\2\2\2~{\3\2\2\2\177\u0081\3"+
+		"\2\2\2\u0080a\3\2\2\2\u0080f\3\2\2\2\u0080h\3\2\2\2\u0080j\3\2\2\2\u0080"+
+		"m\3\2\2\2\u0080n\3\2\2\2\u0080u\3\2\2\2\u0080~\3\2\2\2\u0081\u00a4\3\2"+
 		"\2\2\u0082\u0083\f\13\2\2\u0083\u0084\7\7\2\2\u0084\u00a3\5\6\4\13\u0085"+
 		"\u0086\f\n\2\2\u0086\u0087\t\3\2\2\u0087\u00a3\5\6\4\13\u0088\u0089\f"+
 		"\t\2\2\u0089\u008a\t\4\2\2\u008a\u00a3\5\6\4\n\u008b\u008c\f\b\2\2\u008c"+
