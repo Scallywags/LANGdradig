@@ -133,7 +133,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "print.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "concurrencyTest2.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
@@ -178,7 +178,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(WRITE_SPRIL_FUN_DECL).append("writeFile").append(' ')
 			.append(QUOTE).append(programName).append(".spril.hs").append(QUOTE).append(' ')
 			.append("text").append(' ').append("where").append(NEWLINE);
-		builder.append(FOUR_SPACES).append("text =  ").append(NEWLINE);
+		builder.append(FOUR_SPACES).append("text =  ");
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"import HardwareTypes\\nimport Simulation\\n\\n\" ++").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
@@ -188,11 +188,9 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysRun $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append(WHERE).append(NEWLINE);
-		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("(instructions, state) = generate ast").append(NEWLINE);
+		builder.append(WHERE).append(' ').append("(instructions, state) = generate ast").append(NEWLINE);
 		
 		return builder.toString();
 	}

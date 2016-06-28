@@ -1,0 +1,22 @@
+a is een gedeeld getal.
+b is een gedeeld getal.
+
+besteed
+	a wordt 8.
+	b wordt 10.
+uit aan x.
+wacht op x.
+
+besteed
+	a wordt 9.
+	c is een gedeeld getal.
+	besteed
+		d is een stelling.
+		c wordt 13.
+		b wordt 8.
+	uit aan test.
+	wacht op test.
+uit aan x.
+wacht op x.
+
+laat b zien.

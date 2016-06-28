@@ -164,9 +164,9 @@ instance CodeGen Stat where
         forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr addr), Jump (Rel (length statInstrs + length spinInstrs + 1))] --make the other sprockell jump to new programcounter
         spinInstrs = [Jump (Abs 2)]
 
-        (statInstrs, statState@CompileState{nextSharedOffset=nso})         = gen (Block stats) cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, pc=pc+length forkInstrs}
+        (statInstrs, statState@CompileState{nextSharedOffset=nso}) = gen (Block stats) cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, t_ids=newT_ids, pc=pc+length forkInstrs}
         code = forkInstrs ++ statInstrs ++ spinInstrs
-        restState = statState{localVars=lv, nextLocalOffset=nlo, sharedVars=sv, pc=pc+length code, t_ids=newT_ids}
+        restState = statState{localVars=lv, nextLocalOffset=nlo, sharedVars=sv, pc=pc+length code}
 
     --JoinStat
     gen (Join spr_id) cs@CompileState{pc=pc, t_ids=t_ids} = (code, cs{pc=pc+length code}) where
@@ -189,8 +189,8 @@ instance CodeGen Stat where
             Nothing     -> offset + 1
 
         (statInstrs, statState) = gen stat cs{pc=pc+length spinInstrs}
-
         spinInstrs = [TestAndSet (DirAddr dirAddr), Receive regOut1, Compute Equ regOut1 reg0 regOut1, Branch regOut1 (Rel (-3))]
+
         code = spinInstrs ++ statInstrs ++ [WriteInstr reg0 (DirAddr dirAddr)]
         restState = statState{nextSharedOffset=nso, locks=newLocks, pc=pc+length code}
 
