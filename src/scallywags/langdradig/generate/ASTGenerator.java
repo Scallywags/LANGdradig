@@ -188,7 +188,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
+		builder.append("\"main = sysRun $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append(WHERE).append(' ').append("(instructions, state) = generate ast").append(NEWLINE);
 		
@@ -402,6 +402,18 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	@Override
 	public String visitNumExpr(NumExprContext ctx) {
 		return INT + " " + visit(ctx.NUMBER());
+	}
+	
+	@Override
+	public String visitArrayExpr(ArrayExprContext ctx) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(ARRAY).append(' ');
+		builder.append(LPAR);
+		for (ExpressionContext expr : ctx.expression()) {
+			builder.append(visit(expr)).append(COLON);
+		}
+		builder.append(LSQ).append(RSQ).append(RPAR);
+		return builder.toString();
 	}
 	
 	// -------------- Type --------------
