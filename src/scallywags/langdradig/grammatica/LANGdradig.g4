@@ -21,7 +21,8 @@ statement	:	IDENTIFIER IS EEN type PUNT		            										    #declStat
 
 expression	:	primary																					#primExpr
 			
-			|	<assoc=right> ZET expression OP PLEK expression	VAN IDENTIFIER							#indexAssExpr
+			|	<assoc=right> ZET expression OP (PLEK | PLAATS) expression (VAN | IN) IDENTIFIER        #indexAssExpr
+			|	<assoc=right> ZET expression IN IDENTIFIER OP (PLEK | PLAATS) expression          		#indexAssExpr
 			|	IDENTIFIER OP PLEK expression															#indexExpr
 			|	DE LENGTE VAN IDENTIFIER																#lengthExpr
 			
@@ -40,10 +41,6 @@ expression	:	primary																					#primExpr
 			|	expression (EN | OF) expression															#boolExpr
 						
 			|	<assoc=right> IDENTIFIER WORDT expression												#assExpr
-
-			|	<assoc=right> IDENTIFIER OP PLEK expression WORDT expression							#indexAssExpr
-			|	IDENTIFIER OP PLEK expression															#indexExpr
-			|	DE LENGTE VAN IDENTIFIER																#lengthExpr
 			;
 
 primary		:	LH expression RH						                                                #parExpr

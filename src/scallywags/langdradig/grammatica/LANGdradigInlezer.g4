@@ -51,9 +51,10 @@ WAAR			:	W A A R								            ;
 ONWAAR			:	O N WAAR							            ;
 
 // Arrays
-PLEK			: P L E K											;
+PLEK			: P L E K       									;
 LENGTE			: L E N G T E										;
 ZET				: Z E T												;
+PLAATS          : P L A A T S                                       ;
 
 // Syntactic sugar
 KLOPT			:	K L O P T							            ;
@@ -93,6 +94,7 @@ RH				: ')'                                               ;
 LSQ				: '['												;
 RSQ				: ']'												;
 IS				: I S                                               ;
+IN              : I N                                               ;
 EEN				: E E N                                             ;
 OP              : O P	                                            ;
 VAN				: V A N												;

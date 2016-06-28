@@ -4,6 +4,10 @@ import scallywags.langdradig.generate.ForkTable;
 import scallywags.langdradig.ide.Translator;
 import scallywags.langdradig.generate.Variable;
 
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Map;
+
 /**
  * Created by Jeroen Weener on 22/06/2016.
  */

@@ -11,7 +11,7 @@ import java.awt.*;
  * A very naïve syntaxHighlighter
  */
 public class SyntaxHighlighter {
-    private static final String[] keywords = {"als", "anders", "zolang", "getal", "stelling", "besteed", "uit", "aan", "kritiek", "wacht op", "gedeeld", "gedeelde", "doe", "klaar"};
+    private static final String[] keywords = {"als", "anders", "zolang", "reeksen", "reeks", "getallen", "getal", "stellingen", "stelling", "besteed", "uit", "aan", "kritiek", "wacht op", "gedeeld", "gedeelde", "doe", "klaar"};
 
     public static void highlightSyntax(JTextPane area) {
         StyledDocument doc = area.getStyledDocument();
@@ -46,7 +46,7 @@ public class SyntaxHighlighter {
         for (String keyword : keywords) {
             SimpleAttributeSet set = new SimpleAttributeSet();
             StyleConstants.setForeground(set, getKeywordColor(keyword));
-            String searchString = doc.getText(0, doc.getLength());
+            String searchString = doc.getText(0, doc.getLength()).toLowerCase();
             int start = searchString.indexOf(keyword);
             int acc = start;
             while (start != -1) {
@@ -65,12 +65,13 @@ public class SyntaxHighlighter {
             return Color.BLUE;
 
             // Type syntax is orange
-        } else if (keyword.equals("getal") || keyword.equals("stelling")) {
+        } else if (keyword.equals("getallen")   || keyword.equals("getal") || keyword.equals("stellingen") || keyword.equals("stelling")
+                || keyword.equals("reeksen")    || keyword.equals("reeks")) {
             return Color.decode("#FF8800");
 
             // Concurrency syntax is red
-        } else if (keyword.equals("besteed") || keyword.equals("uit") || keyword.equals("aan") || keyword.equals("kritiek") ||
-                keyword.equals("wacht op") || keyword.equals("gedeeld") || keyword.equals("gedeelde")) {
+        } else if (keyword.equals("besteed") || keyword.equals("uit") || keyword.equals("aan") || keyword.equals("kritiek")
+                || keyword.equals("wacht op") || keyword.equals("gedeeld") || keyword.equals("gedeelde")) {
             return Color.RED;
 
         } else {

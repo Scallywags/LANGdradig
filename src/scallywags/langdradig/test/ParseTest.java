@@ -54,20 +54,21 @@ public class ParseTest {
 
     @Test
     public void testArrayOperators() {
-        testCorrectProgram("a wordt array op plek 200.");
-        testCorrectProgram("as op plek 128 wordt 5 + 6 keer 18.");
-        testCorrectProgram("as wordt [1,2,3,4,5].");
-        testCorrectProgram("as wordt [waar, onwaar, niet waar, waar].");
+        testCorrectProgram("a wordt de lengte van as.");
+        testCorrectProgram("a wordt as op plek 5.");
     }
 
     @Test
     public void testDeclarations() {
         testCorrectProgram("b is een stelling.");
-        testCorrectProgram("a is een getal.");
         testCorrectProgram("b is een gedeelde stelling.");
+
+        testCorrectProgram("a is een getal.");
         testCorrectProgram("a is een gedeeld getal.");
+
         testCorrectProgram("a is een reeks van 8 getallen.");
         testCorrectProgram("b is een reeks van 16 stellingen.");
+
         testCorrectProgram("a is een gedeelde reeks van 32 getallen.");
         testCorrectProgram("b is een gedeelde reeks van 64 stellingen.");
     }
@@ -79,15 +80,20 @@ public class ParseTest {
         testCorrectProgram("a wordt 3.");
         testCorrectProgram("a wordt min 3.");
         testCorrectProgram("a wordt var.");                                                                     // Assignment of a variable
+
+        testCorrectProgram("a wordt array op plek 200.");                                                       // Assign a value in the array to a variable
+        testCorrectProgram("as wordt [1,2,3,4,5].");                                                            // Assign integer values to the array
+        testCorrectProgram("as wordt [waar, onwaar, niet waar, waar].");                                        // Assign boolean values to the array
+        testIncorrectProgram("as wordt 5, 4, 3, 2, 1");                                                         // Assign values to the array without square brackets
+        testCorrectProgram("zet 3 op plek 5 van array.");                                                       // Assign a value to a place in array
     }
 
     @Test
     public void testAlsStatements() {
         testCorrectProgram("als i dan b wordt waar.");                                                          // "Als" statement without else
         testCorrectProgram("als i dan b wordt waar. anders b wordt onwaar.");                                   // "Als" statement with else
-        testIncorrectProgram("als i b wordt onwaar.");                                                          // "Als" statement without "dan" keyword
-        testCorrectProgram("als 9 > i dan doe i is een getal. i wordt i min 1. klaar.");                 // "Als" statement with a block
-        testIncorrectProgram("als b dan i is een getal. i wordt i min 1. anders i wordt i plus 1");      // "Als" statement with two separate statements before the "anders"
+        testCorrectProgram("als 9 > i dan doe i is een getal. i wordt i min 1. klaar.");                        // "Als" statement with a block
+        testIncorrectProgram("als b dan i is een getal. i wordt i min 1. anders i wordt i plus 1");             // "Als" statement with two separate statements before the "anders"
     }
 
     @Test
@@ -100,8 +106,8 @@ public class ParseTest {
     @Test
     public void testBlockStatements() {
         testCorrectProgram("doe klaar.");                                                                       // Empty BlockStatement
-        testCorrectProgram("doe a wordt 4. b is een getal. klaar.");                                     // BlockStatement
-        testIncorrectProgram("doe a wordt 4. b is een getal.");                                          // BlockStatement without "klaar" keyword
+        testCorrectProgram("doe a wordt 4. b is een getal. klaar.");                                            // BlockStatement
+        testIncorrectProgram("doe a wordt 4. b is een getal.");                                                 // BlockStatement without "klaar" keyword
         testCorrectProgram("doe doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar.");                // Three nested blocks
         testIncorrectProgram("doe doe a wordt 1. klaar. klaar. a wordt 2. b wordt 1. klaar.");                  // Incorrect nested blocks; missing a doe
     }
@@ -133,8 +139,9 @@ public class ParseTest {
 
     @Test
     public void testLaatZien() {
-        testCorrectProgram("laat a zien.");                                                                      // Standard "laat zien" statement
-        testIncorrectProgram("laat zien.");                                                                      // "Laat zien" statement without a variable
+        testCorrectProgram("laat a zien.");                                                                     // Standard "laat zien" statement
+        testCorrectProgram("laat 3 tot de macht v zien.");                                                      // "Laat zien" with an expression
+        testIncorrectProgram("laat zien.");                                                                     // "Laat zien" statement without a variable
     }
 
     @Test
@@ -145,7 +152,6 @@ public class ParseTest {
         testCorrectProgram("verhoog a.");                                                                       // "Verhoog" statement
         testCorrectProgram("verlaag a.");                                                                       // "Verlaag" statement
 
-        // Keywords "tussen" and "binnen" are equivalent
         testCorrectProgram("a ligt tussen b en c.");                                                            // "Ligt tussen" statement
         testCorrectProgram("a ligt binnen b en c.");                                                            // "Ligt binnen" statement
         testCorrectProgram("a ligt buiten b en c.");                                                            // "Ligt buiten" statement
@@ -217,8 +223,17 @@ public class ParseTest {
         testCorrectProgram("besteed uit aan x doe a wordt 1. b wordt waar. klaar.");                            // "Besteed uit" block with a block statement
         testCorrectProgram("besteed doe a wordt 1. b wordt waar. klaar. uit aan x.");
 
-        testCorrectProgram("a wordt 1.");                                                                        // Assignment operator
+        testCorrectProgram("a wordt 1.");                                                                       // Assignment operator
         testCorrectProgram("a = 1.");
+
+        testCorrectProgram("als a dan doe b is een getal. b wordt 2. klaar.");                                  // If statement with keyword "dan"
+        testCorrectProgram("als a doe b is een getal. b wordt 2. klaar.");                                      // If statement without keyword "dan"
+
+        testCorrectProgram("zet a op plek 3 in array.");                                                        // Assign an expression to a place in an array
+        testCorrectProgram("zet a op plaats 3 in array.");
+        testCorrectProgram("zet a op plek 3 van array.");
+        testCorrectProgram("zet a op plaats 3 van array.");
+        testCorrectProgram("zet a in array op plek 3.");
     }
 
     private LANGdradigParser test(String text) {
