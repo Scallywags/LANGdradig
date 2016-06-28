@@ -274,7 +274,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitPrintStat(PrintStatContext ctx) {
 		ExpressionContext exprContext = ctx.expression();
 		Type type = checker.getType(exprContext);		
-		return PRINT + " " + LPAR + visit(exprContext) + RPAR + " " + type;
+		return PRINT + " " + LPAR + visit(exprContext) + RPAR + " " + LPAR + type + RPAR;
 	}
 	
 	@Override

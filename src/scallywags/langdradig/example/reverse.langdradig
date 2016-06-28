@@ -16,4 +16,4 @@ zolang verhoog i kleiner is dan of gelijk is aan len gedeeld door 2
 		zet temp op plek j van arr.
 	klaar.
 
-laat arr op plek 1 zien.
+laat arr zien.
