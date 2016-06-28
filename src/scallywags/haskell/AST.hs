@@ -27,7 +27,6 @@ data Expr   = Par Expr
             | Ass String Expr
             | Spot String Expr
             | SpotAss String Expr Expr
-            | Length String
             deriving (Show, Eq)
 
 data Crem   = Increm

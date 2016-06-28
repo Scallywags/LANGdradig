@@ -79,8 +79,12 @@ printOnlyShow ([], _)                                                   = ""
 printOnlyShow (i:is, systemState@SystemState{sprStates=state:states})   = aString where
     aString = case i of
         PrintInt regIndex   -> show (regbank state !! regIndex) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
-        PrintBool regIndex  -> show (boolInt (regbank state !! regIndex)) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+        PrintBool regIndex  -> showBool (boolInt (regbank state !! regIndex)) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
         _                   -> printOnlyShow (is, systemState{sprStates=states})
+
+showBool :: Bool -> String
+showBool True = "waar"
+showBool False = "onwaar"
 
 sysRun :: [[Instruction]] -> IO ()
 sysRun instrss = putStr
