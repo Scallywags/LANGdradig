@@ -43,6 +43,8 @@ import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
  * saving file with existing name dialog
  * saving file as file that is already open should merge tabs
  * make variable overview a tree component
+ * support CTRL + /
+ * highlight all keywords
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -312,6 +314,7 @@ public class Main extends JFrame {
         ((DefaultCaret) messagesArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         messagesArea.setFont(font);
         variableView.setFont(font);
+        variableView.setTabSize(2);
 
         fc.setFileFilter(new FileNameExtensionFilter("langdradig file", "langdradig"));
 

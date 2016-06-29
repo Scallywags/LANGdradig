@@ -31,13 +31,12 @@ public class SyntaxHighlighter {
         String searchString = doc.getText(0, doc.getLength());
         int start = searchString.indexOf('#');
         int acc = start;
-        searchString = searchString.substring(start + 1);
         while (start != -1) {
+            searchString = searchString.substring(start + 1);
             int end = searchString.indexOf('\n');
             end = end == -1 ? searchString.length() : end;
             doc.setCharacterAttributes(acc, end + 1, set, true);
-            //TODO !!!
-            searchString = searchString.substring(start + 1);
+            start = searchString.indexOf('#');
             acc += start + 1;
         }
     }
@@ -57,7 +56,6 @@ public class SyntaxHighlighter {
                 acc += start + 1;
             }
         }
-        area.setCharacterAttributes(new SimpleAttributeSet(), true);
     }
 
     private static Color getKeywordColor(String keyword) {

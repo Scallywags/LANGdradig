@@ -31,11 +31,6 @@ public class Checker extends LANGdradigBaseListener {
 
     private LANGdradigErrorListener errorListener = new LANGdradigErrorListener();
 
-    /**
-     * @param source the file to be scanned and checked
-     * @throws IOException      if the file cannot be read
-     * @throws CheckerException if the source program was invalid somewhere somehow
-     */
     public void checkFile(String source) throws IOException {
         CharStream stream = new ANTLRFileStream(source);
         Lexer lexer = new LANGdradigLexer(stream);
@@ -330,8 +325,9 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitIndexExpr(IndexExprContext ctx) {
-        Type arrayType = forkTable.getType(ctx.IDENTIFIER().getText());
-        Type exprType = types.get(ctx.expression());
+        List<ExpressionContext> expressions = ctx.expression();
+        Type arrayType = types.get(expressions.get(0));
+        Type exprType = types.get(expressions.get(1));
         if (arrayType instanceof Type.ArrayType) {
             types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
         } else {
@@ -344,19 +340,36 @@ public class Checker extends LANGdradigBaseListener {
     }
 
     @Override
-    public void exitIndexAssExpr(IndexAssExprContext ctx) {
+    public void exitIndexAss1Expr(IndexAss1ExprContext ctx) {
         List<ExpressionContext> expressions = ctx.expression();
-        Type arrayType = forkTable.getType(ctx.IDENTIFIER().getText());
         Type valueType = types.get(expressions.get(0));
         Type indexType = types.get(expressions.get(1));
-        if (arrayType instanceof Type.ArrayType) {
-            //TODO !!!
+        Type arrayType = types.get(expressions.get(2));
+        if (arrayType instanceof Type.Array) {
             if (!valueType.equals(((Type.ArrayType) arrayType).getElemType())) {
                 exceptions.add(new TypeException(ctx, ((Type.ArrayType) arrayType).getElemType(), valueType));
             }
             types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
         } else {
-            //TODO
+            exceptions.add(new TypeException(ctx, new Type.Array(), arrayType));
+        }
+        if (indexType != Type.INTEGER) {
+            exceptions.add(new TypeException(ctx, Type.INTEGER, indexType));
+        }
+    }
+
+    @Override
+    public void exitIndexAss2Expr(IndexAss2ExprContext ctx) {
+        List<ExpressionContext> expressions = ctx.expression();
+        Type valueType = types.get(expressions.get(0));
+        Type arrayType = types.get(expressions.get(1));
+        Type indexType = types.get(expressions.get(2));
+        if (arrayType instanceof Type.Array) {
+            if (!valueType.equals(((Type.ArrayType) arrayType).getElemType())) {
+                exceptions.add(new TypeException(ctx, ((Type.ArrayType) arrayType).getElemType(), valueType));
+            }
+            types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
+        } else {
             exceptions.add(new TypeException(ctx, new Type.Array(), arrayType));
         }
         if (indexType != Type.INTEGER) {
@@ -366,14 +379,12 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void exitLengthExpr(LengthExprContext ctx) {
-        if (ctx.IDENTIFIER() != null) {
-            Type exprType = forkTable.getType(ctx.IDENTIFIER().getText());
+            Type exprType = types.get(ctx.expression());
             if (exprType instanceof Type.ArrayType) {
                 types.put(ctx, Type.INTEGER);
             } else {
                 exceptions.add(new TypeException(ctx, new Type.Array(), exprType));
             }
-        }
     }
 
     // ------------- Primary -------------

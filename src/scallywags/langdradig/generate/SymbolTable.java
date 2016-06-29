@@ -69,6 +69,7 @@ public class SymbolTable {
         return scopes.toString();
     }
 
+
     private class Scope {
         Map<String, Type> types = new HashMap<>();
         Map<String, Boolean> shared = new HashMap<>();

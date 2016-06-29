@@ -21,10 +21,10 @@ statement	:	IDENTIFIER IS EEN type PUNT		            										    #declStat
 
 expression	:	primary																					#primExpr
 			
-			|	<assoc=right> ZET expression OP (PLEK | PLAATS) expression (VAN | IN) IDENTIFIER        #indexAssExpr
-			|	<assoc=right> ZET expression IN IDENTIFIER OP (PLEK | PLAATS) expression          		#indexAssExpr
-			|	IDENTIFIER OP PLEK expression															#indexExpr
-			|	DE LENGTE VAN IDENTIFIER																#lengthExpr
+			|	<assoc=right> ZET expression OP (PLEK | PLAATS) expression (VAN | IN) expression        #indexAss1Expr
+			|	<assoc=right> ZET expression IN expression OP (PLEK | PLAATS) expression          		#indexAss2Expr
+			|	expression OP PLEK expression															#indexExpr
+			|	DE LENGTE VAN expression																#lengthExpr
 			
 			|	MIN expression																			#negExpr
 			|	NIET expression 																		#notExpr
@@ -48,7 +48,7 @@ primary		:	LH expression RH						                                               
 			|	ONWAAR									                                                #falseExpr
 			|	IDENTIFIER								                                                #idfExpr
 			|	NUMBER									                                                #numExpr
-			|	LSQ (expression (KOMMA expression)*)? RSQ   	            								#arrayExpr
+			|	LSQ (expression (KOMMA expression)*)? RSQ   	            							#arrayExpr
 			;
 			
 type	    :   GETAL   		                                                                        #intType
