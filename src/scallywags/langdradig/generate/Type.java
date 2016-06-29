@@ -1,5 +1,7 @@
 package scallywags.langdradig.generate;
 
+import java.util.Arrays;
+
 public interface Type {
 	
 	public String getName();
@@ -17,18 +19,30 @@ public interface Type {
 		@Override public int getSize() {return 1;}
 		@Override public String toString() {return "BoolType";}
 	};
+
+    public static final Type EMPTY_ARRAY = new Type() {
+        @Override public String getName() {return "EMPTY_ARRAY";}
+        @Override public int getSize() {return 1;}
+        @Override public String toString() {return "EmptyType";}
+    };
 	
 	public static Type ARRAY(Type elemType, int numElems) {
 		return new ArrayType(elemType, numElems);
 	}
+
+    static class Array implements Type {
+        @Override public String getName() {return "ARRAY";}
+        @Override public int getSize() {return -1;}
+        @Override public String toString() {return "ArrayType";}
+    }
 	
-	static class ArrayType implements Type {
+	static class ArrayType extends Array {
 		private final Type elemType;
 		private final int numElems;
 		
 		private ArrayType(Type elemType, int numElems) {
 			if (elemType == null) {
-				throw new IllegalArgumentException("Cannot construct an arraytipe of nulltype!");
+				throw new IllegalArgumentException("Cannot construct an arraytype of nulltype!");
 			}
 			this.elemType = elemType;
 			this.numElems = numElems;
@@ -53,9 +67,10 @@ public interface Type {
 			result = prime * result + numElems;
 			return result;
 		}
+
 		@Override
 		public boolean equals(Object obj) {
-			if (this == obj)
+            if (this == obj)
 				return true;
 			if (obj == null)
 				return false;

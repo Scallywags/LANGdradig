@@ -68,9 +68,12 @@ public class ParseTest {
 
         testCorrectProgram("a is een reeks van 8 getallen.");
         testCorrectProgram("b is een reeks van 16 stellingen.");
+        testCorrectProgram("c is een reeks van 0 getallen.");
+        testCorrectProgram("d is een reeks van 2 reeksen van 2 stellingen.");
 
         testCorrectProgram("a is een gedeelde reeks van 32 getallen.");
         testCorrectProgram("b is een gedeelde reeks van 64 stellingen.");
+        testCorrectProgram("c is een gedeelde reeks van 2 reeksen van 0 reeksen van 2 getallen.");
     }
 
     @Test
@@ -84,6 +87,8 @@ public class ParseTest {
         testCorrectProgram("a wordt array op plek 200.");                                                       // Assign a value in the array to a variable
         testCorrectProgram("as wordt [1,2,3,4,5].");                                                            // Assign integer values to the array
         testCorrectProgram("as wordt [waar, onwaar, niet waar, waar].");                                        // Assign boolean values to the array
+        testCorrectProgram("as wordt [].");                                                                     // Assign an empty array to the array
+        testCorrectProgram("as wordt [[1,2],[3,4],[5,6]].");                                                    // Assign an array of arrays to the array
         testIncorrectProgram("as wordt 5, 4, 3, 2, 1");                                                         // Assign values to the array without square brackets
         testCorrectProgram("zet 3 op plek 5 van array.");                                                       // Assign a value to a place in array
     }
