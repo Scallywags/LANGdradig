@@ -327,12 +327,7 @@ public class Main extends JFrame {
 
         // call onClose() on ESCAPE
         contentPane.registerKeyboardAction(e -> onClose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        contentCheckTimer = new Timer(800, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                checkContent();
-            }
-        });
+        contentCheckTimer = new Timer(800, e -> checkContent());
         contentCheckTimer.setRepeats(false);
 
         MessageConsole mc = new MessageConsole(messagesArea);
@@ -575,7 +570,10 @@ public class Main extends JFrame {
                      */
                     switch (e.getKeyCode()) {
                         case 47:    // '/' key
-                            commentLine();
+                            try {
+                                commentLine();
+                            } catch (BadLocationException ignore) {
+                            }
                             break;
                         case 83:    // 'S' key
                             int result = onSave();
@@ -619,11 +617,19 @@ public class Main extends JFrame {
         });
     }
 
-    private void commentLine() {
-//        JTextPane area = getCodeArea();
-//        int caretpos = area.getCaretPosition();
-//
-//        int column = caretpos - area.getLineStartOffset(row);
+    private void commentLine() throws BadLocationException {
+        JTextPane area = getCodeArea();
+        StyledDocument doc = area.getStyledDocument();
+        int caretPosition = area.getCaretPosition();
+        Element e = doc.getParagraphElement(caretPosition);
+        int start = e.getStartOffset();
+        if (doc.getText(start, 1).equals("#")) {
+            doc.remove(start, 1);
+            area.setCaretPosition(caretPosition - 1);
+        } else {
+            doc.insertString(start, "#", null);
+            area.setCaretPosition(caretPosition + 1);
+        }
     }
 
     private void highlight(int lineNumber) {
