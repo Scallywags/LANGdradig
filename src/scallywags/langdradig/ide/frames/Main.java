@@ -2,6 +2,8 @@ package scallywags.langdradig.ide.frames;
 
 import scallywags.langdradig.generate.Checker;
 import scallywags.langdradig.generate.exceptions.CheckerException;
+import scallywags.langdradig.ide.classesFromTheWeb.MessageConsole;
+import scallywags.langdradig.ide.classesFromTheWeb.TextLineNumber;
 import scallywags.langdradig.ide.errors.LANGdradigError;
 import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
@@ -22,12 +24,9 @@ import java.util.*;
 import java.util.List;
 
 import scallywags.langdradig.ide.Compiler;
-import scallywags.langdradig.ide.features.finished.IDEUndoManager;
+import scallywags.langdradig.ide.features.finished.*;
 import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
-import scallywags.langdradig.ide.features.finished.TextLineNumber;
-import scallywags.langdradig.ide.features.finished.ProgramStructureOverview;
-import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
@@ -336,6 +335,11 @@ public class Main extends JFrame {
         });
         contentCheckTimer.setRepeats(false);
 
+        MessageConsole mc = new MessageConsole(messagesArea);
+        mc.redirectOut();
+        mc.redirectErr(Color.RED, null);
+        mc.setMessageLines(100);
+
         pack();
         setTitle("LANGdradig IDE");
         setResizable(true);
@@ -567,8 +571,12 @@ public class Main extends JFrame {
                      *      UNDO:       CTRL + Z
                      *      REDO:       CTRL + Y
                      *      STOP        CTRL + K
+                     *      COMMENT:    CTRL + /
                      */
                     switch (e.getKeyCode()) {
+                        case 47:    // '/' key
+                            commentLine();
+                            break;
                         case 83:    // 'S' key
                             int result = onSave();
                             if (result == 0) {
@@ -587,7 +595,7 @@ public class Main extends JFrame {
                         case 82:    // 'R' key
                             onStart();
                             break;
-                        case 75:
+                        case 75:    // 'K' key
                             onStop();
                             break;
                         case 76:    // 'L' key
@@ -609,6 +617,13 @@ public class Main extends JFrame {
                 }
             }
         });
+    }
+
+    private void commentLine() {
+//        JTextPane area = getCodeArea();
+//        int caretpos = area.getCaretPosition();
+//
+//        int column = caretpos - area.getLineStartOffset(row);
     }
 
     private void highlight(int lineNumber) {

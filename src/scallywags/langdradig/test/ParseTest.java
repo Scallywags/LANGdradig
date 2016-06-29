@@ -239,6 +239,9 @@ public class ParseTest {
         testCorrectProgram("zet a op plek 3 van array.");
         testCorrectProgram("zet a op plaats 3 van array.");
         testCorrectProgram("zet a in array op plek 3.");
+
+        testCorrectProgram("zolang a klopt doe klaar.");                                                        // While loop
+        testCorrectProgram("terwijl a klopt doe klaar.");
     }
 
     private LANGdradigParser test(String text) {

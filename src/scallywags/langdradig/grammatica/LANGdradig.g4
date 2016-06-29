@@ -23,7 +23,7 @@ expression	:	primary																					#primExpr
 			
 			|	<assoc=right> ZET expression OP (PLEK | PLAATS) expression (VAN | IN) expression        #indexAss1Expr
 			|	<assoc=right> ZET expression IN expression OP (PLEK | PLAATS) expression          		#indexAss2Expr
-			|	expression OP PLEK expression															#indexExpr
+			|	expression OP (PLEK | PLAATS) expression												#indexExpr
 			|	DE LENGTE VAN expression																#lengthExpr
 			
 			|	MIN expression																			#negExpr

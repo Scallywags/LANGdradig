@@ -825,6 +825,7 @@ public class LANGdradigParser extends Parser {
 		}
 		public TerminalNode OP() { return getToken(LANGdradigParser.OP, 0); }
 		public TerminalNode PLEK() { return getToken(LANGdradigParser.PLEK, 0); }
+		public TerminalNode PLAATS() { return getToken(LANGdradigParser.PLAATS, 0); }
 		public IndexExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -1272,7 +1273,12 @@ public class LANGdradigParser extends Parser {
 						setState(136);
 						match(OP);
 						setState(137);
-						match(PLEK);
+						_la = _input.LA(1);
+						if ( !(_la==PLEK || _la==PLAATS) ) {
+						_errHandler.recoverInline(this);
+						} else {
+							consume();
+						}
 						setState(138);
 						expression(15);
 						}
@@ -1864,7 +1870,7 @@ public class LANGdradigParser extends Parser {
 		"\3\2\2\2\u0086\u0088\3\2\2\2\u0087c\3\2\2\2\u0087h\3\2\2\2\u0087j\3\2"+
 		"\2\2\u0087l\3\2\2\2\u0087o\3\2\2\2\u0087p\3\2\2\2\u0087x\3\2\2\2\u0087"+
 		"\u0085\3\2\2\2\u0088\u00af\3\2\2\2\u0089\u008a\f\20\2\2\u008a\u008b\7"+
-		"=\2\2\u008b\u008c\7\36\2\2\u008c\u00ae\5\6\4\21\u008d\u008e\f\13\2\2\u008e"+
+		"=\2\2\u008b\u008c\t\2\2\2\u008c\u00ae\5\6\4\21\u008d\u008e\f\13\2\2\u008e"+
 		"\u008f\7\7\2\2\u008f\u00ae\5\6\4\13\u0090\u0091\f\n\2\2\u0091\u0092\t"+
 		"\5\2\2\u0092\u00ae\5\6\4\13\u0093\u0094\f\t\2\2\u0094\u0095\t\6\2\2\u0095"+
 		"\u00ae\5\6\4\n\u0096\u0097\f\b\2\2\u0097\u0098\7&\2\2\u0098\u0099\t\7"+
