@@ -248,16 +248,14 @@ instance CodeGen Expr where
         code = exprInstrs ++ unopInstrs
 
     -- BinOpExpr
-    gen (BinOp op expr1 expr2) cs@CompileState{pc=pc}       = (code, restState) where
-        (expr1Instrs, expr1State@CompileState{pc=expr1Pc})  = gen expr1 cs
-        (expr2Instrs, expr2State@CompileState{pc=expr2Pc})  = gen expr2 expr1State{pc=expr1Pc+1}
-        (opInstrs, opState)                                 = gen op expr2State{pc=expr2Pc+1}
+    gen (BinOp op expr1 expr2) cs@CompileState{pc=pc, nextLocalOffset=nlo}       = (code, restState) where
         
         (code, restState) = case expr1 of
             {-Array exprs -> case op of
                 Equal -> case expr2 of
-                    Array exprs2 ->  ... where
-
+                    Array exprs2 -> (codez, restZtate) where
+                        (arr1codez, arr1state) = gen (Block Ass "#yolo" expr1) cs
+                        (arr2codez, arr2state) = gen (Ass "#swag" )
 
                     Idf idf2 ->
 
@@ -278,7 +276,10 @@ instance CodeGen Expr where
                     Idf idf2 ->-}
 
             
-            _ ->    (expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs, opState{pc=pc+length code})
+            _ ->    (expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs, opState{pc=pc+length code}) where
+                        (expr1Instrs, expr1State@CompileState{pc=expr1Pc})  = gen expr1 cs
+                        (expr2Instrs, expr2State@CompileState{pc=expr2Pc})  = gen expr2 expr1State{pc=expr1Pc+1}
+                        (opInstrs, opState)                                 = gen op expr2State{pc=expr2Pc+1}
 
 
     -- TrinOpExpr
@@ -318,8 +319,7 @@ instance CodeGen Expr where
                 IntType                 -> exprCode ++ [Store regOut1 (DirAddr o)]
                 BoolType                -> exprCode ++ [Store regOut1 (DirAddr o)]
                 ArrayType len _         -> case expr of 
-                    Array exprs -> fst (gen assExprs cs) where
-                        assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                    Array exprs -> fst (gen expr cs{nextLocalOffset=o}) -- The Tricks are real! :D
                     Idf idf     -> case offset lv idf of
                         Just off    -> concat [[Load (DirAddr (off+i)) regOut2, Store regOut2 (DirAddr (o+i))] | i <- [1..len]]
                         Nothing     -> case offset sv idf of

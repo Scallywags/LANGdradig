@@ -21,7 +21,7 @@ sprockellSim instrs s (i:is) | instr /= EndProg    = (instr,s',o) : sprockellSim
                   (s',o) = sprockell instrs s i
                   instr  = instrs ! pc s
 
-localMemSize = 16 :: Int
+localMemSize = 64 :: Int
 regbankSize  = 8  :: Int
 
 initSprockellState :: Value -> SprockellState
@@ -56,7 +56,7 @@ systemSim instrss s (t:ts) | not sysHalted = (instrs,s') : systemSim instrss s' 
                   sysHalted = and $ map (==EndProg) $ zipWith (!!) instrss $ map pc $ sprStates s
 
 nrOfSprockells  = 4 :: Int
-shMemSize       = 8 :: Int
+shMemSize       = 32 :: Int
 channelDelay    = 4 :: Int
 
 initSystemState = SystemState
