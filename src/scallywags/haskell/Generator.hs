@@ -18,7 +18,7 @@ data CompileState = CompileState
     ,   nextLocalOffset :: Offset
     ,   nextSharedOffset :: Offset
     ,   pc :: Int
-    }
+    } deriving (Show)
 
 startState :: CompileState
 startState = CompileState
@@ -177,7 +177,7 @@ instance CodeGen Stat where
         forkInstrs = [Load (ImmValue jumpPc) regOut1, WriteInstr regOut1 (DirAddr addr), Jump (Rel (length statInstrs + length spinInstrs + 1))] --make the other sprockell jump to new programcounter
         spinInstrs = [Jump (Abs 2)]
 
-        (statInstrs, statState@CompileState{nextSharedOffset=nso}) = gen (Block stats) cs{localVars=[[]], nextLocalOffset=0, sharedVars=[]:sv, t_ids=newT_ids, pc=pc+length forkInstrs}
+        (statInstrs, statState@CompileState{nextSharedOffset=nso}) = gen (Block stats) cs{localVars=[[]], nextLocalOffset=1, sharedVars=[]:sv, t_ids=newT_ids, pc=pc+length forkInstrs}
         code = forkInstrs ++ statInstrs ++ spinInstrs
         restState = statState{localVars=lv, nextLocalOffset=nlo, sharedVars=sv, pc=pc+length code}
 
@@ -248,11 +248,38 @@ instance CodeGen Expr where
         code = exprInstrs ++ unopInstrs
 
     -- BinOpExpr
-    gen (BinOp op expr1 expr2) cs@CompileState{pc=pc}       = (code, opState{pc=pc+length code}) where
+    gen (BinOp op expr1 expr2) cs@CompileState{pc=pc}       = (code, restState) where
         (expr1Instrs, expr1State@CompileState{pc=expr1Pc})  = gen expr1 cs
         (expr2Instrs, expr2State@CompileState{pc=expr2Pc})  = gen expr2 expr1State{pc=expr1Pc+1}
         (opInstrs, opState)                                 = gen op expr2State{pc=expr2Pc+1}
-        code = expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs
+        
+        (code, restState) = case expr1 of
+            {-Array exprs -> case op of
+                Equal -> case expr2 of
+                    Array exprs2 ->  ... where
+
+
+                    Idf idf2 ->
+
+                NotEqual -> case expr2 of
+                    Array exprs2 ->
+
+                    Idf idf2 ->
+            
+            Idf idf -> case op of
+                Equal -> case expr2 of
+                    Array exprs2 ->
+
+                    Idf idf2 ->
+
+                NotEqual -> case expr2 of
+                    Array exprs2 ->
+
+                    Idf idf2 ->-}
+
+            
+            _ ->    (expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs, opState{pc=pc+length code})
+
 
     -- TrinOpExpr
     gen (TrinOp op expr lower upper) cs@CompileState{pc=pc}   = (code, opState{pc=pc+length code}) where
@@ -290,17 +317,27 @@ instance CodeGen Expr where
             Just (localAddr, t, o)  -> case t of
                 IntType                 -> exprCode ++ [Store regOut1 (DirAddr o)]
                 BoolType                -> exprCode ++ [Store regOut1 (DirAddr o)]
-                ArrayType len _         -> fst (gen assExprs cs) where
-                        Array exprs = expr --should always succeed
+                ArrayType len _         -> case expr of 
+                    Array exprs -> fst (gen assExprs cs) where
                         assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                    Idf idf     -> case offset lv idf of
+                        Just off    -> concat [[Load (DirAddr (off+i)) regOut2, Store regOut2 (DirAddr (o+i))] | i <- [1..len]]
+                        Nothing     -> case offset sv idf of
+                            Just off    -> concat [[ReadInstr (DirAddr (off+i)), Receive regOut2, Store regOut2 (DirAddr (o+i))] | i <- [1..len]]
+                            Nothing     -> error ("variable " ++ idf ++ " not found.")
 
             Nothing                 -> case sharedEntryMaybe of
                 Just (sharedAddr, t, o) -> case t of
                     IntType                 -> exprCode ++ [WriteInstr regOut1 (DirAddr o)]
                     BoolType                -> exprCode ++ [WriteInstr regOut1 (DirAddr o)]
-                    ArrayType len _         -> fst (gen assExprs cs) where
-                        Array exprs = expr --should always succeed
-                        assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                    ArrayType len _         -> case expr of
+                        Array exprs     -> fst (gen assExprs cs) where
+                            assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                        Idf idf     -> case offset lv idf of
+                            Just off    -> concat [[Load (DirAddr (off+i)) regOut2, WriteInstr regOut2 (DirAddr (o+i))] | i <- [1..len]]
+                            Nothing     -> case offset sv idf of
+                                Just off    -> concat [[ReadInstr (DirAddr (off+i)), Receive regOut2, WriteInstr regOut2 (DirAddr (o+i))] | i <- [1..len]]
+                                Nothing     -> error ("variable " ++ idf ++ " not found.")
                 Nothing                 -> error ("variable " ++ string ++ " not found.") 
 
     -- SpotExpr
@@ -329,7 +366,16 @@ instance CodeGen Expr where
                 Nothing     -> error ("variable " ++ identifier ++ " not found.")
 
     -- ArrayExpr
-    gen (Array exprs) cs@CompileState{pc=pc} = ([Load (ImmValue $ length exprs) regOut1], cs{pc=pc+1}) where
+    gen (Array exprs) cs@CompileState{localVars=lv, nextLocalOffset=nlo, pc=pc} = (code, exprsState{pc=pc+length code}) where
+        (exprsCode, exprsState) = evalAndStore exprs cs{nextLocalOffset=nlo+1, pc=pc+2}
+        code = [Load (ImmValue (length exprs)) regOut2, Store regOut2 (DirAddr nlo)] ++ exprsCode ++ [Load (ImmValue nlo) regOut1]
+
+        evalAndStore :: [Expr] -> CompileState -> ([Instruction], CompileState)
+        evalAndStore [] cs@CompileState{nextLocalOffset=nlo}      = ([], cs{nextLocalOffset=nlo+1})
+        evalAndStore (e:es) cs  = (code, restState) where
+            (exprCode, exprState@CompileState{nextLocalOffset=exprNLO}) = gen e cs
+            (restCode, restState)                                       = evalAndStore es exprState{nextLocalOffset=exprNLO+1}
+            code = exprCode ++ [Store regOut1 (DirAddr exprNLO)] ++ restCode
 
 instance CodeGen UnOp where
     -- NegExpr
