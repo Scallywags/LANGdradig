@@ -48,7 +48,7 @@ primary		:	LH expression RH						                                               
 			|	ONWAAR									                                                #falseExpr
 			|	IDENTIFIER								                                                #idfExpr
 			|	NUMBER									                                                #numExpr
-			|	LSQ expression (KOMMA expression)* RSQ													#arrayExpr
+			|	LSQ (expression (KOMMA expression)*)? RSQ   	            								#arrayExpr
 			;
 			
 type	    :   GETAL   		                                                                        #intType

@@ -8,14 +8,38 @@ import scallywags.langdradig.generate.Type;
 public class Translator {
 
     public static String translateType(Type type) {
-        if (type == null) {
-            return "<onbekend>";
-        } else if (type.equals(Type.INTEGER)) {
-            return "<getal>";
-        } else if (type.equals(Type.BOOLEAN)) {
-            return "<stelling>";
+        return '<' + parseType(type) + '>';
+    }
+
+    private static String parseType(Type type) {
+        if (type == Type.INTEGER) {
+            return "getal";
+        } else if (type == Type.BOOLEAN) {
+            return "stelling";
+        } else if (type instanceof Type.ArrayType) {
+            int elemCount = ((Type.ArrayType) type).getElemCount();
+            Type elemType = ((Type.ArrayType) type).getElemType();
+            return "reeks van " + elemCount + ' ' + (elemCount != 1 ? parseTypeMultiplicities(elemType) : parseType(elemType));
+        } else if (type == Type.EMPTY_ARRAY) {
+            return "lege reeks";
         } else {
-            return "<onbekend>";
+            return "onbekend";
+        }
+    }
+
+    private static String parseTypeMultiplicities(Type type) {
+        if (type == Type.INTEGER) {
+            return "getallen";
+        } else if (type == Type.BOOLEAN) {
+            return "stellingen";
+        } else if (type instanceof Type.ArrayType) {
+            int elemCount = ((Type.ArrayType) type).getElemCount();
+            Type elemType = ((Type.ArrayType) type).getElemType();
+            return "reeksen van " + elemCount + ' ' + (elemCount != 1 ? parseTypeMultiplicities(elemType) : parseType(elemType));
+        } else if (type == Type.EMPTY_ARRAY) {
+            return "lege reeksen";
+        } else {
+            return "onbekenden";
         }
     }
 

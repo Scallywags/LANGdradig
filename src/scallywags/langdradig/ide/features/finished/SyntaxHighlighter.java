@@ -11,7 +11,7 @@ import java.awt.*;
  * A very naïve syntaxHighlighter
  */
 public class SyntaxHighlighter {
-    private static final String[] keywords = {"als", "anders", "zolang", "reeksen", "reeks", "getallen", "getal", "stellingen", "stelling", "besteed", "uit", "aan", "kritiek", "wacht op", "gedeeld", "gedeelde", "doe", "klaar"};
+    private static final String[] keywords = {"als", "anders", "zolang", "reeksen", "reeks", "getallen", "getal", "stellingen", "stelling", "besteed", "uit aan", "kritiek", "wacht op", "doe", "klaar"};
 
     public static void highlightSyntax(JTextPane area) {
         StyledDocument doc = area.getStyledDocument();
@@ -36,6 +36,7 @@ public class SyntaxHighlighter {
             int end = searchString.indexOf('\n');
             end = end == -1 ? searchString.length() : end;
             doc.setCharacterAttributes(acc, end + 1, set, true);
+            //TODO !!!
             searchString = searchString.substring(start + 1);
             acc += start + 1;
         }
@@ -70,8 +71,8 @@ public class SyntaxHighlighter {
             return Color.decode("#FF8800");
 
             // Concurrency syntax is red
-        } else if (keyword.equals("besteed") || keyword.equals("uit") || keyword.equals("aan") || keyword.equals("kritiek")
-                || keyword.equals("wacht op") || keyword.equals("gedeeld") || keyword.equals("gedeelde")) {
+        } else if (keyword.equals("besteed") || keyword.equals("uit aan") || keyword.equals("kritiek")
+                || keyword.equals("wacht op")) {
             return Color.RED;
 
         } else {
