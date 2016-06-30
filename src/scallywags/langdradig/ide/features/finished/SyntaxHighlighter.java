@@ -28,10 +28,25 @@ public class SyntaxHighlighter {
         Style defaultStyle = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
         doc.setCharacterAttributes(0, doc.getLength(), defaultStyle, true);
         try {
+            colorNumbers(area);
             colorKeywords(area);
             colorComments(area);
         } catch (BadLocationException ignore) {
         }
+    }
+
+    private static void colorNumbers(JTextPane area) throws BadLocationException {
+        StyledDocument doc = area.getStyledDocument();
+        SimpleAttributeSet set = new SimpleAttributeSet();
+        StyleConstants.setForeground(set, Color.decode("#FF00A6"));     // Pink
+        String searchString = doc.getText(0, doc.getLength());
+        for (int i = 0; i < searchString.length(); i++) {
+            char c = searchString.charAt(i);
+            if (c >= '0' && c <= '9') {
+                doc.setCharacterAttributes(i, 1, set, true);
+            }
+        }
+
     }
 
     private static void colorComments(JTextPane area) throws BadLocationException {
@@ -76,16 +91,16 @@ public class SyntaxHighlighter {
             return Color.RED;                                                   // Red
 
         } else if ( Arrays.asList(OPERATOR_KEYWORDS).contains(keyword)) {       // Operator keywords:
-            return Color.DARK_GRAY;                                             //
+            return Color.decode("#0099FF");                                     // Light blue
 
         } else if ( Arrays.asList(COMPARATOR_KEYWORDS).contains(keyword)) {     // Comparator keywords:
-            return Color.decode("#50E090");                                     //
+            return Color.decode("#0099FF");                                     // Light blue
 
         } else if ( Arrays.asList(BLOCK_KEYWORDS).contains(keyword)) {          // Block keywords:
-            return Color.decode("#008000");                                     //
+            return Color.decode("#9426C7");                                     // Purple
 
         } else if ( Arrays.asList(VALUE_KEYWORDS).contains(keyword)) {          // Value keywords:
-            return Color.MAGENTA;                                               //
+            return Color.decode("#FF00A6");                                     // Pink
 
         } else if ( Arrays.asList(REST_KEYWORDS).contains(keyword)) {           // Rest keywords:
             return Color.BLUE;                                                  // Blue

@@ -61,7 +61,7 @@ public class Checker extends LANGdradigBaseListener {
 
     @Override
     public void enterProgram(ProgramContext ctx) {
-        forkTable.openScope("Main");
+        forkTable.openScope("Programma");
     }
 
     @Override

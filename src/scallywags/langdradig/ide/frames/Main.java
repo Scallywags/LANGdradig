@@ -33,17 +33,15 @@ import scallywags.langdradig.ide.features.unfinished.Formatter;
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
- * Support CTRL + F
+ * Support Search
  * Auto formatting
- * Add warnings (ex. not joining child threads)
+ * Add warnings
  * Split highlighter to explicit feature
  * For loop
  * add deelbaar door
  * saving file with existing name dialog
  * saving file as file that is already open should merge tabs
  * make variable overview a tree component
- * support CTRL + /
- * highlight all keywords
  * <p>
  * ------Bugs------
  * Selected text gets whited out when checkContent() is called afterwards
@@ -498,9 +496,7 @@ public class Main extends JFrame {
             checkerExceptions.forEach(e -> errors.add(LANGdradigErrorBuilder.format(getCode(), e)));
             Collections.sort(errors);
             for (LANGdradigError e : errors) {
-                print(programPane.getTitleAt(programPane.getSelectedIndex()));
                 printError(e);
-                print("");
             }
             messagesArea.setBackground(Color.PINK);
         } else {
