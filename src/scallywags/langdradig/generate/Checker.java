@@ -267,6 +267,7 @@ public class Checker extends LANGdradigBaseListener {
         if (t2 != Type.INTEGER) {
             exceptions.add(new TypeException(ctx, Type.INTEGER, t2));
         }
+        // TODO !!!
         Type t3 = types.get(expressions.get(2));
         if (t3 != Type.INTEGER) {
             exceptions.add(new TypeException(ctx, Type.INTEGER, t3));
@@ -293,7 +294,7 @@ public class Checker extends LANGdradigBaseListener {
         List<ExpressionContext> expressions = ctx.expression();
         Type t1 = types.get(expressions.get(0));
         Type t2 = types.get(expressions.get(1));
-        if (t1.equals(t2)) {
+        if (!t1.equals(t2)) {
             exceptions.add(new TypeException(ctx, t1, t2));
         }
         types.put(ctx, Type.BOOLEAN);
