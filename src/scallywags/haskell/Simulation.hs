@@ -90,7 +90,9 @@ printOnlyShow (i:is, systemState@SystemState{sprStates=state:states, sharedMem=s
             DirAddr offset      -> show (take range $ drop offset $ sharedMem) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
             IndAddr regIndex    -> show (take range $ drop (regbank state !! regIndex) $ sharedMem) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
 
-        _                   -> printOnlyShow (is, systemState{sprStates=states})
+        Debug string            -> string ++ "\n" ++ printOnlyShow (is, systemStates{sprStates=states})
+
+        _                       -> printOnlyShow (is, systemState{sprStates=states})
 
 showBool :: Bool -> String
 showBool True = "waar"
