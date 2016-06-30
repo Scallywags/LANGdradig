@@ -531,7 +531,7 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
     where
         i = nextFreeOffset
         equal = nextFreeOffset + 1
-        code =  [Store reg0 (DirAddr equal), Store reg0 (DirAddr i)] ++
+        code =  [Load (ImmValue (intBool True)) regOut1, Store regOut1 (DirAddr equal), Store reg0 (DirAddr i)] ++
                 [Load (DirAddr i) regOut1 --BEGIN WHILE
                 ,Compute Incr regOut1 reg0 regOut1
                 ,Store regOut1 (DirAddr i) --verhoog i
@@ -539,7 +539,7 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
                 ,Load (DirAddr arr1StartAddr) regOut2
                 ,Load (IndAddr regOut2) regOut2         --first elem of arr1
                                 
-                ,Compute LtE regOut1 regOut1 regOut1     --i <= len arr1
+                ,Compute LtE regOut1 regOut2 regOut1     --i <= len arr1
                                 
                 ,Load (DirAddr equal) regOut3           --equal
                 ,Compute And regOut1 regOut3 regOut4    --i <= len arr1 && equal

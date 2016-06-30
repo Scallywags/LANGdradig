@@ -21,12 +21,3 @@ zolang verhoog i kleiner is dan of gelijk is aan de lengte van a en equal
 	klaar.
 
 laat equal zien.
-
-Block 	[Decl "equal" BoolType
-		,Ass "equal" (Bool True)
-
-		,Decl "i" IntType
-
-		,Decl "x" IntType --same type as array type instead of IntType -- we can't know this.
-		,Decl "y" IntType --same type as array type instead of IntType -- we can't know this.
-		,Expr (Idf "equal")]
