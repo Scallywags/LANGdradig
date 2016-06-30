@@ -1,0 +1,13 @@
+#Ultimate Array Test
+
+a is een reeks van 5 getallen.
+b is een reeks van 5 getallen.
+
+a wordt [5,4,3,2,1].
+b wordt [5,4,3,2,1].
+
+c is een stelling.
+
+c wordt a is gelijk aan b.
+
+laat c zien.
