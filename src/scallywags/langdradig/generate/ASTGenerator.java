@@ -182,7 +182,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"prog :: [Instruction]\\n\" ++").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"prog = \" ++ show instructions ++ \"\\n\\n\" ++ --TODO also add optimizer").append(NEWLINE);	//TODO add optimizer :-)
+		builder.append("\"prog = \" ++ show instructions ++ \"\\n\\n\" ++ --RIP no optimizer :(").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
@@ -380,14 +380,21 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitIndexExpr(IndexExprContext ctx) {
-		return SPOT + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE + " " + LPAR + visit(ctx.expression()) + RPAR; //TODO update for expression
+		return SPOT + " " + LPAR + visit(ctx.expression(0)) + RPAR + " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
 	@Override
-	public String visitIndexAssExpr(IndexAssExprContext ctx) {
-		return SPOT_ASS + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE //TODO update for expression
-				+ " " + LPAR + visit(ctx.expression(1)) + RPAR
-				+ " " +	LPAR + visit(ctx.expression(0)) + RPAR;
+	public String visitIndexAss1Expr(IndexAss1ExprContext ctx) {
+		return SPOT_ASS + " " + LPAR + visit(ctx.expression(2)) + RPAR 		//array expr
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR				//index expr
+				+ " " +	LPAR + visit(ctx.expression(0)) + RPAR;				//new value expr
+	}
+	
+	@Override
+	public String visitIndexAss2Expr(IndexAss2ExprContext ctx) {
+		return SPOT_ASS + " " + LPAR + visit(ctx.expression(1)) + RPAR
+				+ " " + LPAR + visit(ctx.expression(2)) + RPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR;
 	}
 	
 	@Override

@@ -12,18 +12,21 @@ public interface Type {
 		@Override public String getName() {return "INTEGER";}
 		@Override public int getSize() {return 1;}
 		@Override public String toString() {return "IntType";}
+        @Override public boolean equals(Object o) {return o == INTEGER;}
 	};
 	
 	public static final Type BOOLEAN = new Type() {
 		@Override public String getName() {return "BOOLEAN";}
 		@Override public int getSize() {return 1;}
 		@Override public String toString() {return "BoolType";}
+        @Override public boolean equals(Object o) {return o == BOOLEAN;}
 	};
 
     public static final Type EMPTY_ARRAY = new Type() {
         @Override public String getName() {return "EMPTY_ARRAY";}
         @Override public int getSize() {return 1;}
         @Override public String toString() {return "EmptyType";}
+        @Override public boolean equals(Object o) {return o == EMPTY_ARRAY;}
     };
 	
 	public static Type ARRAY(Type elemType, int numElems) {

@@ -399,7 +399,7 @@ instance CodeGen Expr where
                     BoolType                -> exprCode ++ [WriteInstr regOut1 (DirAddr o)]
                     ArrayType len _         -> case expr of
                         Array exprs     -> fst (gen assExprs cs) where
-                            assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                            assExprs = [SpotAss (Idf string) (Int i) (exprs!!(i-1)) | i <- [1..len]]
                         Idf idf     -> case offset lv idf of
                             Just off    -> concat [[Load (DirAddr (off+i)) regOut2, WriteInstr regOut2 (DirAddr (o+i))] | i <- [1..len]]
                             Nothing     -> case offset sv idf of
@@ -408,29 +408,39 @@ instance CodeGen Expr where
                 Nothing                 -> error ("variable " ++ string ++ " not found.") 
 
     -- SpotExpr
-    gen (Spot identifier indexExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, exprState{pc=pc+length code}) where
-            (indexCode, exprState)    = gen indexExpr cs
+    gen (Spot arrayExpr indexExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, restState) where
+            (indexCode, indexExprState)    = gen indexExpr cs
 
-            code = indexCode ++ case offset lv identifier of
-                Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
-
-                Nothing     -> case offset sv identifier of
-                    Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, ReadInstr (IndAddr regOut1), Receive regOut1]
-
-                    Nothing     -> error ("variable " ++ identifier ++ " not found.")
+            (code, restState) = case arrayExpr of
+                Idf identifier  -> (codez, indexExprState{pc=pc+length code}) where
+                    codez = indexCode ++ case offset lv identifier of
+                        Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
+                        Nothing     -> case offset sv identifier of
+                            Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, ReadInstr (IndAddr regOut1), Receive regOut1]
+                            Nothing     -> error ("variable " ++ identifier ++ " not found.")
+                
+                Array exprs         -> (codez, arrayState{pc=pc+length code}) where
+                    (arrayCode, arrayState) = gen arrayExpr indexExprState
+                    codez = indexCode ++ [Push regOut1] ++ arrayCode ++ [Pop regOut2] ++
+                            [Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
 
     -- SpotAssExpr
-    gen (SpotAss identifier indexExpr valExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, valState{pc=pc+length code}) where
+    gen (SpotAss arrayExpr indexExpr valExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, restState) where
         (indexCode, indexExprState@CompileState{pc=indexPc})    = gen indexExpr cs
         (valCode, valState)                                     = gen valExpr indexExprState{pc=indexPc+1}
 
-        code = indexCode ++ [Push regOut1] ++ valCode ++ [Pop regOut2] ++ case offset lv identifier of --index: regOut2, newValue: regOut1
-            Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, Store regOut1 (IndAddr regOut4)]
-
-            Nothing     -> case offset sv identifier of
-                Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, WriteInstr regOut1 (IndAddr regOut4)]
-
-                Nothing     -> error ("variable " ++ identifier ++ " not found.")
+        (code, restState) = case arrayExpr of
+            Idf identifier -> (codez, valState{pc=pc+length code}) where
+                codez   = indexCode ++ [Push regOut1] ++ valCode ++ [Pop regOut2] ++ case offset lv identifier of --index: regOut2, newValue: regOut1
+                    Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, Store regOut1 (IndAddr regOut4)] ++ [Load (ImmValue addr) regOut1]
+                    Nothing     -> case offset sv identifier of
+                        Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, WriteInstr regOut1 (IndAddr regOut4)] ++ [Load (ImmValue addr) regOut1]
+                        Nothing     -> error ("variable " ++ identifier ++ " not found.")
+            Array exprs     -> (codez, arrayState{pc=pc+length code}) where
+                (arrayCode, arrayState) = gen arrayExpr valState
+                codez = indexCode ++ [Push regOut1] ++ valCode ++ [Push regOut1] ++
+                        arrayCode ++ [Pop regOut2{-newValue-}, Pop regOut3{-index-}] ++ 
+                        [Compute Add regOut3 regOut1 regOut4, Store regOut2 (IndAddr regOut4)] where
 
     -- ArrayExpr
     gen (Array exprs) cs@CompileState{localVars=lv, nextLocalOffset=nlo, pc=pc} = (code, exprsState{nextLocalOffset=nlo, pc=pc+length code}) where

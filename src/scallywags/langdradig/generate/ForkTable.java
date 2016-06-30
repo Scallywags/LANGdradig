@@ -18,8 +18,10 @@ public class ForkTable {
     }
 
     public void closeScope() {
-        scopes.pop();
-        depth--;
+        if (scopes.size() > 0) {
+            scopes.pop();
+            depth--;
+        }
     }
 
     /**
@@ -35,7 +37,7 @@ public class ForkTable {
 
     public boolean contains(String id) {
         for (Scope scope : scopes) {
-            if (scope.contains(id)) {
+            if (scope.containsThread(id)) {
                 return true;
             }
         }
@@ -43,7 +45,11 @@ public class ForkTable {
     }
 
     public boolean waitedOnAll() {
-        return scopes.peek().getThreads().values().stream().allMatch(e -> e);
+        if (scopes.size() > 0) {
+            return scopes.peek().getThreads().values().stream().allMatch(e -> e);
+        } else {
+            return true;
+        }
     }
 
     public String getNotWaitedOn() {
@@ -76,20 +82,21 @@ public class ForkTable {
     }
 
     public Type getType(String identifier) {
-        Type result = scopes.peek().getSymbolTable().getType(identifier);
-        if (result == null) {
-            for (Scope scope : scopes) {
-                SymbolTable symbolTable = scope.getSymbolTable();
-                // isShared returns false if the identifier is not in the symbolTable
-                if (symbolTable.isShared(identifier)) {
-                    result = symbolTable.getType(identifier);
+        if (scopes.size() > 0) {
+            Type result = scopes.peek().getSymbolTable().getType(identifier);
+            if (result == null) {
+                for (Scope scope : scopes) {
+                    SymbolTable symbolTable = scope.getSymbolTable();
+                    // isShared returns false if the identifier is not in the symbolTable
+                    if (symbolTable.isShared(identifier)) {
+                        result = symbolTable.getType(identifier);
+                    }
                 }
             }
-        }
         return result;
+        }
+        return null;
     }
-
-
 
 
     // The inner class Scope
@@ -122,7 +129,7 @@ public class ForkTable {
             threads.put(identifier, true);
         }
 
-        public boolean contains(String identifier) {
+        public boolean containsThread(String identifier) {
             return threads.containsKey(identifier);
         }
 

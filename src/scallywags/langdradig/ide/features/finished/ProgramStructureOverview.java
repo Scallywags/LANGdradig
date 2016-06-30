@@ -19,7 +19,7 @@ public class ProgramStructureOverview {
             for (int i = 0; i < scope.getDepth(); i++) {
                 sb.append("\t");
             }
-            sb.append(scope).append(" - <Werker>\n");
+            sb.append(scope).append(" - <Draad>\n");
             for (Variable v : scope.getSymbolTable().getVariables()) {
                 for (int i = 0; i < scope.getDepth() + v.getScope(); i++) {
                     sb.append("\t");

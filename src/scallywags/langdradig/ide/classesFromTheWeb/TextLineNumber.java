@@ -1,4 +1,4 @@
-package scallywags.langdradig.ide.features.finished;
+package scallywags.langdradig.ide.classesFromTheWeb;
 import java.awt.*;
 import java.beans.*;
 import java.util.HashMap;

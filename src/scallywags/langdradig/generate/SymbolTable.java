@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 public class SymbolTable {
     private int scope = 0;
@@ -68,6 +66,7 @@ public class SymbolTable {
     public String toString() {
         return scopes.toString();
     }
+
 
     private class Scope {
         Map<String, Type> types = new HashMap<>();

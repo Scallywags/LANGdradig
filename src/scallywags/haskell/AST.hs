@@ -25,8 +25,8 @@ data Expr   = Par Expr
             | TrinOp TrinOp Expr Expr Expr
             | Crem Crem String
             | Ass String Expr
-            | Spot String Expr
-            | SpotAss String Expr Expr
+            | Spot Expr Expr
+            | SpotAss Expr Expr Expr
             | Length Expr
             deriving (Show, Eq)
 

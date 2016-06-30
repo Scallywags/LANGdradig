@@ -2,6 +2,8 @@ package scallywags.langdradig.ide.frames;
 
 import scallywags.langdradig.generate.Checker;
 import scallywags.langdradig.generate.exceptions.CheckerException;
+import scallywags.langdradig.ide.classesFromTheWeb.MessageConsole;
+import scallywags.langdradig.ide.classesFromTheWeb.TextLineNumber;
 import scallywags.langdradig.ide.errors.LANGdradigError;
 import scallywags.langdradig.ide.errors.LANGdradigErrorBuilder;
 
@@ -22,21 +24,18 @@ import java.util.*;
 import java.util.List;
 
 import scallywags.langdradig.ide.Compiler;
-import scallywags.langdradig.ide.features.finished.IDEUndoManager;
+import scallywags.langdradig.ide.features.finished.*;
 import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
-import scallywags.langdradig.ide.features.finished.TextLineNumber;
-import scallywags.langdradig.ide.features.finished.ProgramStructureOverview;
-import scallywags.langdradig.ide.features.finished.SyntaxHighlighter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
  * <p>
  * ------Future features------
  * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
- * Support CTRL + F
+ * Support Search
  * Auto formatting
- * Add warnings (ex. not joining child threads)
+ * Add warnings
  * Split highlighter to explicit feature
  * For loop
  * add deelbaar door
@@ -312,6 +311,7 @@ public class Main extends JFrame {
         ((DefaultCaret) messagesArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         messagesArea.setFont(font);
         variableView.setFont(font);
+        variableView.setTabSize(2);
 
         fc.setFileFilter(new FileNameExtensionFilter("langdradig file", "langdradig"));
 
@@ -325,13 +325,13 @@ public class Main extends JFrame {
 
         // call onClose() on ESCAPE
         contentPane.registerKeyboardAction(e -> onClose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        contentCheckTimer = new Timer(800, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                checkContent();
-            }
-        });
+        contentCheckTimer = new Timer(800, e -> checkContent());
         contentCheckTimer.setRepeats(false);
+
+        MessageConsole mc = new MessageConsole(messagesArea);
+        mc.redirectOut();
+        mc.redirectErr(Color.RED, null);
+        mc.setMessageLines(100);
 
         pack();
         setTitle("LANGdradig IDE");
@@ -496,9 +496,7 @@ public class Main extends JFrame {
             checkerExceptions.forEach(e -> errors.add(LANGdradigErrorBuilder.format(getCode(), e)));
             Collections.sort(errors);
             for (LANGdradigError e : errors) {
-                print(programPane.getTitleAt(programPane.getSelectedIndex()));
                 printError(e);
-                print("");
             }
             messagesArea.setBackground(Color.PINK);
         } else {
@@ -564,8 +562,15 @@ public class Main extends JFrame {
                      *      UNDO:       CTRL + Z
                      *      REDO:       CTRL + Y
                      *      STOP        CTRL + K
+                     *      COMMENT:    CTRL + /
                      */
                     switch (e.getKeyCode()) {
+                        case 47:    // '/' key
+                            try {
+                                commentLine();
+                            } catch (BadLocationException ignore) {
+                            }
+                            break;
                         case 83:    // 'S' key
                             int result = onSave();
                             if (result == 0) {
@@ -584,7 +589,7 @@ public class Main extends JFrame {
                         case 82:    // 'R' key
                             onStart();
                             break;
-                        case 75:
+                        case 75:    // 'K' key
                             onStop();
                             break;
                         case 76:    // 'L' key
@@ -606,6 +611,21 @@ public class Main extends JFrame {
                 }
             }
         });
+    }
+
+    private void commentLine() throws BadLocationException {
+        JTextPane area = getCodeArea();
+        StyledDocument doc = area.getStyledDocument();
+        int caretPosition = area.getCaretPosition();
+        Element e = doc.getParagraphElement(caretPosition);
+        int start = e.getStartOffset();
+        if (doc.getText(start, 1).equals("#")) {
+            doc.remove(start, 1);
+            area.setCaretPosition(caretPosition - 1);
+        } else {
+            doc.insertString(start, "#", null);
+            area.setCaretPosition(caretPosition + 1);
+        }
     }
 
     private void highlight(int lineNumber) {
