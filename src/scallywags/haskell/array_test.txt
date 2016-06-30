@@ -1,0 +1,1547 @@
+[Compute Equ 0 1 6]
+SprState {pc = 1, sp = 64, regbank = [0,0,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 6)]
+SprState {pc = 7, sp = 64, regbank = [0,0,0,0,0,0,1,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 5) 6]
+SprState {pc = 8, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 1)]
+SprState {pc = 9, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 2)]
+SprState {pc = 10, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 3)]
+SprState {pc = 11, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 4)]
+SprState {pc = 12, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 5)]
+SprState {pc = 13, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 6)]
+SprState {pc = 14, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 7)]
+SprState {pc = 15, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 5) 6]
+SprState {pc = 16, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 7)]
+SprState {pc = 17, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 8)]
+SprState {pc = 18, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 9)]
+SprState {pc = 19, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 10)]
+SprState {pc = 20, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 11)]
+SprState {pc = 21, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 12)]
+SprState {pc = 22, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 13)]
+SprState {pc = 23, sp = 64, regbank = [0,0,0,0,0,0,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 5) 5]
+SprState {pc = 24, sp = 64, regbank = [0,0,0,0,0,5,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 5 (DirAddr 1)]
+SprState {pc = 25, sp = 64, regbank = [0,0,0,0,0,5,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 5) 6]
+SprState {pc = 26, sp = 64, regbank = [0,0,0,0,0,5,5,0], localMem = [0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 2)]
+SprState {pc = 27, sp = 64, regbank = [0,0,0,0,0,5,5,0], localMem = [0,5,5,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 4) 6]
+SprState {pc = 28, sp = 64, regbank = [0,0,0,0,0,5,4,0], localMem = [0,5,5,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 3)]
+SprState {pc = 29, sp = 64, regbank = [0,0,0,0,0,5,4,0], localMem = [0,5,5,4,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 3) 6]
+SprState {pc = 30, sp = 64, regbank = [0,0,0,0,0,5,3,0], localMem = [0,5,5,4,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 4)]
+SprState {pc = 31, sp = 64, regbank = [0,0,0,0,0,5,3,0], localMem = [0,5,5,4,3,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 2) 6]
+SprState {pc = 32, sp = 64, regbank = [0,0,0,0,0,5,2,0], localMem = [0,5,5,4,3,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 5)]
+SprState {pc = 33, sp = 64, regbank = [0,0,0,0,0,5,2,0], localMem = [0,5,5,4,3,2,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 34, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 6)]
+SprState {pc = 35, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 36, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 5) 5]
+SprState {pc = 37, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 5 (DirAddr 7)]
+SprState {pc = 38, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 5) 6]
+SprState {pc = 39, sp = 64, regbank = [0,0,0,0,0,5,5,0], localMem = [0,5,5,4,3,2,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 8)]
+SprState {pc = 40, sp = 64, regbank = [0,0,0,0,0,5,5,0], localMem = [0,5,5,4,3,2,1,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 4) 6]
+SprState {pc = 41, sp = 64, regbank = [0,0,0,0,0,5,4,0], localMem = [0,5,5,4,3,2,1,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 9)]
+SprState {pc = 42, sp = 64, regbank = [0,0,0,0,0,5,4,0], localMem = [0,5,5,4,3,2,1,5,5,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 3) 6]
+SprState {pc = 43, sp = 64, regbank = [0,0,0,0,0,5,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 10)]
+SprState {pc = 44, sp = 64, regbank = [0,0,0,0,0,5,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 2) 6]
+SprState {pc = 45, sp = 64, regbank = [0,0,0,0,0,5,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 11)]
+SprState {pc = 46, sp = 64, regbank = [0,0,0,0,0,5,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 47, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 12)]
+SprState {pc = 48, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 7) 6]
+SprState {pc = 49, sp = 64, regbank = [0,0,0,0,0,5,7,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 13)]
+SprState {pc = 50, sp = 64, regbank = [0,0,0,0,0,5,7,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 51, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 15)]
+SprState {pc = 52, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 7) 6]
+SprState {pc = 53, sp = 64, regbank = [0,0,0,0,0,5,7,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 15)]
+SprState {pc = 54, sp = 64, regbank = [0,0,0,0,0,5,7,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 55, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 18)]
+SprState {pc = 56, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 17)]
+SprState {pc = 57, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 17) 6]
+SprState {pc = 58, sp = 64, regbank = [0,0,0,0,0,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Incr 6 0 6]
+SprState {pc = 59, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 17)]
+SprState {pc = 60, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 15) 5]
+SprState {pc = 61, sp = 64, regbank = [0,0,0,0,0,7,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 5) 5]
+SprState {pc = 62, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute LtE 6 6 6]
+SprState {pc = 63, sp = 64, regbank = [0,0,0,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 18) 4]
+SprState {pc = 64, sp = 64, regbank = [0,0,0,0,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute And 6 4 3]
+SprState {pc = 65, sp = 64, regbank = [0,0,0,1,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 2]
+SprState {pc = 66, sp = 64, regbank = [0,0,1,1,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 3 2 6]
+SprState {pc = 67, sp = 64, regbank = [0,0,1,1,1,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 14)]
+SprState {pc = 68, sp = 64, regbank = [0,0,1,1,1,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 17) 6]
+SprState {pc = 69, sp = 64, regbank = [0,0,1,1,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 15) 5]
+SprState {pc = 70, sp = 64, regbank = [0,0,1,1,1,7,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 71, sp = 64, regbank = [0,0,1,1,8,7,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 3]
+SprState {pc = 72, sp = 64, regbank = [0,0,1,5,8,7,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 16) 5]
+SprState {pc = 73, sp = 64, regbank = [0,0,1,5,8,0,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 74, sp = 64, regbank = [0,0,1,5,1,0,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 2]
+SprState {pc = 75, sp = 64, regbank = [0,0,5,5,1,0,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute NEq 3 2 4]
+SprState {pc = 76, sp = 64, regbank = [0,0,5,5,0,0,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 5]
+SprState {pc = 77, sp = 64, regbank = [0,0,5,5,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 4 5 6]
+SprState {pc = 78, sp = 64, regbank = [0,0,5,5,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 2)]
+SprState {pc = 80, sp = 64, regbank = [0,0,5,5,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Jump (Rel (-23))]
+SprState {pc = 57, sp = 64, regbank = [0,0,5,5,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 17) 6]
+SprState {pc = 58, sp = 64, regbank = [0,0,5,5,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Incr 6 0 6]
+SprState {pc = 59, sp = 64, regbank = [0,0,5,5,0,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 17)]
+SprState {pc = 60, sp = 64, regbank = [0,0,5,5,0,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 15) 5]
+SprState {pc = 61, sp = 64, regbank = [0,0,5,5,0,7,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 5) 5]
+SprState {pc = 62, sp = 64, regbank = [0,0,5,5,0,5,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute LtE 6 6 6]
+SprState {pc = 63, sp = 64, regbank = [0,0,5,5,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 18) 4]
+SprState {pc = 64, sp = 64, regbank = [0,0,5,5,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute And 6 4 3]
+SprState {pc = 65, sp = 64, regbank = [0,0,5,1,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 2]
+SprState {pc = 66, sp = 64, regbank = [0,0,1,1,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 3 2 6]
+SprState {pc = 67, sp = 64, regbank = [0,0,1,1,1,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 14)]
+SprState {pc = 68, sp = 64, regbank = [0,0,1,1,1,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 17) 6]
+SprState {pc = 69, sp = 64, regbank = [0,0,1,1,1,5,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 15) 5]
+SprState {pc = 70, sp = 64, regbank = [0,0,1,1,1,7,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 71, sp = 64, regbank = [0,0,1,1,9,7,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 3]
+SprState {pc = 72, sp = 64, regbank = [0,0,1,4,9,7,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 16) 5]
+SprState {pc = 73, sp = 64, regbank = [0,0,1,4,9,0,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 74, sp = 64, regbank = [0,0,1,4,2,0,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 2]
+SprState {pc = 75, sp = 64, regbank = [0,0,5,4,2,0,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute NEq 3 2 4]
+SprState {pc = 76, sp = 64, regbank = [0,0,5,4,1,0,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 5]
+SprState {pc = 77, sp = 64, regbank = [0,0,5,4,1,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 4 5 6]
+SprState {pc = 78, sp = 64, regbank = [0,0,5,4,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 2)]
+SprState {pc = 79, sp = 64, regbank = [0,0,5,4,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 18)]
+SprState {pc = 80, sp = 64, regbank = [0,0,5,4,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Jump (Rel (-23))]
+SprState {pc = 57, sp = 64, regbank = [0,0,5,4,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 17) 6]
+SprState {pc = 58, sp = 64, regbank = [0,0,5,4,1,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Incr 6 0 6]
+SprState {pc = 59, sp = 64, regbank = [0,0,5,4,1,1,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 17)]
+SprState {pc = 60, sp = 64, regbank = [0,0,5,4,1,1,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 15) 5]
+SprState {pc = 61, sp = 64, regbank = [0,0,5,4,1,7,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 5) 5]
+SprState {pc = 62, sp = 64, regbank = [0,0,5,4,1,5,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute LtE 6 6 6]
+SprState {pc = 63, sp = 64, regbank = [0,0,5,4,1,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 18) 4]
+SprState {pc = 64, sp = 64, regbank = [0,0,5,4,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute And 6 4 3]
+SprState {pc = 65, sp = 64, regbank = [0,0,5,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 2]
+SprState {pc = 66, sp = 64, regbank = [0,0,1,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 3 2 6]
+SprState {pc = 67, sp = 64, regbank = [0,0,1,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 14)]
+SprState {pc = 81, sp = 64, regbank = [0,0,1,0,0,5,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 18) 6]
+SprState {pc = 82, sp = 64, regbank = [0,0,1,0,0,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 13)]
+SprState {pc = 83, sp = 64, regbank = [0,0,1,0,0,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[PrintLocalRange (DirAddr 2) 5]
+SprState {pc = 84, sp = 64, regbank = [0,0,1,0,0,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[PrintLocalRange (DirAddr 8) 5]
+SprState {pc = 85, sp = 64, regbank = [0,0,1,0,0,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 13) 6]
+SprState {pc = 86, sp = 64, regbank = [0,0,1,0,0,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[PrintBool 6]
+SprState {pc = 87, sp = 64, regbank = [0,0,1,0,0,5,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 2) 5]
+SprState {pc = 88, sp = 64, regbank = [0,0,1,0,0,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 5 (DirAddr 14)]
+SprState {pc = 89, sp = 64, regbank = [0,0,1,0,0,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 90, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 15)]
+SprState {pc = 91, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 3) 6]
+SprState {pc = 92, sp = 64, regbank = [0,0,1,0,0,2,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 16)]
+SprState {pc = 93, sp = 64, regbank = [0,0,1,0,0,2,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 14) 6]
+SprState {pc = 94, sp = 64, regbank = [0,0,1,0,0,2,14,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 19)]
+SprState {pc = 95, sp = 64, regbank = [0,0,1,0,0,2,14,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,3,3,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 2) 5]
+SprState {pc = 96, sp = 64, regbank = [0,0,1,0,0,2,14,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,3,3,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 5 (DirAddr 16)]
+SprState {pc = 97, sp = 64, regbank = [0,0,1,0,0,2,14,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,3,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 98, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,3,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 17)]
+SprState {pc = 99, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 2) 6]
+SprState {pc = 100, sp = 64, regbank = [0,0,1,0,0,2,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 18)]
+SprState {pc = 101, sp = 64, regbank = [0,0,1,0,0,2,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 16) 6]
+SprState {pc = 102, sp = 64, regbank = [0,0,1,0,0,2,16,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 20)]
+SprState {pc = 103, sp = 64, regbank = [0,0,1,0,0,2,16,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 6]
+SprState {pc = 104, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 22)]
+SprState {pc = 105, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 21)]
+SprState {pc = 106, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 21) 6]
+SprState {pc = 107, sp = 64, regbank = [0,0,1,0,0,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Incr 6 0 6]
+SprState {pc = 108, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 21)]
+SprState {pc = 109, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 19) 5]
+SprState {pc = 110, sp = 64, regbank = [0,0,1,0,0,14,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 5) 5]
+SprState {pc = 111, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute LtE 6 6 6]
+SprState {pc = 112, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 22) 4]
+SprState {pc = 113, sp = 64, regbank = [0,0,1,0,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute And 6 4 3]
+SprState {pc = 114, sp = 64, regbank = [0,0,1,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 2]
+SprState {pc = 115, sp = 64, regbank = [0,0,1,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 3 2 6]
+SprState {pc = 116, sp = 64, regbank = [0,0,1,1,1,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 14)]
+SprState {pc = 117, sp = 64, regbank = [0,0,1,1,1,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 21) 6]
+SprState {pc = 118, sp = 64, regbank = [0,0,1,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 19) 5]
+SprState {pc = 119, sp = 64, regbank = [0,0,1,1,1,14,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 120, sp = 64, regbank = [0,0,1,1,15,14,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 3]
+SprState {pc = 121, sp = 64, regbank = [0,0,1,1,15,14,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 20) 5]
+SprState {pc = 122, sp = 64, regbank = [0,0,1,1,15,16,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 123, sp = 64, regbank = [0,0,1,1,17,16,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 2]
+SprState {pc = 124, sp = 64, regbank = [0,0,1,1,17,16,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute NEq 3 2 4]
+SprState {pc = 125, sp = 64, regbank = [0,0,1,1,0,16,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 5]
+SprState {pc = 126, sp = 64, regbank = [0,0,1,1,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 4 5 6]
+SprState {pc = 127, sp = 64, regbank = [0,0,1,1,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 2)]
+SprState {pc = 129, sp = 64, regbank = [0,0,1,1,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Jump (Rel (-23))]
+SprState {pc = 106, sp = 64, regbank = [0,0,1,1,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 21) 6]
+SprState {pc = 107, sp = 64, regbank = [0,0,1,1,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Incr 6 0 6]
+SprState {pc = 108, sp = 64, regbank = [0,0,1,1,0,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 21)]
+SprState {pc = 109, sp = 64, regbank = [0,0,1,1,0,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 19) 5]
+SprState {pc = 110, sp = 64, regbank = [0,0,1,1,0,14,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 5) 5]
+SprState {pc = 111, sp = 64, regbank = [0,0,1,1,0,2,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute LtE 6 6 6]
+SprState {pc = 112, sp = 64, regbank = [0,0,1,1,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 22) 4]
+SprState {pc = 113, sp = 64, regbank = [0,0,1,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute And 6 4 3]
+SprState {pc = 114, sp = 64, regbank = [0,0,1,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 2]
+SprState {pc = 115, sp = 64, regbank = [0,0,1,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 3 2 6]
+SprState {pc = 116, sp = 64, regbank = [0,0,1,1,1,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 14)]
+SprState {pc = 117, sp = 64, regbank = [0,0,1,1,1,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 21) 6]
+SprState {pc = 118, sp = 64, regbank = [0,0,1,1,1,2,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 19) 5]
+SprState {pc = 119, sp = 64, regbank = [0,0,1,1,1,14,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 120, sp = 64, regbank = [0,0,1,1,16,14,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 3]
+SprState {pc = 121, sp = 64, regbank = [0,0,1,2,16,14,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 20) 5]
+SprState {pc = 122, sp = 64, regbank = [0,0,1,2,16,16,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 123, sp = 64, regbank = [0,0,1,2,18,16,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 2]
+SprState {pc = 124, sp = 64, regbank = [0,0,2,2,18,16,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute NEq 3 2 4]
+SprState {pc = 125, sp = 64, regbank = [0,0,2,2,0,16,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 5]
+SprState {pc = 126, sp = 64, regbank = [0,0,2,2,0,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 4 5 6]
+SprState {pc = 127, sp = 64, regbank = [0,0,2,2,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 2)]
+SprState {pc = 129, sp = 64, regbank = [0,0,2,2,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Jump (Rel (-23))]
+SprState {pc = 106, sp = 64, regbank = [0,0,2,2,0,1,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 21) 6]
+SprState {pc = 107, sp = 64, regbank = [0,0,2,2,0,1,2,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Incr 6 0 6]
+SprState {pc = 108, sp = 64, regbank = [0,0,2,2,0,1,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 21)]
+SprState {pc = 109, sp = 64, regbank = [0,0,2,2,0,1,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 19) 5]
+SprState {pc = 110, sp = 64, regbank = [0,0,2,2,0,14,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 5) 5]
+SprState {pc = 111, sp = 64, regbank = [0,0,2,2,0,2,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute LtE 6 6 6]
+SprState {pc = 112, sp = 64, regbank = [0,0,2,2,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 22) 4]
+SprState {pc = 113, sp = 64, regbank = [0,0,2,2,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute And 6 4 3]
+SprState {pc = 114, sp = 64, regbank = [0,0,2,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 2]
+SprState {pc = 115, sp = 64, regbank = [0,0,1,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 3 2 6]
+SprState {pc = 116, sp = 64, regbank = [0,0,1,1,1,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 14)]
+SprState {pc = 117, sp = 64, regbank = [0,0,1,1,1,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 21) 6]
+SprState {pc = 118, sp = 64, regbank = [0,0,1,1,1,2,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 19) 5]
+SprState {pc = 119, sp = 64, regbank = [0,0,1,1,1,14,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 120, sp = 64, regbank = [0,0,1,1,17,14,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 3]
+SprState {pc = 121, sp = 64, regbank = [0,0,1,1,17,14,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 20) 5]
+SprState {pc = 122, sp = 64, regbank = [0,0,1,1,17,16,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Add 6 5 4]
+SprState {pc = 123, sp = 64, regbank = [0,0,1,1,19,16,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 4) 2]
+SprState {pc = 124, sp = 64, regbank = [0,0,14,1,19,16,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute NEq 3 2 4]
+SprState {pc = 125, sp = 64, regbank = [0,0,14,1,1,16,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 5]
+SprState {pc = 126, sp = 64, regbank = [0,0,14,1,1,1,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 4 5 6]
+SprState {pc = 127, sp = 64, regbank = [0,0,14,1,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 2)]
+SprState {pc = 128, sp = 64, regbank = [0,0,14,1,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 0 (DirAddr 22)]
+SprState {pc = 129, sp = 64, regbank = [0,0,14,1,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Jump (Rel (-23))]
+SprState {pc = 106, sp = 64, regbank = [0,0,14,1,1,1,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 21) 6]
+SprState {pc = 107, sp = 64, regbank = [0,0,14,1,1,1,3,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Incr 6 0 6]
+SprState {pc = 108, sp = 64, regbank = [0,0,14,1,1,1,4,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 21)]
+SprState {pc = 109, sp = 64, regbank = [0,0,14,1,1,1,4,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 19) 5]
+SprState {pc = 110, sp = 64, regbank = [0,0,14,1,1,14,4,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (IndAddr 5) 5]
+SprState {pc = 111, sp = 64, regbank = [0,0,14,1,1,2,4,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute LtE 6 6 6]
+SprState {pc = 112, sp = 64, regbank = [0,0,14,1,1,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 22) 4]
+SprState {pc = 113, sp = 64, regbank = [0,0,14,1,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute And 6 4 3]
+SprState {pc = 114, sp = 64, regbank = [0,0,14,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 1) 2]
+SprState {pc = 115, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Compute Xor 3 2 6]
+SprState {pc = 116, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Branch 6 (Rel 14)]
+SprState {pc = 130, sp = 64, regbank = [0,0,1,0,0,2,1,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 22) 6]
+SprState {pc = 131, sp = 64, regbank = [0,0,1,0,0,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Store 6 (DirAddr 13)]
+SprState {pc = 132, sp = 64, regbank = [0,0,1,0,0,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (DirAddr 13) 6]
+SprState {pc = 133, sp = 64, regbank = [0,0,1,0,0,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[PrintBool 6]
+SprState {pc = 134, sp = 64, regbank = [0,0,1,0,0,2,0,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+[Load (ImmValue 135) 6]
+SprState {pc = 135, sp = 64, regbank = [0,0,1,0,0,2,135,0], localMem = [0,5,5,4,3,2,1,5,5,4,3,2,1,0,2,1,2,1,2,14,16,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+[[NoRequest,NoRequest,NoRequest,NoRequest]]
+[[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing],[Nothing,Nothing,Nothing,Nothing]]
+[]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+

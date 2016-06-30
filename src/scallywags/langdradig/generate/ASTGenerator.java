@@ -74,6 +74,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	private static final String ASS = "Ass";
 	private static final String SPOT = "Spot";
 	private static final String SPOT_ASS = "SpotAss";
+	private static final String LENGTH = "Length";
 	
 	private static final String NEG = "Neg";
 	private static final String NOT = "Not";
@@ -131,7 +132,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "bubblesort.langdradig");
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "ultimate_array_test.langdradig");
 		gen.writeAST(HASKELL_DIR);		
 	}
 	
@@ -181,11 +182,11 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"prog :: [Instruction]\\n\" ++").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"prog = \" ++ show instructions ++ \"\\n\\n\" ++ --TODO also add optimizer").append(NEWLINE);	//TODO add optimizer :-)
+		builder.append("\"prog = \" ++ show instructions ++ \"\\n\\n\" ++ --RIP no optimizer :(").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysRun $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
+		builder.append("\"main = sysTest $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append(WHERE).append(' ').append("(instructions, state) = generate ast").append(NEWLINE);
 		
@@ -376,24 +377,31 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		return ASS + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
 				+ " " + LPAR + visit(ctx.expression()) + RPAR;
 	}
-	/** TODO !!!
+	
 	@Override
 	public String visitIndexExpr(IndexExprContext ctx) {
-		return SPOT + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE + " " + LPAR + visit(ctx.expression()) + RPAR;
+		return SPOT + " " + LPAR + visit(ctx.expression(0)) + RPAR + " " + LPAR + visit(ctx.expression(1)) + RPAR;
 	}
 	
 	@Override
-	public String visitIndexAssExpr(IndexAssExprContext ctx) {
-		return SPOT_ASS + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE
-				+ " " + LPAR + visit(ctx.expression(1)) + RPAR
-				+ " " +	LPAR + visit(ctx.expression(0)) + RPAR;
+	public String visitIndexAss1Expr(IndexAss1ExprContext ctx) {
+		return SPOT_ASS + " " + LPAR + visit(ctx.expression(2)) + RPAR 		//array expr
+				+ " " + LPAR + visit(ctx.expression(1)) + RPAR				//index expr
+				+ " " +	LPAR + visit(ctx.expression(0)) + RPAR;				//new value expr
+	}
+	
+	@Override
+	public String visitIndexAss2Expr(IndexAss2ExprContext ctx) {
+		return SPOT_ASS + " " + LPAR + visit(ctx.expression(1)) + RPAR
+				+ " " + LPAR + visit(ctx.expression(2)) + RPAR
+				+ " " + LPAR + visit(ctx.expression(0)) + RPAR;
 	}
 	
 	@Override
 	public String visitLengthExpr(LengthExprContext ctx) {
-		return IDF + " " + QUOTE + visit(ctx.IDENTIFIER()) + QUOTE;
+		return LENGTH + " " + visit(ctx.expression());
 	}
-	*/
+	
 	// -------------- Primary --------------
 	
 	public String visitParExpr(ParExprContext ctx) {

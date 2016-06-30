@@ -108,7 +108,7 @@ instance CodeGen Stat where
             BoolType                ->  [Store reg0 (DirAddr offset)]    --default value for Bool is 0
             ArrayType len elemType  ->  [Load (ImmValue len) regOut1, Store regOut1 (DirAddr offset)] ++
                                         [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len+1]]
-                                        --default value for arrays is all zeros. are we allowing arrays of arrays?
+                                        --default value for arrays is all zeros.
         restState = cs{localVars=((varName, varType, offset):scope):scopes, nextLocalOffset=offset+size, pc=pc+length code}
 
     --BlockStat
@@ -215,10 +215,10 @@ instance CodeGen Stat where
             BoolType            -> exprCode ++ [PrintBool regOut1]
             ArrayType len t     -> case expr of
                 Idf identifier  -> case offset lv identifier of
-                    Just addr   -> [PrintLocalRange (DirAddr (addr+1)) len]
+                    Just addr   -> [PrintLocalRange (DirAddr (addr+1)) len] --TODO give type as extra argument
                     Nothing     -> case offset sv identifier of
                         Just addr   -> [PrintSharedRange (DirAddr (addr+1)) len]
-                        Nothing     -> error ("variable " ++ identifier ++ " not found!")
+                        Nothing     -> error ("variable " ++ identifier ++ " not found.")
                 _               -> [] --not supported.
 
 instance CodeGen Expr where
@@ -230,13 +230,30 @@ instance CodeGen Expr where
 
     -- IdfExpr
     gen (Idf string) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc}    = (code, cs{pc=pc+length code}) where
-        localAddrMaybe      = offset lv string
-        sharedAddrMaybe     = offset sv string
-        code = case localAddrMaybe of
-            Just localAddr  -> [Load (DirAddr localAddr) regOut1]
-            Nothing          -> case sharedAddrMaybe of
-                Just sharedAddr     -> [ReadInstr (DirAddr sharedAddr), Receive regOut1]
-                Nothing             -> error ("variable " ++ string ++ " not found!")
+        localEntryMaybe      = entry lv string
+        sharedEntryMaybe     = entry sv string
+        code = case localEntryMaybe of
+            Just (_, t, localAddr)  -> case t of
+                IntType         -> [Load (DirAddr localAddr) regOut1]
+                BoolType        -> [Load (DirAddr localAddr) regOut1]
+                ArrayType _ _   -> [Load (ImmValue localAddr) regOut1]
+            Nothing          -> case sharedEntryMaybe of
+                Just (_, t, sharedAddr) -> case t of
+                    IntType         -> [ReadInstr (DirAddr sharedAddr), Receive regOut1]
+                    BoolType        -> [ReadInstr (DirAddr sharedAddr), Receive regOut1]
+                    ArrayType _ _   -> [Load (ImmValue sharedAddr) regOut1]
+                Nothing             -> error ("variable " ++ string ++ " not found.")
+
+    --LengthExpr
+    gen (Length expr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, cs{pc=pc+length code}) where
+        code = case expr of
+            Idf string      -> case offset lv string of
+                Just localAddr  -> [Load (DirAddr localAddr) regOut1]
+                Nothing         -> case offset sv string of
+                    Just sharedAddr -> [ReadInstr (DirAddr sharedAddr), Receive regOut1]
+                    Nothing         -> error ("variable " ++ string ++ " not found.")
+
+            Array exprs     -> [Load (ImmValue (length exprs)) regOut1]
 
     -- IntExpr
     gen (Int int) cs@CompileState{pc=pc}                                    = ([Load (ImmValue int) regOut1], cs{pc=pc+1})
@@ -248,37 +265,88 @@ instance CodeGen Expr where
         code = exprInstrs ++ unopInstrs
 
     -- BinOpExpr
-    gen (BinOp op expr1 expr2) cs@CompileState{pc=pc}       = (code, restState) where
-        (expr1Instrs, expr1State@CompileState{pc=expr1Pc})  = gen expr1 cs
-        (expr2Instrs, expr2State@CompileState{pc=expr2Pc})  = gen expr2 expr1State{pc=expr1Pc+1}
-        (opInstrs, opState)                                 = gen op expr2State{pc=expr2Pc+1}
+    gen (BinOp op expr1 expr2) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc, nextLocalOffset=nlo}       = (code, restState) where
         
         (code, restState) = case expr1 of
-            {-Array exprs -> case op of
+            Array exprs1 -> case op of
                 Equal -> case expr2 of
-                    Array exprs2 ->  ... where
+                    Array exprs2 -> (codez, cs{pc=pc+length codez}) where
+                        (arr1Code, arr1State) = gen expr1 cs
+                        (arr2Code, arr2State) = gen expr2 arr1State{nextLocalOffset=nlo+length exprs1}
+                        nextAddr = nextLocalOffset arr2State + length exprs2
+                        arr1StartAddr   = nextAddr+1
+                        arr2StartAddr   = nextAddr+2
 
+                        codez = arr1Code ++ [Store regOut1 (DirAddr (arr1StartAddr))] ++
+                                arr2Code ++ [Store regOut1 (DirAddr (arr2StartAddr))] ++
+                                arrayEqual arr1StartAddr False arr2StartAddr False (nextAddr+3)
 
-                    Idf idf2 ->
+                    Idf idf2 -> (codez, cs{pc=pc+length codez}) where
+                        (arr1Code, arr1State) = gen expr1 cs
 
-                NotEqual -> case expr2 of
-                    Array exprs2 ->
+                        nextAddr = nextLocalOffset arr1State
+                        arr1StartAddr   = nextAddr+1
+                        arr2StartAddr   = nextAddr+2
 
-                    Idf idf2 ->
+                        codez = arr1Code ++ [Store regOut1 (DirAddr (arr1StartAddr))] ++
+                                case offset lv idf2 of
+                                    Just localOffset    -> [Load (ImmValue localOffset) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++
+                                        arrayEqual arr1StartAddr False arr2StartAddr False (nextAddr+3)
+                                    Nothing             -> case offset sv idf2 of
+                                        Just sharedOffset   -> [Load (ImmValue sharedOffset) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++
+                                            arrayEqual arr1StartAddr False arr2StartAddr True (nextAddr+3)
+                                        Nothing         -> error ("variable " ++ idf2 ++ " not found.")
+
+                NotEqual -> gen (UnOp Not (BinOp Equal expr1 expr2)) cs
             
             Idf idf -> case op of
                 Equal -> case expr2 of
-                    Array exprs2 ->
+                    Array exprs2 -> (codez, cs{pc=pc+length codez}) where
+                        (arr2Code, arr2State) = gen expr2 cs
+                        
+                        nextAddr = nextLocalOffset arr2State
+                        arr1StartAddr   = nextAddr+1
+                        arr2StartAddr   = nextAddr+2
 
-                    Idf idf2 ->
+                        codez = case offset lv idf of
+                            Just localOffset    ->  [Load (ImmValue localOffset) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++
+                                                    arr2Code ++ [Store regOut1 (DirAddr arr2StartAddr)] ++
+                                                    arrayEqual arr1StartAddr False arr2StartAddr False (nextAddr+3)
+                            Nothing             -> case offset sv idf of
+                                Just sharedOffset   ->  [Load (ImmValue sharedOffset) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++
+                                                        arr2Code ++ [Store regOut1 (DirAddr arr2StartAddr)] ++
+                                                        arrayEqual arr1StartAddr True arr2StartAddr False (nextAddr+3)
+                                Nothing             -> error ("variable " ++ idf ++ " not found.")
 
-                NotEqual -> case expr2 of
-                    Array exprs2 ->
+                    Idf idf2 -> (codez, cs{pc=pc+length codez}) where
+                        nextAddr = nextLocalOffset cs
+                        arr1StartAddr = nextAddr+1
+                        arr2StartAddr = nextAddr+2
 
-                    Idf idf2 ->-}
+                        codez = case offset lv idf of
+                            Just localOffset    ->  [Load (ImmValue localOffset) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++ case offset lv idf2 of
+                                Just localOffset2   ->  [Load (ImmValue localOffset2) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++
+                                                        arrayEqual arr1StartAddr False arr2StartAddr False (nextAddr+3)
+                                Nothing             ->  case offset sv idf2 of
+                                    Just sharedOffset2  ->  [Load (ImmValue sharedOffset2) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++
+                                                            arrayEqual arr1StartAddr False arr2StartAddr True (nextAddr+3)
+                                    Nothing             -> error ("variable " ++ idf2 ++ " not found.")
+                            Nothing             -> case offset sv idf of
+                                Just sharedOffset   -> [Load (ImmValue sharedOffset) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++ case offset lv idf2 of
+                                    Just localOffset2   ->  [Load (ImmValue localOffset2) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++
+                                                            arrayEqual arr1StartAddr True arr2StartAddr False (nextAddr+3)
+                                    Nothing             ->  case offset sv idf2 of
+                                        Just sharedOffset2  ->  [Load (ImmValue sharedOffset2) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++
+                                                                arrayEqual arr1StartAddr True arr2StartAddr True (nextAddr+3)
+                                        Nothing             -> error ("variable " ++ idf2 ++ " not found.")
+                                Nothing             -> error ("variable " ++ idf ++ " not found.")
 
+                NotEqual -> gen (UnOp Not (BinOp Equal expr1 expr2)) cs
             
-            _ ->    (expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs, opState{pc=pc+length code})
+            _ ->    (expr1Instrs ++ [Push regOut1] ++ expr2Instrs ++ [Pop regOut2] ++ opInstrs, opState{pc=pc+length code}) where
+                        (expr1Instrs, expr1State@CompileState{pc=expr1Pc})  = gen expr1 cs
+                        (expr2Instrs, expr2State@CompileState{pc=expr2Pc})  = gen expr2 expr1State{pc=expr1Pc+1}
+                        (opInstrs, opState)                                 = gen op expr2State{pc=expr2Pc+1}
 
 
     -- TrinOpExpr
@@ -318,8 +386,7 @@ instance CodeGen Expr where
                 IntType                 -> exprCode ++ [Store regOut1 (DirAddr o)]
                 BoolType                -> exprCode ++ [Store regOut1 (DirAddr o)]
                 ArrayType len _         -> case expr of 
-                    Array exprs -> fst (gen assExprs cs) where
-                        assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                    Array exprs -> fst (gen expr cs{nextLocalOffset=o}) -- The Tricks are real! :D
                     Idf idf     -> case offset lv idf of
                         Just off    -> concat [[Load (DirAddr (off+i)) regOut2, Store regOut2 (DirAddr (o+i))] | i <- [1..len]]
                         Nothing     -> case offset sv idf of
@@ -332,7 +399,7 @@ instance CodeGen Expr where
                     BoolType                -> exprCode ++ [WriteInstr regOut1 (DirAddr o)]
                     ArrayType len _         -> case expr of
                         Array exprs     -> fst (gen assExprs cs) where
-                            assExprs = [SpotAss string (Int i) (exprs!!(i-1)) | i <- [1..len]]
+                            assExprs = [SpotAss (Idf string) (Int i) (exprs!!(i-1)) | i <- [1..len]]
                         Idf idf     -> case offset lv idf of
                             Just off    -> concat [[Load (DirAddr (off+i)) regOut2, WriteInstr regOut2 (DirAddr (o+i))] | i <- [1..len]]
                             Nothing     -> case offset sv idf of
@@ -341,32 +408,42 @@ instance CodeGen Expr where
                 Nothing                 -> error ("variable " ++ string ++ " not found.") 
 
     -- SpotExpr
-    gen (Spot identifier indexExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, exprState{pc=pc+length code}) where
-            (indexCode, exprState)    = gen indexExpr cs
+    gen (Spot arrayExpr indexExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, restState) where
+            (indexCode, indexExprState)    = gen indexExpr cs
 
-            code = indexCode ++ case offset lv identifier of
-                Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
-
-                Nothing     -> case offset sv identifier of
-                    Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, ReadInstr (IndAddr regOut1), Receive regOut1]
-
-                    Nothing     -> error ("variable " ++ identifier ++ " not found.")
+            (code, restState) = case arrayExpr of
+                Idf identifier  -> (codez, indexExprState{pc=pc+length code}) where
+                    codez = indexCode ++ case offset lv identifier of
+                        Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
+                        Nothing     -> case offset sv identifier of
+                            Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, ReadInstr (IndAddr regOut1), Receive regOut1]
+                            Nothing     -> error ("variable " ++ identifier ++ " not found.")
+                
+                Array exprs         -> (codez, arrayState{pc=pc+length code}) where
+                    (arrayCode, arrayState) = gen arrayExpr indexExprState
+                    codez = indexCode ++ [Push regOut1] ++ arrayCode ++ [Pop regOut2] ++
+                            [Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
 
     -- SpotAssExpr
-    gen (SpotAss identifier indexExpr valExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, valState{pc=pc+length code}) where
+    gen (SpotAss arrayExpr indexExpr valExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, restState) where
         (indexCode, indexExprState@CompileState{pc=indexPc})    = gen indexExpr cs
         (valCode, valState)                                     = gen valExpr indexExprState{pc=indexPc+1}
 
-        code = indexCode ++ [Push regOut1] ++ valCode ++ [Pop regOut2] ++ case offset lv identifier of --index: regOut2, newValue: regOut1
-            Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, Store regOut1 (IndAddr regOut4)]
-
-            Nothing     -> case offset sv identifier of
-                Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, WriteInstr regOut1 (IndAddr regOut4)]
-
-                Nothing     -> error ("variable " ++ identifier ++ " not found.")
+        (code, restState) = case arrayExpr of
+            Idf identifier -> (codez, valState{pc=pc+length code}) where
+                codez   = indexCode ++ [Push regOut1] ++ valCode ++ [Pop regOut2] ++ case offset lv identifier of --index: regOut2, newValue: regOut1
+                    Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, Store regOut1 (IndAddr regOut4)] ++ [Load (ImmValue addr) regOut1]
+                    Nothing     -> case offset sv identifier of
+                        Just addr   -> [Load (ImmValue addr) regOut3, Compute Add regOut2 regOut3 regOut4, WriteInstr regOut1 (IndAddr regOut4)] ++ [Load (ImmValue addr) regOut1]
+                        Nothing     -> error ("variable " ++ identifier ++ " not found.")
+            Array exprs     -> (codez, arrayState{pc=pc+length code}) where
+                (arrayCode, arrayState) = gen arrayExpr valState
+                codez = indexCode ++ [Push regOut1] ++ valCode ++ [Push regOut1] ++
+                        arrayCode ++ [Pop regOut2{-newValue-}, Pop regOut3{-index-}] ++ 
+                        [Compute Add regOut3 regOut1 regOut4, Store regOut2 (IndAddr regOut4)] where
 
     -- ArrayExpr
-    gen (Array exprs) cs@CompileState{localVars=lv, nextLocalOffset=nlo, pc=pc} = (code, exprsState{pc=pc+length code}) where
+    gen (Array exprs) cs@CompileState{localVars=lv, nextLocalOffset=nlo, pc=pc} = (code, exprsState{nextLocalOffset=nlo, pc=pc+length code}) where
         (exprsCode, exprsState) = evalAndStore exprs cs{nextLocalOffset=nlo+1, pc=pc+2}
         code = [Load (ImmValue (length exprs)) regOut2, Store regOut2 (DirAddr nlo)] ++ exprsCode ++ [Load (ImmValue nlo) regOut1]
 
@@ -446,3 +523,52 @@ instance CodeGen Crem where
 
     -- Decrement
     gen Decrem cs@CompileState{pc=pc}       = ([Compute Decr regOut1 reg0 regOut1], cs{pc=pc+1})
+
+
+
+arrayEqual :: Offset -> Bool -> Offset -> Bool -> Offset -> [Instruction]
+arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = code
+    where
+        i = nextFreeOffset
+        equal = nextFreeOffset + 1
+        code =  [Load (ImmValue (intBool True)) regOut1, Store regOut1 (DirAddr equal), Store reg0 (DirAddr i)] ++
+                [Load (DirAddr i) regOut1 --BEGIN WHILE
+                ,Compute Incr regOut1 reg0 regOut1
+                ,Store regOut1 (DirAddr i) --verhoog i
+                                
+                ,Load (DirAddr arr1StartAddr) regOut2
+                ,Load (IndAddr regOut2) regOut2         --first elem of arr1
+                                
+                ,Compute LtE regOut1 regOut2 regOut1     --i <= len arr1
+                                
+                ,Load (DirAddr equal) regOut3           --equal
+                ,Compute And regOut1 regOut3 regOut4    --i <= len arr1 && equal
+
+                ,Load (ImmValue 1) regOut5
+                ,Compute Xor regOut4 regOut5 regOut1    --branch if (i <= len arr1 && equal) is false
+
+                ,Branch regOut1 (Rel (14 + intBool arr1Shared + intBool arr2Shared))    --jump to afterwhile
+                ,Load (DirAddr i) regOut1               --i
+
+                ,Load (DirAddr arr1StartAddr) regOut2               -- base offset a
+                ,Compute Add regOut1 regOut2 regOut3] ++            -- i+offset a
+                if arr1Shared
+                    then [ReadInstr (IndAddr regOut3), Receive regOut4]
+                    else [Load (IndAddr regOut3) regOut4] ++        --a[i]
+
+                [Load (DirAddr arr2StartAddr) regOut2               -- base offset b
+                ,Compute Add regOut1 regOut2 regOut3] ++            -- i+offset b
+                if arr2Shared
+                    then [ReadInstr (IndAddr regOut3), Receive regOut4]
+                    else [Load (IndAddr regOut3) regOut5] ++       -- b[i]
+
+                [Compute NEq regOut4 regOut5 regOut3    -- x != y
+                ,Load (ImmValue 1) regOut2
+                ,Compute Xor regOut3 regOut2 regOut1    -- not (x!=y)
+
+                ,Branch regOut1 (Rel 2)                 --skip (equal becomes false)
+                ,Store 0 (DirAddr equal)                --equal = false
+                ,Jump (Rel ((-23) - intBool arr1Shared - intBool arr2Shared))
+
+                ,Load (DirAddr equal) regOut1           --return equal                   
+                ]

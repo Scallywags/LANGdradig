@@ -1,0 +1,23 @@
+a is een reeks van 3 getallen.
+b is een reeks van 3 getallen.
+
+a wordt [1, 2, 3].
+b wordt [1, 2, 3].
+
+equal is een stelling.
+equal wordt waar.
+
+i is een getal.
+
+x is een getal.
+y is een getal.
+
+zolang verhoog i kleiner is dan of gelijk is aan de lengte van a en equal
+	doe
+		x wordt a op plek i.
+		y wordt b op plek i.
+		als x ongelijk is aan y
+			equal wordt onwaar.
+	klaar.
+
+laat equal zien.
