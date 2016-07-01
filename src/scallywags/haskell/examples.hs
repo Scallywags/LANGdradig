@@ -115,9 +115,27 @@ testAndSet :: [Instruction]
 testAndSet  = [Load (ImmValue 0) regE, WriteInstr regE (DirAddr 0), TestAndSet (DirAddr 0), Receive regE, EndProg]
 
 printt :: [Instruction]
-printt = [Load (ImmValue 1337) regE, Print regE, EndProg]
+printt = [Load (ImmValue 1337) regE, PrintInt regE, EndProg]
 
-testPrint       = sysRun [printt]
+arrayEqual :: [Instruction]
+arrayEqual =    [Load (ImmValue 4) 6
+                ,Store 6 (DirAddr 1)
+                ,Store 6 (DirAddr 6)
+                ,Load (ImmValue 3) 5
+                ,Store 5 (DirAddr 2)
+                ,Load (ImmValue 3) 5
+                ,Store 5 (DirAddr 7)
+                ,Load (ImmValue 1) 6
+                ,Store 6 (DirAddr 11)
+                ,Load (ImmValue 6) 6
+                ,Store 6 (DirAddr 12)
+                ] ++
+                [Load (ImmValue 1) 6,Store 6 (DirAddr 14),Store 0 (DirAddr 13),Load (DirAddr 13) 6,Compute Incr 6 0 6,Store 6 (DirAddr 13),Load (DirAddr 11) 5,Load (IndAddr 5) 5,Compute LtE 6 5 6,Load (DirAddr 14) 4,Compute And 6 4 3,Load (ImmValue 1) 2,Compute Xor 3 2 6,Branch 6 (Rel 14),Load (DirAddr 13) 6,Load (DirAddr 11) 5,Compute Add 6 5 4,Load (IndAddr 4) 3,Load (DirAddr 12) 5,Compute Add 6 5 4,Load (IndAddr 4) 2,Compute NEq 3 2 4,Load (ImmValue 1) 5,Compute Xor 4 5 6,Branch 6 (Rel 2),Store 0 (DirAddr 14),Jump (Rel (-23)),Load (DirAddr 14) 6] ++
+                [PrintBool 6, EndProg]
+
+testArrayEqual  = sysTest [arrayEqual]
+showArrayEqual  = sysRun [arrayEqual]
+showPrint       = sysRun [printt]
 testLocalMem    = sysTest [locmem]
 testAdd         = sysTest [addAB]
 testSharedMem   = sysTest [sharedmem, sharedmem, sharedmem]
