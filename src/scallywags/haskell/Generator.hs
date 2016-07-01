@@ -215,9 +215,9 @@ instance CodeGen Stat where
             BoolType            -> exprCode ++ [PrintBool regOut1]
             ArrayType len t     -> case expr of
                 Idf identifier  -> case offset lv identifier of
-                    Just addr   -> [PrintLocalRange (DirAddr (addr+1)) len] --TODO give type as extra argument
+                    Just addr   -> [PrintLocalRange (DirAddr (addr+1)) len (t==BoolType)]
                     Nothing     -> case offset sv identifier of
-                        Just addr   -> [PrintSharedRange (DirAddr (addr+1)) len]
+                        Just addr   -> [PrintSharedRange (DirAddr (addr+1)) len (t==BoolType)]
                         Nothing     -> error ("variable " ++ identifier ++ " not found.")
                 _               -> [] --not supported.
 

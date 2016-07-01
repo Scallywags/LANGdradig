@@ -113,8 +113,9 @@ data Instruction = Compute Operator RegAddr RegAddr RegAddr     -- Compute op r0
 
                  | PrintInt RegAddr                             -- Prints value of the given register
                  | PrintBool RegAddr                            -- Print the value in the register as a boolean
-                 | PrintLocalRange AddrImmDI Int                -- Prints all values in local memory from the given address till the given length
-                 | PrintSharedRange AddrImmDI Int               -- Prints all values in shared memory from the given address till the given length
+                 | PrintLocalRange AddrImmDI Int Bool           -- Prints all values in local memory from the given address till the given length
+                 | PrintSharedRange AddrImmDI Int Bool          -- Prints all values in shared memory from the given address till the given length
+                                                                -- prints the values as boolean is Bool is true.
 
                  | Debug String                                 -- No real instruction, for debug purposes.
                  deriving (Eq,Show,Read)
