@@ -1,0 +1,8 @@
+a is een gedeeld getal.
+a wordt 8.
+
+zolang a kleiner is dan of gelijk is aan 324
+	doe
+		verhoog a.
+		laat a zien.
+	klaar.
