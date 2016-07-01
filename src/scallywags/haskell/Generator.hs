@@ -534,10 +534,12 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
         code =  [Load (ImmValue (intBool True)) regOut1, Store regOut1 (DirAddr equal), Store reg0 (DirAddr i)] ++
                 [Load (DirAddr i) regOut1 --BEGIN WHILE
                                 
-                ,Load (DirAddr arr1StartAddr) regOut2
-                ,Load (IndAddr regOut2) regOut2         --first elem of arr1
+                ,Load (DirAddr arr1StartAddr) regOut2] ++
+                (if arr1Shared
+                    then [ReadInstr (IndAddr regOut2), Receive regOut2]
+                    else [Load (IndAddr regOut2) regOut2]) ++         --first elem of arr1 (CAN BEN SHARED!)
                                 
-                ,Compute LtE regOut1 regOut2 regOut1     --i <= len arr1
+                [Compute LtE regOut1 regOut2 regOut1     --i <= len arr1
                                 
                 ,Load (DirAddr equal) regOut3           --equal
                 ,Compute And regOut1 regOut3 regOut4    --i <= len arr1 && equal
@@ -545,24 +547,22 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
                 ,Load (ImmValue 1) regOut5
                 ,Compute Xor regOut4 regOut5 regOut1    --branch if (i <= len arr1 && equal) is false
 
-                ,Branch regOut1 (Rel (17 + intBool arr1Shared + intBool arr2Shared))    --jump to afterwhile
+                ,Branch regOut1 (Rel (15 + intBool arr1Shared + intBool arr2Shared))    --jump to afterwhile
                 ,Load (DirAddr i) regOut1               --i
 
                 ,Load (DirAddr arr1StartAddr) regOut2               -- base offset a
                 ,Compute Add regOut1 regOut2 regOut3] ++            -- i+offset a
-                if arr1Shared
+                (if arr1Shared
                     then [ReadInstr (IndAddr regOut3), Receive regOut4]
-                    else [Load (IndAddr regOut3) regOut4] ++        --a[i]
+                    else [Load (IndAddr regOut3) regOut4]) ++        --a[i] --x
 
                 [Load (DirAddr arr2StartAddr) regOut2               -- base offset b
                 ,Compute Add regOut1 regOut2 regOut3] ++            -- i+offset b
-                if arr2Shared
-                    then [ReadInstr (IndAddr regOut3), Receive regOut4]
-                    else [Load (IndAddr regOut3) regOut5] ++       -- b[i]
+                (if arr2Shared
+                    then [ReadInstr (IndAddr regOut3), Receive regOut5]
+                    else [Load (IndAddr regOut3) regOut5]) ++       -- b[i] --y
 
-                [Compute NEq regOut4 regOut5 regOut3    -- x != y
-                ,Load (ImmValue 1) regOut2
-                ,Compute Xor regOut3 regOut2 regOut1    -- not (x!=y)
+                [Compute Equ regOut4 regOut5 regOut1   -- x == y
 
                 ,Branch regOut1 (Rel 2)                 --skip (equal becomes false)
 
@@ -572,7 +572,7 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
                 ,Compute Incr regOut1 reg0 regOut1
                 ,Store regOut1 (DirAddr i) --verhoog i
 
-                ,Jump (Rel ((-24) - intBool arr1Shared - intBool arr2Shared))
+                ,Jump (Rel ((-22) - 2 * intBool arr1Shared - intBool arr2Shared))
 
                 ,Load (DirAddr equal) regOut1           --return equal                   
                 ]

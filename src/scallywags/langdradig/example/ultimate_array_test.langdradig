@@ -28,3 +28,18 @@ laat c zien.
 
 c wordt [5,4,3,2,1] is gelijk aan a.		#true
 laat c zien.
+
+d is een gedeelde reeks van 2 getallen.
+d wordt [13,37].
+
+c wordt d is gelijk aan [13,37].			#true
+laat c zien.
+
+e is een gedeelde reeks van 2 getallen.
+e wordt [13,37].
+
+c wordt d is gelijk aan e.					#true
+laat c zien.
+
+c wordt d is gelijk aan [1337]				#false
+laat c zien.
