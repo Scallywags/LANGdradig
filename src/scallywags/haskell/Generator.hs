@@ -282,9 +282,9 @@ instance CodeGen Expr where
                                 arrayEqual arr1StartAddr False arr2StartAddr False (nextAddr+3)
 
                     Idf idf2 -> (codez, cs{pc=pc+length codez}) where
-                        (arr1Code, arr1State) = gen expr1 cs
+                        (arr1Code, arr1State) = gen expr1 cs{nextLocalOffset=nlo+5}
 
-                        nextAddr = nextLocalOffset arr1State
+                        nextAddr = nextLocalOffset cs
                         arr1StartAddr   = nextAddr+1
                         arr2StartAddr   = nextAddr+2
 
@@ -302,9 +302,9 @@ instance CodeGen Expr where
             Idf idf -> case op of
                 Equal -> case expr2 of
                     Array exprs2 -> (codez, cs{pc=pc+length codez}) where
-                        (arr2Code, arr2State) = gen expr2 cs
+                        (arr2Code, arr2State) = gen expr2 cs{nextLocalOffset=nlo+5}
                         
-                        nextAddr = nextLocalOffset arr2State
+                        nextAddr = nextLocalOffset cs
                         arr1StartAddr   = nextAddr+1
                         arr2StartAddr   = nextAddr+2
 
@@ -533,8 +533,6 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
         equal = nextFreeOffset + 1
         code =  [Load (ImmValue (intBool True)) regOut1, Store regOut1 (DirAddr equal), Store reg0 (DirAddr i)] ++
                 [Load (DirAddr i) regOut1 --BEGIN WHILE
-                ,Compute Incr regOut1 reg0 regOut1
-                ,Store regOut1 (DirAddr i) --verhoog i
                                 
                 ,Load (DirAddr arr1StartAddr) regOut2
                 ,Load (IndAddr regOut2) regOut2         --first elem of arr1
@@ -547,7 +545,7 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
                 ,Load (ImmValue 1) regOut5
                 ,Compute Xor regOut4 regOut5 regOut1    --branch if (i <= len arr1 && equal) is false
 
-                ,Branch regOut1 (Rel (14 + intBool arr1Shared + intBool arr2Shared))    --jump to afterwhile
+                ,Branch regOut1 (Rel (17 + intBool arr1Shared + intBool arr2Shared))    --jump to afterwhile
                 ,Load (DirAddr i) regOut1               --i
 
                 ,Load (DirAddr arr1StartAddr) regOut2               -- base offset a
@@ -567,8 +565,14 @@ arrayEqual arr1StartAddr arr1Shared arr2StartAddr arr2Shared nextFreeOffset = co
                 ,Compute Xor regOut3 regOut2 regOut1    -- not (x!=y)
 
                 ,Branch regOut1 (Rel 2)                 --skip (equal becomes false)
+
                 ,Store 0 (DirAddr equal)                --equal = false
-                ,Jump (Rel ((-23) - intBool arr1Shared - intBool arr2Shared))
+
+                ,Load (DirAddr i) regOut1
+                ,Compute Incr regOut1 reg0 regOut1
+                ,Store regOut1 (DirAddr i) --verhoog i
+
+                ,Jump (Rel ((-24) - intBool arr1Shared - intBool arr2Shared))
 
                 ,Load (DirAddr equal) regOut1           --return equal                   
                 ]
