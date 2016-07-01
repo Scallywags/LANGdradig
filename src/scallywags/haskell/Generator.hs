@@ -107,7 +107,7 @@ instance CodeGen Stat where
             IntType                 ->  [Store reg0 (DirAddr offset)]    --default value for Int is 0
             BoolType                ->  [Store reg0 (DirAddr offset)]    --default value for Bool is 0
             ArrayType len elemType  ->  [Load (ImmValue len) regOut1, Store regOut1 (DirAddr offset)] ++
-                                        [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len+1]]
+                                        [Store reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len]]
                                         --default value for arrays is all zeros.
         restState = cs{localVars=((varName, varType, offset):scope):scopes, nextLocalOffset=offset+size, pc=pc+length code}
 
@@ -154,7 +154,7 @@ instance CodeGen Stat where
             IntType                 ->  [WriteInstr reg0 (DirAddr offset)]    --default value for Int is 0
             BoolType                ->  [WriteInstr reg0 (DirAddr offset)]    --default value for Bool is 0
             ArrayType len elemType  ->  [Load (ImmValue len) regOut1, WriteInstr regOut1 (DirAddr offset)] ++
-                                        [WriteInstr reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len+1]]
+                                        [WriteInstr reg0 (DirAddr dirAddr) | dirAddr <- [offset+1..offset+len]]
                                         --default value for arrays is all zeros. fix in case the elements are arrays themselves
 
         restState = cs{sharedVars=((varName, varType, offset):scope):scopes, nextSharedOffset=offset+size, pc=pc+length code}
@@ -272,7 +272,7 @@ instance CodeGen Expr where
                 Equal -> case expr2 of
                     Array exprs2 -> (codez, cs{pc=pc+length codez}) where
                         (arr1Code, arr1State) = gen expr1 cs
-                        (arr2Code, arr2State) = gen expr2 arr1State{nextLocalOffset=nlo+length exprs1}
+                        (arr2Code, arr2State) = gen expr2 arr1State{nextLocalOffset=nlo+length exprs1+1}
                         nextAddr = nextLocalOffset arr2State + length exprs2
                         arr1StartAddr   = nextAddr+1
                         arr2StartAddr   = nextAddr+2

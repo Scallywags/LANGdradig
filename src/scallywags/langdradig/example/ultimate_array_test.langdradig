@@ -2,19 +2,13 @@
 
 a is een reeks van 5 getallen.
 b is een reeks van 5 getallen.
+c is een stelling.
 
 a wordt [5,4,3,2,1].
 b wordt [5,4,3,2,1].
-
-c is een stelling.
-
 c wordt a is gelijk aan b.
+
+laat c zien.
 
 laat a zien.
 laat b zien.
-
-laat c zien.
-
-c wordt [1,3] is gelijk aan [1,2].
-
-laat c zien.

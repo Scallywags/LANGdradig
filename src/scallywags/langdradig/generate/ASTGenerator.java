@@ -186,7 +186,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append("\"main :: IO ()\\n\" ++ ").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
-		builder.append("\"main = sysTest $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
+		builder.append("\"main = sysRun $ replicate \" ++ show (length (t_ids state) + 1) ++ \" prog\"").append(NEWLINE);
 		builder.append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES).append(FOUR_SPACES);
 		builder.append(WHERE).append(' ').append("(instructions, state) = generate ast").append(NEWLINE);
 		

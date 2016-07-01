@@ -122,9 +122,9 @@ arrayEqual =    [Load (ImmValue 4) 6
                 ,Store 6 (DirAddr 1)
                 ,Store 6 (DirAddr 6)
                 ,Load (ImmValue 3) 5
-                ,Store 5 (DirAddr 2)
+                ,Store 5 (DirAddr 4)
                 ,Load (ImmValue 3) 5
-                ,Store 5 (DirAddr 7)
+                ,Store 5 (DirAddr 9)
                 ,Load (ImmValue 1) 6
                 ,Store 6 (DirAddr 11)
                 ,Load (ImmValue 6) 6
