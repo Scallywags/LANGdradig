@@ -132,8 +132,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	public static void main(String[] args) throws IOException {
 		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "break.langdradig");
-		gen.writeAST(HASKELL_DIR);		
+		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "expressions.langdradig");
+		gen.writeAST(HASKELL_DIR);
 	}
 	
 	public String generate() throws IOException {
@@ -232,7 +232,8 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitIfStat(IfStatContext ctx) {
-		//TODO take NIET? into account!
+		boolean inverted = ctx.NIET() != null;
+		
 		List<StatementContext> stmnts = ctx.statement();
 		boolean hasElse = stmnts.size() > 1;
 		
@@ -242,7 +243,11 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		} else {
 			builder.append(IF_THEN);
 		}
-		builder.append(' ').append(LPAR).append(visit(ctx.expression())).append(RPAR);
+		builder.append(' ').append(LPAR);
+			if (inverted) builder.append(UN_OP).append(' ').append(NOT).append(' ').append(LPAR);
+			builder.append(visit(ctx.expression()));
+			if (inverted) builder.append(RPAR);
+			builder.append(RPAR);
 		builder.append(' ').append(LPAR).append(visit(stmnts.get(0))).append(RPAR);
 		if (hasElse) {
 			builder.append(' ').append(LPAR).append(visit(stmnts.get(1))).append(RPAR);
@@ -252,9 +257,10 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitWhileStat(WhileStatContext ctx) {
-		return WHILE + " " + LPAR + visit(ctx.expression()) + RPAR
+		boolean inverted = ctx.NIET() != null;
+		return WHILE + " " + LPAR + (inverted ? UN_OP + " " + NOT + " " + LPAR : "")
+				+ visit(ctx.expression()) + (inverted ? RPAR : "") + RPAR
 				+ " " + LPAR + visit(ctx.statement()) + RPAR;
-		//TODO take (NIET?) into account
 	}
 	
 	@Override

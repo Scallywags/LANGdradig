@@ -329,9 +329,9 @@ public class Main extends JFrame {
         contentCheckTimer.setRepeats(false);
 
         MessageConsole mc = new MessageConsole(messagesArea);
-        mc.redirectOut();
+        mc.redirectOut(null, System.out);
         mc.redirectErr(Color.RED, null);
-        mc.setMessageLines(100);
+        mc.setMessageLines(1000);
 
         pack();
         setTitle("LANGdradig IDE");
