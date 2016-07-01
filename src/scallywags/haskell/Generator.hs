@@ -325,7 +325,7 @@ instance CodeGen Expr where
 
                         codez = case offset lv idf of
                             Just localOffset    ->  [Load (ImmValue localOffset) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++ case offset lv idf2 of
-                                Just localOffset2   ->  [Load (ImmValue localOffset2) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++
+                                Just localOffset2   ->  [Load (ImmValue localOffset2) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++
                                                         arrayEqual arr1StartAddr False arr2StartAddr False (nextAddr+3)
                                 Nothing             ->  case offset sv idf2 of
                                     Just sharedOffset2  ->  [Load (ImmValue sharedOffset2) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++
@@ -333,7 +333,7 @@ instance CodeGen Expr where
                                     Nothing             -> error ("variable " ++ idf2 ++ " not found.")
                             Nothing             -> case offset sv idf of
                                 Just sharedOffset   -> [Load (ImmValue sharedOffset) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++ case offset lv idf2 of
-                                    Just localOffset2   ->  [Load (ImmValue localOffset2) regOut1, Store regOut1 (DirAddr arr1StartAddr)] ++
+                                    Just localOffset2   ->  [Load (ImmValue localOffset2) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++
                                                             arrayEqual arr1StartAddr True arr2StartAddr False (nextAddr+3)
                                     Nothing             ->  case offset sv idf2 of
                                         Just sharedOffset2  ->  [Load (ImmValue sharedOffset2) regOut1, Store regOut1 (DirAddr arr2StartAddr)] ++

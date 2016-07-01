@@ -6,9 +6,25 @@ c is een stelling.
 
 a wordt [5,4,3,2,1].
 b wordt [5,4,3,2,1].
-c wordt a is gelijk aan b.
 
+c wordt a is gelijk aan b.
+laat c zien. 								#true
+
+b wordt [5,4,3,2,5].
+c wordt a is gelijk aan b.					#false
 laat c zien.
 
-laat a zien.
-laat b zien.
+c wordt a is ongelijk aan b.				#true
+laat c zien.
+
+c wordt [1,2,3] is gelijk aan [1,2,3].		#true
+laat c zien.
+
+c wordt [1,2,3] is ongelijk aan [1,2,3].	#false
+laat c zien.
+
+c wordt a is gelijk aan [5,4,3,2,1].		#true
+laat c zien.
+
+c wordt [5,4,3,2,1] is gelijk aan a.		#true
+laat c zien.
