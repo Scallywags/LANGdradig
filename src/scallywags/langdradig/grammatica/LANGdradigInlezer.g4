@@ -101,7 +101,7 @@ VAN				: V A N												;
 DE				: D E												;
 
 NUMBER			: DIGIT+			                                ;
-IDENTIFIER		: LETTER ALPHANUM*	                                ;
+IDENTIFIER		: LETTER+       	                                ;
 TELWOORD		: NUMBER ('e' | [de] | [ste])						;
 
 fragment DIGIT		: [0-9]				                            ;

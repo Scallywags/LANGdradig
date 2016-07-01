@@ -1,13 +1,10 @@
 package scallywags.langdradig.ide.features.finished;
 
-import scallywags.langdradig.generate.Type;
-
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,7 +15,7 @@ public class SyntaxHighlighter {
     private static final String[] TYPE_KEYWORDS = {"reeks", "reeksen", "getal", "getallen", "stelling", "stellingen"};
     private static final String[] CONCURRENCY_KEYWORDS = {"gedeeld", "gedeelde", "besteed", "uit aan", "kritiek", "wacht op"};
     private static final String[] OPERATOR_KEYWORDS = {"plus", "min", "keer", "gedeeld door", "tot de macht", "modulus", "niet", "verhoog", "verlaag", "hoog"};
-    private static final String[] COMPARATOR_KEYWORDS = {"gelijk is aan", "is gelijk aan", "ongelijk is aan", "is ongelijk aan", "kleiner is dan", "is kleiner dan", "groter is dan", "is groter dan", "ligt", "tussen", "binnen", "buiten"};
+    private static final String[] COMPARATOR_KEYWORDS = {"gelijk is aan", "is gelijk aan", "gelijk aan", "ongelijk is aan", "is ongelijk aan", "kleiner is dan", "is kleiner dan", "kleiner dan", "is kleiner", "kleiner is", "groter is dan", "is groter dan", "groter dan", "groter is", "is groter", "ligt", "tussen", "binnen", "buiten"};
     private static final String[] BLOCK_KEYWORDS = {"als", "anders", "zolang", "terwijl", "voor", "doe", "klaar"};
     private static final String[] VALUE_KEYWORDS = {"waar", "onwaar"};
     private static final String[] REST_KEYWORDS = {"wordt", "klopt", "plek", "plaats", "zet", "lengte", "laat", "zien"};
