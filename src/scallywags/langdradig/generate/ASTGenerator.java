@@ -232,6 +232,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitIfStat(IfStatContext ctx) {
+		//TODO take NIET? into account!
 		List<StatementContext> stmnts = ctx.statement();
 		boolean hasElse = stmnts.size() > 1;
 		
@@ -253,6 +254,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	public String visitWhileStat(WhileStatContext ctx) {
 		return WHILE + " " + LPAR + visit(ctx.expression()) + RPAR
 				+ " " + LPAR + visit(ctx.statement()) + RPAR;
+		//TODO take (NIET?) into account
 	}
 	
 	@Override
