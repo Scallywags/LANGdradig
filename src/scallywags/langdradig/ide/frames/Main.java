@@ -23,28 +23,13 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 
-import scallywags.langdradig.ide.Compiler;
+import scallywags.langdradig.generate.Compiler;
 import scallywags.langdradig.ide.features.finished.*;
 import scallywags.langdradig.ide.features.unfinished.AutoCompleter;
 import scallywags.langdradig.ide.features.unfinished.Formatter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
- * <p>
- * ------Future features------
- * Catch exception if anything goes wrong and give user feedback, don't let application halt without any kind of feedback
- * Support Search
- * Auto formatting
- * Add warnings
- * Split highlighter to explicit feature
- * For loop
- * add deelbaar door
- * saving file with existing name dialog
- * saving file as file that is already open should merge tabs
- * make variable overview a tree component
- * <p>
- * ------Bugs------
- * Selected text gets whited out when checkContent() is called afterwards
  */
 
 public class Main extends JFrame {
@@ -557,7 +542,6 @@ public class Main extends JFrame {
                      *      OPEN:       CTRL + O
                      *      NEW:        CTRL + N
                      *      START:      CTRL + R
-                     *      FORMAT:     CTRL + L
                      *      CLOSE TAB:  CTRL + W
                      *      UNDO:       CTRL + Z
                      *      REDO:       CTRL + Y
@@ -591,10 +575,6 @@ public class Main extends JFrame {
                             break;
                         case 75:    // 'K' key
                             onStop();
-                            break;
-                        case 76:    // 'L' key
-                            //TODO fix formatting
-//                            format();
                             break;
                         case 87:    // 'W' key
                             removeTab(programPane.getSelectedIndex());
@@ -834,6 +814,7 @@ public class Main extends JFrame {
         return changes.values().stream().anyMatch(b -> b);
     }
 
+    // Not used in the IDE
     private void format() {
         JTextPane area = getCodeArea();
         String newContent = Formatter.format(getCode());

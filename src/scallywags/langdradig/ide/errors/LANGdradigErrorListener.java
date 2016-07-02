@@ -1,4 +1,4 @@
-package scallywags.langdradig.listeners;
+package scallywags.langdradig.ide.errors;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.Parser;

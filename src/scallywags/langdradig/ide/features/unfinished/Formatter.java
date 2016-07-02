@@ -2,6 +2,8 @@ package scallywags.langdradig.ide.features.unfinished;
 
 /**
  * Created by Jeroen Weener on 21/06/2016.
+ *
+ * This class was build to be used by the LANGdradig IDE but the format function has not been finalized.
  */
 public class Formatter {
     private static final boolean ON = false;

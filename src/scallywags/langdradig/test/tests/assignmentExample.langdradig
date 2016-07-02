@@ -1,0 +1,19 @@
+a is een getal.
+b is een stelling.
+c is een reeks van 6 getallen.
+d is een reeks van 3 stellingen.
+e is een reeks van 2 reeksen van 2 getallen.
+
+a wordt 1337.
+b wordt waar.
+c wordt [3,1,4,1,5,9].
+d wordt [onwaar, waar, waar].
+
+laat a zien.
+laat b zien.
+laat c zien.
+laat d zien.
+
+f is een reeks van 3 stellingen.
+f wordt zet waar op plek 1 in d.
+laat f zien.
