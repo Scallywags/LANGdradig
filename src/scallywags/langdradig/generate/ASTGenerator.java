@@ -130,11 +130,11 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 		return sourceFile;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		//temporary test main function	
-		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "boolarray.langdradig");
-		gen.writeAST(HASKELL_DIR);
-	}
+//	public static void main(String[] args) throws IOException {
+//		//temporary test main function	
+//		ASTGenerator gen = new ASTGenerator(EXAMPLE_DIR + "foo.langdradig");
+//		gen.writeAST(HASKELL_DIR);
+//	}
 	
 	public String generate() throws IOException {
 		ProgramContext tree = new LANGdradigParser(new CommonTokenStream(new LANGdradigLexer(new ANTLRFileStream(sourceProgramPath)))).program();

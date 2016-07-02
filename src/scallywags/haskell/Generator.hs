@@ -178,7 +178,7 @@ instance CodeGen Stat where
         spinInstrs = [Jump (Abs 2)]
 
         (statInstrs, statState@CompileState{nextSharedOffset=nso}) = gen (Block stats) cs{localVars=[[]], nextLocalOffset=1, sharedVars=[]:sv, t_ids=newT_ids, pc=pc+length forkInstrs}
-        code = forkInstrs ++ statInstrs ++ spinInstrs
+        code = forkInstrs ++ statInstrs ++ spinInstrs --statInstrs is only executed by new thread, with a new local scope.
         restState = statState{localVars=lv, nextLocalOffset=nlo, sharedVars=sv, pc=pc+length code}
 
     --JoinStat
