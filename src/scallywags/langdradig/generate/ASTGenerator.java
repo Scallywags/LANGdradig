@@ -460,7 +460,7 @@ public class ASTGenerator extends LANGdradigBaseVisitor<String> {
 	
 	@Override
 	public String visitArrayType(ArrayTypeContext ctx) {
-		return ARRAY_TYPE + " " + ctx.NUMBER() + " " + visit(ctx.type());
+		return ARRAY_TYPE + " " + ctx.NUMBER() + " " + LPAR + visit(ctx.type()) + RPAR;
 	}
 	
 	// -------------- Terminal --------------
