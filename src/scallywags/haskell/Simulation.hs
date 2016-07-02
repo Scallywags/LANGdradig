@@ -83,15 +83,15 @@ printOnlyShow (i:is, systemState@SystemState{sprStates=state:states, sharedMem=s
         PrintBool regIndex  -> showBool (boolInt (regbank state !! regIndex)) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
         
         PrintLocalRange addr range asBool -> case addr of
-            DirAddr offset      -> (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+            DirAddr offset      -> filter (/='"') (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
                                       where vals = take range $ drop offset $ localMem state
-            IndAddr regIndex    -> (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+            IndAddr regIndex    -> filter (/='"') (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
                                       where vals = take range $ drop (regbank state !! regIndex) $ localMem state
 
         PrintSharedRange addr range asBool -> case addr of
-            DirAddr offset      -> (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+            DirAddr offset      -> filter (/='"') (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
                                       where vals = (take range $ drop offset $ sharedMem)
-            IndAddr regIndex    -> (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
+            IndAddr regIndex    -> filter (/='"') (if asBool then show $ map (showBool . boolInt) vals else show vals) ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})
                                       where vals = take range $ drop (regbank state !! regIndex) $ sharedMem
 
         Debug string            -> string ++ "\n" ++ printOnlyShow (is, systemState{sprStates=states})

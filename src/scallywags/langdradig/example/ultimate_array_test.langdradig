@@ -41,5 +41,5 @@ e wordt [13,37].
 c wordt d is gelijk aan e.					#true
 laat c zien.
 
-c wordt d is gelijk aan [1337]				#false
+c wordt d is gelijk aan [1337].				#false
 laat c zien.
