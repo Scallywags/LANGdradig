@@ -451,10 +451,12 @@ instance CodeGen Expr where
                             Just addr   -> [Load (ImmValue addr) regOut2, Compute Add regOut1 regOut2 regOut1, ReadInstr (IndAddr regOut1), Receive regOut1]
                             Nothing     -> error ("variable " ++ identifier ++ " not found.")
                 
-                Array exprs         -> (codez, arrayState{pc=pc+length code}) where
+                _                -> (codez, arrayState{pc=pc+length code}) where
                     (arrayCode, arrayState) = gen arrayExpr indexExprState
                     codez = indexCode ++ [Push regOut1] ++ arrayCode ++ [Pop regOut2] ++
                             [Compute Add regOut1 regOut2 regOut1, Load (IndAddr regOut1) regOut1]
+
+
 
     -- SpotAssExpr
     gen (SpotAss arrayExpr indexExpr valExpr) cs@CompileState{localVars=lv, sharedVars=sv, pc=pc} = (code, restState) where
