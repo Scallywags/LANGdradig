@@ -219,7 +219,7 @@ instance CodeGen Stat where
                     Nothing     -> case offset sv identifier of
                         Just addr   -> [PrintSharedRange (DirAddr (addr+1)) len (t==BoolType)]
                         Nothing     -> error ("variable " ++ identifier ++ " not found.")
-                _               -> [] --not supported.
+                Array exprs     -> exprCode ++ [Incr regOu1 reg0 regOut1, PrintLocalRange (IndAddr regOut1) (length exprs) False]
 
 instance CodeGen Expr where
     -- ParExpr
