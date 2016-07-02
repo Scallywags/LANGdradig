@@ -323,6 +323,11 @@ public class Main extends JFrame {
         setResizable(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
+
+        splitPane.setVisible(false);
+        splitPane.setVisible(true);
+        programmingViews.setVisible(false);
+        programmingViews.setVisible(true);
     }
 
     private void onOpen() {

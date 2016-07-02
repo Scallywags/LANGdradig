@@ -8,12 +8,15 @@ a wordt 1337.
 b wordt waar.
 c wordt [3,1,4,1,5,9].
 d wordt [onwaar, waar, waar].
+e wordt [[8,9],[10,11]].
 
 laat a zien.
 laat b zien.
 laat c zien.
 laat d zien.
+laat zet waar op plek 1 in d zien.
 
-f is een reeks van 3 stellingen.
-f wordt zet waar op plek 1 in d.
-laat f zien.
+i is een getal.
+#reeksen van reeksen kunnen niet geprint worden
+zolang i kleiner of gelijk is aan de lengte van e
+	laat e op plek i zien.
