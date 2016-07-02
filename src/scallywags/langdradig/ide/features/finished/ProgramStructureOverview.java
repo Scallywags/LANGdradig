@@ -15,7 +15,7 @@ public class ProgramStructureOverview {
 
     public static String printScopes(ForkTable forkTable) {
         StringBuilder sb = new StringBuilder();
-        for (ForkTable.Scope scope : forkTable.getScopeList()) {
+        for (ForkTable.ProcessScope scope : forkTable.getScopeList()) {
             for (int i = 0; i < scope.getDepth(); i++) {
                 sb.append("\t");
             }
