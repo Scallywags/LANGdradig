@@ -1,23 +1,17 @@
-package scallywags.langdradig.ide;
+package scallywags.langdradig.generate;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import scallywags.langdradig.generate.ASTGenerator;
 import scallywags.langdradig.ide.frames.Main;
-
-import javax.swing.*;
 
 public class Compiler {
 
@@ -70,26 +64,19 @@ public class Compiler {
 
     public String compile(String langdradigInputFile, FlagValue... flags) throws IOException {
         ASTGenerator astGen = new ASTGenerator(langdradigInputFile);
-        int cores = 1;
         String outputDir = astGen.getSourceFile().getParent();
-
         for (FlagValue flag : flags) {
-            if (flag.getSymbol() == Flag.CORES) {
-                cores = Integer.parseInt(flag.getValue());
-            }
             if (flag.getSymbol() == Flag.OUTPUT_DIR) {
                 outputDir = flag.getValue();
             }
         }
-        outputDir = "src/scallywags/haskell/"; //UGLY TEMPORARY FIX TODO make this prettier
-
         astGen.writeAST(outputDir);
-
         File workingDirectory = new File(outputDir);
-
         ProcessBuilder pBuilder = new ProcessBuilder("runhaskell", astGen.getProgramName() + ".ast.hs").directory(workingDirectory);
-        pBuilder.start();
-
+        try {
+            pBuilder.start().waitFor();
+        } catch (InterruptedException ignore) {
+        }
         return outputDir + astGen.getProgramName() + ".spril.hs";
     }
 
@@ -101,7 +88,6 @@ public class Compiler {
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
         String s;
         while ((s = stdInput.readLine()) != null) {
             result.add(s);
@@ -109,6 +95,10 @@ public class Compiler {
 
         while ((s = stdError.readLine()) != null) {
             result.add(s);
+        }
+        try {
+            process.waitFor();
+        } catch (InterruptedException ignore) {
         }
         return result;
     }
@@ -132,7 +122,7 @@ public class Compiler {
     }
 
     public enum Flag {
-        CORES('c'), OUTPUT_DIR('o');
+        OUTPUT_DIR('o');
 
         private char c;
 

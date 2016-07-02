@@ -15,7 +15,7 @@ import scallywags.langdradig.grammatica.LANGdradigLexer;
 import scallywags.langdradig.grammatica.LANGdradigParser;
 import scallywags.langdradig.grammatica.LANGdradigParser.*;
 import scallywags.langdradig.ide.errors.LANGdradigError;
-import scallywags.langdradig.listeners.LANGdradigErrorListener;
+import scallywags.langdradig.ide.errors.LANGdradigErrorListener;
 
 /**
  * The type- and scope checker for the LANGdradig programming language.
@@ -330,9 +330,8 @@ public class Checker extends LANGdradigBaseListener {
         Type arrayType = types.get(expressions.get(0));
         Type exprType = types.get(expressions.get(1));
         if (arrayType instanceof Type.ArrayType) {
-            types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
+            types.put(ctx, arrayType);
         } else {
-            //TODO
             exceptions.add(new TypeException(ctx, new Type.Array(), arrayType));
         }
         if (exprType != Type.INTEGER) {
@@ -350,7 +349,7 @@ public class Checker extends LANGdradigBaseListener {
             if (!valueType.equals(((Type.ArrayType) arrayType).getElemType())) {
                 exceptions.add(new TypeException(ctx, ((Type.ArrayType) arrayType).getElemType(), valueType));
             }
-            types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
+            types.put(ctx, arrayType);
         } else {
             exceptions.add(new TypeException(ctx, new Type.Array(), arrayType));
         }
