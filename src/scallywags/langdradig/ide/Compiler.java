@@ -166,7 +166,7 @@ public class Compiler {
     //TODO unhardcode paths
     public Process compileAndRun(String langdradigInputFile, Main main) throws IOException {
         File program = new File(langdradigInputFile);
-        main.print(program.getName() + " compileren...");
+        main.popup(program.getName() + " compileren");
         String outputDirName = program.getParent() + "\\gen";
         //Create gen folder
         File outputDir = new File(outputDirName);
@@ -212,7 +212,7 @@ public class Compiler {
         }
         ProcessBuilder sprilBuilder = new ProcessBuilder("runhaskell", astGen.getProgramName() + ".spril.hs").directory(outputDir);
         Process process = sprilBuilder.start();
-        main.print(program.getName() + " starten...\n");
+        main.popup(program.getName() + " starten");
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 

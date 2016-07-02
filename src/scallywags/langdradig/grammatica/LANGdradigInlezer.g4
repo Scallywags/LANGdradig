@@ -102,7 +102,6 @@ DE				: D E												;
 
 NUMBER			: DIGIT+			                                ;
 IDENTIFIER		: LETTER+       	                                ;
-TELWOORD		: NUMBER ('e' | [de] | [ste])						;
 
 fragment DIGIT		: [0-9]				                            ;
 fragment LETTER		: [a-zA-Z]			                            ;

@@ -23,7 +23,9 @@ public class LANGdradigErrorBuilder {
                 .replace("<EOF>", "eind van het programma")
                 .replace("missing", "ontbreekt")
                 .replace(" at", " op")
-                .replace("mismatched input", "verkeerde input");
+                .replace("mismatched input", "verkeerde input")
+                .replace("IDENTIFIER", "VARIABELE")
+                .replace("NUMBER", "GETAL");
     }
 
     public static LANGdradigError format(String code, CheckerException e) {
