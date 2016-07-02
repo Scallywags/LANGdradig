@@ -1,0 +1,26 @@
+arr is een reeks van 5 getallen.
+arr wordt [5,4,1,2,3].
+
+i is een getal.
+j is een getal.
+temp is een getal.
+len is een getal.
+len wordt de lengte van arr.
+
+zolang verhoog j kleiner is dan of gelijk is aan len
+	doe
+		i wordt 1.
+		zolang verhoog i kleiner is dan of gelijk is aan len min j plus 1
+			doe
+				als arr op plek (i min 1) groter is dan arr op plek i dan
+					doe
+						temp wordt arr op plek i.
+						zet arr op plek (i min 1) op plek i van arr.
+						zet temp op plek (i min 1) van arr.
+					klaar.
+			klaar.
+	klaar.
+
+laat arr zien.
+
+#LANGuage Dat Really Awesomely Does Immature Goods ???

@@ -1,16 +1,0 @@
-a is een geheel getal.
-b is een waarheid.
-
-als c klopt dan
-	a wordt 1.
-zolang b niet klopt
-	doe
-		a wordt 1 plus a.
-		als a gelijk is aan 8 dan
-			b wordt niet waar.
-		anders
-			b wordt onwaar.
-	klaar.
-als a ongelijk is aan 10 dan
-	als b klopt dan
-		y wordt 8.
