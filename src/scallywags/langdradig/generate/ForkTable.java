@@ -6,12 +6,13 @@ import java.util.*;
  * Created by Jeroen Weener on 23/06/2016.
  */
 public class ForkTable {
-    private Stack<Scope> scopes = new Stack<>();
-    private List<Scope> scopeList = new ArrayList<>();
-    private int depth = 0;
+    private Stack<ProcessScope> scopes = new Stack<>();
+    
+    private List<ProcessScope> scopeList = new ArrayList<>();		//used for IDE only
+    private int depth = 0;									//used for IDE only
 
     public void openScope(String name) {
-        Scope scope = new Scope(name, depth);
+        ProcessScope scope = new ProcessScope(name, depth);
         scopes.add(scope);
         scopeList.add(scope);
         depth++;
@@ -36,7 +37,7 @@ public class ForkTable {
     }
 
     public boolean contains(String id) {
-        for (Scope scope : scopes) {
+        for (ProcessScope scope : scopes) {
             if (scope.containsThread(id)) {
                 return true;
             }
@@ -61,10 +62,9 @@ public class ForkTable {
         return b == null ? false : b;
     }
 
-    public List<Scope> getScopeList() {
+    public List<ProcessScope> getScopeList() {
         return scopeList;
     }
-
 
 
     //Methods needed to access the symbol table in the current thread
@@ -85,7 +85,7 @@ public class ForkTable {
         if (scopes.size() > 0) {
             Type result = scopes.peek().getSymbolTable().getType(identifier);
             if (result == null) {
-                for (Scope scope : scopes) {
+                for (ProcessScope scope : scopes) {
                     SymbolTable symbolTable = scope.getSymbolTable();
                     // isShared returns false if the identifier is not in the symbolTable
                     if (symbolTable.isShared(identifier)) {
@@ -101,13 +101,13 @@ public class ForkTable {
 
     // The inner class Scope
 
-    public class Scope {
+    public class ProcessScope {
         private SymbolTable symbolTable = new SymbolTable();
         private Map<String, Boolean> threads = new HashMap<>();
         private String name;
         private int depth;
 
-        public Scope(String name, int depth) {
+        public ProcessScope(String name, int depth) {
             this.depth = depth;
             this.name = name;
             symbolTable.openScope();

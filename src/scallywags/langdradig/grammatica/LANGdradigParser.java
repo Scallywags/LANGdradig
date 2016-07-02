@@ -25,8 +25,8 @@ public class LANGdradigParser extends Parser {
 		HOOG=34, VERLAAG=35, LIGT=36, TUSSEN=37, BINNEN=38, BUITEN=39, DOE=40, 
 		KLAAR=41, KRITIEK=42, BESTEED=43, UIT=44, AAN=45, WACHT=46, GEDEELDE=47, 
 		LAAT=48, ZIEN=49, PUNT=50, KOMMA=51, LH=52, RH=53, LSQ=54, RSQ=55, IS=56, 
-		IN=57, EEN=58, OP=59, VAN=60, DE=61, NUMBER=62, IDENTIFIER=63, TELWOORD=64, 
-		COMMENTAAR=65, WITRUIMTE=66, ERRORCHARACTER=67;
+		IN=57, EEN=58, OP=59, VAN=60, DE=61, NUMBER=62, IDENTIFIER=63, COMMENTAAR=64, 
+		WITRUIMTE=65, ERRORCHARACTER=66;
 	public static final String[] tokenNames = {
 		"<INVALID>", "PLUS", "MIN", "KEER", "GEDEELDDOOR", "TOTDEMACHT", "MODULUS", 
 		"NIET", "EN", "OF", "GELIJKAAN", "ONGELIJKAAN", "KLEINERDAN", "GROTERDAN", 
@@ -36,7 +36,7 @@ public class LANGdradigParser extends Parser {
 		"LIGT", "TUSSEN", "BINNEN", "BUITEN", "DOE", "KLAAR", "KRITIEK", "BESTEED", 
 		"UIT", "AAN", "WACHT", "GEDEELDE", "LAAT", "ZIEN", "'.'", "','", "'('", 
 		"')'", "'['", "']'", "IS", "IN", "EEN", "OP", "VAN", "DE", "NUMBER", "IDENTIFIER", 
-		"TELWOORD", "COMMENTAAR", "WITRUIMTE", "ERRORCHARACTER"
+		"COMMENTAAR", "WITRUIMTE", "ERRORCHARACTER"
 	};
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_expression = 2, RULE_primary = 3, 
@@ -1653,7 +1653,7 @@ public class LANGdradigParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3E\u00d1\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3D\u00d1\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\"\n\3\f\3\16"+
 		"\3%\13\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3/\n\3\3\3\5\3\62\n\3\3\3\5"+
