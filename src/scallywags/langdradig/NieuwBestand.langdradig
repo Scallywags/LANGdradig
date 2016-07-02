@@ -1,0 +1,364 @@
+y is een getal.
+x is een stelling.
+
+als x klopt dan
+    y wordt y plus 1.
+anders
+    doe
+        y wordt y plus 2.
+        y wordt y + y.
+    klaar.
+    a is een reeks van 3 getallen.
+b is een reeks van 3 getallen.
+
+a wordt [1, 2, 3].
+b wordt [1, 2, 3].
+
+equal is een stelling.
+equal wordt waar.
+
+i is een getal.
+
+x is een getal.
+y is een getal.
+
+zolang verhoog i kleiner is dan of gelijk is aan de lengte van a en equal
+	doe
+		x wordt a op plek i.
+		y wordt b op plek i.
+		als x ongelijk is aan y
+			equal wordt onwaar.
+	klaar.
+
+laat equal zien.
+a is een gedeeld getal.
+b is een gedeeld getal.
+
+a wordt 0.
+b wordt 1.
+
+besteed
+    doe
+        b wordt 2.
+        kritiek naamA
+            a wordt -1.
+    klaar.
+uit aan x.
+kritiek naamA
+    a wordt -2.
+kritiek naamB
+    doe
+        a wordt -3.
+    klaar.
+wacht op x.
+c is een reeks van 3 stellingen.
+
+c wordt [5==3, waar, onwaar].
+
+laat c zien.
+a is een gedeeld getal.
+a wordt 8.
+
+zolang a kleiner is dan of gelijk is aan 324
+	doe
+		verhoog a.
+		laat a zien.
+	klaar.
+    arr is een reeks van 5 getallen.
+arr wordt [5,4,1,2,3].
+
+i is een getal.
+j is een getal.
+temp is een getal.
+len is een getal.
+len wordt de lengte van arr.
+
+zolang verhoog j kleiner is dan of gelijk is aan len
+	doe
+		i wordt 1.
+		zolang verhoog i kleiner is dan of gelijk is aan len min j plus 1
+			doe
+				als arr op plek (i min 1) groter is dan arr op plek i dan
+					doe
+						temp wordt arr op plek i.
+						zet arr op plek (i min 1) op plek i van arr.
+						zet temp op plek (i min 1) van arr.
+					klaar.
+			klaar.
+	klaar.
+
+laat arr zien.
+a is een gedeeld getal.
+
+besteed
+	doe
+		a wordt 8.
+		b is een gedeelde stelling.
+		b wordt onwaar.
+		besteed
+			doe
+				b wordt waar.
+				a wordt 10.
+			klaar.
+		uit aan workerY.
+
+		wacht op workerY.
+	klaar.
+uit aan workerX.
+
+wacht op workerX.
+a is een gedeeld getal.
+c is een gedeeld getal.
+
+besteed
+	a wordt 1337.
+	b is een getal.
+	b wordt 2.
+	c wordt a keer b.
+uit aan x.
+
+d is een getal.
+
+wacht op x.
+
+d wordt c.
+
+besteed
+	a wordt 600.
+uit aan x.
+
+e is een getal.
+
+wacht op x.
+
+e wordt a plus 66.
+a is een gedeeld getal.
+b is een gedeeld getal.
+
+besteed
+	a wordt 8.
+	b wordt 10.
+uit aan x.
+wacht op x.
+
+besteed
+	a wordt 9.
+	c is een gedeeld getal.
+	besteed
+		d is een stelling.
+		c wordt 13.
+		b wordt 8.
+	uit aan test.
+	wacht op test.
+uit aan x.
+wacht op x.
+
+laat b zien.
+declaredVariable is een getal.
+# nog niet gedeclareerd:
+hoog undeclaredVariable op.
+# al eerder gedeclareerd:
+declaredVariable is een getal.
+b is een gedeelde stelling.
+		#53		> 50
+b wordt 5+3*2^4 > (2+3)*(2+2^3).
+
+als b niet klopt dan
+	doe
+		laat 5+3*2^4 zien.
+		laat (2+3)*(2+2^3) zien.
+	klaar.
+anders
+	doe
+		laat (2+3)*(2+2^3) zien.
+		laat 5+3*2^4 zien.
+	klaar.
+
+a is een gedeeld getal.
+
+besteed
+	a wordt 1337.
+	a wordt a keer 2.
+uit aan x.
+
+wacht op x.
+
+besteed
+	a wordt a min 1000.
+	a wordt a min 1000.
+uit aan x.
+
+wacht op x.
+i is een getal.
+plafond is een getal.
+plafond wordt 10.
+som is een getal.
+
+zolang i kleiner is dan of gelijk is aan plafond
+	doe
+		som wordt som plus i.
+		i wordt i plus 1.
+	klaar.
+    i is een gedeeld getal.
+
+besteed
+	doe
+		kritiek locki
+			i wordt i plus 1.
+	klaar.
+uit aan tx.
+
+besteed
+	doe
+		kritiek locki
+			i wordt i plus 1.
+	klaar.
+uit aan ty.
+
+wacht op tx.
+wacht op ty.
+
+laat i zien.
+arr is een reeks van 10 getallen.
+arr wordt [4,9,7,8,3,5,1,2,10,6].
+
+i is een getal.
+i wordt 1.
+max is een getal.
+
+max wordt arr op plek i.
+temp is een getal.
+zolang i kleiner is dan of gelijk is aan de lengte van arr
+	doe
+		temp wordt arr op plek i.
+		als temp groter is dan max dan
+			max wordt temp.
+		verhoog i.
+	klaar.
+
+laat max zien.
+a is een getal.
+b is een getal.
+c is een getal.
+d is een getal.
+
+p is een stelling.
+q is een stelling.
+r is een stelling.
+s is een stelling.
+
+b wordt 9 + c wordt 8 min a wordt 16.
+p wordt b is kleiner dan of gelijk aan c.
+q wordt waar.
+r wordt p || q.
+s wordt (b wordt 8) is groter dan 6.
+a is een getal.
+b is een stelling.
+
+i is een getal.
+i wordt 20.
+zolang i groter is dan 0
+	doe
+		verlaag i.
+		a wordt a*3+1.
+		b wordt niet b.
+		laat a zien.
+		laat b zien.
+	klaar.
+    i is een getal.
+j is een getal.
+
+arr is een reeks van 6 getallen.
+arr wordt [8,7,6,5,4,3].
+temp is een getal.
+
+len is een getal.
+len wordt de lengte van arr.
+
+zolang verhoog i kleiner is dan of gelijk is aan len gedeeld door 2
+	doe
+		j wordt len-i+1.
+		temp wordt arr op plek i.
+		zet arr op plek j op plek i van arr.
+		zet temp op plek j van arr.
+	klaar.
+
+laat arr zien.i is een getal.
+j is een getal.
+
+arr is een reeks van 6 getallen.
+arr wordt [8,7,6,5,4,3].
+temp is een getal.
+
+len is een getal.
+len wordt de lengte van arr.
+
+zolang verhoog i kleiner is dan of gelijk is aan len gedeeld door 2
+	doe
+		j wordt len-i+1.
+		temp wordt arr op plek i.
+		zet arr op plek j op plek i van arr.
+		zet temp op plek j van arr.
+	klaar.
+
+laat arr zien.
+intVar is een getal.
+boolVar is een stelling.
+boolVar wordt waar.
+als niet boolVar dan
+    intVar wordt 27.
+anders
+    doe
+        intVar wordt 31.
+        boolVar wordt waar.
+    klaar.
+#Ultimate Array Test
+
+a is een reeks van 5 getallen.
+b is een reeks van 5 getallen.
+c is een stelling.
+
+a wordt [5,4,3,2,1].
+b wordt [5,4,3,2,1].
+
+c wordt a is gelijk aan b.
+laat c zien. 								#true
+
+b wordt [5,4,3,2,5].
+c wordt a is gelijk aan b.					#false
+laat c zien.
+
+c wordt a is ongelijk aan b.				#true
+laat c zien.
+
+c wordt [1,2,3] is gelijk aan [1,2,3].		#true
+laat c zien.
+
+c wordt [1,2,3] is ongelijk aan [1,2,3].	#false
+laat c zien.
+
+c wordt a is gelijk aan [5,4,3,2,1].		#true
+laat c zien.
+
+c wordt [5,4,3,2,1] is gelijk aan a.		#true
+laat c zien.
+
+d is een gedeelde reeks van 2 getallen.
+d wordt [13,37].
+
+c wordt d is gelijk aan [13,37].			#true
+laat c zien.
+
+e is een gedeelde reeks van 2 getallen.
+e wordt [13,37].
+
+c wordt d is gelijk aan e.					#true
+laat c zien.
+
+c wordt d is gelijk aan [13,37].				#false
+laat c zien.
+b is een getal.
+b wordt 0.
+
+zolang b kleiner is dan 10
+	verhoog b.
