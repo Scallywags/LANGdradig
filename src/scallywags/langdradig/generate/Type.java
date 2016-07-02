@@ -60,7 +60,7 @@ public interface Type {
 		
 		@Override public String getName() {return "ARRAY";}
 		@Override public int getSize() {return numElems + 1;}
-		@Override public String toString() {return "ArrayType " + numElems + " " + elemType;}
+		@Override public String toString() {return "ArrayType " + numElems + " (" + elemType + ")";}
 		
 		@Override
 		public int hashCode() {

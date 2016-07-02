@@ -17,6 +17,3 @@ laat d zien.
 laat zet waar op plek 1 in d zien.
 
 i is een getal.
-#reeksen van reeksen kunnen niet geprint worden
-zolang i kleiner of gelijk is aan de lengte van e
-	laat e op plek i zien.
