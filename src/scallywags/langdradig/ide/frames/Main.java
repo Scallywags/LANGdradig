@@ -489,7 +489,6 @@ public class Main extends JFrame {
 
     // Checks the content of the program to see if it gets accepted by the parser
     private void checkContent() {
-        /*
         clearMessages();
         getHighlighter().removeAllHighlights();
         Checker checker = new Checker();
@@ -509,7 +508,6 @@ public class Main extends JFrame {
         }
         SyntaxHighlighter.highlightSyntax(getCodeArea());
         variableView.setText(ProgramStructureOverview.printScopes(checker.getForkTable()));
-        */
     }
 
     public void clearMessages() {
