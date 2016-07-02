@@ -45,7 +45,7 @@ public class GeneralTest {
 
     @Test
     public void testAssignment() {
-        checkProgramOutput("assignmentExample.langdradig", "1337", "waar", "[3,1,4,1,5,9]", "[onwaar,waar,waar]", "[waar,waar,waar]", "[[8,9],[10,11]]");
+        checkProgramOutput("assignmentExample.langdradig", "1337", "waar", "[3,1,4,1,5,9]", "[onwaar,waar,waar]", "[4,1,4,1,5,9]", "[waar,waar,waar]");
     }
 
     @Test
@@ -62,6 +62,11 @@ public class GeneralTest {
     @Test
     public void testKritiek() {
         checkProgramOutput("concurrencyExample0.langdradig", "2");
+    }
+
+    @Test
+    public void testArray() {
+        checkProgramOutput("reeksExample.langdradig", "[[2,3,4,5],[1,2,3,4],[8,6,5,3]]", "3", "5", "[[2,3,4,5],[1,2,3,4],[1,3,3,7]]");
     }
 
     private List<String> runProgram(String programName) {
