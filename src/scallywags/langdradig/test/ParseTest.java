@@ -15,6 +15,10 @@ import java.util.BitSet;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/*
+ *  Tests the LANGdradig parser
+ */
+
 public class ParseTest {
     final static boolean DEBUG = true;
 

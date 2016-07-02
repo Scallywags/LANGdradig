@@ -30,6 +30,9 @@ import scallywags.langdradig.ide.features.unfinished.Formatter;
 
 /**
  * Created by Jeroen Weener on 15/06/2016.
+ * The IDE
+ * Contains de Main function to run the IDE
+ * Intellij generated code for the GUI so everyone not using Intellij can still run this
  */
 
 public class Main extends JFrame {
@@ -155,7 +158,15 @@ public class Main extends JFrame {
         return contentPane;
     }
 
-    private enum Status {YES, NO, CANCEL}
+
+    /**
+     * Our code starts here
+     */
+
+    //Status send back by a dialog
+    private enum Status {
+        YES, NO, CANCEL
+    }
 
     private Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.PINK);
     private Map<Integer, Object> highlightTags = new HashMap<>();
@@ -192,6 +203,7 @@ public class Main extends JFrame {
     public Main() {
         setContentPane(contentPane);
 
+        //Add options to menus
         final JPopupMenu filePopup = new JPopupMenu();
         filePopup.add(new JMenuItem(new AbstractAction("Nieuw (CTRL + N)") {
             @Override
@@ -313,6 +325,7 @@ public class Main extends JFrame {
         contentCheckTimer = new Timer(800, e -> checkContent());
         contentCheckTimer.setRepeats(false);
 
+        // Redirect all errors to the IDE, ugly feedback is better than no feedback!
         MessageConsole mc = new MessageConsole(messagesArea);
         mc.redirectOut(null, System.out);
         mc.redirectErr(Color.RED, null);
@@ -474,6 +487,7 @@ public class Main extends JFrame {
         }
     }
 
+    // Checks the content of the program to see if it gets accepted by the parser
     private void checkContent() {
         clearMessages();
         getHighlighter().removeAllHighlights();
@@ -656,6 +670,7 @@ public class Main extends JFrame {
         return getCodeArea().getHighlighter();
     }
 
+    // Sends a notification to the user
     public void popup(String message) {
         String oldMessage = notificationLabel.getText();
         String newMessage = oldMessage.equals("") ? message : oldMessage + ", " + message;
@@ -891,6 +906,9 @@ public class Main extends JFrame {
         splitPane.setDividerLocation(.8);
     }
 
+    /*
+     * The main method used for starting the IDE
+     */
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

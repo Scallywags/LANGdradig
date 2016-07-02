@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * Created by Jeroen Weener on 02/07/2016.
+ *
+ * Tests all programs in src/scallywags/langdradig/test/tests
  */
 public class GeneralTest {
 
@@ -60,13 +62,52 @@ public class GeneralTest {
     }
 
     @Test
-    public void testKritiek() {
-        checkProgramOutput("concurrencyExample0.langdradig", "2");
+    public void testConcurrency() {
+        checkProgramOutput("kritiekExample.langdradig", "2");
+        checkProgramOutput("wachtOpExample.langdradig", "8");
     }
 
     @Test
+    public void testOperators() {
+        checkProgramOutput("getalOperatorExample.langdradig", "7", "-12", "4", "2", "2", "27");
+        checkProgramOutput("stellingOperatorExample.langdradig", "onwaar", "waar", "waar", "onwaar", "waar");
+    }
+
+    @Test
+    public void testComparators() {
+        checkProgramOutput("getalComparatorExample.langdradig", "onwaar", "waar", "waar", "waar", "onwaar");
+        checkProgramOutput("stellingComparatorExample.langdradig", "waar");
+    }
+
+
+    @Test
     public void testArray() {
-        checkProgramOutput("reeksExample.langdradig", "[[2,3,4,5],[1,2,3,4],[8,6,5,3]]", "3", "5", "[[2,3,4,5],[1,2,3,4],[1,3,3,7]]");
+        checkProgramOutput("reeksExample.langdradig", "[0,0,0]", "[1,2,3]", "2", "3", "[3,2,3]", "[onwaar,onwaar]", "[waar,onwaar]", "0", "2", "[waar,waar]");
+    }
+
+
+    /*
+     *      Testing actual useful programs
+     */
+
+    @Test
+    public void testMaximum() {
+        checkProgramOutput("maximum.langdradig", "10");
+    }
+
+    @Test
+    public void testBubbleSort() {
+        checkProgramOutput("bubblesort.langdradig", "[1,2,3,4,5]");
+    }
+
+    @Test
+    public void testGauss() {
+        checkProgramOutput("gauss.langdradig", "55");
+    }
+
+    @Test
+    public void testReverse() {
+        checkProgramOutput("reverse.langdradig", "[3,4,5,6,7,8]");
     }
 
     private List<String> runProgram(String programName) {

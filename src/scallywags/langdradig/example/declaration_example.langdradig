@@ -1,4 +1,7 @@
-declaredVariable is een geheel getal.
+declaredVariable is een getal.
+# nog niet gedeclareerd:
 hoog undeclaredVariable op.
-declaredVariable is een geheel getal.
+# al eerder gedeclareerd:
+declaredVariable is een getal.
+
 

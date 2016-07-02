@@ -4,6 +4,9 @@ import scallywags.langdradig.generate.Type;
 
 /**
  * Created by Jeroen Weener on 20/06/2016.
+ *
+ * Helper class
+ * Helps to translate English text to Dutch
  */
 public class Translator {
 

@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+    *   Symboltable keeps track of the variables in a process. Has extended functionality for the IDE
+ */
 public class SymbolTable {
     private int scope = 0;
 

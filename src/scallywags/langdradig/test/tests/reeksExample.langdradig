@@ -1,8 +1,20 @@
-a is een reeks van 3 reeksen van 4 getallen.
-
-a wordt [[2,3,4,5],[1,2,3,4],[8,6,5,3]].
+a is een reeks van 3 getallen.
 laat a zien.
+a wordt [1,2,3].
+laat a zien.
+c is een getal.
+c wordt a op plek 2.
+laat c zien.
 laat de lengte van a zien.
-laat a op plek 1 op plek 4 zien.
-zet [1,3,3,7] in a op plek 3.
+zet 3 op plaats 1 in a.
 laat a zien.
+
+b is een reeks van 2 stellingen.
+laat b zien.
+b wordt [waar, onwaar].
+laat b zien.
+c wordt b op plek 2.
+laat c zien.
+laat de lengte van b zien.
+zet waar op plek 2 in b.
+laat b zien.

@@ -294,8 +294,12 @@ public class Checker extends LANGdradigBaseListener {
         List<ExpressionContext> expressions = ctx.expression();
         Type t1 = types.get(expressions.get(0));
         Type t2 = types.get(expressions.get(1));
-        if (!t1.equals(t2)) {
-            exceptions.add(new TypeException(ctx, t1, t2));
+        if (t1 == null || t2 == null) {
+            exceptions.add(new ParseException(ctx, "Error: Type is null"));
+        } else {
+            if (!t1.equals(t2)) {
+                exceptions.add(new TypeException(ctx, t1, t2));
+            }
         }
         types.put(ctx, Type.BOOLEAN);
     }
@@ -330,7 +334,7 @@ public class Checker extends LANGdradigBaseListener {
         Type arrayType = types.get(expressions.get(0));
         Type exprType = types.get(expressions.get(1));
         if (arrayType instanceof Type.ArrayType) {
-            types.put(ctx, arrayType);
+            types.put(ctx, ((Type.ArrayType) arrayType).getElemType());
         } else {
             exceptions.add(new TypeException(ctx, new Type.Array(), arrayType));
         }

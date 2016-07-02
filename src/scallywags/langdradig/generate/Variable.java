@@ -2,6 +2,7 @@ package scallywags.langdradig.generate;
 
 /**
  * Created by Jeroen Weener on 20/06/2016.
+ * Helper class for storing the name, type, scope and sharedstate of a variable
  */
 public class Variable {
     private String variable;

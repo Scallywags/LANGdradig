@@ -8,10 +8,15 @@ import javax.swing.text.Utilities;
 
 /**
  * Created by Jeroen Weener on 22/06/2016.
+ *
+ * Helper class to autocomplete in the IDE
  */
 public class AutoCompleter {
     private static final boolean ON = true;
 
+    /*
+     *  Auto completes "doe klaar" and "besteed uit" blocks
+     */
     public static void complete(JTextPane c, DocumentEvent e) {
         if (!ON) return;
         try {
@@ -42,7 +47,6 @@ public class AutoCompleter {
                 default:
                     break;
             }
-        } catch (BadLocationException ignore) {
-        }
+        } catch (BadLocationException ignore) {}
     }
 }

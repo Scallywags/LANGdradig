@@ -37,14 +37,12 @@ DAN				:	D A N				                            ;
 ANDERS			:	A N D E R S			                            ;
 
 // "Zolang" block
-VOOR			:	V O O R				                            ;
 ZOLANG			:	Z O L A N G	| T E R W I J L                     ;
 
 // Types
 GETAL		    :   G E T A L | G E T A L L E N                     ;
 STELLING		:	S T E L L I N G	| S T E L L I N G E N           ;
 REEKS			:	R E E K S | R E E K S E N	                    ;
-TEKST			:	T E K S T					                    ;
 
 // Values for stelling
 WAAR			:	W A A R								            ;
@@ -105,7 +103,6 @@ IDENTIFIER		: LETTER+       	                                ;
 
 fragment DIGIT		: [0-9]				                            ;
 fragment LETTER		: [a-zA-Z]			                            ;
-fragment ALPHANUM	: DIGIT	| LETTER	                            ;
 
 fragment GELIJK		: G E L I J K		                            ;
 fragment ONGELIJK	: O N GELIJK | NIET WITRUIMTE GELIJK		    ;

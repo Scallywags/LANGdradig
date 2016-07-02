@@ -20,6 +20,9 @@ public class SyntaxHighlighter {
     private static final String[] VALUE_KEYWORDS = {"waar", "onwaar"};
     private static final String[] REST_KEYWORDS = {"wordt", "klopt", "plek", "plaats", "zet", "lengte", "laat", "zien"};
 
+    /*
+     *  Highlights the content in the given area.
+     */
     public static void highlightSyntax(JTextPane area) {
         StyledDocument doc = area.getStyledDocument();
         Style defaultStyle = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);

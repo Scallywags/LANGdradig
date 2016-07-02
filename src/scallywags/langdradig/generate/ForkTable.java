@@ -4,6 +4,8 @@ import java.util.*;
 
 /**
  * Created by Jeroen Weener on 23/06/2016.
+ *
+ * Table that keeps track of the threads in the program. Has extended functionality for the IDE
  */
 public class ForkTable {
     private Stack<ProcessScope> scopes = new Stack<>();
@@ -46,11 +48,7 @@ public class ForkTable {
     }
 
     public boolean waitedOnAll() {
-        if (scopes.size() > 0) {
-            return scopes.peek().getThreads().values().stream().allMatch(e -> e);
-        } else {
-            return true;
-        }
+        return scopes.size() <= 0 || scopes.peek().getThreads().values().stream().allMatch(e -> e);
     }
 
     public String getNotWaitedOn() {
@@ -102,6 +100,7 @@ public class ForkTable {
     // The inner class Scope
 
     public class ProcessScope {
+        // Every process has its own symboltable
         private SymbolTable symbolTable = new SymbolTable();
         private Map<String, Boolean> threads = new HashMap<>();
         private String name;
