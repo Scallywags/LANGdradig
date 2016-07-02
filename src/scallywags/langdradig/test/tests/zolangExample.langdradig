@@ -1,0 +1,7 @@
+a is een getal.
+
+zolang a kleiner is dan 13
+    doe
+	    laat a zien.
+	    verhoog a.
+	klaar.

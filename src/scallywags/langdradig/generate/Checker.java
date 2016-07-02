@@ -346,8 +346,12 @@ public class Checker extends LANGdradigBaseListener {
         Type indexType = types.get(expressions.get(1));
         Type arrayType = types.get(expressions.get(2));
         if (arrayType instanceof Type.Array) {
-            if (!valueType.equals(((Type.ArrayType) arrayType).getElemType())) {
-                exceptions.add(new TypeException(ctx, ((Type.ArrayType) arrayType).getElemType(), valueType));
+            if (valueType != null) {
+                if (!valueType.equals(((Type.ArrayType) arrayType).getElemType())) {
+                    exceptions.add(new TypeException(ctx, ((Type.ArrayType) arrayType).getElemType(), valueType));
+                }
+            } else {
+                exceptions.add(new ParseException(ctx, "Error: valueType is null"));
             }
             types.put(ctx, arrayType);
         } else {

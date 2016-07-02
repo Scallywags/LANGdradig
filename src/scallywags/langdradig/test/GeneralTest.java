@@ -49,6 +49,17 @@ public class GeneralTest {
     }
 
     @Test
+    public void testIf() {
+        checkProgramOutput("alsExample0.langdradig", "2");
+        checkProgramOutput("alsExample1.langdradig", "1");
+    }
+
+    @Test
+    public void testWhile() {
+        checkProgramOutput("zolangExample.langdradig", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+    }
+
+    @Test
     public void testKritiek() {
         checkProgramOutput("concurrencyExample0.langdradig", "2");
     }
