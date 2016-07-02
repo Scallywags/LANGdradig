@@ -267,7 +267,6 @@ public class Checker extends LANGdradigBaseListener {
         if (t2 != Type.INTEGER) {
             exceptions.add(new TypeException(ctx, Type.INTEGER, t2));
         }
-        // TODO !!!
         Type t3 = types.get(expressions.get(2));
         if (t3 != Type.INTEGER) {
             exceptions.add(new TypeException(ctx, Type.INTEGER, t3));
@@ -475,11 +474,6 @@ public class Checker extends LANGdradigBaseListener {
     }
 
     // ------------- Other -------------
-
-    @Override
-    public void visitErrorNode(ErrorNode ctx) {
-        //TODO
-    }
 
     public List<CheckerException> getCheckerExceptions() {
         return exceptions;
