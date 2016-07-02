@@ -12,20 +12,8 @@ public class LANGdradigErrorBuilder {
         if (line == -1) {
             return new LANGdradigError("Fout | " + msg, line);
         } else {
-            return new LANGdradigError("Fout op regel " + String.valueOf(line) + "    |    " + format(msg), line);
+            return new LANGdradigError("Fout op regel " + String.valueOf(line) + "    |    " + Translator.translateString(msg), line);
         }
-    }
-
-    private static String format(String msg) {
-        return msg.replace("extraneous input", "foutieve input")
-                .replace("expecting", "verwacht")
-                .replace("no viable alternative at input", "onverwachte term")
-                .replace("<EOF>", "eind van het programma")
-                .replace("missing", "ontbreekt")
-                .replace(" at", " op")
-                .replace("mismatched input", "verkeerde input")
-                .replace("IDENTIFIER", "VARIABELE")
-                .replace("NUMBER", "GETAL");
     }
 
     public static LANGdradigError format(String code, CheckerException e) {

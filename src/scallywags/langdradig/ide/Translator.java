@@ -53,4 +53,16 @@ public class Translator {
                 return "ERROR";
         }
     }
+
+    public static String translateString(String string) {
+        return string.replace("extraneous input", "foutieve input")
+                .replace("expecting", "verwacht")
+                .replace("no viable alternative at input", "onverwachte term")
+                .replace("<EOF>", "eind van het programma")
+                .replace("missing", "ontbreekt")
+                .replace(" at", " op")
+                .replace("mismatched input", "verkeerde input")
+                .replace("IDENTIFIER", "VARIABELE")
+                .replace("NUMBER", "GETAL");
+    }
 }
