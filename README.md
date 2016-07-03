@@ -10,9 +10,11 @@ Onder water maakt de IDE gebruik van Checker.java, ASTGenerator.java, AST.hs, Ge
 
 Een aantal kant en klare voorbeeldprogramma's die kunnen worden geopend en uitgevoerd staan in src/scallywags/langdradig/example
 
-Handmatig compileren kan in 3 stappen:
-1. Gebruik ASTGenerator.java voor het genereren van het foo.ast.hs bestand. De main methode kan worden uncomment.
-2. Voor foo.ast.hs uit met runghc. Dit genereert een nieuw bestand met SpriL-instructies genaamd foo.spril.hs.  Zorg er voor dat de bovengenoemde haskell bestanden aanwezig zijn in de directory.
-3. Voor foo.spril.hs uit met runghc voor de simulatie van het programma.
+Handmatig compileren en uitvoeren kan in 3 stappen:
+1. Gebruik ASTGenerator.java voor het genereren van het foo.ast.hs bestand. De main methode kan worden ingecomment.
+2. Voer foo.ast.hs uit met runghc. Dit genereert een nieuw bestand met SprIL-instructies genaamd foo.spril.hs.  Zorg er voor dat de bovengenoemde haskell bestanden aanwezig zijn in de map.
+3. Voer foo.spril.hs uit met runghc voor de simulatie van het programma.
+
+De Grammatica en Lexer en door ANTLR gegenereerde bestanden staan in src/scallywags/langdradig/grammatica/
 
 Geautomatiseerde tests staan in src/scallywags/langdradig/test/
